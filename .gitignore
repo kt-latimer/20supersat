@@ -1,0 +1,7 @@
+data/*
+refs/.cache/*
+*.aux
+*.bbl
+*.blg
+*.gz
+*.log

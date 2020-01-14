@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{color}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{physics}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\graphicspath{{../figures/}}
+
+\title{notes: supersat}
+\author{K. Latimer}
+\date{Jan 13, 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{CAIPEEX}
+
+\section{Halo}
+\subsection{Data processing}
+\begin{itemize}
+	\item I did some manual cleanup on my Windows partition in earlier stages of the project for the HALO .ames files downloaded from the online database. The .ames conventions are defined \href{http://artefacts.ceda.ac.uk/formats/NASA-Ames/na-brief-guide.html}{here} and there was some degree of human error in following them. The correction process is documented in the ipython notebook file \texttt{HALO\_file\_processing.ipynb} and summarized in the text file ``HALO\_cleanup\_notes," both in notes/ subdirectory. The resulting raw data files are what I have saved in /data/halo/ames, and are the input for further processing by \texttt{halo\_data\_cleanup.py}. Note that some files from the GoAMAZON campaign have been excluded from that processing for various reasons (weird ames format, missing data, etc).
+	\item 1/12/20: noticed some files had weird error values and changed them manually. Not sure why previous code didn't find those. Recorded in ``HALO\_cleanup\_notes".
+	\item 1/14/20: noticed data missing in 3914. see ``HALO\_cleanup\_notes".
+\end{itemize}
+
+\section{WRF}
+
+\end{document}

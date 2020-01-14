@@ -1,0 +1,148 @@
+author: Fan, Jiwen and Rosenfeld, Daniel and Zhang, Yuwei and Giangrande, Scott E.
+  and Li, Zhanqing and Machado, Luiz A. T. and Martin, Scot T. and Yang, Yan and Wang,
+  Jian and Artaxo, Paulo and Barbosa, Henrique M. J. and Braga, Ramon C. and Comstock,
+  Jennifer M. and Feng, Zhe and Gao, Wenhua and Gomes, Helber B. and Mei, Fan and
+  Pöhlker, Christopher and Pöhlker, Mira L. and Pöschl, Ulrich and de Souza, Rodrigo
+  A. F.
+author_list:
+- affiliation: []
+  family: Fan
+  given: Jiwen
+- affiliation: []
+  family: Rosenfeld
+  given: Daniel
+- affiliation: []
+  family: Zhang
+  given: Yuwei
+- affiliation: []
+  family: Giangrande
+  given: Scott E.
+- affiliation: []
+  family: Li
+  given: Zhanqing
+- affiliation: []
+  family: Machado
+  given: Luiz A. T.
+- affiliation: []
+  family: Martin
+  given: Scot T.
+- affiliation: []
+  family: Yang
+  given: Yan
+- affiliation: []
+  family: Wang
+  given: Jian
+- affiliation: []
+  family: Artaxo
+  given: Paulo
+- affiliation: []
+  family: Barbosa
+  given: Henrique M. J.
+- affiliation: []
+  family: Braga
+  given: Ramon C.
+- affiliation: []
+  family: Comstock
+  given: Jennifer M.
+- affiliation: []
+  family: Feng
+  given: Zhe
+- affiliation: []
+  family: Gao
+  given: Wenhua
+- affiliation: []
+  family: Gomes
+  given: Helber B.
+- affiliation: []
+  family: Mei
+  given: Fan
+- affiliation: []
+  family: Pöhlker
+  given: Christopher
+- affiliation: []
+  family: Pöhlker
+  given: Mira L.
+- affiliation: []
+  family: Pöschl
+  given: Ulrich
+- affiliation: []
+  family: de Souza
+  given: Rodrigo A. F.
+citations:
+- unstructured: R. A. Houze Jr., Cloud Dynamics (Elsevier/Academic Press, ed. 2, 2014).
+- doi: 10.1002/2016JD025074
+- unstructured: 'Climate Change 2013: The Physical Science Basis. Contribution of
+    Working Group I to the Fifth Assessment Report of the Intergovernmental Panel
+    on Climate Change (Cambridge Univ. Press, 2013).'
+- doi: 10.1175/JAS-D-16-0037.1
+- doi: 10.1029/2011RG000369
+- doi: 10.1088/1748-9326/4/1/015004
+- doi: 10.1029/2007JD009224
+- doi: 10.5194/acp-11-5407-2011
+- doi: 10.1175/JAS-D-12-076.1
+- doi: 10.1175/2010JAS3603.1
+- doi: 10.1038/ngeo1313
+- doi: 10.1002/2013JD021224
+- doi: 10.1126/science.1160606
+- doi: 10.1175/2011JAS3649.1
+- doi: 10.5194/acp-17-9585-2017
+- doi: 10.1073/pnas.1316830110
+- doi: 10.1126/science.1191056
+- doi: 10.1126/science.1136529
+- doi: 10.5194/acp-10-11415-2010
+- doi: 10.5194/acp-5-715-2005
+- doi: 10.1126/science.1252595
+- doi: 10.1126/science.1092779
+- doi: 10.1126/science.1159185
+- doi: 10.1029/2005JD006884
+- doi: 10.1029/2000JD000203
+- doi: 10.5194/acp-11-13061-2011
+- doi: 10.1038/nature19819
+- doi: 10.5194/acp-15-10219-2015
+- doi: 10.1175/BAMS-D-15-00221.1
+- doi: 10.5194/acp-16-4785-2016
+- doi: 10.1175/JAMC-D-12-0185.1
+- doi: 10.1002/2016JD025303
+- doi: 10.5194/acp-16-14249-2016
+- doi: 10.5194/acp-2017-22
+- doi: 10.1175/JAS-3350.1
+- doi: 10.1029/2011JD016537
+- unstructured: W. C. Skamarock et al., A Description of the Advanced Research WRF
+    Version 3 (National Center for Atmospheric Research, 2008).
+- doi: 10.5194/acp-2017-847
+- doi: 10.5194/acp-16-15709-2016
+- doi: 10.5194/acp-16-7029-2016
+- doi: 10.1073/pnas.0700618104
+- doi: 10.1073/pnas.1403364111
+- doi: 10.1021/cr2001756
+- doi: 10.1002/2016RG000540
+- doi: 10.5194/acp-2017-694
+- doi: 10.1016/j.jaerosci.2017.02.012
+- doi: 10.1002/2017GL074982
+- article-title: 'Estimativa operacional da umidade do solo para iniciação de modelos
+    de previsão numérica da atmosfera. Parte I: descrição da metodologia e validação'
+  author: Gevaerd
+  first-page: '1'
+  journal-title: Rev. Bras. Meteorol.
+  volume: '21'
+  year: '2006'
+- doi: 10.5194/acp-13-7961-2013
+- doi: 10.1175/JAS3446.1
+- doi: 10.1175/2008MWR2556.1
+- doi: 10.5194/acp-17-11779-2017
+doc_url: https://syndication.highwire.org/content/doi/10.1126/science.aan8461
+doi: 10.1126/science.aan8461
+files:
+- tmpktk6dpd8.data
+issue: '6374'
+journal: Science
+language: en
+month: 1
+pages: 411--418
+publisher: American Association for the Advancement of Science (AAAS)
+title: Substantial convection and precipitation enhancements by ultrafine aerosol
+  particles
+type: article
+url: http://dx.doi.org/10.1126/science.aan8461
+volume: '359'
+year: 2018

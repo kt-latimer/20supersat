@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>halo.halo_data_polish &#8212; supersat  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for halo.halo_data_polish</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Second round of HALO data processing: extract relevant data for ADLR, \</span>
+<span class="sd">CAS, CDP, and NIXE-CAPS sets and convert to mks units. </span>
+
+<span class="sd">Input location: /data/halo/npy_raw</span>
+<span class="sd">Output location: /data/halo/npy_proc</span>
+<span class="sd">Output format: .npy file containing one dictionary formatted as: \</span>
+<span class="sd">        {&quot;dataset&quot;: HALO dataset number XXXX \</span>
+<span class="sd">         &quot;data&quot;: {&quot;&lt;clean var name 1&gt;&quot;:&lt;numpy array&gt;, ...} \</span>
+<span class="sd">         &quot;units&quot;: {&quot;&lt;clean var name 1&gt;&quot;:&lt;string&gt;, ...}}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">input_data_dir</span> <span class="o">=</span>  <span class="s1">&#39;/home/klatimer/proj/20supersat/data/halo/npy_raw/&#39;</span>
+<span class="n">output_data_dir</span> <span class="o">=</span> <span class="s1">&#39;/home/klatimer/proj/20supersat/data/halo/npy_proc/&#39;</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#halo.halo_data_polish.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    extract time, environment variables from ADLR; time, nconc, and \</span>
+<span class="sd">    other available quantities from CAS, CDP, AND NIXE-CAPS.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1">#clean variable names and their mks units (and scale factors into those \</span>
+    <span class="c1">#units), as well as column indices of relevant values in the raw files.</span>
+    <span class="n">key_ind_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ADLR&#39;</span><span class="p">:</span>\
+                        <span class="p">{</span><span class="s1">&#39;var_names&#39;</span><span class="p">:[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;potl_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;vert_wind_vel&#39;</span><span class="p">,</span> \
+                            <span class="s1">&#39;alt_asl&#39;</span><span class="p">,</span> <span class="s1">&#39;alt_pres&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_units&#39;</span><span class="p">:[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)]},</span> \
+                    <span class="s1">&#39;CAS&#39;</span><span class="p">:</span>\
+                        <span class="p">{</span><span class="s1">&#39;var_names&#39;</span><span class="p">:[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;nconc_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> \
+                            <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;nconc_tot_TAS_corr&#39;</span><span class="p">,</span> <span class="s1">&#39;d_eff&#39;</span><span class="p">,</span> \
+                            <span class="s1">&#39;d_vol&#39;</span><span class="p">,</span> <span class="s1">&#39;PAS&#39;</span><span class="p">,</span> <span class="s1">&#39;TAS&#39;</span><span class="p">,</span> <span class="s1">&#39;xi&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_units&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;m^-3&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">18</span><span class="p">)]</span> <span class="o">+</span> \
+                            <span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">19</span><span class="p">)],</span> \
+                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e6</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">13</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e-6</span><span class="p">,</span>
+                            <span class="mf">1.e-6</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]},</span> \
+                    <span class="s1">&#39;CDP&#39;</span><span class="p">:{</span>\
+                        <span class="s1">&#39;var_names&#39;</span><span class="p">:[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;nconc_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> \
+                            <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;d_geom&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_units&#39;</span><span class="p">:[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;m^-3&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> \
+                            <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">18</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e6</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e-6</span><span class="p">]},</span> \
+                    <span class="s1">&#39;NIXECAPS&#39;</span><span class="p">:{</span>\
+                        <span class="s1">&#39;var_names&#39;</span><span class="p">:[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;nconc_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> \
+                            <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">72</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;PAS&#39;</span><span class="p">,</span> <span class="s1">&#39;TAS&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_units&#39;</span><span class="p">:[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;m^-3&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">72</span><span class="p">)]</span> \
+                            <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">80</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e6</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">71</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]},</span> \
+                    <span class="s1">&#39;CLOUDFLAG&#39;</span><span class="p">:{</span>\
+                        <span class="s1">&#39;var_names&#39;</span><span class="p">:[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;in_cloud&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_units&#39;</span><span class="p">:[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]}}</span>
+    
+    <span class="c1">#get names of data files with no issues (see notes)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;good_ames_files.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">readFile</span><span class="p">:</span>
+        <span class="n">good_ames_filenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">readFile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+    <span class="n">readFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1">#create .npy file for each .ames file in good_ames_filenames</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">good_ames_filenames</span><span class="p">:</span>
+        <span class="c1">#pick out relevant datasets and load raw .npy files</span>
+        <span class="n">basename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;adlr&#39;</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+            <span class="n">setname</span> <span class="o">=</span> <span class="s1">&#39;ADLR&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;CAS_DPOL&#39;</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+            <span class="n">setname</span> <span class="o">=</span> <span class="s1">&#39;CAS&#39;</span>
+            <span class="k">if</span> <span class="n">basename</span><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">19</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;3914&#39;</span><span class="p">:</span>
+                <span class="c1">#weird corrupted file.</span>
+                <span class="k">continue</span>
+        <span class="k">elif</span> <span class="s1">&#39;CCP_CDP&#39;</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+            <span class="n">setname</span> <span class="o">=</span> <span class="s1">&#39;CDP&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;NIXECAPS_AC&#39;</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+            <span class="n">setname</span> <span class="o">=</span> <span class="s1">&#39;NIXECAPS&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;NIXECAPS_cloudflag&#39;</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+            <span class="n">setname</span> <span class="o">=</span> <span class="s1">&#39;CLOUDFLAG&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>     
+        <span class="nb">print</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
+        <span class="n">raw_dict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">input_data_dir</span><span class="o">+</span><span class="n">basename</span><span class="o">+</span><span class="s1">&#39;.npy&#39;</span><span class="p">,</span> \
+                <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">proc_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dataset&#39;</span><span class="p">:</span><span class="n">basename</span><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">19</span><span class="p">],</span> \
+                        <span class="s1">&#39;data&#39;</span><span class="p">:{},</span> \
+                        <span class="s1">&#39;units&#39;</span><span class="p">:{}}</span> 
+
+        <span class="c1">#select desired data from raw files and reformat slightly</span>
+        <span class="n">var_names</span> <span class="o">=</span> <span class="n">key_ind_dict</span><span class="p">[</span><span class="n">setname</span><span class="p">][</span><span class="s1">&#39;var_names&#39;</span><span class="p">]</span>
+        <span class="n">var_units</span> <span class="o">=</span> <span class="n">key_ind_dict</span><span class="p">[</span><span class="n">setname</span><span class="p">][</span><span class="s1">&#39;var_units&#39;</span><span class="p">]</span>
+        <span class="n">var_inds</span> <span class="o">=</span> <span class="n">key_ind_dict</span><span class="p">[</span><span class="n">setname</span><span class="p">][</span><span class="s1">&#39;var_inds&#39;</span><span class="p">]</span>
+        <span class="n">var_scale</span> <span class="o">=</span> <span class="n">key_ind_dict</span><span class="p">[</span><span class="n">setname</span><span class="p">][</span><span class="s1">&#39;var_scale&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">var_names</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">setname</span> <span class="o">==</span> <span class="s1">&#39;CDP&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>
+            <span class="c1">#need to divide ptcl num by sample volume</span>
+                <span class="n">proc_dict</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">var_names</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">var_scale</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>\
+                        <span class="o">*</span><span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][:,</span><span class="n">var_inds</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">/</span><span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][:,</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">proc_dict</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">var_names</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">var_scale</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>\
+                        <span class="o">*</span><span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][:,</span><span class="n">var_inds</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">proc_dict</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="n">var_names</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">var_units</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="c1">#save processed files</span>
+        <span class="n">datestr</span> <span class="o">=</span> <span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;flight_date&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;flight_date&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> \
+                <span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;flight_date&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_data_dir</span><span class="o">+</span><span class="n">setname</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">datestr</span><span class="p">,</span> <span class="n">proc_dict</span><span class="p">)</span></div>
+
+<span class="c1">#run main() if user enters &#39;python [module path].py&#39; from command line</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, K. Latimer.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

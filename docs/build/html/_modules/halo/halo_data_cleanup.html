@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>halo.halo_data_cleanup &#8212; supersat  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for halo.halo_data_cleanup</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">First round of HALO data processing: .ames --&gt; .npy, stripping unnecessary \</span>
+<span class="sd">metadata from .ames files. </span>
+
+<span class="sd">Input location: /data/halo/ames</span>
+<span class="sd">Output location: /data/halo/npy_raw</span>
+<span class="sd">Output format: .npy file containing one dictionary formatted as: \</span>
+<span class="sd">        {&quot;flight_date&quot;: [&#39;YYYY&#39;, &#39;MM&#39;, &#39;DD&#39;], \</span>
+<span class="sd">         &quot;var_names&quot;: [&#39;&lt;full var name 1&gt;&#39;, ...], \</span>
+<span class="sd">         &quot;data&quot;: &lt;numpy array with columns labeled by var_names&gt;}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">input_data_dir</span> <span class="o">=</span>  <span class="s1">&#39;/home/klatimer/proj/20supersat/data/halo/ames/&#39;</span>
+<span class="n">output_data_dir</span> <span class="o">=</span> <span class="s1">&#39;/home/klatimer/proj/20supersat/data/halo/npy_raw/&#39;</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#halo.halo_data_cleanup.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    extract flight date, variable names, and data from ames files to numpy \</span>
+<span class="sd">    files. also convert error codes to a uniform value of 999999.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#get names of data files with no issues (see notes)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;good_ames_files.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">readFile</span><span class="p">:</span>
+        <span class="n">good_ames_filenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">readFile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+    <span class="n">readFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1">#create .npy file for each .ames file in good_ames_filenames</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">good_ames_filenames</span><span class="p">:</span>
+        
+        <span class="n">basename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+        
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_data_dir</span><span class="o">+</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">readFile</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">readFile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="n">num_header_lines</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="c1">#get flight date</span>
+            <span class="n">flight_date</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">flight_date</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">flight_date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">flight_date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">flight_date</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">flight_date</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">flight_date</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            
+            <span class="c1">#get error code values and check if they are all the same</span>
+            <span class="n">n_vars</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1">#counting independent variable </span>
+            <span class="n">first_scale_factor_line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">condensed_notation</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">first_scale_factor_line</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">condensed_notation</span><span class="p">:</span> <span class="c1">#ames &#39;condensed&#39; notation</span>
+                <span class="n">err_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">err_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">9</span> <span class="o">+</span> <span class="n">n_vars</span> <span class="o">+</span> <span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> \
+                        <span class="nb">range</span><span class="p">(</span><span class="n">n_vars</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)])</span>
+            <span class="n">err_val</span> <span class="o">=</span> <span class="n">err_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">err_vals</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="n">err_val</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;WARNING: not all error values equal for&#39;</span><span class="p">,</span> <span class="n">basename</span><span class="p">)</span>
+
+            <span class="c1">#get full variable names</span>
+            <span class="k">if</span> <span class="n">condensed_notation</span><span class="p">:</span>
+                <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span><span class="o">+</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="mi">12</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_vars</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span><span class="o">+</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="mi">10</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">n_vars</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_vars</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+
+            <span class="c1">#get numerical data</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> \
+                    <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">num_header_lines</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="o">!=</span> <span class="p">[]])</span>
+
+            <span class="c1">#replace all error codes with uniform value of 999999</span>
+            <span class="k">if</span> <span class="n">err_val</span> <span class="o">!=</span> <span class="mi">999999</span><span class="p">:</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span><span class="o">==</span><span class="n">err_val</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="mi">999999</span><span class="p">)</span>
+
+            <span class="c1">#save all fields in .npy format</span>
+            <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;flight_date&quot;</span><span class="p">:</span><span class="n">flight_date</span><span class="p">,</span> <span class="s2">&quot;var_names&quot;</span><span class="p">:</span><span class="n">var_names</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span><span class="n">data</span><span class="p">}</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_data_dir</span><span class="o">+</span><span class="n">basename</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">)</span>
+        <span class="n">readFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<span class="c1">#run main() if user enters &#39;python [module path].py&#39; from command line</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, K. Latimer.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
