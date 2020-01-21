@@ -79,6 +79,46 @@
 <div class="section" id="module-halo">
 <span id="halo"></span><h2>halo<a class="headerlink" href="#module-halo" title="Permalink to this headline">¶</a></h2>
 <p>This package contains code for data processing and analysis of the HALO GOAmazon field campaign.</p>
+<div class="section" id="module-halo.altvst_figsrc">
+<span id="altvst-figsrc"></span><h3>altvst_figsrc<a class="headerlink" href="#module-halo.altvst_figsrc" title="Permalink to this headline">¶</a></h3>
+<p>altitude vs time, using ‘above sea level’ and ‘pressure’ altitude quantities from ADLR</p>
+<dl class="function">
+<dt id="halo.altvst_figsrc.main">
+<code class="sig-prename descclassname">halo.altvst_figsrc.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/altvst_figsrc.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.altvst_figsrc.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>main routine.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-halo.checkbins_figsrc">
+<span id="checkbins-figsrc"></span><h3>checkbins_figsrc<a class="headerlink" href="#module-halo.checkbins_figsrc" title="Permalink to this headline">¶</a></h3>
+<p>check bin size ranges.</p>
+</div>
+<div class="section" id="module-halo.comparelwcbycloud_set_figsrc">
+<span id="comparelwcbycloud-set-figsrc"></span><h3>comparelwcbycloud_set_figsrc<a class="headerlink" href="#module-halo.comparelwcbycloud_set_figsrc" title="Permalink to this headline">¶</a></h3>
+<p>Create and save figure set comparelwcbycloud.</p>
+<dl class="function">
+<dt id="halo.comparelwcbycloud_set_figsrc.main">
+<code class="sig-prename descclassname">halo.comparelwcbycloud_set_figsrc.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/comparelwcbycloud_set_figsrc.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.comparelwcbycloud_set_figsrc.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>for a single date (specified manually for now), identify cloud instances     using LWC cutoff of 10^-5 for both CAS and CDP, compare cloud drop     size distributions for each cloud instance and save indiv. figs.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-halo.comparelwc_set_figsrc">
+<span id="comparelwc-set-figsrc"></span><h3>comparelwc_set_figsrc<a class="headerlink" href="#module-halo.comparelwc_set_figsrc" title="Permalink to this headline">¶</a></h3>
+<p>Generates set of plots of LWC vs time from ADLR, CAS, and CDP instruments for all flight dates. Also look at effect of 3um diam bin cutoff and adjusting CAS particle correction factor after Weigel 2016.</p>
+<dl class="function">
+<dt id="halo.comparelwc_set_figsrc.main">
+<code class="sig-prename descclassname">halo.comparelwc_set_figsrc.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/comparelwc_set_figsrc.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.comparelwc_set_figsrc.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>main routine; calls make_lwc_fig for all flight dates (even if datasets     are missing) and all combinations of boolean values for 3um bin cutoff     and cas correction factor change.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.comparelwc_set_figsrc.make_lwc_figure">
+<code class="sig-prename descclassname">halo.comparelwc_set_figsrc.</code><code class="sig-name descname">make_lwc_figure</code><span class="sig-paren">(</span><em class="sig-param">adlrdata</em>, <em class="sig-param">datasets</em>, <em class="sig-param">setnames</em>, <em class="sig-param">cutoff_bins</em>, <em class="sig-param">change_cas_corr</em>, <em class="sig-param">date</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/comparelwc_set_figsrc.html#make_lwc_figure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.comparelwc_set_figsrc.make_lwc_figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot and save lwc comparison (ADLR, CAS, CDP) figure given numerical     data and flags to enforce 3um diameter minimum or uniform correction     of CAS and CDP data.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-halo.halo_data_cleanup">
 <span id="halo-data-cleanup"></span><h3>halo_data_cleanup<a class="headerlink" href="#module-halo.halo_data_cleanup" title="Permalink to this headline">¶</a></h3>
 <p>First round of HALO data processing: .ames –&gt; .npy, stripping unnecessary metadata from .ames files.</p>
@@ -88,7 +128,7 @@ Output format: .npy file containing one dictionary formatted as:         {“fli
 <dl class="function">
 <dt id="halo.halo_data_cleanup.main">
 <code class="sig-prename descclassname">halo.halo_data_cleanup.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/halo_data_cleanup.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.halo_data_cleanup.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>extract flight date, variable names, and data from ames files to numpy     files. also convert error codes to a uniform value of 999999.</p>
+<dd><p>extract flight date, variable names, and data from ames files to numpy     files. also convert error codes to np.nan.</p>
 </dd></dl>
 
 </div>
@@ -98,32 +138,43 @@ Output format: .npy file containing one dictionary formatted as:         {“fli
 <p>Input location: /data/halo/npy_raw
 Output location: /data/halo/npy_proc
 Output format: .npy file containing one dictionary formatted as:         {“dataset”: HALO dataset number XXXX          “data”: {“&lt;clean var name 1&gt;”:&lt;numpy array&gt;, …}          “units”: {“&lt;clean var name 1&gt;”:&lt;string&gt;, …}}</p>
+<p>update 1/20/20: also including LWC data in these files because it takes too long to run each time making figures. Format is dict[‘&lt;data, units&gt;’][‘lwc’][‘&lt;0 or 1&gt;&lt;0 or 1&gt;’][&lt;data&gt;], where first boolean corresponds to 3um bin cutoff and second to changing CAS correction factor to match CDP; e.g. ‘01’ means no bin cutoff but yes change CAS correction. There is also dict[‘data’] [‘lwc_t_inds’], i.e. indices of dict[‘data’][‘time’] with which the lwc arrays are aligned (comes from having to match them with ADLR).</p>
 <dl class="function">
 <dt id="halo.halo_data_polish.main">
 <code class="sig-prename descclassname">halo.halo_data_polish.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/halo_data_polish.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.halo_data_polish.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>extract time, environment variables from ADLR; time, nconc, and     other available quantities from CAS, CDP, AND NIXE-CAPS.</p>
+<dd><p>extract time, environment variables from ADLR; time, nconc, and     other available quantities from CAS, CDP, AND NIXE-CAPS. also     calculate lwc for CAS and CDP.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="id1">
-<h3>example_figsrc<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<span class="target" id="module-halo.example_figsrc"></span><p>Plotting procedure based on <a class="reference external" href="https://matplotlib.org/3.1.1/gallery/lines_bars_and_markers/simple_plot.html">https://matplotlib.org/3.1.1/gallery/lines_bars_and_markers/simple_plot.html</a></p>
+<div class="section" id="module-halo.search_NIXECAPS">
+<span id="search-nixecaps"></span><h3>search_NIXECAPS<a class="headerlink" href="#module-halo.search_NIXECAPS" title="Permalink to this headline">¶</a></h3>
+<p>Does NIXE-CAPS actually contain useful data?!?</p>
 <dl class="function">
-<dt id="halo.example_figsrc.get_x">
-<code class="sig-prename descclassname">halo.example_figsrc.</code><code class="sig-name descname">get_x</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/example_figsrc.html#get_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.example_figsrc.get_x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get x values for plotting</p>
+<dt id="halo.search_NIXECAPS.main">
+<code class="sig-prename descclassname">halo.search_NIXECAPS.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/search_NIXECAPS.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.search_NIXECAPS.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if literally any NIXECAPS datasets contain a single timestamp     having non-error entries for every particle size bin below 50um</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-halo.utils">
+<span id="utils"></span><h3>utils<a class="headerlink" href="#module-halo.utils" title="Permalink to this headline">¶</a></h3>
+<p>This is a module.</p>
+<dl class="function">
+<dt id="halo.utils.calc_lwc">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">calc_lwc</code><span class="sig-paren">(</span><em class="sig-param">setname</em>, <em class="sig-param">setdata</em>, <em class="sig-param">envdata</em>, <em class="sig-param">cutoff_bins</em>, <em class="sig-param">change_cas_corr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#calc_lwc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.calc_lwc" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate liquid water content given particle number concentrations     and environmental data.</p>
+<p>Returns: (lwc_array, time_inds)
+-lwc_array = array of lwc values
+-time_inds = indices of setname array originally passed by user which     match indexing of lwc_array (i.e. lwc_array is time-commensurate with     setname[time_inds].</p>
+<p>update 1/20/20: if envdata is None-valued, return None’s. For cleaner     data processing flow.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="halo.example_figsrc.get_y">
-<code class="sig-prename descclassname">halo.example_figsrc.</code><code class="sig-name descname">get_y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/example_figsrc.html#get_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.example_figsrc.get_y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get y values for plotting</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="halo.example_figsrc.main">
-<code class="sig-prename descclassname">halo.example_figsrc.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/example_figsrc.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.example_figsrc.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots y versus x and saves to figure directory</p>
+<dt id="halo.utils.match_time_inds">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">match_time_inds</code><span class="sig-paren">(</span><em class="sig-param">t_arr1</em>, <em class="sig-param">t_arr2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#match_time_inds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.match_time_inds" title="Permalink to this definition">¶</a></dt>
+<dd><p>synchronize two arrays of time values. currently just rounds.</p>
+<p>Returns: (time_inds1, time_inds2)</p>
+<p>e.g. call data1[time_inds1] and data2[time_inds2] to get     synchronized sets from data1 and data2.</p>
 </dd></dl>
 
 </div>
@@ -131,8 +182,8 @@ Output format: .npy file containing one dictionary formatted as:         {“dat
 <div class="section" id="module-wrf">
 <span id="wrf"></span><h2>wrf<a class="headerlink" href="#module-wrf" title="Permalink to this headline">¶</a></h2>
 <p>This package contains code for processing and analysis of data from the WRF simulations.</p>
-<div class="section" id="id2">
-<h3>my_module<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>my_module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <span class="target" id="module-wrf.my_module"></span><p>This is a module.</p>
 <dl class="class">
 <dt id="wrf.my_module.MyClass">
@@ -147,8 +198,8 @@ Output format: .npy file containing one dictionary formatted as:         {“dat
 </dd></dl>
 
 </div>
-<div class="section" id="id3">
-<h3>example_figsrc<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>example_figsrc<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <span class="target" id="module-wrf.example_figsrc"></span><p>Plotting procedure based on <a class="reference external" href="https://matplotlib.org/3.1.1/gallery/lines_bars_and_markers/simple_plot.html">https://matplotlib.org/3.1.1/gallery/lines_bars_and_markers/simple_plot.html</a></p>
 <dl class="function">
 <dt id="wrf.example_figsrc.get_x">

@@ -8,35 +8,52 @@ Output format: .npy file containing one dictionary formatted as: \
         {"dataset": HALO dataset number XXXX \
          "data": {"<clean var name 1>":<numpy array>, ...} \
          "units": {"<clean var name 1>":<string>, ...}}
+
+update 1/20/20: also including LWC data in these files because it takes \
+too long to run each time making figures. Format is dict['<data, units>']\
+['lwc']['<0 or 1><0 or 1>'][<data>], where first boolean corresponds to 3um \
+bin cutoff and second to changing CAS correction factor to match CDP; e.g. \
+'01' means no bin cutoff but yes change CAS correction. There is also \
+dict['data'] ['lwc_t_inds'], i.e. indices of dict['data']['time'] with which \
+the lwc arrays are aligned (comes from having to match them with ADLR).
 """
+from itertools import product
+from os import listdir
+
 import numpy as np
 
-input_data_dir =  '/home/klatimer/proj/20supersat/data/halo/npy_raw/'
-output_data_dir = '/home/klatimer/proj/20supersat/data/halo/npy_proc/'
+from halo import BASE_DIR, DATA_DIR, FIG_DIR
+from halo.utils import calc_lwc
+
+input_data_dir =  DATA_DIR + 'npy_raw/'
+output_data_dir = DATA_DIR + 'npy_proc/'
 
 def main():
     """
     extract time, environment variables from ADLR; time, nconc, and \
-    other available quantities from CAS, CDP, AND NIXE-CAPS.
+    other available quantities from CAS, CDP, AND NIXE-CAPS. also \
+    calculate lwc for CAS and CDP.
     """
     
     #clean variable names and their mks units (and scale factors into those \
     #units), as well as column indices of relevant values in the raw files.
     key_ind_dict = {'ADLR':\
                         {'var_names':['time', 'potl_temp', 'vert_wind_vel', \
-                            'alt_asl', 'alt_pres', 'lat', 'long'], \
-                        'var_units':['s', 'K', 'm/s', 'm', 'm', 'deg', 'deg'], \
-                        'var_inds':[0, 11, 16, 3, 4, 22, 23], \
-                        'var_scale':[1. for i in range(7)]}, \
+                            'alt_asl', 'alt_pres', 'lat', 'long', 'stat_temp', \
+                            'stat_pres', 'lwc'], \
+                        'var_units':['s', 'K', 'm/s', 'm', 'm', 'deg', 'deg', \
+                            'K', 'Pa', 'g/g'], \
+                        'var_inds':[0, 12, 17, 4, 5, 23, 24, 20, 7, 21], \
+                        'var_scale':[1. for i in range(7)] + [1., 100., 0.001]}, \
                     'CAS':\
                         {'var_names':['time'] + ['nconc_'+str(i) for i in \
-                            range(5, 17)] + ['nconc_tot_TAS_corr', 'd_eff', \
-                            'd_vol', 'PAS', 'TAS', 'xi'], \
+                            range(5, 17)] + ['nconc_tot_TAS_corr', \
+                            'd_eff', 'd_vol', 'lwc_calc', 'PAS', 'TAS', 'xi'], \
                         'var_units': ['s'] + ['m^-3' for i in range(5, 18)] + \
-                            ['m', 'm', 'm/s', 'm/s', 'none'], \
-                        'var_inds':[i for i in range(19)], \
-                        'var_scale':[1.] + [1.e6 for i in range(13)] + [1.e-6,
-                            1.e-6, 1., 1., 1., 1., 1.]}, \
+                            ['m^-3', 'm', 'm', 'kg/m^3', 'm/s', 'm/s', 'none'], \
+                        'var_inds':[i for i in range(20)], \
+                        'var_scale':[1.] + [1.e6 for i in range(12)] + [1.e6, \
+                            1.e-6, 1.e-6, 1.e3, 1., 1., 1.]}, \
                     'CDP':{\
                         'var_names':['time'] + ['nconc_'+str(i) for i in \
                             range(1, 16)] + ['d_geom'], \
@@ -107,6 +124,61 @@ def main():
         datestr = raw_dict['flight_date'][0] + raw_dict['flight_date'][1] + \
                 raw_dict['flight_date'][2]
         np.save(output_data_dir+setname+'_'+datestr, proc_dict)
+    
+    #now calculate LWC values for CAS and CDP and add to raw files.
+    files = [f for f in listdir(DATA_DIR + 'npy_proc/')]
+    used_dates = []
+    for f in files:
+        #get flight date and check if already processed
+        date = f[-12:-4]
+        if date in used_dates:
+            continue
+        else:
+            print(date)
+            used_dates.append(date)
+        
+        #try to get adlr data for that date. if it doesn't exist, don't \
+        #proceed because we won't have sufficient environmental data
+        try:
+            filename = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy' 
+            adlrdata = np.load(filename, allow_pickle=True).item()
+        except FileNotFoundError:
+            adlrdata = {'data': None} 
+
+        #process cas / cdp  datasets from flight date
+        for setname in ['CAS', 'CDP']:
+            try:    
+                filename = DATA_DIR + 'npy_proc/' + setname + '_' \
+                        + date + '.npy'
+                dataset = np.load(filename, allow_pickle=True).item()
+                updated_dataset = dataset.copy()
+                updated_dataset['data']['lwc'] = {}
+                updated_dataset['units']['lwc'] = {}
+            except FileNotFoundError:
+                print(filename + 'not found')
+                continue
+            
+            #loop through all combos of booean params
+            for cutoff_bins, change_cas_corr in product([True, False], repeat=2):
+                booleankey = str(int(cutoff_bins)) \
+                    + str(int(change_cas_corr)) 
+                (lwc, t_inds) = calc_lwc(setname, dataset['data'], \
+                    adlrdata['data'], cutoff_bins, change_cas_corr)
+                #only this dataset is weird so fixing manually 
+                if date == '20140906' and setname == 'CAS':
+                    sorted_inds = np.argsort(t_inds)
+                    lwc = lwc[sorted_inds]
+                    t_inds = t_inds[sorted_inds]
+                
+                updated_dataset['data']['lwc'].update({booleankey: lwc})
+                updated_dataset['units']['lwc'].update({booleankey: 'g/g'})
+                
+                #time inds don't depend on booleans so just update once.
+                if booleankey == '00':
+                    updated_dataset['data']['lwc_t_inds'] = t_inds
+                    updated_dataset['units']['lwc_t_inds'] = 'none' 
+            
+            np.save(filename, updated_dataset)
 
 #run main() if user enters 'python [module path].py' from command line
 if __name__ == "__main__":

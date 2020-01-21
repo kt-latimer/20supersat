@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>halo.utils &#8212; supersat  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for halo.utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This is a module.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">halo</span> <span class="kn">import</span> <span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">FIG_DIR</span>
+
+<div class="viewcode-block" id="match_time_inds"><a class="viewcode-back" href="../../index.html#halo.utils.match_time_inds">[docs]</a><span class="k">def</span> <span class="nf">match_time_inds</span><span class="p">(</span><span class="n">t_arr1</span><span class="p">,</span> <span class="n">t_arr2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    synchronize two arrays of time values. currently just rounds.</span>
+
+<span class="sd">    Returns: (time_inds1, time_inds2)</span>
+<span class="sd">    </span>
+<span class="sd">    e.g. call data1[time_inds1] and data2[time_inds2] to get \</span>
+<span class="sd">    synchronized sets from data1 and data2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_arr1</span><span class="p">)</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_arr2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
+        <span class="n">t_short</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">t_arr1</span><span class="p">)</span>
+        <span class="n">t_long</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">t_arr2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">t_short</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">t_arr2</span><span class="p">)</span>
+        <span class="n">t_long</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">t_arr1</span><span class="p">)</span>
+    <span class="n">inds_short</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">inds_long</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">long_search_start_ind</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i1</span><span class="p">,</span> <span class="n">t1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_short</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i2</span><span class="p">,</span> <span class="n">t2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_long</span><span class="p">[</span><span class="n">long_search_start_ind</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">t1</span> <span class="o">==</span> <span class="n">t2</span><span class="p">:</span>
+                <span class="n">inds_short</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i1</span><span class="p">)</span>
+                <span class="n">inds_long</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i2</span><span class="p">)</span>
+                <span class="n">long_search_start_ind</span> <span class="o">=</span> <span class="n">i2</span>
+                <span class="k">break</span>
+    <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">inds_short</span><span class="p">,</span> <span class="n">inds_long</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">inds_long</span><span class="p">,</span> <span class="n">inds_short</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="calc_lwc"><a class="viewcode-back" href="../../index.html#halo.utils.calc_lwc">[docs]</a><span class="k">def</span> <span class="nf">calc_lwc</span><span class="p">(</span><span class="n">setname</span><span class="p">,</span> <span class="n">setdata</span><span class="p">,</span> <span class="n">envdata</span><span class="p">,</span> <span class="n">cutoff_bins</span><span class="p">,</span> <span class="n">change_cas_corr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    calculate liquid water content given particle number concentrations \</span>
+<span class="sd">    and environmental data. </span>
+
+<span class="sd">    Returns: (lwc_array, time_inds)</span>
+<span class="sd">    -lwc_array = array of lwc values</span>
+<span class="sd">    -time_inds = indices of setname array originally passed by user which \</span>
+<span class="sd">    match indexing of lwc_array (i.e. lwc_array is time-commensurate with \</span>
+<span class="sd">    setname[time_inds].</span>
+<span class="sd">    </span>
+<span class="sd">    update 1/20/20: if envdata is None-valued, return None&#39;s. For cleaner \</span>
+<span class="sd">    data processing flow.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#return None values if envdata is None</span>
+    <span class="k">if</span> <span class="n">envdata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1">#load particle diameters</span>
+    <span class="n">bin_dict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">+</span> <span class="n">setname</span><span class="o">+</span> <span class="s1">&#39;_bins.npy&#39;</span><span class="p">,</span> \
+            <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    
+    <span class="c1">#constants</span>
+    <span class="n">rho_lw</span> <span class="o">=</span> <span class="mf">1.e3</span> <span class="c1">#pure liquid water density</span>
+    <span class="n">R_a</span> <span class="o">=</span> <span class="mi">287</span> <span class="c1">#ideal gas const dry air</span>
+    
+    <span class="c1">#calculate air density using ideal gas law</span>
+    <span class="n">rho_air</span> <span class="o">=</span> <span class="n">envdata</span><span class="p">[</span><span class="s1">&#39;stat_pres&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">R_a</span><span class="o">*</span><span class="n">envdata</span><span class="p">[</span><span class="s1">&#39;stat_temp&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">rho_air</span><span class="p">))</span>
+
+    <span class="c1">#calculate density of liquid water in atmosphere by summing over bins</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">setdata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+    <span class="n">sum_nconc_radcubed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">setname</span><span class="p">,</span> <span class="n">sum_nconc_radcubed</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">setdata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;nconc&#39;</span> <span class="ow">in</span> <span class="n">key</span> <span class="ow">and</span> <span class="s1">&#39;tot&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cutoff_bins</span> <span class="ow">and</span> <span class="n">bin_dict</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">3.e-6</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+            <span class="n">d_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">bin_dict</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">bin_dict</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">d_mean</span><span class="o">/</span><span class="mf">2.</span>
+            <span class="k">if</span> <span class="n">setname</span> <span class="o">==</span> <span class="s1">&#39;CAS&#39;</span> <span class="ow">and</span> <span class="n">change_cas_corr</span><span class="p">:</span>
+                <span class="n">corr_factor</span> <span class="o">=</span> <span class="n">setdata</span><span class="p">[</span><span class="s1">&#39;xi&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">setdata</span><span class="p">[</span><span class="s1">&#39;TAS&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">setdata</span><span class="p">[</span><span class="s1">&#39;PAS&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">corr_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,))</span>
+            <span class="n">sum_nconc_radcubed</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mf">3.</span><span class="p">)</span><span class="o">*</span><span class="n">corr_factor</span><span class="o">*</span><span class="n">setdata</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">rho_wat</span> <span class="o">=</span> <span class="n">rho_lw</span><span class="o">*</span><span class="mf">4.</span><span class="o">/</span><span class="mf">3.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">sum_nconc_radcubed</span>
+
+    <span class="c1">#match time values so we can combine set data with environmental data</span>
+    <span class="p">(</span><span class="n">set_t_inds</span><span class="p">,</span> <span class="n">env_t_inds</span><span class="p">)</span> <span class="o">=</span> <span class="n">match_time_inds</span><span class="p">(</span><span class="n">setdata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">envdata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">rho_wat</span><span class="p">[</span><span class="n">set_t_inds</span><span class="p">]</span><span class="o">/</span><span class="n">rho_air</span><span class="p">[</span><span class="n">env_t_inds</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">set_t_inds</span><span class="p">))</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, K. Latimer.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

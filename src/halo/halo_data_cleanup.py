@@ -11,13 +11,15 @@ Output format: .npy file containing one dictionary formatted as: \
 """
 import numpy as np
 
-input_data_dir =  '/home/klatimer/proj/20supersat/data/halo/ames/'
-output_data_dir = '/home/klatimer/proj/20supersat/data/halo/npy_raw/'
+from halo import BASE_DIR, DATA_DIR, FIG_DIR
+
+input_data_dir =  DATA_DIR + 'ames/'
+output_data_dir = DATA_DIR + 'npy_raw/'
 
 def main():
     """
     extract flight date, variable names, and data from ames files to numpy \
-    files. also convert error codes to a uniform value of 999999.
+    files. also convert error codes to np.nan.
     """
 
     #get names of data files with no issues (see notes)
@@ -66,9 +68,8 @@ def main():
             data = np.array([np.array(line.split()).astype(np.float) for line \
                     in lines[num_header_lines:-1] if line.split() != []])
 
-            #replace all error codes with uniform value of 999999
-            if err_val != 999999:
-                np.where(data==err_val, data, 999999)
+            #replace all error codes with uniform value of np.nan
+            data = np.where(data==err_val, np.nan, data)
 
             #save all fields in .npy format
             data_dict = {"flight_date":flight_date, "var_names":var_names, "data":data}

@@ -30,6 +30,26 @@ halo
 .. automodule:: halo
     :members:
 
+altvst_figsrc
+********************
+.. automodule:: halo.altvst_figsrc
+    :members:
+
+checkbins_figsrc
+********************
+.. automodule:: halo.checkbins_figsrc
+    :members:
+
+comparelwcbycloud_set_figsrc
+******************************
+.. automodule:: halo.comparelwcbycloud_set_figsrc
+    :members:
+
+comparelwc_set_figsrc
+******************************
+.. automodule:: halo.comparelwc_set_figsrc
+    :members:
+
 halo_data_cleanup
 ******************
 .. automodule:: halo.halo_data_cleanup
@@ -40,9 +60,14 @@ halo_data_polish
 .. automodule:: halo.halo_data_polish
     :members:
 
-example_figsrc
-*****************
-.. automodule:: halo.example_figsrc
+search_NIXECAPS
+********************
+.. automodule:: halo.search_NIXECAPS
+    :members:
+
+utils
+**********
+.. automodule:: halo.utils
     :members:
 
 wrf

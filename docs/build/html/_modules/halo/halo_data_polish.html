@@ -41,35 +41,52 @@
 <span class="sd">        {&quot;dataset&quot;: HALO dataset number XXXX \</span>
 <span class="sd">         &quot;data&quot;: {&quot;&lt;clean var name 1&gt;&quot;:&lt;numpy array&gt;, ...} \</span>
 <span class="sd">         &quot;units&quot;: {&quot;&lt;clean var name 1&gt;&quot;:&lt;string&gt;, ...}}</span>
+
+<span class="sd">update 1/20/20: also including LWC data in these files because it takes \</span>
+<span class="sd">too long to run each time making figures. Format is dict[&#39;&lt;data, units&gt;&#39;]\</span>
+<span class="sd">[&#39;lwc&#39;][&#39;&lt;0 or 1&gt;&lt;0 or 1&gt;&#39;][&lt;data&gt;], where first boolean corresponds to 3um \</span>
+<span class="sd">bin cutoff and second to changing CAS correction factor to match CDP; e.g. \</span>
+<span class="sd">&#39;01&#39; means no bin cutoff but yes change CAS correction. There is also \</span>
+<span class="sd">dict[&#39;data&#39;] [&#39;lwc_t_inds&#39;], i.e. indices of dict[&#39;data&#39;][&#39;time&#39;] with which \</span>
+<span class="sd">the lwc arrays are aligned (comes from having to match them with ADLR).</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">input_data_dir</span> <span class="o">=</span>  <span class="s1">&#39;/home/klatimer/proj/20supersat/data/halo/npy_raw/&#39;</span>
-<span class="n">output_data_dir</span> <span class="o">=</span> <span class="s1">&#39;/home/klatimer/proj/20supersat/data/halo/npy_proc/&#39;</span>
+<span class="kn">from</span> <span class="nn">halo</span> <span class="kn">import</span> <span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">FIG_DIR</span>
+<span class="kn">from</span> <span class="nn">halo.utils</span> <span class="kn">import</span> <span class="n">calc_lwc</span>
+
+<span class="n">input_data_dir</span> <span class="o">=</span>  <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;npy_raw/&#39;</span>
+<span class="n">output_data_dir</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;npy_proc/&#39;</span>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#halo.halo_data_polish.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    extract time, environment variables from ADLR; time, nconc, and \</span>
-<span class="sd">    other available quantities from CAS, CDP, AND NIXE-CAPS.</span>
+<span class="sd">    other available quantities from CAS, CDP, AND NIXE-CAPS. also \</span>
+<span class="sd">    calculate lwc for CAS and CDP.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="c1">#clean variable names and their mks units (and scale factors into those \</span>
     <span class="c1">#units), as well as column indices of relevant values in the raw files.</span>
     <span class="n">key_ind_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ADLR&#39;</span><span class="p">:</span>\
                         <span class="p">{</span><span class="s1">&#39;var_names&#39;</span><span class="p">:[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;potl_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;vert_wind_vel&#39;</span><span class="p">,</span> \
-                            <span class="s1">&#39;alt_asl&#39;</span><span class="p">,</span> <span class="s1">&#39;alt_pres&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">],</span> \
-                        <span class="s1">&#39;var_units&#39;</span><span class="p">:[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span><span class="p">],</span> \
-                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">],</span> \
-                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)]},</span> \
+                            <span class="s1">&#39;alt_asl&#39;</span><span class="p">,</span> <span class="s1">&#39;alt_pres&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="s1">&#39;stat_temp&#39;</span><span class="p">,</span> \
+                            <span class="s1">&#39;stat_pres&#39;</span><span class="p">,</span> <span class="s1">&#39;lwc&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_units&#39;</span><span class="p">:[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span><span class="p">,</span> <span class="s1">&#39;deg&#39;</span><span class="p">,</span> \
+                            <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;Pa&#39;</span><span class="p">,</span> <span class="s1">&#39;g/g&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">21</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]},</span> \
                     <span class="s1">&#39;CAS&#39;</span><span class="p">:</span>\
                         <span class="p">{</span><span class="s1">&#39;var_names&#39;</span><span class="p">:[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;nconc_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> \
-                            <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;nconc_tot_TAS_corr&#39;</span><span class="p">,</span> <span class="s1">&#39;d_eff&#39;</span><span class="p">,</span> \
-                            <span class="s1">&#39;d_vol&#39;</span><span class="p">,</span> <span class="s1">&#39;PAS&#39;</span><span class="p">,</span> <span class="s1">&#39;TAS&#39;</span><span class="p">,</span> <span class="s1">&#39;xi&#39;</span><span class="p">],</span> \
+                            <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;nconc_tot_TAS_corr&#39;</span><span class="p">,</span> \
+                            <span class="s1">&#39;d_eff&#39;</span><span class="p">,</span> <span class="s1">&#39;d_vol&#39;</span><span class="p">,</span> <span class="s1">&#39;lwc_calc&#39;</span><span class="p">,</span> <span class="s1">&#39;PAS&#39;</span><span class="p">,</span> <span class="s1">&#39;TAS&#39;</span><span class="p">,</span> <span class="s1">&#39;xi&#39;</span><span class="p">],</span> \
                         <span class="s1">&#39;var_units&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;m^-3&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">18</span><span class="p">)]</span> <span class="o">+</span> \
-                            <span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">],</span> \
-                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">19</span><span class="p">)],</span> \
-                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e6</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">13</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e-6</span><span class="p">,</span>
-                            <span class="mf">1.e-6</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]},</span> \
+                            <span class="p">[</span><span class="s1">&#39;m^-3&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;kg/m^3&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">],</span> \
+                        <span class="s1">&#39;var_inds&#39;</span><span class="p">:[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)],</span> \
+                        <span class="s1">&#39;var_scale&#39;</span><span class="p">:[</span><span class="mf">1.</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e6</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.e6</span><span class="p">,</span> \
+                            <span class="mf">1.e-6</span><span class="p">,</span> <span class="mf">1.e-6</span><span class="p">,</span> <span class="mf">1.e3</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]},</span> \
                     <span class="s1">&#39;CDP&#39;</span><span class="p">:{</span>\
                         <span class="s1">&#39;var_names&#39;</span><span class="p">:[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;nconc_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> \
                             <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;d_geom&#39;</span><span class="p">],</span> \
@@ -139,7 +156,62 @@
         <span class="c1">#save processed files</span>
         <span class="n">datestr</span> <span class="o">=</span> <span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;flight_date&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;flight_date&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> \
                 <span class="n">raw_dict</span><span class="p">[</span><span class="s1">&#39;flight_date&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_data_dir</span><span class="o">+</span><span class="n">setname</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">datestr</span><span class="p">,</span> <span class="n">proc_dict</span><span class="p">)</span></div>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_data_dir</span><span class="o">+</span><span class="n">setname</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">datestr</span><span class="p">,</span> <span class="n">proc_dict</span><span class="p">)</span>
+    
+    <span class="c1">#now calculate LWC values for CAS and CDP and add to raw files.</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;npy_proc/&#39;</span><span class="p">)]</span>
+    <span class="n">used_dates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="c1">#get flight date and check if already processed</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="o">-</span><span class="mi">12</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">used_dates</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+            <span class="n">used_dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+        
+        <span class="c1">#try to get adlr data for that date. if it doesn&#39;t exist, don&#39;t \</span>
+        <span class="c1">#proceed because we won&#39;t have sufficient environmental data</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;npy_proc/ADLR_&#39;</span> <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="s1">&#39;.npy&#39;</span> 
+            <span class="n">adlrdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">adlrdata</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span> 
+
+        <span class="c1">#process cas / cdp  datasets from flight date</span>
+        <span class="k">for</span> <span class="n">setname</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CAS&#39;</span><span class="p">,</span> <span class="s1">&#39;CDP&#39;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>    
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;npy_proc/&#39;</span> <span class="o">+</span> <span class="n">setname</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> \
+                        <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="s1">&#39;.npy&#39;</span>
+                <span class="n">dataset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="n">updated_dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">updated_dataset</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;lwc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">updated_dataset</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="s1">&#39;lwc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;not found&#39;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            
+            <span class="c1">#loop through all combos of booean params</span>
+            <span class="k">for</span> <span class="n">cutoff_bins</span><span class="p">,</span> <span class="n">change_cas_corr</span> <span class="ow">in</span> <span class="n">product</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">booleankey</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">cutoff_bins</span><span class="p">))</span> \
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">change_cas_corr</span><span class="p">))</span> 
+                <span class="p">(</span><span class="n">lwc</span><span class="p">,</span> <span class="n">t_inds</span><span class="p">)</span> <span class="o">=</span> <span class="n">calc_lwc</span><span class="p">(</span><span class="n">setname</span><span class="p">,</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> \
+                    <span class="n">adlrdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">cutoff_bins</span><span class="p">,</span> <span class="n">change_cas_corr</span><span class="p">)</span>
+                <span class="c1">#only this dataset is weird so fixing manually </span>
+                <span class="k">if</span> <span class="n">date</span> <span class="o">==</span> <span class="s1">&#39;20140906&#39;</span> <span class="ow">and</span> <span class="n">setname</span> <span class="o">==</span> <span class="s1">&#39;CAS&#39;</span><span class="p">:</span>
+                    <span class="n">sorted_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">t_inds</span><span class="p">)</span>
+                    <span class="n">lwc</span> <span class="o">=</span> <span class="n">lwc</span><span class="p">[</span><span class="n">sorted_inds</span><span class="p">]</span>
+                    <span class="n">t_inds</span> <span class="o">=</span> <span class="n">t_inds</span><span class="p">[</span><span class="n">sorted_inds</span><span class="p">]</span>
+                
+                <span class="n">updated_dataset</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;lwc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">booleankey</span><span class="p">:</span> <span class="n">lwc</span><span class="p">})</span>
+                <span class="n">updated_dataset</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="s1">&#39;lwc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">booleankey</span><span class="p">:</span> <span class="s1">&#39;g/g&#39;</span><span class="p">})</span>
+                
+                <span class="c1">#time inds don&#39;t depend on booleans so just update once.</span>
+                <span class="k">if</span> <span class="n">booleankey</span> <span class="o">==</span> <span class="s1">&#39;00&#39;</span><span class="p">:</span>
+                    <span class="n">updated_dataset</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;lwc_t_inds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_inds</span>
+                    <span class="n">updated_dataset</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="s1">&#39;lwc_t_inds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span> 
+            
+            <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">updated_dataset</span><span class="p">)</span></div>
 
 <span class="c1">#run main() if user enters &#39;python [module path].py&#39; from command line</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
