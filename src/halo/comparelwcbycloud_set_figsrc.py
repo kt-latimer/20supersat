@@ -25,7 +25,7 @@ def main():
     """
     
     #load datasets and calculate lwc for CAS and CDP
-    date = '20141001'
+    date = '20140909'
 
     adlrdatafile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
     adlrdata = np.load(adlrdatafile, allow_pickle=True).item()
@@ -47,7 +47,7 @@ def main():
     current_cloud = []
     in_cloud = False
     for i, val in enumerate(caslwc):
-        if val > 1.e-5:
+        if val > 1.e-6:
             if in_cloud:
                 current_cloud.append(i)
             else:
@@ -66,21 +66,25 @@ def main():
     big_cas_clusters = []
     big_cluster = cas_cloud_clusters[0]
     for i, cluster in enumerate(cas_cloud_clusters[:-1]):
-        if cast[cas_cloud_clusters[i+1][0]] - cast[cluster[-1]] < 30:
+        if cast[cas_cloud_clusters[i+1][0]] - cast[cluster[-1]] < 10:
             big_cluster += cas_cloud_clusters[i+1]
         else:
             big_cas_clusters.append(big_cluster)
             big_cluster = cas_cloud_clusters[i+1]
+    #add last one
+    big_cas_clusters.append(big_cluster)
+
     print(len(big_cas_clusters))
-    for thing in big_cas_clusters[:-1]:
-        print(len(thing), cast[thing[0]], cast[thing[-1]], thing[0], thing[-1])
+    for thing in big_cas_clusters:
+        if np.max(caslwc[thing])/2. > 0.7e-5:
+            print(len(thing), cast[thing[0]], cast[thing[-1]], thing[0], thing[-1], np.max(caslwc[thing])/2)
 
     #get cdp clouds
     cdp_cloud_clusters = []
     current_cloud = []
     in_cloud = False
     for i, val in enumerate(cdplwc):
-        if val > 1.e-5:
+        if val > 1.0e-6:
             if in_cloud:
                 current_cloud.append(i)
             else:
@@ -92,21 +96,22 @@ def main():
                 current_cloud = []
                 in_cloud = False
     print('cdp')
-#    print(len(cdp_cloud_clusters))
-#    for i, cluster in enumerate(cdp_cloud_clusters[:-1]):
-#        print(len(cluster), cdp_cloud_clusters[i+1][0] - cluster[-1])
     
     big_cdp_clusters = []
     big_cluster = cdp_cloud_clusters[0]
     for i, cluster in enumerate(cdp_cloud_clusters[:-1]):
-        if cdpt[cdp_cloud_clusters[i+1][0]] - cdpt[cluster[-1]] < 30:
+        if cdpt[cdp_cloud_clusters[i+1][0]] - cdpt[cluster[-1]] < 10:
             big_cluster += cdp_cloud_clusters[i+1]
         else:
             big_cdp_clusters.append(big_cluster)
             big_cluster = cdp_cloud_clusters[i+1]
+    #add last one
+    big_cdp_clusters.append(big_cluster)
+
     print(len(big_cdp_clusters))
-    for thing in big_cdp_clusters[:-1]:
-        print(len(thing), cdpt[thing[0]], cdpt[thing[-1]], thing[0], thing[-1])
+    for thing in big_cdp_clusters:
+        if np.max(cdplwc[thing])/2. > 0.35e-5:
+            print(len(thing), cdpt[thing[0]], cdpt[thing[-1]], thing[0], thing[-1], np.max(cdplwc[thing])/2)
 
     #possibly useful generic lines:
     #

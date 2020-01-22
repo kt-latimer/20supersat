@@ -72,7 +72,7 @@ def main():
     plt.text(2, 0, '"<change_cas_corr>"')
     plt.setp(plt.gca(), frame_on=False, xticks=(), yticks=())
 
-    outfile = FIG_DIR + 'v2comparelwc_set_figure.png'
+    outfile = FIG_DIR + 'v3comparelwc_set_figure.png'
     plt.savefig(outfile)
 
 def make_lwc_figure(adlrdata, datasets, setnames, cutoff_bins, change_cas_corr, date):
@@ -106,6 +106,7 @@ def make_lwc_figure(adlrdata, datasets, setnames, cutoff_bins, change_cas_corr, 
     
     ax.set_xlabel('Time (s)')
     ax.set_ylabel('LWC (g/g)')
+    ax.set_ylim(0, 0.0001)
 
     lines, labels = ax.get_legend_handles_labels()
     ax.legend(lines, labels, loc=0)
@@ -113,7 +114,7 @@ def make_lwc_figure(adlrdata, datasets, setnames, cutoff_bins, change_cas_corr, 
     plt.title('Date: ' + date + ' | Cutoff at 3um diam: ' + str(cutoff_bins) \
             + ' | Same CAS/CDP corr factors: ' + str(change_cas_corr)) 
 
-    outfile = FIG_DIR + 'v2comparelwc_' + date + str(cutoff_bins) + \
+    outfile = FIG_DIR + 'v4comparelwc_' + date + str(cutoff_bins) + \
             str(change_cas_corr) + '.png'
     fig.savefig(outfile)
     plt.close()

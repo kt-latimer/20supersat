@@ -29,25 +29,24 @@
 	\item 1/14/20: noticed data missing in 3914. see ``HALO\_cleanup\_notes".
 \end{itemize}
 
-\subsection(Analysis}
+\subsection{Analysis}
 For the record: feedback from R Weigel RE: disparate particle size PDFs between CAS and CDP instruments (bold emphasis mine):
 
-\textit{Related to the plots you have distributed (15 Nov 2019), it is not clear and difficult for us to judge whether the extracted particle concentrations were normalized to respective (and variable) bin width specified in the header of the data file.
+{\itshape Related to the plots you have distributed (15 Nov 2019), it is not clear and difficult for us to judge whether the extracted particle concentrations were normalized to respective (and variable) bin width specified in the header of the data file.
 
 The plots obviously show different size resolutions for the individual instruments, which disables a direct comparison of these data as the compared size bins are not equivalent.
 
-One of our major concerns is that averaging over an entire flight causes an averaging over various cloud types and different developing stages of clouds. From take-off through landing, the averaging runs over liquid, mixed and ice phases at different atmospheric conditions and cloud ages. In addition to the non-equivalently binned data sets, the averaging over various cloud types could lead to misinterpretations. For instance, the spikes that you interpreted as CDP’s “over-reporting” in sizes of 10, 20, 30 µm (not size-resolved by the CAS) could result from (natural) cloud particle modes within different cloud types and/or at different development stages. \textbf{We suggest to limit the instrumental comparison to individual events of cloud encounters which may then be sorted by cloud types or atmospheric condition.}
+One of our major concerns is that averaging over an entire flight causes an averaging over various cloud types and different developing stages of clouds. From take-off through landing, the averaging runs over liquid, mixed and ice phases at different atmospheric conditions and cloud ages. In addition to the non-equivalently binned data sets, the averaging over various cloud types could lead to misinterpretations. For instance, the spikes that you interpreted as CDP’s ``over-reporting" in sizes of 10, 20, 30 µm (not size-resolved by the CAS) could result from (natural) cloud particle modes within different cloud types and/or at different development stages. \textbf{We suggest to limit the instrumental comparison to individual events of cloud encounters which may then be sorted by cloud types or atmospheric condition.}
 
 Furthermore, \textbf{we suggest to consider differences in the data sets which may result from corrections of the sampled air volume based on the air speed. In terms of true air speed (TAS) or probe air speed (PAS), the data sets as given on the database are not equivalent. You can transfer the CAS data set to the standard of the CDP.} The needed calculations conclude from the instructions given in the data headers. However, for any comparison, the data sets should be consistent.
 
-
 Finally, \textbf{we suggest once more to include also the NIXE-CAPS data sets} and to involve the colleagues in this discussion to better evaluate the deviation of the instruments’ data from each other also in the view of the instruments’ uncertainty.
 
-From our point of view, at current stage, there is no unambiguous indication, which instrument is “over-“ or “under-reporting” something.}
+From our point of view, at current stage, there is no unambiguous indication, which instrument is``over-" or ``under-reporting" something.}
 
 \begin{itemize}
-	\item 1/15/20: NIXE-CAPS data contains no time steps (for any flight) where all bins up to 52um diameter have non-error values (see \texttt{search\_NIXECAPS.py}). ADLR LWC values differ significantly from CAS and CDP...possibly includes rain droplets? See `comparelwc' figure. Also looked at effect of excluding size bins w/ mean diam < 3um, and using `xi' correction factor on CAS; see `1001XX' figure.
-	\item 1/17/20: reran \texttt{comparelwc\_set\_figsrc.py} --> `v2' figure files. Just some aesthetic adjustments from v1: change colors, plot CAS second since it's usually smaller, sort time for 20140906 CAS data set. 
+	\item 1/15/20: NIXE-CAPS data contains no time steps (for any flight) where all bins up to 52um diameter have non-error values (see \texttt{search\_NIXECAPS.py}). ADLR LWC values differ significantly from CAS and CDP...possibly includes rain droplets? See `comparelwc' figure. Also looked at effect of excluding size bins w/ mean diam $<$ 3um, and using `xi' correction factor on CAS; see `1001XX' figure.
+	\item 1/17/20: reran \texttt{comparelwc\_set\_figsrc.py} --$>$ `v2' figure files. Just some aesthetic adjustments from v1: change colors, plot CAS second since it's usually smaller, sort time for 20140906 CAS data set. 
 	\item 1/20/20: refigured raw data files to include lwc calculated values because it was taking too long to run those each time I made figures. General observations for comparelwc plots: 
 		\begin{itemize}
 			\item In general (see two notes down), ADLR lwc values from ames files are much larger than those calculated from CAS/CDP files...unclear what ADLR is including as liquid water but probably counts rain as well as cloud drops?
@@ -55,7 +54,10 @@ From our point of view, at current stage, there is no unambiguous indication, wh
 			\item Out of the second two categories, the following have CAS/CDP peaks higher than ADLR lwc curve: 0912, 0916, 0918, 0928, 0930, 1001 - seems weird if ADLR is a superset of those as mentioned above
 			\item Found some odd peak features with very small (generally under 1.e-5) lwc values when looking at 1001 dataset - code and figure (`v4comparelwc...') in scratch folder. 
 		\end{itemize}
-	\item 1/21/20: I can't figure out a nice programatic way to separate cloud events without making a bunch of arbitrary decisions about selection parameters (peaks are not always cleanly delimited) so just doing manually for a couple of dates at this point. Chose 0909 and 1001 because CAS and CDP peaks roughly match so I can sort them out by eye; 1001 has the feature mentioned above that CAS/CDP lwcs can be higher than ADLR whereas 0909 does not - however, the total particle size PDFs we sent to Germany PI's are qualitatively similar so thought this was a good pair to examine side-by-side. 
+	\item 1/21/20: a few things...
+		\begin{itemize}
+			\item Following up on last point from yesterday: a couple of variations on comparelwc figure set: `v3': log scaling on y-axis...a bit hard to look at, hence `v4': zoom in to lower ($<$1.e-4) lwc regime. Noticed features that aren't visible at default scale, esp `several' (rough estimate only from skimming through) peaks still hitting 1.e-5 cutoff in: 0911, 0916, 0919, 0923, 0925, 0928, 1001. 
+			\item I can't figure out a nice programatic way to separate cloud events without making a bunch of arbitrary decisions about selection parameters (peaks are not always cleanly delimited) so just doing manually for a couple of dates at this point. Chose 0909 and 1001 because CAS and CDP peaks roughly match so I can sort them out by eye; 1001 has the feature mentioned above that CAS/CDP lwcs can be higher than ADLR whereas 0909 does not, additionally 1001 has several of those small features discussed in preceeding point whereas 0909 has less - however, the total particle size PDFs we sent to Germany PI's are qualitatively similar so thought this was a good pair to examine side-by-side. 
 \end{itemize}
 \section{WRF}
 
