@@ -1,41 +1,54 @@
 """
-This is a module.
+various utility methods for halo package.
 """
 import numpy as np
 
 from halo import BASE_DIR, DATA_DIR, FIG_DIR
 
-def match_time_inds(t_arr1, t_arr2):
+def get_ind_bounds(arr, minval, maxval, startind=0):
     """
-    synchronize two arrays of time values. currently just rounds.
+    Return: (imin, imax) where arr[imin] >= minval and arr[imax] <= maxval.
+    Assumes arr is sorted smallest to largest (ie time series)
+    Starts sorting at startind in arr, if specified
+    """
+    i = startind
+    while arr[i] < minval:
+        i += 1
+    imin = i
+    while arr[i] < maxval:
+        i += 1
+    imax = i
+    return(imin, imax)
 
-    Returns: (time_inds1, time_inds2)
-    
-    e.g. call data1[time_inds1] and data2[time_inds2] to get \
-    synchronized sets from data1 and data2.
+def match_two_arrays(arr1, arr2):
     """
-    n1 = len(t_arr1)
-    n2 = len(t_arr2)
-    if n1 < n2:
-        t_short = np.around(t_arr1)
-        t_long = np.around(t_arr2)
-    else:
-        t_short = np.around(t_arr2)
-        t_long = np.around(t_arr1)
-    inds_short = []
-    inds_long = []
-    long_search_start_ind = 0
-    for i1, t1 in enumerate(t_short):
-        for i2, t2 in enumerate(t_long[long_search_start_ind:-1]):
-            if t1 == t2:
-                inds_short.append(i1)
-                inds_long.append(i2)
-                long_search_start_ind = i2
+    Return: (inds1, inds2) where arr1[inds1] = arr2[inds2].
+    Assumes arr1 and arr2 are both sorted in the same order (ie time series)
+    """
+    inds1 = []
+    inds2 = []
+    startind2 = 0
+    for i1, x1 in enumerate(arr1):
+        for i2, x2 in enumerate(arr2[startind2:]):
+            if x1 == x2:
+                inds1.append(i1)
+                inds2.append(i2)
+                startind2 = i2
                 break
-    if n1 < n2:
-        return (inds_short, inds_long)
-    else:
-        return(inds_long, inds_short)
+    return(inds1, inds2)
+
+def match_multiple_arrays(arrays)
+    """
+    Return: [inds1, ... , indsN] where arr1[inds1] = ... = arrN[indsN].
+    Assumes all arrays are sorted in the same order (ie time series)
+    probably a better way to do this recursively but I never learned that shit xd
+    """
+    inds = [[i for i in range(len(arrays[0]))]]
+    for i, array in enumerate(arrays[:-1]):
+        (inds1, inds2) = match_two_arrays(array, arrays[i+1])
+        inds = [indsj[inds2] for indsj in inds]
+        inds.append(inds2)
+    return inds
 
 def calc_lwc(setname, setdata, envdata, cutoff_bins, change_cas_corr):
     """
