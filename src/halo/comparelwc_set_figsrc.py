@@ -85,11 +85,12 @@ def make_lwc_figure(adlrdata, datasets, setnames, cutoff_bins, change_cas_corr, 
     fig.set_size_inches(21, 12)
     
     booleankey = str(int(cutoff_bins)) + str(int(change_cas_corr))
-    colors = {'ADLR': '#777777', 'CAS': '#95B9E9', 'CDP': '#FC6A0C'}
+    colors = {'ADLR': '#777777', 'CAS': '#95B9E9', 'CDP': '#FC6A0C', 'w': '#BA3F00'}
     
     #plot ADLR
     t_adlr = adlrdata['data']['time']
     lwc_adlr = adlrdata['data']['lwc']
+    w_adlr = adlrdata['data']['vert_wind_vel']
     ax.plot(t_adlr, lwc_adlr, label='ADLR', color=colors['ADLR'])
     
     #get lwc for and plot CAS and/or CDP if available
@@ -106,15 +107,22 @@ def make_lwc_figure(adlrdata, datasets, setnames, cutoff_bins, change_cas_corr, 
     
     ax.set_xlabel('Time (s)')
     ax.set_ylabel('LWC (g/g)')
-    ax.set_ylim(0, 0.0001)
+    #ax.set_ylim(0, 0.0001)
 
+    #look at vertical wind velocity data as well
+    ax2 = ax.twinx()
+    ax2.plot(t_adlr, w_adlr, label='Vertical wind velocity', \
+        color=colors['w'])
+    ax2.set_ylabel('w (m/s)')
+    
     lines, labels = ax.get_legend_handles_labels()
-    ax.legend(lines, labels, loc=0)
+    lines2, labels2 = ax2.get_legend_handles_labels() 
+    ax.legend(lines + lines2, labels + labels2, loc=0)
 
     plt.title('Date: ' + date + ' | Cutoff at 3um diam: ' + str(cutoff_bins) \
             + ' | Same CAS/CDP corr factors: ' + str(change_cas_corr)) 
 
-    outfile = FIG_DIR + 'v4comparelwc_' + date + str(cutoff_bins) + \
+    outfile = FIG_DIR + 'v5comparelwc_' + date + str(cutoff_bins) + \
             str(change_cas_corr) + '.png'
     fig.savefig(outfile)
     plt.close()

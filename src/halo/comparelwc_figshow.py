@@ -15,7 +15,7 @@ def main():
     creates and shows the figure
     """
     
-    date = '20141001'
+    date = '20140911'
     
     casmin = 0 
     casmax = -1 

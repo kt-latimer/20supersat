@@ -12,10 +12,10 @@ def get_ind_bounds(arr, minval, maxval, startind=0):
     Starts sorting at startind in arr, if specified
     """
     i = startind
-    while arr[i] < minval:
+    while (arr[i] < minval) or (np.isnan(arr[i])):
         i += 1
     imin = i
-    while arr[i] < maxval:
+    while (arr[i] < maxval) or (np.isnan(arr[i])):
         i += 1
     imax = i
     return(imin, imax)
@@ -32,12 +32,12 @@ def match_two_arrays(arr1, arr2):
         for i2, x2 in enumerate(arr2[startind2:]):
             if x1 == x2:
                 inds1.append(i1)
-                inds2.append(i2)
-                startind2 = i2
+                inds2.append(i2+startind2)
+                startind2 = i2 + startind2 + 1
                 break
     return(inds1, inds2)
 
-def match_multiple_arrays(arrays)
+def match_multiple_arrays(arrays):
     """
     Return: [inds1, ... , indsN] where arr1[inds1] = ... = arrN[indsN].
     Assumes all arrays are sorted in the same order (ie time series)
@@ -45,8 +45,8 @@ def match_multiple_arrays(arrays)
     """
     inds = [[i for i in range(len(arrays[0]))]]
     for i, array in enumerate(arrays[:-1]):
-        (inds1, inds2) = match_two_arrays(array, arrays[i+1])
-        inds = [indsj[inds2] for indsj in inds]
+        (inds1, inds2) = match_two_arrays([array[i] for i in inds[-1]], arrays[i+1])
+        inds = [[indsj[i] for i in inds1] for indsj in inds]
         inds.append(inds2)
     return inds
 
@@ -101,6 +101,8 @@ def calc_lwc(setname, setdata, envdata, cutoff_bins, change_cas_corr):
     rho_wat = rho_lw*4./3.*np.pi*sum_nconc_radcubed
 
     #match time values so we can combine set data with environmental data
-    (set_t_inds, env_t_inds) = match_time_inds(setdata['time'], envdata['time'])
-
+    #(currently just rounding)
+    (set_t_inds, env_t_inds) = match_two_arrays( \
+            np.around(setdata['time']), np.around(envdata['time']))
+    print(len(set_t_inds), len(env_t_inds))
     return (rho_wat[set_t_inds]/rho_air[env_t_inds], np.array(set_t_inds))

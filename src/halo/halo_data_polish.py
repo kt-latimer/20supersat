@@ -162,8 +162,12 @@ def main():
             for cutoff_bins, change_cas_corr in product([True, False], repeat=2):
                 booleankey = str(int(cutoff_bins)) \
                     + str(int(change_cas_corr)) 
-                (lwc, t_inds) = calc_lwc(setname, dataset['data'], \
-                    adlrdata['data'], cutoff_bins, change_cas_corr)
+                if setname=='CDP' and (booleankey == '10' or booleankey == '00'):
+                    #avoid redundant calculations
+                    pass
+                else:
+                    (lwc, t_inds) = calc_lwc(setname, dataset['data'], \
+                        adlrdata['data'], cutoff_bins, change_cas_corr)
                 #only this dataset is weird so fixing manually 
                 if date == '20140906' and setname == 'CAS':
                     sorted_inds = np.argsort(t_inds)
