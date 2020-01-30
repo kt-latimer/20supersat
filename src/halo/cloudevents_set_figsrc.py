@@ -52,13 +52,15 @@ def main():
     """
 
     dates = ['20140909', '20140911', '20141001']
-    
-    for date in dates[1:2]:
+    offsets = [2, 2, 3]
+
+    for m, date in enumerate(dates):
         #load data
         adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
         adlrdata = np.load(adlrfile, allow_pickle=True).item()
         casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
         casdata = np.load(casfile, allow_pickle=True).item()
+        casdata['data']['time'] = np.array([t - offsets[m] for t in casdata['data']['time']])
         cdpfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
         cdpdata = np.load(cdpfile, allow_pickle=True).item()
         
@@ -106,10 +108,11 @@ def main():
             cdpinds = [ind + cdp_ind_bounds[0] for ind in cdpinds]
             datablock = get_datablock(adlrinds, casinds, cdpinds, \
                 adlrdata, casdata, cdpdata)
+            
             #remove rows with error values in any of the three
             goodrows = []
             for i, row in enumerate(datablock):
-                if sum(np.isnan(np.concatenate((row[0:2], row[2:])))) == 0:
+                if sum(np.isnan(np.concatenate((row[0:2], row[3:])))) == 0:
                     goodrows.append(i)
             N = len(goodrows)
             Nerr = np.shape(datablock)[0] - N
@@ -120,21 +123,23 @@ def main():
             fig.set_size_inches(21, 12)
             gs = fig.add_gridspec(4, 5)
             
-            #number concentration subplot
+            #number concentration pdf subplot
             ax1 = fig.add_subplot(gs[0:2, 0:2])
             x12_cas = 1.e6*cas_centr
             x12_cdp = 1.e6*cdp_centr
             (y1_cas, y1_cdp) = get_nconc_by_bin(datablock)
+            y1_cas = y1_cas/cas_dr
+            y1_cdp = y1_cdp/cdp_dr
             ax1.plot(x12_cas, y1_cas, label='CAS', marker='o', color=colors['CAS'])
             ax1.plot(x12_cdp, y1_cdp, label='CDP', marker='o', color=colors['CDP'])
-            ax1.set_ylabel('Average # Conc (m^-3)')
+            ax1.set_ylabel('# Conc PDF (m^-4)')
             ax1.ticklabel_format(axis='both', style='sci')
             ax1.legend()
 
             #particle size pdf subplot
             ax2 = fig.add_subplot(gs[2:4, 0:2])
-            y2_cas = y1_cas*cas_centr/cas_dr 
-            y2_cdp = y1_cdp*cdp_centr/cdp_dr 
+            y2_cas = y1_cas*cas_centr 
+            y2_cdp = y1_cdp*cdp_centr 
             ax2.plot(x12_cas, y2_cas, label='CAS', marker='o', color=colors['CAS'])
             ax2.plot(x12_cdp, y2_cdp, label='CDP', marker='o', color=colors['CDP'])
             ax2.set_xlabel('Central radius of bin (um)')
@@ -193,7 +198,6 @@ def main():
             ax6.set_ylabel('Supersaturation')
             ax6.ticklabel_format(axis='x', style='sci')
             
-
             figtitle = 'Date: ' + date + ' | Cloud event: ' + str(j) \
                     + ' | N=' + str(N) + ' | Nerr=' + str(Nerr)
             fig.suptitle(figtitle, fontsize=14)
@@ -301,15 +305,19 @@ def get_ss_vs_t(datablock):
     one = np.ones(np.shape(T))
     A = g*(L*Ra/(Cp*R)*one/T - one)*1./Ra*one/T
 
-    tot_nconc_cas = np.sum(datablock[:, 3:3+cas_nbins], axis=1)
-    meanr_cas = np.dot(datablock[:, 3:3+cas_nbins], \
-            np.transpose(cas_centr))/tot_nconc_cas
-    ss_cas = 1./(4.*np.pi*D)*A*w/(tot_nconc_cas*meanr_cas)
+    (nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock)
+    (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock)
+    ss_cas = A*w/(4*np.pi*D*nconc_cas*meanr_cas)
+    ss_cdp = A*w/(4*np.pi*D*nconc_cdp*meanr_cdp)
+    #tot_nconc_cas = np.sum(datablock[:, 3:3+cas_nbins], axis=1)
+    #meanr_cas = np.dot(datablock[:, 3:3+cas_nbins], \
+    #        np.transpose(cas_centr))/tot_nconc_cas
+    #ss_cas = 1./(4.*np.pi*D)*A*w/(tot_nconc_cas*meanr_cas)
 
-    tot_nconc_cdp = np.sum(datablock[:, 3:3+cdp_nbins], axis=1)
-    meanr_cdp = np.dot(datablock[:, 3:3+cdp_nbins], \
-            np.transpose(cdp_centr))/tot_nconc_cdp
-    ss_cdp = 1./(4.*np.pi*D)*A*w/(tot_nconc_cdp*meanr_cdp)
+    #tot_nconc_cdp = np.sum(datablock[:, 3:3+cdp_nbins], axis=1)
+    #meanr_cdp = np.dot(datablock[:, 3:3+cdp_nbins], \
+    #        np.transpose(cdp_centr))/tot_nconc_cdp
+    #ss_cdp = 1./(4.*np.pi*D)*A*w/(tot_nconc_cdp*meanr_cdp)
     return (np.array(ss_cas), np.array(ss_cdp))
 
 def get_vert_wind_vel_vs_t(datablock):
@@ -346,8 +354,10 @@ def get_meanr_vs_t(datablock):
     meanr_cas = []
     meanr_cdp = []
     for row in datablock:
-        meanr_cas.append(np.sum(row[3:3+cas_nbins]*cas_centr/cas_dr))
-        meanr_cdp.append(np.sum(row[3+cas_nbins:3+cas_nbins+cdp_nbins]*cdp_centr/cdp_dr))
+        meanr_cas.append(np.sum(row[3:3+cas_nbins]*cas_centr)\
+                /np.sum(row[3:3+cas_nbins]))
+        meanr_cdp.append(np.sum(row[3+cas_nbins:3+cas_nbins+cdp_nbins]\
+                *cdp_centr)/np.sum(row[3+cas_nbins:3+cas_nbins+cdp_nbins]))
     return (np.array(meanr_cas), np.array(meanr_cdp))
 
 if __name__ == "__main__":

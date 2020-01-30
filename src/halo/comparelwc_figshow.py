@@ -15,7 +15,7 @@ def main():
     creates and shows the figure
     """
     
-    date = '20140911'
+    date = '20141001'
     
     casmin = 0 
     casmax = -1 
@@ -31,6 +31,7 @@ def main():
     caslwc = casdata['data']['lwc']['11']
     caslwctinds = casdata['data']['lwc_t_inds']
     cast = casdata['data']['time'][caslwctinds]
+    cast = [t - 2 for t in cast]
 
     cdpdatafile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
     cdpdata = np.load(cdpdatafile, allow_pickle=True).item()
