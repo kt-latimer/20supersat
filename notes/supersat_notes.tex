@@ -36,7 +36,7 @@ For the record: feedback from R Weigel RE: disparate particle size PDFs between 
 
 The plots obviously show different size resolutions for the individual instruments, which disables a direct comparison of these data as the compared size bins are not equivalent.
 
-One of our major concerns is that averaging over an entire flight causes an averaging over various cloud types and different developing stages of clouds. From take-off through landing, the averaging runs over liquid, mixed and ice phases at different atmospheric conditions and cloud ages. In addition to the non-equivalently binned data sets, the averaging over various cloud types could lead to misinterpretations. For instance, the spikes that you interpreted as CDP’s ``over-reporting" in sizes of 10, 20, 30 µm (not size-resolved by the CAS) could result from (natural) cloud particle modes within different cloud types and/or at different development stages. \textbf{We suggest to limit the instrumental comparison to individual events of cloud encounters which may then be sorted by cloud types or atmospheric condition.}
+One of our major concerns is that averaging over an entire flight causes an averaging over various cloud types and different developing stages of clouds. From take-off through landing, the averaging runs over liquid, mixed and ice phases at different atmospheric conditions and cloud ages. In addition to the non-equivalently binned data sets, the averaging over various cloud types could lead to misinterpretations. For instance, the spikes that you interpreted as CDP’s ``over-reporting" in sizes of 10, 20, 30 um (not size-resolved by the CAS) could result from (natural) cloud particle modes within different cloud types and/or at different development stages. \textbf{We suggest to limit the instrumental comparison to individual events of cloud encounters which may then be sorted by cloud types or atmospheric condition.}
 
 Furthermore, \textbf{we suggest to consider differences in the data sets which may result from corrections of the sampled air volume based on the air speed. In terms of true air speed (TAS) or probe air speed (PAS), the data sets as given on the database are not equivalent. You can transfer the CAS data set to the standard of the CDP.} The needed calculations conclude from the instructions given in the data headers. However, for any comparison, the data sets should be consistent.
 
@@ -71,7 +71,7 @@ From our point of view, at current stage, there is no unambiguous indication, wh
 \begin{table}[ht]
 \centering
 \begin{tabular}{lllllll}
-	Date & # cloud events & Unimodal set(s) & Count - nconc PDF& Count - meanr PDF\\
+	Date & \# cloud events & Unimodal set(s) & Count - nconc PDF& Count - meanr PDF\\
 0909 & 47                 &                   &                          &                          \\
      &                    & Both     & 19                       & 21                       \\
      &                    & Only CAS & 28                       & 26                       \\
@@ -97,9 +97,11 @@ From our point of view, at current stage, there is no unambiguous indication, wh
 
 
 \section{WRF}
-		\subsection{Lawrencium account}
+		\subsection{Lawrencium cluster}
 		username: kalatimer\\
 		enter in terminal: \texttt{ssh kalatimer@lrc-login.lbl.gov}\\
-		type: pin (sandwiched between two sevens) + 6-digit auth code from authy chrome app (kt's token 2) [no space between]\\
-		wrf folder: /clusterfs/stratus/dromps/wrf\_fan2018
+		type: pin + 6-digit auth code from authy chrome app (kt's token 2) [no space between]\\
+		wrf folder: /clusterfs/stratus/dromps/wrf\_fan2018\\
+		See project `20demo' notes file for more detailed description of general setup.
+		\subsection{Data processing}
 \end{document}
