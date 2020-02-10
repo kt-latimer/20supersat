@@ -1,0 +1,5 @@
+- .git/**
+- docs/build/doctrees/**
+-p **__pycache__**
+-p **__init__.py
+-p **.pyc

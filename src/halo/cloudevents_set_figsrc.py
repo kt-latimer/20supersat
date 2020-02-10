@@ -8,21 +8,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from halo import BASE_DIR, DATA_DIR, FIG_DIR
-from halo.utils import get_ind_bounds, match_multiple_arrays
+from halo.utils import get_datablock, get_ind_bounds, \
+			match_multiple_arrays, get_nconc_vs_t, \
+			get_meanr_vs_t,  nbins_cas, nbins_cdp, \
+			centr_cas, centr_cdp, dr_cas, dr_cdp, \
+			low_bin_cas, high_bin_cas, low_bin_cdp, \
+			high_bin_cdp
 
 matplotlib.rcParams.update({'font.size': 14})
 
-casbinfile = DATA_DIR + 'CAS_bins.npy'
-CAS_bins = np.load(casbinfile, allow_pickle=True).item()
-cas_centr = (CAS_bins['upper'] + CAS_bins['lower'])/2.
-cas_dr = CAS_bins['upper'] - CAS_bins['lower']
-cas_nbins = len(cas_centr)
+#boolean params; change manually in code for now
+cutoff_bins = True
+change_cas_corr = True
+booleankey = str(int(cutoff_bins)) + str(int(change_cas_corr))
 
-cdpbinfile = DATA_DIR + 'CDP_bins.npy'
-CDP_bins = np.load(cdpbinfile, allow_pickle=True).item()
-cdp_centr = (CDP_bins['upper'] + CDP_bins['lower'])/2.
-cdp_dr = CDP_bins['upper'] - CDP_bins['lower']
-cdp_nbins = len(cdp_centr)
+#low_bin_cas = 4 
+#high_bin_cas = low_bin_cas + nbins_cas
+#low_bin_cdp = high_bin_cas 
+#high_bin_cdp = low_bin_cdp + nbins_cdp
+#print(low_bin_cas)
 
 #for plotting
 colors = {'ADLR': '#777777', 'CAS': '#95B9E9', 'CDP': '#FC6A0C', 'c1': '#BA3F00', 'c2': '#095793'}
@@ -60,6 +64,7 @@ def main():
         adlrdata = np.load(adlrfile, allow_pickle=True).item()
         casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
         casdata = np.load(casfile, allow_pickle=True).item()
+	#time offset (estimated by eye so not super replicable atm)
         casdata['data']['time'] = np.array([t - offsets[m] for t in casdata['data']['time']])
         cdpfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
         cdpdata = np.load(cdpfile, allow_pickle=True).item()
@@ -68,13 +73,13 @@ def main():
         x3_adlr = adlrdata['data']['time']
         y3_adlr = adlrdata['data']['lwc']
         x3_cas = casdata['data']['time'][casdata['data']['lwc_t_inds']]
-        y3_cas = casdata['data']['lwc']['11']
+        y3_cas = casdata['data']['lwc'][booleankey]
         x3_cdp = cdpdata['data']['time'][cdpdata['data']['lwc_t_inds']]
-        y3_cdp = cdpdata['data']['lwc']['11']
+        y3_cdp = cdpdata['data']['lwc'][booleankey]
         
         #loop through all cloud events and make a figure for each
         t_tuples = \
-            get_cloud_intervals(casdata['data']['lwc']['11'], \
+            get_cloud_intervals(casdata['data']['lwc'][booleankey], \
             casdata['data']['time'][casdata['data']['lwc_t_inds']])
         adlr_start_ind = 0
         cas_start_ind = 0
@@ -98,7 +103,7 @@ def main():
             cdp_ind_bounds = get_ind_bounds(cdpdata['data']['time'], \
                 tmin, tmax, cdp_start_ind)
             cdp_start_ind = cdp_ind_bounds[1]
-            #get indices of common time steps for each dataset
+            #get indices of common time steps for eacdh dataset
             [adlrinds, casinds, cdpinds] = match_multiple_arrays(
                 [np.around(adlrdata['data']['time'][adlr_ind_bounds[0]:adlr_ind_bounds[1]+1]), \
                 np.around(casdata['data']['time'][cas_ind_bounds[0]:cas_ind_bounds[1]+1]), \
@@ -107,7 +112,7 @@ def main():
             casinds = [ind + cas_ind_bounds[0] for ind in casinds]
             cdpinds = [ind + cdp_ind_bounds[0] for ind in cdpinds]
             datablock = get_datablock(adlrinds, casinds, cdpinds, \
-                adlrdata, casdata, cdpdata)
+                adlrdata, casdata, cdpdata, change_cas_corr)
             
             #remove rows with error values in any of the three
             goodrows = []
@@ -123,13 +128,20 @@ def main():
             fig.set_size_inches(21, 12)
             gs = fig.add_gridspec(4, 5)
             
+            if cutoff_bins:
+                cas_offset = 3
+                cdp_offset = 2
+            else:
+                cas_offset = 0
+                cdp_offset = 0
+
             #number concentration pdf subplot
             ax1 = fig.add_subplot(gs[0:2, 0:2])
-            x12_cas = 1.e6*cas_centr
-            x12_cdp = 1.e6*cdp_centr
-            (y1_cas, y1_cdp) = get_nconc_by_bin(datablock)
-            y1_cas = y1_cas/cas_dr
-            y1_cdp = y1_cdp/cdp_dr
+            x12_cas = 1.e6*centr_cas[nbins_cas-(high_bin_cas-(low_bin_cas+cas_offset)):nbins_cas]
+            x12_cdp = 1.e6*centr_cdp[nbins_cdp-(high_bin_cdp-(low_bin_cdp+cdp_offset)):nbins_cdp]
+            (y1_cas, y1_cdp) = get_nconc_by_bin(datablock, change_cas_corr, cutoff_bins) 
+            y1_cas = y1_cas/dr_cas[nbins_cas-(high_bin_cas-(low_bin_cas+cas_offset)):nbins_cas]
+            y1_cdp = y1_cdp/dr_cdp[nbins_cdp-(high_bin_cdp-(low_bin_cdp+cdp_offset)):nbins_cdp]
             ax1.plot(x12_cas, y1_cas, label='CAS', marker='o', color=colors['CAS'])
             ax1.plot(x12_cdp, y1_cdp, label='CDP', marker='o', color=colors['CDP'])
             ax1.set_ylabel('# Conc PDF (m^-4)')
@@ -138,15 +150,15 @@ def main():
 
             #particle size pdf subplot
             ax2 = fig.add_subplot(gs[2:4, 0:2])
-            y2_cas = y1_cas*cas_centr 
-            y2_cdp = y1_cdp*cdp_centr 
+            y2_cas = y1_cas*centr_cas[nbins_cas-(high_bin_cas-(low_bin_cas+cas_offset)):nbins_cas] 
+            y2_cdp = y1_cdp*centr_cdp[nbins_cdp-(high_bin_cdp-(low_bin_cdp+cdp_offset)):nbins_cdp] 
             ax2.plot(x12_cas, y2_cas, label='CAS', marker='o', color=colors['CAS'])
             ax2.plot(x12_cdp, y2_cdp, label='CDP', marker='o', color=colors['CDP'])
             ax2.set_xlabel('Central radius of bin (um)')
             ax2.set_ylabel('Particle radius PDF (m^-3)')
             ax2.ticklabel_format(axis='both', style='sci')
 
-            #entire LWC timeseries subplot
+	    #entire LWC timeseries subplot
             ax3 = fig.add_subplot(gs[0:2, 2:5])
             ax3.plot(x3_adlr, y3_adlr, label='ADLR', color=colors['ADLR'])
             ax3.plot(x3_cdp, y3_cdp, label='CDP', color=colors['CDP'])
@@ -162,8 +174,8 @@ def main():
             #cloud drop data just for the cloud event
             ax4 = fig.add_subplot(gs[2:3, 2:5])
             x456 = datablock[:, 0]
-            (y4_cas, y4_cdp) = get_nconc_vs_t(datablock)
-            (y5_cas, y5_cdp) = get_meanr_vs_t(datablock)
+            (y4_cas, y4_cdp) = get_nconc_vs_t(datablock, change_cas_corr, cutoff_bins)
+            (y5_cas, y5_cdp) = get_meanr_vs_t(datablock, change_cas_corr, cutoff_bins)
             if N != 0:
                 y5_cas = 1.e6*y5_cas
                 y5_cdp = 1.e6*y5_cdp
@@ -178,7 +190,7 @@ def main():
             lines5, labels5 = ax5.get_legend_handles_labels() 
             ax5.legend(lines4 + lines5, labels4 + labels5, loc=0)
             
-            #env vars vs time just for the cloud event
+            ##env vars vs time just for the cloud event
             #ax4 = fig.add_subplot(gs[2:3, 2:5])
             #x456 = datablock[:, 0]
             #y4 = get_vert_wind_vel_vs_t(datablock)
@@ -191,7 +203,7 @@ def main():
             
             #ss vs time for just the cloud event
             ax6 = fig.add_subplot(gs[3:4, 2:5])
-            (y6_cas, y6_cdp) = get_ss_vs_t(datablock)
+            (y6_cas, y6_cdp) = get_ss_vs_t(datablock, change_cas_corr, cutoff_bins)
             ax6.plot(x456, y6_cas, label='CAS', marker='o', color=colors['CAS'])
             ax6.plot(x456, y6_cdp, label='CDP', marker='o', color=colors['CDP'])
             ax6.set_xlabel('Time (s)')
@@ -201,7 +213,7 @@ def main():
             figtitle = 'Date: ' + date + ' | Cloud event: ' + str(j) \
                     + ' | N=' + str(N) + ' | Nerr=' + str(Nerr)
             fig.suptitle(figtitle, fontsize=14)
-            outfile = FIG_DIR + 'cloudevents_' + date + '_' + str(int(tmid))
+            outfile = FIG_DIR + 'v3cloudevents_' + date + '_' + str(int(tmid))
             fig.savefig(outfile)
             plt.close()
 
@@ -264,39 +276,28 @@ def get_cloud_intervals(caslwc, cast):
             t_tuples.append((cast[imin], cast[imax]))
     return t_tuples
 
-def get_datablock(adlrinds, casinds, cdpinds, adlrdata, casdata, cdpdata):
-    """
-    Consolidate data for easier processing 
-    Format of output array (order of columns): time, temperature, vertical \
-    velocity, number conc for cas bins (__ cols), numer conc for cdp bins \
-    (__ cols).
-    """
-    datablock = np.zeros([len(adlrinds), 3 + cas_nbins + cdp_nbins])
-    datablock[:, 0] = np.around(adlrdata['data']['time'][adlrinds])
-    datablock[:, 1] = adlrdata['data']['stat_temp'][adlrinds]
-    datablock[:, 2] = adlrdata['data']['vert_wind_vel'][adlrinds]
-    for i in range(cas_nbins):
-        key = 'nconc_' + str(i+5)
-        datablock[:, i+3] = casdata['data'][key][casinds]
-    
-    for i in range(cdp_nbins):
-        key = 'nconc_' + str(i+1)
-        datablock[:, i+3+cas_nbins] = cdpdata['data'][key][cdpinds]
-    return datablock
-
-def get_nconc_by_bin(datablock):
+def get_nconc_by_bin(datablock, change_cas_corr, cutoff_bins):
     """
     Returns (nconc_cas, nconc_cdp)
     """
+    if cutoff_bins:
+        cas_offset = 3
+        cdp_offset = 2
+    else:
+        cas_offset = 0
+        cdp_offset = 0
     nconc_cas = []
     nconc_cdp = []
-    for i in range(3, 3+cas_nbins):
-        nconc_cas.append(np.mean(datablock[:, i]))
-    for i in range(3+cas_nbins, 3+cas_nbins+cdp_nbins):
+    for i in range(low_bin_cas+cas_offset, high_bin_cas):
+        if change_cas_corr:
+            nconc_cas.append(np.mean(datablock[:, i]*datablock[:, 3]))
+        else:
+            nconc_cas.append(np.mean(datablock[:, i]))
+    for i in range(low_bin_cdp+cdp_offset, high_bin_cdp):
         nconc_cdp.append(np.mean(datablock[:, i]))
     return(np.array(nconc_cas), np.array(nconc_cdp))
 
-def get_ss_vs_t(datablock):
+def get_ss_vs_t(datablock, change_cas_corr, cutoff_bins):
     """
     Returns (ss_cas, ss_cdp).
     """
@@ -305,18 +306,18 @@ def get_ss_vs_t(datablock):
     one = np.ones(np.shape(T))
     A = g*(L*Ra/(Cp*R)*one/T - one)*1./Ra*one/T
 
-    (nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock)
-    (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock)
+    (nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock, change_cas_corr, cutoff_bins)
+    (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock, change_cas_corr, cutoff_bins)
     ss_cas = A*w/(4*np.pi*D*nconc_cas*meanr_cas)
     ss_cdp = A*w/(4*np.pi*D*nconc_cdp*meanr_cdp)
-    #tot_nconc_cas = np.sum(datablock[:, 3:3+cas_nbins], axis=1)
-    #meanr_cas = np.dot(datablock[:, 3:3+cas_nbins], \
-    #        np.transpose(cas_centr))/tot_nconc_cas
+    #tot_nconc_cas = np.sum(datablock[:, 3:3+nbins_cas], axis=1)
+    #meanr_cas = np.dot(datablock[:, 3:3+nbins_cas], \
+    #        np.transpose(centr_cas))/tot_nconc_cas
     #ss_cas = 1./(4.*np.pi*D)*A*w/(tot_nconc_cas*meanr_cas)
 
-    #tot_nconc_cdp = np.sum(datablock[:, 3:3+cdp_nbins], axis=1)
-    #meanr_cdp = np.dot(datablock[:, 3:3+cdp_nbins], \
-    #        np.transpose(cdp_centr))/tot_nconc_cdp
+    #tot_nconc_cdp = np.sum(datablock[:, 3:3+nbins_cdp], axis=1)
+    #meanr_cdp = np.dot(datablock[:, 3:3+nbins_cdp], \
+    #        np.transpose(centr_cdp))/tot_nconc_cdp
     #ss_cdp = 1./(4.*np.pi*D)*A*w/(tot_nconc_cdp*meanr_cdp)
     return (np.array(ss_cas), np.array(ss_cdp))
 
@@ -335,30 +336,6 @@ def get_A_vs_t(datablock):
     one = np.ones(np.shape(T))
     A = g*(L*Ra/(Cp*R)*one/T - one)*1./Ra*one/T
     return A
-
-def get_nconc_vs_t(datablock):
-    """
-    Returns (nconc_cas, nconc_cdp)
-    """
-    nconc_cas = []
-    nconc_cdp = []
-    for row in datablock:
-        nconc_cas.append(np.sum(row[3:3+cas_nbins]))
-        nconc_cdp.append(np.sum(row[3:3+cdp_nbins+cas_nbins]))
-    return (np.array(nconc_cas), np.array(nconc_cdp))
-
-def get_meanr_vs_t(datablock):
-    """
-    Returns (meanr_cas, meanr_cdp)
-    """
-    meanr_cas = []
-    meanr_cdp = []
-    for row in datablock:
-        meanr_cas.append(np.sum(row[3:3+cas_nbins]*cas_centr)\
-                /np.sum(row[3:3+cas_nbins]))
-        meanr_cdp.append(np.sum(row[3+cas_nbins:3+cas_nbins+cdp_nbins]\
-                *cdp_centr)/np.sum(row[3+cas_nbins:3+cas_nbins+cdp_nbins]))
-    return (np.array(meanr_cas), np.array(meanr_cdp))
 
 if __name__ == "__main__":
     main()

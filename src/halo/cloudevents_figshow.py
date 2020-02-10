@@ -14,13 +14,13 @@ matplotlib.rcParams.update({'font.size': 12})
 
 casbinfile = DATA_DIR + 'CAS_bins.npy'
 CAS_bins = np.load(casbinfile, allow_pickle=True).item()
-cas_centr = (CAS_bins['upper'] + CAS_bins['lower'])/2.
+cas_centr = (CAS_bins['upper'] + CAS_bins['lower'])/4. #diam to radius
 cas_dr = CAS_bins['upper'] - CAS_bins['lower']
 cas_nbins = len(cas_centr)
 
 cdpbinfile = DATA_DIR + 'CDP_bins.npy'
 CDP_bins = np.load(cdpbinfile, allow_pickle=True).item()
-cdp_centr = (CDP_bins['upper'] + CDP_bins['lower'])/2.
+cdp_centr = (CDP_bins['upper'] + CDP_bins['lower'])/4. #diam to radius
 cdp_dr = CDP_bins['upper'] - CDP_bins['lower']
 cdp_nbins = len(cdp_centr)
 

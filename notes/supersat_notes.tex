@@ -67,6 +67,9 @@ From our point of view, at current stage, there is no unambiguous indication, wh
 			\item Can replace nconc/meanr vs t panel (lower right on top) with w/A vs t - generally A doesn't vary more than a few percent within a given cloud (order $10^{-2}$). Vertical wind velocity is missing for significant portion of all datasets...possibly concerning? Check with David (also see v5 comparelwc figure set).
 			\item I went through all the cloudevent figures manually looking at nconc PDFs and particle size PDFs. I was looking for whether the curves for CAS and/or CDP were unimodal (i.e. a single global maximum, but allowed to be at the boundary of the domain). I excluded the lowest three bins for CAS and the lowest two bins for CDP (i.e., lower bin cutoff must be greater than 3um diameter (1.5um radius), per advice from Germany PIs). Results below in Table \ref{unimodal}. CAS definitely better by this metric; main problem with CDP seems to be 6th bin (11.8-15.6um radius range), which tends to report low relative to other bins. For cloud events where both instruments give unimodal curves, CAS pretty much always reports lower nconc and meanr (as we expect from LWC values).
 		\end{itemize}
+	\item 2/9/20: cloudevents set v2: corrected diameter to radius, corrected indexing bug for CAS in \texttt{get\_nconc\_vs\_t()}, calculated nconc and meanr with changed CAS correction factor and 3um bin cutoff (and graphed accordingly).\\
+
+Also: created nconc and meanr scatter plot figsrc's to send to PIs in Germany. Excluding 0919 from the agreggated data set since the timeseries LWC plot looks very mismatched (can also see this in the nconc plot for that date). 
 \end{itemize}
 \begin{table}[ht]
 \centering
