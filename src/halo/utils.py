@@ -151,7 +151,7 @@ def linregress(x, y=None):
     """
     TINY = 1.0e-20
     if y is None:  # x is a (2, N) or (N, 2) shaped array_like
-        x = asarray(x)
+        x = np.asarray(x)
         if x.shape[0] == 2:
             x, y = x
         elif x.shape[1] == 2:
@@ -161,8 +161,8 @@ def linregress(x, y=None):
             or (N, 2), provided shape was %s" % str(x.shape)
             raise ValueError(msg)
     else:
-        x = asarray(x)
-        y = asarray(y)
+        x = np.asarray(x)
+        y = np.asarray(y)
     n = len(x)
     xmean = np.mean(x,None)
     ymean = np.mean(y,None)
@@ -188,8 +188,7 @@ def linregress(x, y=None):
     sterrest = np.sqrt((1-r*r)*ssym / ssxm / df)
     return slope, intercept, r, sterrest
 
-def get_datablock(adlrinds, casinds, cdpinds,\
-			 adlrdata, casdata, cdpdata, change_cas_corr):
+def get_datablock(adlrinds, casinds, cdpinds, adlrdata, casdata, cdpdata):
     """
     Consolidate data for easier processing 
     Format of output array (order of columns): time, temperature, vertical \
@@ -223,7 +222,7 @@ def get_nconc_vs_t(datablock, change_cas_corr, cutoff_bins):
         cas_offset = 3
         cdp_offset = 2
     else:
-        cas_offset = 0
+        cas_offset = 0 
         cdp_offset = 0
     nconc_cas = []
     nconc_cdp = []
@@ -247,7 +246,6 @@ def get_meanr_vs_t(datablock, change_cas_corr, cutoff_bins):
         cdp_offset = 0
     meanr_cas = []
     meanr_cdp = []
-#    np.set_printoptions(precision=0, linewidth=120)
     for row in datablock:
         if change_cas_corr:
             meanr_cas.append(np.sum(row[3]*row[(low_bin_cas+cas_offset):high_bin_cas]\

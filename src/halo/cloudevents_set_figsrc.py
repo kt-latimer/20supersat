@@ -22,12 +22,6 @@ cutoff_bins = True
 change_cas_corr = True
 booleankey = str(int(cutoff_bins)) + str(int(change_cas_corr))
 
-#low_bin_cas = 4 
-#high_bin_cas = low_bin_cas + nbins_cas
-#low_bin_cdp = high_bin_cas 
-#high_bin_cdp = low_bin_cdp + nbins_cdp
-#print(low_bin_cas)
-
 #for plotting
 colors = {'ADLR': '#777777', 'CAS': '#95B9E9', 'CDP': '#FC6A0C', 'c1': '#BA3F00', 'c2': '#095793'}
 
@@ -56,9 +50,9 @@ def main():
     """
 
     dates = ['20140909', '20140911', '20141001']
-    offsets = [2, 2, 3]
+    offsets = [2, 2, 2]
 
-    for m, date in enumerate(dates):
+    for m, date in enumerate(dates[2:3]):
         #load data
         adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
         adlrdata = np.load(adlrfile, allow_pickle=True).item()
@@ -112,7 +106,7 @@ def main():
             casinds = [ind + cas_ind_bounds[0] for ind in casinds]
             cdpinds = [ind + cdp_ind_bounds[0] for ind in cdpinds]
             datablock = get_datablock(adlrinds, casinds, cdpinds, \
-                adlrdata, casdata, cdpdata, change_cas_corr)
+                adlrdata, casdata, cdpdata)
             
             #remove rows with error values in any of the three
             goodrows = []
@@ -213,7 +207,7 @@ def main():
             figtitle = 'Date: ' + date + ' | Cloud event: ' + str(j) \
                     + ' | N=' + str(N) + ' | Nerr=' + str(Nerr)
             fig.suptitle(figtitle, fontsize=14)
-            outfile = FIG_DIR + 'v3cloudevents_' + date + '_' + str(int(tmid))
+            outfile = FIG_DIR + 'v4cloudevents_' + date + '_' + str(int(tmid))
             fig.savefig(outfile)
             plt.close()
 
