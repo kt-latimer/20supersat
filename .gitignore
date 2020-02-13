@@ -1,7 +1,17 @@
 data/*
+pres/*
 refs/.cache/*
 *.aux
 *.bbl
 *.blg
 *.gz
 *.log
+.rsync*
+*v2*
+*v3*
+*v4*
+figures/halo/cloudevents_*
+figures/halo/comparelwc_*
+figures/halo/comparelwcbycloud*
+figures/halo/meanr_scatter_*
+figures/halo/nconc_scatter_*
