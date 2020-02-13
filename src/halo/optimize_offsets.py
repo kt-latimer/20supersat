@@ -1,6 +1,6 @@
-
 """
-some module to do things.
+Calculate linear regression parameters for CAS vs CDP in number concentration
+and mean radius measured values. (Just prints everything out)
 """
 
 import numpy as np
@@ -13,9 +13,14 @@ from halo.utils import get_datablock, get_ind_bounds, \
 nconc_filter_val = 10.e6
 meanr_filter_val = 1.e-6
 
+change_cas_corr = True
+cutoff_bins = True
+
 def main():
     """
-    the main routine.
+    For each date with data from all three instruments, fit CAS vs CDP in
+    number concentration and mean radius to a line and for each time offset,
+    print out R_nconc^2, R_meanr^2, m_nconc, m_meanr
     """
     dates = ['20140906', '20140909', '20140911', '20140912', '20140916', \
          '20140919', '20140918', '20140921', '20140927', '20140928', \
@@ -34,6 +39,7 @@ def main():
         r_squared = []            
         
         orig_time = casdata['data']['time']
+        #loop through reasonable time offset range ($\pm$ 9 sec)
         for offset in range(-9, 9):
             casdata['data']['time'] = \
                 np.array([t - offset for t in orig_time])
@@ -52,8 +58,13 @@ def main():
                     goodrows.append(j)
             datablock = datablock[goodrows, :]
 
-            (nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock, True, True)
-            (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock, True, True)
+            #get time-aligned nconc and meanr data 
+            (nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock, change_cas_corr,
+                                                    cutoff_bins)
+            (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock, change_cas_corr,
+                                                    cutoff_bins)
+            #filter out low values (have not done any sensitivity analysis for
+            #these parameters)
             filter_inds = np.logical_and.reduce((
                             (nconc_cas > nconc_filter_val), \
                             (nconc_cdp > nconc_filter_val), \

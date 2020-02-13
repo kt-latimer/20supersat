@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>halo.optimize_offsets &#8212; supersat  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for halo.optimize_offsets</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Calculate linear regression parameters for CAS vs CDP in number concentration</span>
+<span class="sd">and mean radius measured values. (Just prints everything out)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">halo</span> <span class="kn">import</span> <span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">FIG_DIR</span>
+<span class="kn">from</span> <span class="nn">halo.utils</span> <span class="kn">import</span> <span class="n">get_datablock</span><span class="p">,</span> <span class="n">get_ind_bounds</span><span class="p">,</span> \
+                        <span class="n">match_multiple_arrays</span><span class="p">,</span> <span class="n">get_nconc_vs_t</span><span class="p">,</span> \
+                        <span class="n">get_meanr_vs_t</span><span class="p">,</span> <span class="n">linregress</span>
+
+<span class="n">nconc_filter_val</span> <span class="o">=</span> <span class="mf">10.e6</span>
+<span class="n">meanr_filter_val</span> <span class="o">=</span> <span class="mf">1.e-6</span>
+
+<span class="n">change_cas_corr</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">cutoff_bins</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#halo.optimize_offsets.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For each date with data from all three instruments, fit CAS vs CDP in</span>
+<span class="sd">    number concentration and mean radius to a line and for each time offset,</span>
+<span class="sd">    print out R_nconc^2, R_meanr^2, m_nconc, m_meanr</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;20140906&#39;</span><span class="p">,</span> <span class="s1">&#39;20140909&#39;</span><span class="p">,</span> <span class="s1">&#39;20140911&#39;</span><span class="p">,</span> <span class="s1">&#39;20140912&#39;</span><span class="p">,</span> <span class="s1">&#39;20140916&#39;</span><span class="p">,</span> \
+         <span class="s1">&#39;20140919&#39;</span><span class="p">,</span> <span class="s1">&#39;20140918&#39;</span><span class="p">,</span> <span class="s1">&#39;20140921&#39;</span><span class="p">,</span> <span class="s1">&#39;20140927&#39;</span><span class="p">,</span> <span class="s1">&#39;20140928&#39;</span><span class="p">,</span> \
+         <span class="s1">&#39;20140930&#39;</span><span class="p">,</span> <span class="s1">&#39;20141001&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">date</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dates</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+        <span class="c1">#load data</span>
+        <span class="n">adlrfile</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;npy_proc/ADLR_&#39;</span> <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="s1">&#39;.npy&#39;</span>
+        <span class="n">adlrdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">adlrfile</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">casfile</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;npy_proc/CAS_&#39;</span> <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="s1">&#39;.npy&#39;</span>
+        <span class="n">casdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">casfile</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">cdpfile</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;npy_proc/CDP_&#39;</span> <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="s1">&#39;.npy&#39;</span>
+        <span class="n">cdpdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cdpfile</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+        <span class="n">r_squared</span> <span class="o">=</span> <span class="p">[]</span>            
+        
+        <span class="n">orig_time</span> <span class="o">=</span> <span class="n">casdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+        <span class="c1">#loop through reasonable time offset range ($\pm$ 9 sec)</span>
+        <span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+            <span class="n">casdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">t</span> <span class="o">-</span> <span class="n">offset</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">orig_time</span><span class="p">])</span>
+            <span class="c1">#align all datasets along time.set_aspect</span>
+            <span class="p">[</span><span class="n">adlrinds</span><span class="p">,</span> <span class="n">casinds</span><span class="p">,</span> <span class="n">cdpinds</span><span class="p">]</span> <span class="o">=</span> <span class="n">match_multiple_arrays</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">adlrdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]),</span> \
+                <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">casdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]),</span> \
+                <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">cdpdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">])])</span>
+            <span class="n">datablock</span> <span class="o">=</span> <span class="n">get_datablock</span><span class="p">(</span><span class="n">adlrinds</span><span class="p">,</span> <span class="n">casinds</span><span class="p">,</span> <span class="n">cdpinds</span><span class="p">,</span> \
+                                        <span class="n">adlrdata</span><span class="p">,</span> <span class="n">casdata</span><span class="p">,</span> <span class="n">cdpdata</span><span class="p">)</span>
+
+            <span class="c1">#remove rows with error values (except vert wind vel cause it&#39;s shit)</span>
+            <span class="n">goodrows</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datablock</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(((</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">:])))))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">goodrows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+            <span class="n">datablock</span> <span class="o">=</span> <span class="n">datablock</span><span class="p">[</span><span class="n">goodrows</span><span class="p">,</span> <span class="p">:]</span>
+
+            <span class="c1">#get time-aligned nconc and meanr data </span>
+            <span class="p">(</span><span class="n">nconc_cas</span><span class="p">,</span> <span class="n">nconc_cdp</span><span class="p">)</span> <span class="o">=</span> <span class="n">get_nconc_vs_t</span><span class="p">(</span><span class="n">datablock</span><span class="p">,</span> <span class="n">change_cas_corr</span><span class="p">,</span>
+                                                    <span class="n">cutoff_bins</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">meanr_cas</span><span class="p">,</span> <span class="n">meanr_cdp</span><span class="p">)</span> <span class="o">=</span> <span class="n">get_meanr_vs_t</span><span class="p">(</span><span class="n">datablock</span><span class="p">,</span> <span class="n">change_cas_corr</span><span class="p">,</span>
+                                                    <span class="n">cutoff_bins</span><span class="p">)</span>
+            <span class="c1">#filter out low values (have not done any sensitivity analysis for</span>
+            <span class="c1">#these parameters)</span>
+            <span class="n">filter_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="o">.</span><span class="n">reduce</span><span class="p">((</span>
+                            <span class="p">(</span><span class="n">nconc_cas</span> <span class="o">&gt;</span> <span class="n">nconc_filter_val</span><span class="p">),</span> \
+                            <span class="p">(</span><span class="n">nconc_cdp</span> <span class="o">&gt;</span> <span class="n">nconc_filter_val</span><span class="p">),</span> \
+                            <span class="p">(</span><span class="n">meanr_cas</span> <span class="o">&gt;</span> <span class="n">meanr_filter_val</span><span class="p">),</span> \
+                            <span class="p">(</span><span class="n">meanr_cdp</span> <span class="o">&gt;</span> <span class="n">meanr_filter_val</span><span class="p">)))</span>
+
+            <span class="c1">#apply num conc and mean radius filters and change to units of ccm</span>
+            <span class="n">meanr_cas</span> <span class="o">=</span> <span class="n">meanr_cas</span><span class="p">[</span><span class="n">filter_inds</span><span class="p">]</span><span class="o">*</span><span class="mf">1.e6</span>
+            <span class="n">meanr_cdp</span> <span class="o">=</span> <span class="n">meanr_cdp</span><span class="p">[</span><span class="n">filter_inds</span><span class="p">]</span><span class="o">*</span><span class="mf">1.e6</span>
+
+            <span class="c1">#get linear regression params</span>
+            <span class="n">m_nconc</span><span class="p">,</span> <span class="n">b_nconc</span><span class="p">,</span> <span class="n">R_nconc</span><span class="p">,</span> <span class="n">sig_nconc</span> <span class="o">=</span> <span class="n">linregress</span><span class="p">(</span><span class="n">nconc_cas</span><span class="p">,</span> <span class="n">nconc_cdp</span><span class="p">)</span>
+            <span class="n">m_meanr</span><span class="p">,</span> <span class="n">b_meanr</span><span class="p">,</span> <span class="n">R_meanr</span><span class="p">,</span> <span class="n">sig_meanr</span> <span class="o">=</span> <span class="n">linregress</span><span class="p">(</span><span class="n">meanr_cas</span><span class="p">,</span>
+            <span class="n">meanr_cdp</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">R_nconc</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">R_meanr</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">m_nconc</span><span class="p">,</span> <span class="n">m_meanr</span><span class="p">)</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, K. Latimer.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -118,11 +118,12 @@
     <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
     
     <span class="n">booleankey</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">cutoff_bins</span><span class="p">))</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">change_cas_corr</span><span class="p">))</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ADLR&#39;</span><span class="p">:</span> <span class="s1">&#39;#777777&#39;</span><span class="p">,</span> <span class="s1">&#39;CAS&#39;</span><span class="p">:</span> <span class="s1">&#39;#95B9E9&#39;</span><span class="p">,</span> <span class="s1">&#39;CDP&#39;</span><span class="p">:</span> <span class="s1">&#39;#FC6A0C&#39;</span><span class="p">}</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ADLR&#39;</span><span class="p">:</span> <span class="s1">&#39;#777777&#39;</span><span class="p">,</span> <span class="s1">&#39;CAS&#39;</span><span class="p">:</span> <span class="s1">&#39;#95B9E9&#39;</span><span class="p">,</span> <span class="s1">&#39;CDP&#39;</span><span class="p">:</span> <span class="s1">&#39;#FC6A0C&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="s1">&#39;#BA3F00&#39;</span><span class="p">}</span>
     
     <span class="c1">#plot ADLR</span>
     <span class="n">t_adlr</span> <span class="o">=</span> <span class="n">adlrdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
     <span class="n">lwc_adlr</span> <span class="o">=</span> <span class="n">adlrdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;lwc&#39;</span><span class="p">]</span>
+    <span class="n">w_adlr</span> <span class="o">=</span> <span class="n">adlrdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;vert_wind_vel&#39;</span><span class="p">]</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_adlr</span><span class="p">,</span> <span class="n">lwc_adlr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ADLR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="s1">&#39;ADLR&#39;</span><span class="p">])</span>
     
     <span class="c1">#get lwc for and plot CAS and/or CDP if available</span>
@@ -139,15 +140,22 @@
     
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;LWC (g/g)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">)</span>
+    <span class="c1">#ax.set_ylim(0, 0.0001)</span>
 
+    <span class="c1">#look at vertical wind velocity data as well</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_adlr</span><span class="p">,</span> <span class="n">w_adlr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vertical wind velocity&#39;</span><span class="p">,</span> \
+        <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;w (m/s)&#39;</span><span class="p">)</span>
+    
     <span class="n">lines</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">lines2</span><span class="p">,</span> <span class="n">labels2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">lines</span> <span class="o">+</span> <span class="n">lines2</span><span class="p">,</span> <span class="n">labels</span> <span class="o">+</span> <span class="n">labels2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Date: &#39;</span> <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="s1">&#39; | Cutoff at 3um diam: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cutoff_bins</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39; | Same CAS/CDP corr factors: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">change_cas_corr</span><span class="p">))</span> 
 
-    <span class="n">outfile</span> <span class="o">=</span> <span class="n">FIG_DIR</span> <span class="o">+</span> <span class="s1">&#39;v4comparelwc_&#39;</span> <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cutoff_bins</span><span class="p">)</span> <span class="o">+</span> \
+    <span class="n">outfile</span> <span class="o">=</span> <span class="n">FIG_DIR</span> <span class="o">+</span> <span class="s1">&#39;v5comparelwc_&#39;</span> <span class="o">+</span> <span class="n">date</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cutoff_bins</span><span class="p">)</span> <span class="o">+</span> \
             <span class="nb">str</span><span class="p">(</span><span class="n">change_cas_corr</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>

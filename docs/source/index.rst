@@ -40,11 +40,6 @@ checkbins_figsrc
 .. automodule:: halo.checkbins_figsrc
     :members:
 
-comparelwcbycloud_set_figsrc
-******************************
-.. automodule:: halo.comparelwcbycloud_set_figsrc
-    :members:
-
 comparelwc_set_figsrc
 ******************************
 .. automodule:: halo.comparelwc_set_figsrc
@@ -58,6 +53,21 @@ halo_data_cleanup
 halo_data_polish
 *****************
 .. automodule:: halo.halo_data_polish
+    :members:
+
+meanr_scatter_set_figsrc
+*************************
+.. automodule:: halo.meanr_scatter_set_figsrc
+    :members:
+
+nconc_scatter_set_figsrc
+*************************
+.. automodule:: halo.nconc_scatter_set_figsrc
+    :members:
+
+optimize_offsets
+*****************
+.. automodule:: halo.optimize_offsets
     :members:
 
 search_NIXECAPS

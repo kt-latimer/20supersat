@@ -1,5 +1,6 @@
-"""
-Create and save figure compare_comparisons.
+""" 
+Scrap code for trying to figure out discrepancies between current code and
+previous Matlab code.
 """
 
 import matplotlib

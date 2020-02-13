@@ -32,43 +32,75 @@
             
   <h1>Source code for halo.utils</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This is a module.</span>
+<span class="sd">various utility methods for halo package.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">halo</span> <span class="kn">import</span> <span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">FIG_DIR</span>
 
-<div class="viewcode-block" id="match_time_inds"><a class="viewcode-back" href="../../index.html#halo.utils.match_time_inds">[docs]</a><span class="k">def</span> <span class="nf">match_time_inds</span><span class="p">(</span><span class="n">t_arr1</span><span class="p">,</span> <span class="n">t_arr2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    synchronize two arrays of time values. currently just rounds.</span>
+<span class="c1">#bin size data and settings depending on cutoff_bins param</span>
+<span class="c1">#(indices are for columns of datablock variable)</span>
+<span class="n">casbinfile</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;CAS_bins.npy&#39;</span>
+<span class="n">CAS_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">casbinfile</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">centr_cas</span> <span class="o">=</span> <span class="p">(</span><span class="n">CAS_bins</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">CAS_bins</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">])</span><span class="o">/</span><span class="mf">4.</span> <span class="c1">#diam to radius</span>
+<span class="n">dr_cas</span> <span class="o">=</span> <span class="n">CAS_bins</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">CAS_bins</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span>
+<span class="n">nbins_cas</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">centr_cas</span><span class="p">)</span>
 
-<span class="sd">    Returns: (time_inds1, time_inds2)</span>
-<span class="sd">    </span>
-<span class="sd">    e.g. call data1[time_inds1] and data2[time_inds2] to get \</span>
-<span class="sd">    synchronized sets from data1 and data2.</span>
+<span class="n">cdpbinfile</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;CDP_bins.npy&#39;</span>
+<span class="n">CDP_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cdpbinfile</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">centr_cdp</span> <span class="o">=</span> <span class="p">(</span><span class="n">CDP_bins</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">CDP_bins</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">])</span><span class="o">/</span><span class="mf">4.</span> <span class="c1">#diam to radius</span>
+<span class="n">dr_cdp</span> <span class="o">=</span> <span class="n">CDP_bins</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">CDP_bins</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span>
+<span class="n">nbins_cdp</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">centr_cdp</span><span class="p">)</span>
+
+<span class="n">low_bin_cas</span> <span class="o">=</span> <span class="mi">4</span> 
+<span class="n">high_bin_cas</span> <span class="o">=</span> <span class="n">low_bin_cas</span> <span class="o">+</span> <span class="n">nbins_cas</span>
+<span class="n">low_bin_cdp</span> <span class="o">=</span> <span class="n">high_bin_cas</span> 
+<span class="n">high_bin_cdp</span> <span class="o">=</span> <span class="n">low_bin_cdp</span> <span class="o">+</span> <span class="n">nbins_cdp</span>
+
+<div class="viewcode-block" id="get_ind_bounds"><a class="viewcode-back" href="../../index.html#halo.utils.get_ind_bounds">[docs]</a><span class="k">def</span> <span class="nf">get_ind_bounds</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">,</span> <span class="n">startind</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return: (imin, imax) where arr[imin] &gt;= minval and arr[imax] &lt;= maxval.</span>
+<span class="sd">    Assumes arr is sorted smallest to largest (ie time series)</span>
+<span class="sd">    Starts sorting at startind in arr, if specified</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_arr1</span><span class="p">)</span>
-    <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_arr2</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
-        <span class="n">t_short</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">t_arr1</span><span class="p">)</span>
-        <span class="n">t_long</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">t_arr2</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">t_short</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">t_arr2</span><span class="p">)</span>
-        <span class="n">t_long</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">t_arr1</span><span class="p">)</span>
-    <span class="n">inds_short</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">inds_long</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">long_search_start_ind</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i1</span><span class="p">,</span> <span class="n">t1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_short</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i2</span><span class="p">,</span> <span class="n">t2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_long</span><span class="p">[</span><span class="n">long_search_start_ind</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
-            <span class="k">if</span> <span class="n">t1</span> <span class="o">==</span> <span class="n">t2</span><span class="p">:</span>
-                <span class="n">inds_short</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i1</span><span class="p">)</span>
-                <span class="n">inds_long</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i2</span><span class="p">)</span>
-                <span class="n">long_search_start_ind</span> <span class="o">=</span> <span class="n">i2</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">startind</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">minval</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">imin</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">maxval</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">imax</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">imin</span><span class="p">,</span> <span class="n">imax</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="match_two_arrays"><a class="viewcode-back" href="../../index.html#halo.utils.match_two_arrays">[docs]</a><span class="k">def</span> <span class="nf">match_two_arrays</span><span class="p">(</span><span class="n">arr1</span><span class="p">,</span> <span class="n">arr2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return: (inds1, inds2) where arr1[inds1] = arr2[inds2].</span>
+<span class="sd">    Assumes arr1 and arr2 are both sorted in the same order (ie time series)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inds1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">inds2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">startind2</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i1</span><span class="p">,</span> <span class="n">x1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arr1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i2</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arr2</span><span class="p">[</span><span class="n">startind2</span><span class="p">:]):</span>
+            <span class="k">if</span> <span class="n">x1</span> <span class="o">==</span> <span class="n">x2</span><span class="p">:</span>
+                <span class="n">inds1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i1</span><span class="p">)</span>
+                <span class="n">inds2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i2</span><span class="o">+</span><span class="n">startind2</span><span class="p">)</span>
+                <span class="n">startind2</span> <span class="o">=</span> <span class="n">i2</span> <span class="o">+</span> <span class="n">startind2</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="k">break</span>
-    <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">inds_short</span><span class="p">,</span> <span class="n">inds_long</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span><span class="p">(</span><span class="n">inds_long</span><span class="p">,</span> <span class="n">inds_short</span><span class="p">)</span></div>
+    <span class="k">return</span><span class="p">(</span><span class="n">inds1</span><span class="p">,</span> <span class="n">inds2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="match_multiple_arrays"><a class="viewcode-back" href="../../index.html#halo.utils.match_multiple_arrays">[docs]</a><span class="k">def</span> <span class="nf">match_multiple_arrays</span><span class="p">(</span><span class="n">arrays</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return: [inds1, ... , indsN] where arr1[inds1] = ... = arrN[indsN].</span>
+<span class="sd">    Assumes all arrays are sorted in the same order (ie time series)</span>
+<span class="sd">    probably a better way to do this recursively but I never learned that shit xd</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inds</span> <span class="o">=</span> <span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]))]]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arrays</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="p">(</span><span class="n">inds1</span><span class="p">,</span> <span class="n">inds2</span><span class="p">)</span> <span class="o">=</span> <span class="n">match_two_arrays</span><span class="p">([</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">inds</span> <span class="o">=</span> <span class="p">[[</span><span class="n">indsj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds1</span><span class="p">]</span> <span class="k">for</span> <span class="n">indsj</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]</span>
+        <span class="n">inds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inds2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inds</span></div>
 
 <div class="viewcode-block" id="calc_lwc"><a class="viewcode-back" href="../../index.html#halo.utils.calc_lwc">[docs]</a><span class="k">def</span> <span class="nf">calc_lwc</span><span class="p">(</span><span class="n">setname</span><span class="p">,</span> <span class="n">setdata</span><span class="p">,</span> <span class="n">envdata</span><span class="p">,</span> <span class="n">cutoff_bins</span><span class="p">,</span> <span class="n">change_cas_corr</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -121,9 +153,145 @@
     <span class="n">rho_wat</span> <span class="o">=</span> <span class="n">rho_lw</span><span class="o">*</span><span class="mf">4.</span><span class="o">/</span><span class="mf">3.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">sum_nconc_radcubed</span>
 
     <span class="c1">#match time values so we can combine set data with environmental data</span>
-    <span class="p">(</span><span class="n">set_t_inds</span><span class="p">,</span> <span class="n">env_t_inds</span><span class="p">)</span> <span class="o">=</span> <span class="n">match_time_inds</span><span class="p">(</span><span class="n">setdata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">envdata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
-
+    <span class="c1">#(currently just rounding)</span>
+    <span class="p">(</span><span class="n">set_t_inds</span><span class="p">,</span> <span class="n">env_t_inds</span><span class="p">)</span> <span class="o">=</span> <span class="n">match_two_arrays</span><span class="p">(</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">setdata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">envdata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">set_t_inds</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">env_t_inds</span><span class="p">))</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">rho_wat</span><span class="p">[</span><span class="n">set_t_inds</span><span class="p">]</span><span class="o">/</span><span class="n">rho_air</span><span class="p">[</span><span class="n">env_t_inds</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">set_t_inds</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="linregress"><a class="viewcode-back" href="../../index.html#halo.utils.linregress">[docs]</a><span class="k">def</span> <span class="nf">linregress</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ~~copy pasta from scipy so I don&#39;t have to import the whole damn module~~</span>
+<span class="sd">    Calculate a regression line</span>
+<span class="sd">    This computes a least-squares regression for two sets of measurements.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x, y : array_like</span>
+<span class="sd">        two sets of measurements.  Both arrays should have the same length.</span>
+<span class="sd">        If only x is given (and y=None), then it must be a two-dimensional</span>
+<span class="sd">        array where one dimension has length 2.  The two sets of measurements</span>
+<span class="sd">        are then found by splitting the array along the length-2 dimension.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    slope : float</span>
+<span class="sd">        slope of the regression line</span>
+<span class="sd">    intercept : float</span>
+<span class="sd">        intercept of the regression line</span>
+<span class="sd">    r-value : float</span>
+<span class="sd">        correlation coefficient</span>
+<span class="sd">    stderr : float</span>
+<span class="sd">        Standard error of the estimate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">TINY</span> <span class="o">=</span> <span class="mf">1.0e-20</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># x is a (2, N) or (N, 2) shaped array_like</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;If only `x` is given as input, it has to be of shape (2, N) </span><span class="se">\</span>
+<span class="s2">            or (N, 2), provided shape was </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">xmean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">ymean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1"># average sum of squares:</span>
+    <span class="n">ssxm</span><span class="p">,</span> <span class="n">ssxym</span><span class="p">,</span> <span class="n">ssyxm</span><span class="p">,</span> <span class="n">ssym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span>
+    <span class="n">r_num</span> <span class="o">=</span> <span class="n">ssxym</span>
+    <span class="n">r_den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ssxm</span><span class="o">*</span><span class="n">ssym</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">r_den</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">r_num</span> <span class="o">/</span> <span class="n">r_den</span>
+        <span class="c1"># test for numerical error propagation</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">):</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">r</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">):</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">2</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">df</span><span class="o">/</span><span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">r</span><span class="o">+</span><span class="n">TINY</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">r</span><span class="o">+</span><span class="n">TINY</span><span class="p">)))</span>
+    <span class="n">slope</span> <span class="o">=</span> <span class="n">r_num</span> <span class="o">/</span> <span class="n">ssxm</span>
+    <span class="n">intercept</span> <span class="o">=</span> <span class="n">ymean</span> <span class="o">-</span> <span class="n">slope</span><span class="o">*</span><span class="n">xmean</span>
+    <span class="n">sterrest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="n">ssym</span> <span class="o">/</span> <span class="n">ssxm</span> <span class="o">/</span> <span class="n">df</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sterrest</span></div>
+
+<div class="viewcode-block" id="get_datablock"><a class="viewcode-back" href="../../index.html#halo.utils.get_datablock">[docs]</a><span class="k">def</span> <span class="nf">get_datablock</span><span class="p">(</span><span class="n">adlrinds</span><span class="p">,</span> <span class="n">casinds</span><span class="p">,</span> <span class="n">cdpinds</span><span class="p">,</span> <span class="n">adlrdata</span><span class="p">,</span> <span class="n">casdata</span><span class="p">,</span> <span class="n">cdpdata</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Consolidate data for easier processing </span>
+<span class="sd">    Format of output array (order of columns): time, temperature, vertical \</span>
+<span class="sd">    velocity, cas correction factor,  number conc for cas bins (12 cols),\</span>
+<span class="sd">     number conc for cdp bins (15 cols).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># extra four columns: time, temperature, </span>
+    <span class="c1"># vertical wind velocity, cas corr factor</span>
+    <span class="n">datablock</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">adlrinds</span><span class="p">),</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">nbins_cas</span> <span class="o">+</span> <span class="n">nbins_cdp</span><span class="p">])</span>
+    <span class="n">datablock</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="n">adlrdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="n">adlrinds</span><span class="p">])</span>
+    <span class="n">datablock</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">adlrdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;stat_temp&#39;</span><span class="p">][</span><span class="n">adlrinds</span><span class="p">]</span>
+    <span class="n">datablock</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">adlrdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;vert_wind_vel&#39;</span><span class="p">][</span><span class="n">adlrinds</span><span class="p">]</span>
+    <span class="n">datablock</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">casdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;TAS&#39;</span><span class="p">][</span><span class="n">casinds</span><span class="p">]</span>\
+			<span class="o">/</span><span class="n">casdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;PAS&#39;</span><span class="p">][</span><span class="n">casinds</span><span class="p">]</span>\
+			<span class="o">*</span><span class="n">casdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;xi&#39;</span><span class="p">][</span><span class="n">casinds</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbins_cas</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;nconc_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">datablock</span><span class="p">[:,</span> <span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">casdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="n">casinds</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbins_cdp</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;nconc_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">datablock</span><span class="p">[:,</span> <span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="o">+</span><span class="n">nbins_cas</span><span class="p">]</span> <span class="o">=</span> <span class="n">cdpdata</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="n">cdpinds</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">datablock</span></div>
+
+<div class="viewcode-block" id="get_nconc_vs_t"><a class="viewcode-back" href="../../index.html#halo.utils.get_nconc_vs_t">[docs]</a><span class="k">def</span> <span class="nf">get_nconc_vs_t</span><span class="p">(</span><span class="n">datablock</span><span class="p">,</span> <span class="n">change_cas_corr</span><span class="p">,</span> <span class="n">cutoff_bins</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns (nconc_cas, nconc_cdp)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">cutoff_bins</span><span class="p">:</span>
+        <span class="n">cas_offset</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">cdp_offset</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cas_offset</span> <span class="o">=</span> <span class="mi">0</span> 
+        <span class="n">cdp_offset</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">nconc_cas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nconc_cdp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datablock</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">change_cas_corr</span><span class="p">:</span>
+            <span class="n">nconc_cas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cas</span><span class="o">+</span><span class="n">cas_offset</span><span class="p">):</span><span class="n">high_bin_cas</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nconc_cas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cas</span><span class="o">+</span><span class="n">cas_offset</span><span class="p">):</span><span class="n">high_bin_cas</span><span class="p">]))</span>
+        <span class="n">nconc_cdp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cdp</span><span class="o">+</span><span class="n">cdp_offset</span><span class="p">):</span><span class="n">high_bin_cdp</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nconc_cas</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nconc_cdp</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="get_meanr_vs_t"><a class="viewcode-back" href="../../index.html#halo.utils.get_meanr_vs_t">[docs]</a><span class="k">def</span> <span class="nf">get_meanr_vs_t</span><span class="p">(</span><span class="n">datablock</span><span class="p">,</span> <span class="n">change_cas_corr</span><span class="p">,</span> <span class="n">cutoff_bins</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns (meanr_cas, meanr_cdp)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">cutoff_bins</span><span class="p">:</span>
+        <span class="n">cas_offset</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">cdp_offset</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cas_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">cdp_offset</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">meanr_cas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">meanr_cdp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">datablock</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">change_cas_corr</span><span class="p">:</span>
+            <span class="n">meanr_cas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cas</span><span class="o">+</span><span class="n">cas_offset</span><span class="p">):</span><span class="n">high_bin_cas</span><span class="p">]</span>\
+                <span class="o">*</span><span class="n">centr_cas</span><span class="p">[</span><span class="n">nbins_cas</span><span class="o">-</span><span class="p">(</span><span class="n">high_bin_cas</span><span class="o">-</span><span class="p">(</span><span class="n">low_bin_cas</span><span class="o">+</span><span class="n">cas_offset</span><span class="p">)):</span><span class="n">nbins_cas</span><span class="p">])</span>\
+                <span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cas</span><span class="o">+</span><span class="n">cas_offset</span><span class="p">):</span><span class="n">high_bin_cas</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">meanr_cas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cas</span><span class="o">+</span><span class="n">cas_offset</span><span class="p">):</span><span class="n">high_bin_cas</span><span class="p">]</span>\
+                <span class="o">*</span><span class="n">centr_cas</span><span class="p">[</span><span class="n">nbins_cas</span><span class="o">-</span><span class="p">(</span><span class="n">high_bin_cas</span><span class="o">-</span><span class="p">(</span><span class="n">low_bin_cas</span><span class="o">+</span><span class="n">cas_offset</span><span class="p">)):</span><span class="n">nbins_cas</span><span class="p">])</span>\
+                <span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cas</span><span class="o">+</span><span class="n">cas_offset</span><span class="p">):</span><span class="n">high_bin_cas</span><span class="p">]))</span>
+        <span class="n">meanr_cdp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cdp</span><span class="o">+</span><span class="n">cdp_offset</span><span class="p">):</span><span class="n">high_bin_cdp</span><span class="p">]</span>\
+            <span class="o">*</span><span class="n">centr_cdp</span><span class="p">[</span><span class="n">nbins_cdp</span><span class="o">-</span><span class="p">(</span><span class="n">high_bin_cdp</span><span class="o">-</span><span class="p">(</span><span class="n">low_bin_cdp</span><span class="o">+</span><span class="n">cdp_offset</span><span class="p">)):</span><span class="n">nbins_cdp</span><span class="p">])</span>\
+            <span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">row</span><span class="p">[(</span><span class="n">low_bin_cdp</span><span class="o">+</span><span class="n">cdp_offset</span><span class="p">):</span><span class="n">high_bin_cdp</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">meanr_cas</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">meanr_cdp</span><span class="p">))</span></div>
 </pre></div>
 
           </div>

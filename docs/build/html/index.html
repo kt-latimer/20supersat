@@ -93,16 +93,6 @@
 <span id="checkbins-figsrc"></span><h3>checkbins_figsrc<a class="headerlink" href="#module-halo.checkbins_figsrc" title="Permalink to this headline">¶</a></h3>
 <p>check bin size ranges.</p>
 </div>
-<div class="section" id="module-halo.comparelwcbycloud_set_figsrc">
-<span id="comparelwcbycloud-set-figsrc"></span><h3>comparelwcbycloud_set_figsrc<a class="headerlink" href="#module-halo.comparelwcbycloud_set_figsrc" title="Permalink to this headline">¶</a></h3>
-<p>Create and save figure set comparelwcbycloud.</p>
-<dl class="function">
-<dt id="halo.comparelwcbycloud_set_figsrc.main">
-<code class="sig-prename descclassname">halo.comparelwcbycloud_set_figsrc.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/comparelwcbycloud_set_figsrc.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.comparelwcbycloud_set_figsrc.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>for a single date (specified manually for now), identify cloud instances     using LWC cutoff of 10^-5 for both CAS and CDP, compare cloud drop     size distributions for each cloud instance and save indiv. figs.</p>
-</dd></dl>
-
-</div>
 <div class="section" id="module-halo.comparelwc_set_figsrc">
 <span id="comparelwc-set-figsrc"></span><h3>comparelwc_set_figsrc<a class="headerlink" href="#module-halo.comparelwc_set_figsrc" title="Permalink to this headline">¶</a></h3>
 <p>Generates set of plots of LWC vs time from ADLR, CAS, and CDP instruments for all flight dates. Also look at effect of 3um diam bin cutoff and adjusting CAS particle correction factor after Weigel 2016.</p>
@@ -146,6 +136,81 @@ Output format: .npy file containing one dictionary formatted as:         {“dat
 </dd></dl>
 
 </div>
+<div class="section" id="module-halo.meanr_scatter_set_figsrc">
+<span id="meanr-scatter-set-figsrc"></span><h3>meanr_scatter_set_figsrc<a class="headerlink" href="#module-halo.meanr_scatter_set_figsrc" title="Permalink to this headline">¶</a></h3>
+<p>Create and save figure meanr_scatter_set. This is a significant refactoring
+relative to the previous version of the code, now that I have a better idea
+what is going on with the data. In particular, condense plotting into a single
+generic routine to elminate redundancy.</p>
+<p>warning: notation with line breaks is inconsistent.</p>
+<dl class="function">
+<dt id="halo.meanr_scatter_set_figsrc.filter_and_rescale">
+<code class="sig-prename descclassname">halo.meanr_scatter_set_figsrc.</code><code class="sig-name descname">filter_and_rescale</code><span class="sig-paren">(</span><em class="sig-param">datablock</em>, <em class="sig-param">change_cas_corr</em>, <em class="sig-param">cutoff_bins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/meanr_scatter_set_figsrc.html#filter_and_rescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.meanr_scatter_set_figsrc.filter_and_rescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter out low meanr and/or meanr values; returns (meanr_cas, meanr_cdp)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.meanr_scatter_set_figsrc.main">
+<code class="sig-prename descclassname">halo.meanr_scatter_set_figsrc.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/meanr_scatter_set_figsrc.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.meanr_scatter_set_figsrc.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each date, and also for aggregated data from all dates, make four
+scatter plots of cloud droplet mean readius values measured by CAS vs CDP:
+control vs with time offset; control vs correct CAS with xi factor; control
+vs cutoff bins with particle diameters below 3um; control vs all three of
+those correction schemes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.meanr_scatter_set_figsrc.make_comparison_scatter">
+<code class="sig-prename descclassname">halo.meanr_scatter_set_figsrc.</code><code class="sig-name descname">make_comparison_scatter</code><span class="sig-paren">(</span><em class="sig-param">datablock_control</em>, <em class="sig-param">datablock_modified</em>, <em class="sig-param">change_cas_corr</em>, <em class="sig-param">cutoff_bins</em>, <em class="sig-param">mod_label</em>, <em class="sig-param">suffix</em>, <em class="sig-param">date</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/meanr_scatter_set_figsrc.html#make_comparison_scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.meanr_scatter_set_figsrc.make_comparison_scatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a scatter plot of CAS vs CDP meanr with two data sets, one the
+original “control” and the other corrected.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-halo.nconc_scatter_set_figsrc">
+<span id="nconc-scatter-set-figsrc"></span><h3>nconc_scatter_set_figsrc<a class="headerlink" href="#module-halo.nconc_scatter_set_figsrc" title="Permalink to this headline">¶</a></h3>
+<p>Create and save figure nconc_scatter_set. This is a significant refactoring
+relative to the previous version of the code, now that I have a better idea
+what is going on with the data. In particular, condense plotting into a single
+generic routine to elminate redundancy.</p>
+<p>warning: notation with line breaks is inconsistent.</p>
+<dl class="function">
+<dt id="halo.nconc_scatter_set_figsrc.filter_and_rescale">
+<code class="sig-prename descclassname">halo.nconc_scatter_set_figsrc.</code><code class="sig-name descname">filter_and_rescale</code><span class="sig-paren">(</span><em class="sig-param">datablock</em>, <em class="sig-param">change_cas_corr</em>, <em class="sig-param">cutoff_bins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/nconc_scatter_set_figsrc.html#filter_and_rescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.nconc_scatter_set_figsrc.filter_and_rescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter out low nconc and/or meanr values; returns (nconc_cas, nconc_cdp)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.nconc_scatter_set_figsrc.main">
+<code class="sig-prename descclassname">halo.nconc_scatter_set_figsrc.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/nconc_scatter_set_figsrc.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.nconc_scatter_set_figsrc.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each date, and also for aggregated data from all dates, make four
+scatter plots of cloud droplet number concentration measured by CAS vs CDP:
+control vs with time offset; control vs correct CAS with xi factor; control
+vs cutoff bins with particle diameters below 3um; control vs all three of
+those correction schemes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.nconc_scatter_set_figsrc.make_comparison_scatter">
+<code class="sig-prename descclassname">halo.nconc_scatter_set_figsrc.</code><code class="sig-name descname">make_comparison_scatter</code><span class="sig-paren">(</span><em class="sig-param">datablock_control</em>, <em class="sig-param">datablock_modified</em>, <em class="sig-param">change_cas_corr</em>, <em class="sig-param">cutoff_bins</em>, <em class="sig-param">mod_label</em>, <em class="sig-param">suffix</em>, <em class="sig-param">date</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/nconc_scatter_set_figsrc.html#make_comparison_scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.nconc_scatter_set_figsrc.make_comparison_scatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a scatter plot of CAS vs CDP nconc with two data sets, one the
+original “control” and the other corrected.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-halo.optimize_offsets">
+<span id="optimize-offsets"></span><h3>optimize_offsets<a class="headerlink" href="#module-halo.optimize_offsets" title="Permalink to this headline">¶</a></h3>
+<p>Calculate linear regression parameters for CAS vs CDP in number concentration
+and mean radius measured values. (Just prints everything out)</p>
+<dl class="function">
+<dt id="halo.optimize_offsets.main">
+<code class="sig-prename descclassname">halo.optimize_offsets.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/optimize_offsets.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.optimize_offsets.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each date with data from all three instruments, fit CAS vs CDP in
+number concentration and mean radius to a line and for each time offset,
+print out R_nconc^2, R_meanr^2, m_nconc, m_meanr</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-halo.search_NIXECAPS">
 <span id="search-nixecaps"></span><h3>search_NIXECAPS<a class="headerlink" href="#module-halo.search_NIXECAPS" title="Permalink to this headline">¶</a></h3>
 <p>Does NIXE-CAPS actually contain useful data?!?</p>
@@ -158,7 +223,7 @@ Output format: .npy file containing one dictionary formatted as:         {“dat
 </div>
 <div class="section" id="module-halo.utils">
 <span id="utils"></span><h3>utils<a class="headerlink" href="#module-halo.utils" title="Permalink to this headline">¶</a></h3>
-<p>This is a module.</p>
+<p>various utility methods for halo package.</p>
 <dl class="function">
 <dt id="halo.utils.calc_lwc">
 <code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">calc_lwc</code><span class="sig-paren">(</span><em class="sig-param">setname</em>, <em class="sig-param">setdata</em>, <em class="sig-param">envdata</em>, <em class="sig-param">cutoff_bins</em>, <em class="sig-param">change_cas_corr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#calc_lwc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.calc_lwc" title="Permalink to this definition">¶</a></dt>
@@ -170,11 +235,72 @@ Output format: .npy file containing one dictionary formatted as:         {“dat
 </dd></dl>
 
 <dl class="function">
-<dt id="halo.utils.match_time_inds">
-<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">match_time_inds</code><span class="sig-paren">(</span><em class="sig-param">t_arr1</em>, <em class="sig-param">t_arr2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#match_time_inds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.match_time_inds" title="Permalink to this definition">¶</a></dt>
-<dd><p>synchronize two arrays of time values. currently just rounds.</p>
-<p>Returns: (time_inds1, time_inds2)</p>
-<p>e.g. call data1[time_inds1] and data2[time_inds2] to get     synchronized sets from data1 and data2.</p>
+<dt id="halo.utils.get_datablock">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">get_datablock</code><span class="sig-paren">(</span><em class="sig-param">adlrinds</em>, <em class="sig-param">casinds</em>, <em class="sig-param">cdpinds</em>, <em class="sig-param">adlrdata</em>, <em class="sig-param">casdata</em>, <em class="sig-param">cdpdata</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#get_datablock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.get_datablock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Consolidate data for easier processing 
+Format of output array (order of columns): time, temperature, vertical     velocity, cas correction factor,  number conc for cas bins (12 cols),     number conc for cdp bins (15 cols).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.utils.get_ind_bounds">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">get_ind_bounds</code><span class="sig-paren">(</span><em class="sig-param">arr</em>, <em class="sig-param">minval</em>, <em class="sig-param">maxval</em>, <em class="sig-param">startind=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#get_ind_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.get_ind_bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return: (imin, imax) where arr[imin] &gt;= minval and arr[imax] &lt;= maxval.
+Assumes arr is sorted smallest to largest (ie time series)
+Starts sorting at startind in arr, if specified</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.utils.get_meanr_vs_t">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">get_meanr_vs_t</code><span class="sig-paren">(</span><em class="sig-param">datablock</em>, <em class="sig-param">change_cas_corr</em>, <em class="sig-param">cutoff_bins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#get_meanr_vs_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.get_meanr_vs_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (meanr_cas, meanr_cdp)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.utils.get_nconc_vs_t">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">get_nconc_vs_t</code><span class="sig-paren">(</span><em class="sig-param">datablock</em>, <em class="sig-param">change_cas_corr</em>, <em class="sig-param">cutoff_bins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#get_nconc_vs_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.get_nconc_vs_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (nconc_cas, nconc_cdp)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.utils.linregress">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">linregress</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#linregress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.linregress" title="Permalink to this definition">¶</a></dt>
+<dd><p>~~copy pasta from scipy so I don’t have to import the whole damn module~~
+Calculate a regression line
+This computes a least-squares regression for two sets of measurements.
+Parameters
+———-
+x, y : array_like</p>
+<blockquote>
+<div><p>two sets of measurements.  Both arrays should have the same length.
+If only x is given (and y=None), then it must be a two-dimensional
+array where one dimension has length 2.  The two sets of measurements
+are then found by splitting the array along the length-2 dimension.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>slope<span class="classifier">float</span></dt><dd><p>slope of the regression line</p>
+</dd>
+<dt>intercept<span class="classifier">float</span></dt><dd><p>intercept of the regression line</p>
+</dd>
+<dt>r-value<span class="classifier">float</span></dt><dd><p>correlation coefficient</p>
+</dd>
+<dt>stderr<span class="classifier">float</span></dt><dd><p>Standard error of the estimate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.utils.match_multiple_arrays">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">match_multiple_arrays</code><span class="sig-paren">(</span><em class="sig-param">arrays</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#match_multiple_arrays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.match_multiple_arrays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return: [inds1, … , indsN] where arr1[inds1] = … = arrN[indsN].
+Assumes all arrays are sorted in the same order (ie time series)
+probably a better way to do this recursively but I never learned that shit xd</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="halo.utils.match_two_arrays">
+<code class="sig-prename descclassname">halo.utils.</code><code class="sig-name descname">match_two_arrays</code><span class="sig-paren">(</span><em class="sig-param">arr1</em>, <em class="sig-param">arr2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/halo/utils.html#match_two_arrays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#halo.utils.match_two_arrays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return: (inds1, inds2) where arr1[inds1] = arr2[inds2].
+Assumes arr1 and arr2 are both sorted in the same order (ie time series)</p>
 </dd></dl>
 
 </div>

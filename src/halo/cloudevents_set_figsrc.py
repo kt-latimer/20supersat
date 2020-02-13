@@ -1,5 +1,6 @@
 """
-Create and save figure set cloudevents_set.
+Create and save figure set cloudevents_set. See main() routine documentation
+for more detailed description.
 """
 
 import matplotlib
@@ -45,8 +46,9 @@ def main():
     -particle size pdf by mean bin radius (=<r>_i*<nconc>_i/(dr)_i) for \
     both CAS and CDP
     -inset of plot from comparelwc set (using cutoff_bins = change_cas_corr \
-    = True) with arrow indicating peak center
+    = True) with dashed line indicating peak center
     -supersaturation vs time for both CAS and CDP
+    *other options implemented: w, A graphs
     """
 
     dates = ['20140909', '20140911', '20141001']
@@ -58,7 +60,7 @@ def main():
         adlrdata = np.load(adlrfile, allow_pickle=True).item()
         casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
         casdata = np.load(casfile, allow_pickle=True).item()
-	#time offset (estimated by eye so not super replicable atm)
+	    #time offset (estimated by eye so not super replicable atm)
         casdata['data']['time'] = np.array([t - offsets[m] for t in casdata['data']['time']])
         cdpfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
         cdpdata = np.load(cdpfile, allow_pickle=True).item()
@@ -152,7 +154,7 @@ def main():
             ax2.set_ylabel('Particle radius PDF (m^-3)')
             ax2.ticklabel_format(axis='both', style='sci')
 
-	    #entire LWC timeseries subplot
+	        #entire LWC timeseries subplot
             ax3 = fig.add_subplot(gs[0:2, 2:5])
             ax3.plot(x3_adlr, y3_adlr, label='ADLR', color=colors['ADLR'])
             ax3.plot(x3_cdp, y3_cdp, label='CDP', color=colors['CDP'])
@@ -304,15 +306,6 @@ def get_ss_vs_t(datablock, change_cas_corr, cutoff_bins):
     (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock, change_cas_corr, cutoff_bins)
     ss_cas = A*w/(4*np.pi*D*nconc_cas*meanr_cas)
     ss_cdp = A*w/(4*np.pi*D*nconc_cdp*meanr_cdp)
-    #tot_nconc_cas = np.sum(datablock[:, 3:3+nbins_cas], axis=1)
-    #meanr_cas = np.dot(datablock[:, 3:3+nbins_cas], \
-    #        np.transpose(centr_cas))/tot_nconc_cas
-    #ss_cas = 1./(4.*np.pi*D)*A*w/(tot_nconc_cas*meanr_cas)
-
-    #tot_nconc_cdp = np.sum(datablock[:, 3:3+nbins_cdp], axis=1)
-    #meanr_cdp = np.dot(datablock[:, 3:3+nbins_cdp], \
-    #        np.transpose(centr_cdp))/tot_nconc_cdp
-    #ss_cdp = 1./(4.*np.pi*D)*A*w/(tot_nconc_cdp*meanr_cdp)
     return (np.array(ss_cas), np.array(ss_cdp))
 
 def get_vert_wind_vel_vs_t(datablock):
@@ -324,7 +317,7 @@ def get_vert_wind_vel_vs_t(datablock):
 
 def get_A_vs_t(datablock):
     """
-    gets A.
+    Returns A (ss = A*w/(4*\pi*D*<nconc>*<meanr>)).
     """
     T = datablock[:, 1] #temp
     one = np.ones(np.shape(T))
