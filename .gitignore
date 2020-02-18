@@ -15,3 +15,4 @@ figures/halo/comparelwc_*
 figures/halo/comparelwcbycloud*
 figures/halo/meanr_scatter_*
 figures/halo/nconc_scatter_*
+*.pyc

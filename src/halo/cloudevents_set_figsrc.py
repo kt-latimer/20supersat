@@ -27,15 +27,15 @@ booleankey = str(int(cutoff_bins)) + str(int(change_cas_corr))
 colors = {'ADLR': '#777777', 'CAS': '#95B9E9', 'CDP': '#FC6A0C', 'c1': '#BA3F00', 'c2': '#095793'}
 
 #physical constants
-Cp = 1005 #dry air heat cap at const P (J/(kg K))
+C_ap = 1005. #dry air heat cap at const P (J/(kg K))
 D = 0.23e-4 #diffus coeff water in air (m^2/s)
 g = 9.8 #grav accel (m/s^2)
-L = 2501000 #latent heat of evaporation of water (J/kg)
-Mma=.02896 #Molecular weight of dry air (kg/mol)
-Mmv=.01806 #Molecular weight of water vapour (kg/mol)
+L_v = 2501000. #latent heat of evaporation of water (J/kg)
+Mm_a = .02896 #Molecular weight of dry air (kg/mol)
+Mm_v = .01806 #Molecular weight of water vapour (kg/mol)
 R = 8.317 #universal gas constant (J/(mol K))
-Ra=R/Mma #Specific gas constant of dry air (J/(kg K))
-Rv=R/Mmv #Specific gas constant of water vapour (J/(kg K))
+R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
+R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 
 def main():
     """
@@ -209,7 +209,7 @@ def main():
             figtitle = 'Date: ' + date + ' | Cloud event: ' + str(j) \
                     + ' | N=' + str(N) + ' | Nerr=' + str(Nerr)
             fig.suptitle(figtitle, fontsize=14)
-            outfile = FIG_DIR + 'v4cloudevents_' + date + '_' + str(int(tmid))
+            outfile = FIG_DIR + 'v5cloudevents_' + date + '_' + str(int(tmid))
             fig.savefig(outfile)
             plt.close()
 
@@ -300,7 +300,7 @@ def get_ss_vs_t(datablock, change_cas_corr, cutoff_bins):
     T = datablock[:, 1] #temp
     w = datablock[:, 2] #vert vel
     one = np.ones(np.shape(T))
-    A = g*(L*Ra/(Cp*R)*one/T - one)*1./Ra*one/T
+    A = g*(L_v*R_a/(C_ap*R)*one/T - one)*1./R_a*one/T
 
     (nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock, change_cas_corr, cutoff_bins)
     (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock, change_cas_corr, cutoff_bins)
@@ -321,7 +321,7 @@ def get_A_vs_t(datablock):
     """
     T = datablock[:, 1] #temp
     one = np.ones(np.shape(T))
-    A = g*(L*Ra/(Cp*R)*one/T - one)*1./Ra*one/T
+    A = g*(L_v*R_a/(C_ap*R)*one/T - one)*1./R_a*one/T
     return A
 
 if __name__ == "__main__":

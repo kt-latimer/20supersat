@@ -1,6 +1,7 @@
 """
 various utility methods for halo package.
 """
+from itertools import product
 import numpy as np
 
 from halo import BASE_DIR, DATA_DIR, FIG_DIR
@@ -10,18 +11,20 @@ from halo import BASE_DIR, DATA_DIR, FIG_DIR
 casbinfile = DATA_DIR + 'CAS_bins.npy'
 CAS_bins = np.load(casbinfile, allow_pickle=True).item()
 centr_cas = (CAS_bins['upper'] + CAS_bins['lower'])/4. #diam to radius
+#print(centr_cas)
 dr_cas = CAS_bins['upper'] - CAS_bins['lower']
 nbins_cas = len(centr_cas)
 
 cdpbinfile = DATA_DIR + 'CDP_bins.npy'
 CDP_bins = np.load(cdpbinfile, allow_pickle=True).item()
 centr_cdp = (CDP_bins['upper'] + CDP_bins['lower'])/4. #diam to radius
+#print(centr_cdp)
 dr_cdp = CDP_bins['upper'] - CDP_bins['lower']
 nbins_cdp = len(centr_cdp)
 
-low_bin_cas = 4 
+low_bin_cas = 4 #previous three cols are environmental vars
 high_bin_cas = low_bin_cas + nbins_cas
-low_bin_cdp = high_bin_cas 
+low_bin_cdp = 4 + high_bin_cas #extra +4 due to addition of LWC cols
 high_bin_cdp = low_bin_cdp + nbins_cdp
 
 def get_ind_bounds(arr, minval, maxval, startind=0):
@@ -67,7 +70,7 @@ def match_multiple_arrays(arrays):
         (inds1, inds2) = match_two_arrays([array[i] for i in inds[-1]], arrays[i+1])
         inds = [[indsj[i] for i in inds1] for indsj in inds]
         inds.append(inds2)
-    return inds
+    return [np.array(indsarr) for indsarr in inds]
 
 def calc_lwc(setname, setdata, envdata, cutoff_bins, change_cas_corr):
     """
@@ -192,13 +195,15 @@ def get_datablock(adlrinds, casinds, cdpinds, adlrdata, casdata, cdpdata):
     """
     Consolidate data for easier processing 
     Format of output array (order of columns): time, temperature, vertical \
-    velocity, cas correction factor,  number conc for cas bins (12 cols),\
-     number conc for cdp bins (15 cols).
+    velocity, cas correction factor,  number conc for cas bins (12 cols), \
+    LWC for cas (4 cols), number conc for cdp bins (15 cols), LWC for cdp \
+    (4 cols)
     """
-    # extra four columns: time, temperature, 
-    # vertical wind velocity, cas corr factor
-    datablock = np.zeros([len(adlrinds), 4 + nbins_cas + nbins_cdp])
-    datablock[:, 0] = np.fix(adlrdata['data']['time'][adlrinds])
+    # extra twelve columns: time, temperature, 
+    # vertical wind velocity, cas corr factor, 
+    # lwc for cas and cdp
+    datablock = np.zeros([len(adlrinds), 12 + nbins_cas + nbins_cdp])
+    datablock[:, 0] = np.around(adlrdata['data']['time'][adlrinds])
     datablock[:, 1] = adlrdata['data']['stat_temp'][adlrinds]
     datablock[:, 2] = adlrdata['data']['vert_wind_vel'][adlrinds]
     datablock[:, 3] = casdata['data']['TAS'][casinds]\
@@ -206,11 +211,18 @@ def get_datablock(adlrinds, casinds, cdpinds, adlrdata, casdata, cdpdata):
 			*casdata['data']['xi'][casinds]
     for i in range(nbins_cas):
         key = 'nconc_' + str(i+5)
-        datablock[:, i+4] = casdata['data'][key][casinds]
-    
+        datablock[:, i+low_bin_cas] = casdata['data'][key][casinds]
+    datablock[:, 4+nbins_cas] = casdata['data']['lwc']['00'][casinds]
+    datablock[:, 5+nbins_cas] = casdata['data']['lwc']['01'][casinds]
+    datablock[:, 6+nbins_cas] = casdata['data']['lwc']['10'][casinds]
+    datablock[:, 7+nbins_cas] = casdata['data']['lwc']['11'][casinds]
     for i in range(nbins_cdp):
         key = 'nconc_' + str(i+1)
-        datablock[:, i+4+nbins_cas] = cdpdata['data'][key][cdpinds]
+        datablock[:, i+low_bin_cdp] = cdpdata['data'][key][cdpinds]
+    datablock[:, 8+nbins_cas+nbins_cdp] = cdpdata['data']['lwc']['00'][cdpinds]
+    datablock[:, 9+nbins_cas+nbins_cdp] = cdpdata['data']['lwc']['01'][cdpinds]
+    datablock[:, 10+nbins_cas+nbins_cdp] = cdpdata['data']['lwc']['10'][cdpinds]
+    datablock[:, 11+nbins_cas+nbins_cdp] = cdpdata['data']['lwc']['11'][cdpinds]
 
     return datablock
 
@@ -259,3 +271,18 @@ def get_meanr_vs_t(datablock, change_cas_corr, cutoff_bins):
             *centr_cdp[nbins_cdp-(high_bin_cdp-(low_bin_cdp+cdp_offset)):nbins_cdp])\
             /np.sum(row[(low_bin_cdp+cdp_offset):high_bin_cdp]))
     return (np.array(meanr_cas), np.array(meanr_cdp))
+
+def pad_lwc_arrays(dataset, change_cas_corr, cutoff_bins):
+    lwc_t_inds = dataset['data']['lwc_t_inds']
+    dataset_shape = np.shape(dataset['data']['time'])
+
+    for cutoff_bins, change_cas_corr in product([True, False], repeat=2):
+        booleankey = str(int(cutoff_bins)) \
+            + str(int(change_cas_corr)) 
+        padded_arr = np.empty(dataset_shape)
+        padded_arr[:] = np.nan
+        lwc_vals = dataset['data']['lwc'][booleankey]
+        padded_arr[lwc_t_inds] = lwc_vals
+        dataset['data']['lwc'][booleankey] = padded_arr
+
+    return dataset
