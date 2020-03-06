@@ -1,0 +1,12 @@
+Polluted
+Number of points in Q1: 8608199
+Number of points in Q2: 5431
+Number of points in Q3: 262438
+Number of points in Q4: 4550
+
+Unpolluted
+Number of points in Q1: 7900751
+Number of points in Q2: 3659
+Number of points in Q3: 136052
+Number of points in Q4: 2478
+

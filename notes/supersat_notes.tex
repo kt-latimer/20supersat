@@ -100,6 +100,33 @@ From our point of view, at current stage, there is no unambiguous indication, wh
 Slopes/correlations still look OK, but not quite as good. There's a strange blob of points in upper left quadrant of mean radius plots for a few flight dates; going to try to figure that out since it makes those regression params worse.
 
 Also made meanr/nconc vs LWC plots out of curiosity but didn't see much. Also realized that the \texttt{optimize\_offsets} code was only filtering on meanr, so reran it with meanr \emph{and} nconc, as well as with LWC. Seems like the optimal offsets are pretty robust regardless.
+	\item 2/18/20: trying to figure out blob. 
+	\begin{itemize}
+		\item meanr/nconc\_scatter set v8: LWC cutoff 3.e-5: gets rid of `blob' points (quantified using \texttt{figure\_out\_blob.py}: for all dates with visible blob combined, increasing cutoff from 1.e-5 to 3.e-5 removes 91\% of points in blob and only 16\% of points not in blob, where blob is defined as $r_{mean, CAS}$ between 6 and 10um, $r_{mean, CDP}$ between 12 and 17um).
+		\item meanr/nconc\_scatter set v9: only nconc filter (no meanr): looks identical to v5 so only nconc matters.
+	\end{itemize}
+	\item 2/19/20: trying to understand relationship between nconc and LWC filtering:
+	\begin{itemize}
+		\item meanr/nconc\_scatter set v10: nconc cutoff 0.5 ptcls/ccm - analagous to v6/v7 wrt \% pts in blob
+		\item meanr/nconc\_scatter set v11: nconc cutoff 1.5 ptcls/ccm - analogous to v8 wrt \% pts in blob
+	\end{itemize}
+	I am conceptually thinking of these two filters as roughly the same, therefore.
+
+	Moving on to supersaturation (\texttt{ss\_scatter\_set\_figsrc.py}):
+	\begin{itemize}
+		\item v1: LWC cutoff 1.e-5, cas time offset back (cdp synced to adlr)
+		\item v2: LWC cutoff 3.e-5, cas time offset back (cdp synced to adlr)
+		\item v3: LWC cutoff 3.e-5, cdp time offset back (cas synced to adlr)
+		\item v4: LWC cutoff 1.e-5, cdp time offset back (cas synced to adlr)
+	\end{itemize}
+	v2 and v3 show ``original data'' that looks more like what Qindan found before with the 10 ptcl/ccm cutoff (in agreement with above results), and are also more sensitive to the change in time offset schemes. David is confused/concerned about why v1 and v4 are \emph{not} sensitive to that...TODO: look at time scale of variations in vertical wind velocity / try making the plots with an extreme shift in adlr time offset and see what happens.
+	\item 2/21/20: Follow up from above: looked at w data and time scale for variations is $\approx$ a few seconds so seems like ADLR offset should matter. Made the following versions of (\texttt{ss\_scatter\_set\_figsrc.py}):
+	\begin{itemize}
+		\item v5: ADLR at -10 second offset relative to CAS and CDP (CAS and CDP synced)
+		\item v6: ADLR at -30 second offset relative to CAS and CDP (CAS and CDP synced)
+	\end{itemize}
+	We basically see no effect in the slope/correlation so David's concern is confirmed :/ 
+	\item 2/27/20: notes from mtg with David: try doing correlation optimization wrt ADLR offset for LWC vs w, alternatively figure out a way to match downdrafts w/ cloud edges? unclear if that's really feasible though.
 \end{itemize}
 
 \begin{table}[ht]
@@ -157,11 +184,26 @@ Date & \# cloud events    & Unimodal set(s) & Count - nconc PDF & Count - meanr 
 \end{table}
 
 \section{WRF}
-		\subsection{Lawrencium cluster}
-		username: kalatimer\\
-		enter in terminal: \texttt{ssh kalatimer@lrc-login.lbl.gov}\\
-		type: pin + 6-digit auth code from authy chrome app (kt's token 2) [no space between]\\
-		wrf folder: /clusterfs/stratus/dromps/wrf\_fan2018\\
-		See project `20demo' notes file for more detailed description of general setup.
-		\subsection{Data processing}
+\subsection{Lawrencium cluster}
+username: kalatimer\\
+enter in terminal: \texttt{ssh kalatimer@lrc-login.lbl.gov}\\
+type: pin + 6-digit auth code from authy chrome app (kt's token 2) [no space between]\\
+wrf folder: /clusterfs/stratus/dromps/wrf\_fan2018\\
+See project `20demo' notes file for more detailed description of general setup.
+\subsection{Data processing}
+Using netCDF4 python library; pretty straightforward.
+\subsection{Analysis}
+Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5), WRF reports a significant number of supersaturated downdraft points. We are trying to figure out why that is (obviously will yield poor agreement with the quasi-steady-state SS formula from Korolev 2003, since that puts SS $\propto$ w). David suggested looking at the relationship between consensation rates and supersaturation (acutally using latent heating rates due to droplet diffusion, which should be a good proxy since latent heat of vaporization has weak pressure / temperature dependence)
+\begin{itemize}
+	\item 2/24/20: made initial plot of LH vs SS (\texttt{lh\_vs\_ss.py}). Kind of hard to tell due to high density of data points, but looks like signs are about right (i.e. no points in Q2 or Q4). Wrote code to remake the plot and also report exact counts of points in each quadrant(\texttt{lh\_vs\_ss\_all.py}). Also wrote code to make plots of just updraft and downdraft regions (\texttt{lh\_vs\_ss\_wpos/neg.py}). Not currently filtering by LWC.
+	\item 2/26/20: summary for current versions of \texttt{lh\_vs\_ss} figure set (also see presentation slides):
+	\begin{itemize}
+		\item v1 (all, wpos, wneg): no filters - about 50/50 updrafts/downdrafts, almost all points are subsaturated (especially so in downdrafts, as expected)
+		\item v2 (wneg): no substantive change, just switched colorbar gradient direction
+		\item v3 (wpos, wneg): LWC filter (>1.e-5) - less than 10\% of updraft points remain; out of those that do remain, \emph{most} are supersaturated. less than 5\% of downdraft pts remain; out of those that do remain \emph{most} are subsaturated. 
+		\item general observations: we definitely see higher SS values in unpolluted case, but relative quantity hard to tell due to high density of points in scatter plot; cont's curves in downdrafts plot?
+	\end{itemize}
+	\item 2/27/20: notes from mtg with David: try v3 of \texttt{lh\_vs\_ss} but with w gt/ls some finite nonzero (pos/neg) values so that we don't get air that's just drifing up and down (eg gravity oscillations or smth); next try calculating SS using formula from ch 7 of Rogers and Yau. 
+	\item 3/4/20: v4 of \texttt{lh\_vs\_ss}: for wpos, w > 1; for wneg, w < -1. qualitatively similar to v3 but 3-fold reduction in number of updraft points, 10-fold reduction in number of downdraft points. The \emph{most}'s above are even more \emph{most}. in particular for downdrafts, out of the remaining points only $\approx$ 0.1\% are supersaturated...so I'm a little confused about Qindan's previous finding that WRF gives `a lot' of supersaturation in downdrafts. plan moving forwards is to reproduce her comparison plot. 
+\end{itemize}
 \end{document}

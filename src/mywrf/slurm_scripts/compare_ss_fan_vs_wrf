@@ -1,0 +1,2 @@
+#!/bin/bash
+python ../compare_ss_fan_vs_wrf.py

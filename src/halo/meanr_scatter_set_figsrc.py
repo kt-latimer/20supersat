@@ -18,14 +18,17 @@ from halo.utils import get_datablock, get_ind_bounds, \
 
 #for plotting
 colors = {'control': '#777777', 'modified': '#4A8CCA'}
-versionstr = 'v7_'
+versionstr = 'v11_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
-lwc_filter_val = 1.e-5
-meanr_filter_val = 1.e-6
-nconc_filter_val = 10.e6
+lwc_filter_val = 3.e-5
+meanr_filter_val = 0#1.e-6
+nconc_filter_val = 1.5e6
+
+change_cas_corr = True
+cutoff_bins = True
 
 def main():
     """
@@ -61,7 +64,7 @@ def main():
 
         #datablock without time offsets (ideally the function would have some
         #boolean parameter for this but not a priority for now)
-        #align all datasets along time.set_aspect
+        #align all datasets along time
         [adlrinds, casinds, cdpinds] = match_multiple_arrays(
             [np.around(adlrdata['data']['time']), \
             np.around(castime), \
@@ -132,28 +135,28 @@ def filter_and_rescale(datablock, change_cas_corr, cutoff_bins):
     Filter out low meanr and/or meanr values; returns (meanr_cas, meanr_cdp)
     """
     #get time-aligned nconc and meanr data 
-    #(nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock, change_cas_corr,
-    #                                        cutoff_bins)
+    (nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock, change_cas_corr,
+                                            cutoff_bins)
     (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock, change_cas_corr,
                                             cutoff_bins)
 
     #filter out low values (have not done any sensitivity analysis for
     #these parameters)
-    #filter_inds = np.logical_and.reduce((
-    #                (nconc_cas > nconc_filter_val), \
-    #                (nconc_cdp > nconc_filter_val), \
+    filter_inds = np.logical_and.reduce((
+                    (nconc_cas > nconc_filter_val), \
+                    (nconc_cdp > nconc_filter_val)))#, \
     #                (meanr_cas > meanr_filter_val), \
     #                (meanr_cdp > meanr_filter_val)))       
 
     #filter on LWC vals
-    booleanind = int(change_cas_corr) + int(cutoff_bins)*2
-    lwc_cas = datablock[:, high_bin_cas+booleanind]
-    lwc_cdp = datablock[:, high_bin_cdp+booleanind]
-    filter_inds = np.logical_and.reduce((
-                    (lwc_cas > lwc_filter_val), \
-                    (lwc_cdp > lwc_filter_val), \
-                    np.logical_not(np.isnan(meanr_cas)), \
-                    np.logical_not(np.isnan(meanr_cdp))))
+    #booleanind = int(change_cas_corr) + int(cutoff_bins)*2
+    #lwc_cas = datablock[:, high_bin_cas+booleanind]
+    #lwc_cdp = datablock[:, high_bin_cdp+booleanind]
+    #filter_inds = np.logical_and.reduce((
+    #                (lwc_cas > lwc_filter_val), \
+    #                (lwc_cdp > lwc_filter_val), \
+    #                np.logical_not(np.isnan(meanr_cas)), \
+    #                np.logical_not(np.isnan(meanr_cdp))))
 
     #filter spurious values and rescale to um
     meanr_cas = meanr_cas[filter_inds]*1.e6
@@ -229,21 +232,6 @@ def make_comparison_scatter(datablock_control, datablock_modified,
     outfile = FIG_DIR + versionstr + 'meanr_scatter_' + date + suffix + '.png'
     fig.savefig(outfile)
     plt.close()
-
-def pad_lwc_arrays(dataset):
-    lwc_t_inds = dataset['data']['lwc_t_inds']
-    dataset_shape = np.shape(dataset['data']['time'])
-
-    for cutoff_bins, change_cas_corr in product([True, False], repeat=2):
-        booleankey = str(int(cutoff_bins)) \
-            + str(int(change_cas_corr)) 
-        padded_arr = np.empty(dataset_shape)
-        padded_arr[:] = np.nan
-        lwc_vals = dataset['data']['lwc'][booleankey]
-        padded_arr[lwc_t_inds] = lwc_vals
-        dataset['data']['lwc'][booleankey] = padded_arr
-
-    return dataset
 
 if __name__ == "__main__":
     main()

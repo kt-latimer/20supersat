@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/mywrf/qss_vs_fan_figsrc.py

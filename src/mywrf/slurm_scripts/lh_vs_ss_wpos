@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/mywrf/lh_vs_ss_wpos_figsrc.py
