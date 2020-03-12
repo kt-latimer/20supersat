@@ -15,7 +15,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v6_'
+versionstr = 'v1_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
@@ -51,6 +51,12 @@ def main():
         #get relevant primary variables from wrf output
         LWC = ncprimvars['QCLOUD'][...]
         SS = ncprimvars['SSW'][...]
+        LAT = ncprimvars['XLAT'][...]
+        LON = ncprimvars['XLONG'][...]
+
+        #extend latitude and longitude to all altitudes
+        LAT = np.transpose(np.tile(LAT, [66,1,1,1]), [1, 0, 2, 3])
+        LON = np.transpose(np.tile(LON, [66,1,1,1]), [1, 0, 2, 3])
 
         #get secondary variables
         meanr = ncsecvars['meanr'][...]
@@ -69,7 +75,18 @@ def main():
         #mask = LWC > lwc_cutoff
         mask = np.logical_and.reduce(( \
                                     (LWC > lwc_cutoff), \
-                                    (nconc > 3.e6)))
+                                    (LAT < -3.1), \
+                                    (LAT > -3.3), \
+                                    (LON < -60.5), \
+                                    (LON >  -60.8)))
+        #mask = np.logical_and.reduce(( \
+        #                            (LWC > lwc_cutoff), \
+        #                            (LAT < -3.1), \
+        #                            (LAT > -3.3), \
+        #                            (LON < -60.5), \
+        #                            (LON >  -60.8), \
+        #                            (nconc > 3.e6)))
+        
         #mask = np.logical_and.reduce(( \
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1)))
@@ -145,7 +162,7 @@ def main():
         ts('End plot')
         
         ts('Start save')
-        outfile = FIG_DIR + versionstr + 'qss_vs_fan_' \
+        outfile = FIG_DIR + versionstr + 'subregion_qss_vs_fan_' \
                     + model_label + '_figure.png'
         plt.savefig(outfile)
         ts('End save')

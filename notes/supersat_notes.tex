@@ -205,5 +205,24 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 	\end{itemize}
 	\item 2/27/20: notes from mtg with David: try v3 of \texttt{lh\_vs\_ss} but with w gt/ls some finite nonzero (pos/neg) values so that we don't get air that's just drifing up and down (eg gravity oscillations or smth); next try calculating SS using formula from ch 7 of Rogers and Yau. 
 	\item 3/4/20: v4 of \texttt{lh\_vs\_ss}: for wpos, w > 1; for wneg, w < -1. qualitatively similar to v3 but 3-fold reduction in number of updraft points, 10-fold reduction in number of downdraft points. The \emph{most}'s above are even more \emph{most}. in particular for downdrafts, out of the remaining points only $\approx$ 0.1\% are supersaturated...so I'm a little confused about Qindan's previous finding that WRF gives `a lot' of supersaturation in downdrafts. plan moving forwards is to reproduce her comparison plot. 
+	\item 3/12/20: a lot to update...
+	\begin{itemize}
+		\item Made the weird WRF outputs nicer and consolidated into single file (i.e. for all hour-long increments) using \texttt{make\_secondary\_wrf\_vars.py}. Output is in the same data directories as primary data files.
+		\item Double-checked that I was doing the mean radius / number concentration calculations correctly in \texttt{check\_nconc\_figsrc.py}...have it right now but *TODO*: need to run with correct radius values (corrected the code on 3/12 in the am but need to run on slurm).
+		\item Comparing quasi-steady-state ss approx with WRF reported values (which Qindan found were identical to Fan's except for a few artifacts in the dataset that seem to be artificial). First round: entire horizontal domain (\texttt{qss\_vs\_fan\_figsrc.py}): 
+		\begin{itemize}
+			\item v1: wrong LWC calculated values; disregard
+			\item v2: correct LWC calculated values; wrong radii (off by factor of 2)
+			\item v3: no figure - text only to diagnose num pts in various regions of the plane
+			\item v4: LWC above 1.e-5, correct incorrect factors of 2 manually (for now); make axes square
+			\item v5: LWC above 1.e-5, only points with abs val of vert wind vel greater than 1 m/s
+			\item v6: LWC above 1.e-5, only points with nconc greater than 3e6 (this is what Qindan was graphing)
+		\end{itemize}
+		\item Second round: only the subregion around 'T3' site in figure S9 of Fan2018 (supp info file) (\texttt{subregion\_qss\_vs\_fan\_figsrc.py}):
+		\begin{itemize}
+			\item v1: LWC above 1.e-5
+			\item v2: LWC above 1.e-5, only points with nconc greater than 3e6
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 \end{document}
