@@ -12,7 +12,7 @@ from halo.utils import linregress
 from mywrf import BASE_DIR, DATA_DIR, FIG_DIR 
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
-versionstr = 'v2_'
+versionstr = 'v4_'
 lwc_cutoff = 1.e-5
 
 #plot stuff

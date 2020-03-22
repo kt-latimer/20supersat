@@ -63,7 +63,7 @@ def main():
         rho_air_data = pres_data/(R_a*temp_data) 
 
         #compute mean radius of cloud droplets
-        diams = [(2.**(i/3.))*10**(-6) for i in range(15)] #bin diams in m
+        diams = [4*(2.**(i/3.))*10**(-6) for i in range(15)] #bin diams in m
         rads = [d/2. for d in diams] 
         rN_sum = np.empty(np.shape(P))
         N_sum = np.empty(np.shape(P))

@@ -15,7 +15,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v6_'
+versionstr = 'v10_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
@@ -60,19 +60,19 @@ def main():
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
 
-        #compute quasi steady state ss (extra factor of 4 due to incorrect vals
-        #for bin radii in make_secondary_vars code (TODO: fix and rerun)
+        #compute quasi steady state ss 
         A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
-        ss = 4*w*A/(4*np.pi*D*nconc*meanr)
+        ss = w*A/(4*np.pi*D*nconc*meanr)
 
         #make filter mask
         #mask = LWC > lwc_cutoff
-        mask = np.logical_and.reduce(( \
-                                    (LWC > lwc_cutoff), \
-                                    (nconc > 3.e6)))
         #mask = np.logical_and.reduce(( \
         #                            (LWC > lwc_cutoff), \
-        #                            (np.abs(w) > 1)))
+        #                            (nconc > 3.e6)))
+        mask = np.logical_and.reduce(( \
+                                    (LWC > lwc_cutoff), \
+                                    (np.abs(w) > 1), \
+                                    (np.abs(w) < 10)))
         
         print(np.shape(mask))
         print('num above lwc cutoff and nonzero w: ', np.sum(mask))

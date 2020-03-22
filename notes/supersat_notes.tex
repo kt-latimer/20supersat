@@ -126,7 +126,7 @@ Also made meanr/nconc vs LWC plots out of curiosity but didn't see much. Also re
 		\item v6: ADLR at -30 second offset relative to CAS and CDP (CAS and CDP synced)
 	\end{itemize}
 	We basically see no effect in the slope/correlation so David's concern is confirmed :/ 
-	\item 2/27/20: notes from mtg with David: try doing correlation optimization wrt ADLR offset for LWC vs w, alternatively figure out a way to match downdrafts w/ cloud edges? unclear if that's really feasible though.
+	\item 2/27/20: notes from mtg with David: try doing correlation optimization wrt ADLR offset for LWC vs w, alternatively figure out a way to match downdrafts w/ cloud edges? unclear if that's really feasible though. (later thought 3/21/20: I feel like the correlations are not going to be that helpful since w deviates above and below 0 whereas LWC only deviates above...)
 \end{itemize}
 
 \begin{table}[ht]
@@ -224,5 +224,19 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 			\item v2: LWC above 1.e-5, only points with nconc greater than 3e6
 		\end{itemize}
 	\end{itemize}
+	\item 3/21/20: there's been a lot going on and I haven't been recording my notes very frequently but also have not been as productive on average so guess it evens out. Anyways: finally fixed the bin radius issue (see v4 figure from \texttt{check\_nconc\_figsrc.py}) and remade the secondary variables netCDF files. Resulting supersaturation plots:
+	\begin{itemize}
+			\item \texttt{qss\_vs\_fan} v7: LWC above 1.e-5, make axes square
+			\item \texttt{qss\_vs\_fan} v8: LWC above 1.e-5, only points with nconc greater than 3e6 (this is what Qindan was graphing)
+			\item \texttt{qss\_vs\_fan} v9: LWC above 1.e-5, only points with abs val of vert wind vel greater than 1 m/s
+			\item \texttt{qss\_vs\_fan} v10: LWC above 1.e-5, only points with abs val of vert wind vel greater than 1 m/s and less than 10 m/s (based on comment in Appendix A of Korolev2003...didn't make a difference)
+			\item \texttt{subregion\_qss\_vs\_fan} v3: LWC above 1.e-5 [forgot to remove factor of 4]
+			\item \texttt{subregion\_qss\_vs\_fan} v4: LWC above 1.e-5, only points with nconc greater than 3e6 [forgot to remove factor of 4]
+			\item \texttt{subregion\_qss\_vs\_fan} v5: LWC above 1.e-5 [correct now]
+			\item \texttt{subregion\_qss\_vs\_fan} v6: LWC above 1.e-5, only points with nconc greater than 3e6 [correct now] 
+	\end{itemize}
+	needless to say, these kind of look like shit and David doesn't necessarily have an idea of what is going on here. Have gone back to Rogers and Yau (RY) to try to figure out what might be the issue. First thing: check quantity RY calls $\frac{Q_2}{F_k + F_d}$, which in my code above has just been a constant $D$. This code is \texttt{qss\_expand\_denom\_figsrc.py}; see v5 figures, where I've plotted the distribution for the reciprocal of aforementioned quantity (since it appears in the denominator in the expression for supersaturation). Seems like there is spread of about $\pm$10\%, which doesn't seem like it should really be an issue, but gonna try a new version of \texttt{qss\_vs\_fan} with the full expression just to see what happens. \\
+	I'm also more and more confused about how the `SSW' quantity was calculated in WRF and have emailed David to ask how outputs are specified.
+	
 \end{itemize}
 \end{document}

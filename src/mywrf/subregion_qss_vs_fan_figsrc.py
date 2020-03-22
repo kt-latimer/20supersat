@@ -15,7 +15,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v1_'
+versionstr = 'v5_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
@@ -42,34 +42,39 @@ def main():
 
         model_dir = model_dirs[model_label]        
 
-        #load datafiles
-        ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
-        ncprimvars = ncprimfile.variables
+        #load secondary datafiles
         ncsecfile = Dataset(DATA_DIR + model_dir + 'wrfout_d01_secondary_vars', 'r')
         ncsecvars = ncsecfile.variables
+
+        #get secondary variables
+        meanr = ncsecvars['meanr'][...]
+        nconc = ncsecvars['nconc'][...]
+        temp = ncsecvars['temp'][...]
+        w = ncsecvars['w'][...]
+
+        ncsecfile.close()
+
+        #compute quasi steady state ss 
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        ss = w*A/(4*np.pi*D*nconc*meanr)
+
+        #load primary datafiles
+        ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
+        ncprimvars = ncprimfile.variables
         
         #get relevant primary variables from wrf output
         LWC = ncprimvars['QCLOUD'][...]
         SS = ncprimvars['SSW'][...]
         LAT = ncprimvars['XLAT'][...]
         LON = ncprimvars['XLONG'][...]
+        
+        ncprimfile.close()
 
         #extend latitude and longitude to all altitudes
         LAT = np.transpose(np.tile(LAT, [66,1,1,1]), [1, 0, 2, 3])
         LON = np.transpose(np.tile(LON, [66,1,1,1]), [1, 0, 2, 3])
-
-        #get secondary variables
-        meanr = ncsecvars['meanr'][...]
-        nconc = ncsecvars['nconc'][...]
-        pres = ncsecvars['pres'][...]
-        rho_air = ncsecvars['rho_air'][...]
-        temp = ncsecvars['temp'][...]
-        w = ncsecvars['w'][...]
-
-        #compute quasi steady state ss (extra factor of 4 due to incorrect vals
-        #for bin radii in make_secondary_vars code (TODO: fix and rerun)
-        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
-        ss = 4*w*A/(4*np.pi*D*nconc*meanr)
+        print(np.shape(LON))
+        print(np.shape(ss))
 
         #make filter mask
         #mask = LWC > lwc_cutoff
