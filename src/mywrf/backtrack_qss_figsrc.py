@@ -15,7 +15,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v11_'
+versionstr = 'v6_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
@@ -40,9 +40,6 @@ def main():
     For both polluted and unpolluted model runs, plot qss SS approx vs WRF SS.
     """
     for model_label in model_dirs.keys():
-        
-        if model_label == 'C_BG':
-           continue
 
         model_dir = model_dirs[model_label]        
 
@@ -53,6 +50,7 @@ def main():
         ncsecvars = ncsecfile.variables
         
         #get relevant primary variables from wrf output
+        LH = ncprimvars['TEMPDIFFL'][...]
         LWC = ncprimvars['QCLOUD'][...]
         SS = ncprimvars['SSW'][...]
 
@@ -60,37 +58,27 @@ def main():
         meanr = ncsecvars['meanr'][...]
         nconc = ncsecvars['nconc'][...]
         pres = ncsecvars['pres'][...]
+        rho_air = ncsecvars['rho_air'][...]
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
+
+        ncprimfile.close()
+        ncsecfile.close()
 
         #formula for saturation vapor pressure from Rogers and Yau - converted
         #to mks units (p 16)
         e_s = 611.2*np.exp(17.67*(temp - 273)/(temp - 273 + 243.5))
         
         #quantities defined in ch 7 of Rogers and Yau
-        Q_2 = rho_w*(R_v*temp/e_s + R_a*L_v**2./(pres*temp*R_v*C_ap))
         F_k = (L_v/(R_v*temp) - 1)*(L_v*rho_w/(K*temp))
         F_d = rho_w*R_v*temp/(D*e_s)
-        
-        #factor in denominator of Rogers and Yau qss ss formula (p 110)
-        denom = Q_2/(F_k + F_d)
-        
-        #compute quasi steady state ss 
-        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
-        ss = w*A/(4*np.pi*denom*nconc*meanr)
-        #ss = w*A/(4*np.pi*D*nconc*meanr)
-        
-        del meanr
-        del nconc
-        del pres
-        del temp
-        del e_s
-        del Q_2
-        del F_k
-        del F_d
-        del denom
-        del A
-        
+
+        ##first abstract quantity
+        #qty_1 = rho_air*(F_k + F_d)*LH/(L_v*rho_w)
+
+        #ss formula from RY p 102
+        ss = rho_air*(F_k + F_d)*LH/(4*np.pi*L_v*rho_w*meanr*nconc)
+
         #make filter mask
         #mask = LWC > lwc_cutoff
         #mask = np.logical_and.reduce(( \
@@ -103,59 +91,60 @@ def main():
         mask = np.logical_and.reduce(( \
                                     (LWC > lwc_cutoff), \
                                     (np.abs(w) > 1)))
-        
-        print(np.shape(mask))
-        print('num above lwc cutoff and nonzero w: ', np.sum(mask))
-        
+        #
+        #print(np.shape(mask))
+        #print('num above lwc cutoff and nonzero w: ', np.sum(mask))
+        #
         #do regression analysis
         m, b, R, sig = linregress(ss[mask]*100, SS[mask]*100)
         print(m, b, R**2)
-        
-        #count number of points outside range [-100, 100] for qss set
-        n_hi = np.sum(np.logical_and.reduce(( \
-                                    (ss > 1), \
-                                     mask)))
-        n_lo = np.sum(np.logical_and.reduce(( \
-                                    (ss < -1), \
-                                     mask)))
-        print(model_label)
-        print('n_hi: ', n_hi)
-        print('n_lo: ', n_lo)
-        
-        n_q1 = np.sum(np.logical_and.reduce(( \
-                                    (ss > 0), \
-                                    (SS > 0), \
-                                     mask)))
-        n_q2 = np.sum(np.logical_and.reduce(( \
-                                    (ss < 0), \
-                                    (SS > 0), \
-                                     mask)))
-        n_q3 = np.sum(np.logical_and.reduce(( \
-                                    (ss < 0), \
-                                    (SS < 0), \
-                                     mask)))
-        n_q4 = np.sum(np.logical_and.reduce(( \
-                                    (ss > 0), \
-                                    (SS < 0), \
-                                     mask)))
-        
-        print('Number of points in Q1:', n_q1)
-        print('Number of points in Q2:', n_q2)
-        print('Number of points in Q3:', n_q3)
-        print('Number of points in Q4:', n_q4)
-        print()
-        
-        ##get limits of the data for plotting purposes
-        #xlim_max = np.max(np.array( \
-        #                [np.max(SS_qss[mask]), \
-        #                 np.max(SS_wrf[mask])]))
-        #xlim_min = np.min(np.array( \
+        #
+        ##count number of points outside range [-100, 100] for qss set
+        #n_hi = np.sum(np.logical_and.reduce(( \
+        #                            (ss > 1), \
+        #                             mask)))
+        #n_lo = np.sum(np.logical_and.reduce(( \
+        #                            (ss < -1), \
+        #                             mask)))
+        #print(model_label)
+        #print('n_hi: ', n_hi)
+        #print('n_lo: ', n_lo)
+        #
+        #n_q1 = np.sum(np.logical_and.reduce(( \
+        #                            (ss > 0), \
+        #                            (SS > 0), \
+        #                             mask)))
+        #n_q2 = np.sum(np.logical_and.reduce(( \
+        #                            (ss < 0), \
+        #                            (SS > 0), \
+        #                             mask)))
+        #n_q3 = np.sum(np.logical_and.reduce(( \
+        #                            (ss < 0), \
+        #                            (SS < 0), \
+        #                             mask)))
+        #n_q4 = np.sum(np.logical_and.reduce(( \
+        #                            (ss > 0), \
+        #                            (SS < 0), \
+        #                             mask)))
+        #
+        #print('Number of points in Q1:', n_q1)
+        #print('Number of points in Q2:', n_q2)
+        #print('Number of points in Q3:', n_q3)
+        #print('Number of points in Q4:', n_q4)
+        #print()
+        #
+        ###get limits of the data for plotting purposes
+        ##xlim_max = np.max(np.array( \
+        ##                [np.max(SS_qss[mask]), \
+        ##                 np.max(SS_wrf[mask])]))
+        ##xlim_min = np.min(np.array( \
         #                [np.min(SS_qss[mask]), \
         #                 np.min(SS_wrf[mask])]))
         #ax_lims = np.array([100*xlim_min, 100*xlim_max])
         #print(ax_lims)
         
         ax_lims = np.array([-100, 100])
+        
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
         ax.scatter(ss[mask]*100, SS[mask]*100, c=colors['ss'])
@@ -168,15 +157,19 @@ def main():
         ax.set_aspect('equal', 'box')
         ax.set_xlim(ax_lims)
         ax.set_ylim(ax_lims)
-        ax.set_xlabel('Quasi steady state SS (%)')
-        ax.set_ylabel('WRF SS (%)')
+        ax.set_xlabel('RY supersat (%)')
+        ax.set_ylabel('WRF supersat (%)')
         fig.legend()
         fig.set_size_inches(21, 12)
-
-        outfile = FIG_DIR + versionstr + 'qss_vs_fan_' \
+        
+        outfile = FIG_DIR + versionstr + 'backtrack_qss_' \
                     + model_label + '_figure.png'
         plt.savefig(outfile)
         plt.close(fig=fig)
+
+        del LH, LWC, SS, meanr, nconc, pres, rho_air, temp, w, e_s, F_k, F_d
+        del ss, mask
+        #del qty_1, A, qty_2, mask
 
 if __name__ == "__main__":
     main()

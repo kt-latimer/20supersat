@@ -237,6 +237,6 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 	\end{itemize}
 	needless to say, these kind of look like shit and David doesn't necessarily have an idea of what is going on here. Have gone back to Rogers and Yau (RY) to try to figure out what might be the issue. First thing: check quantity RY calls $\frac{Q_2}{F_k + F_d}$, which in my code above has just been a constant $D$. This code is \texttt{qss\_expand\_denom\_figsrc.py}; see v5 figures, where I've plotted the distribution for the reciprocal of aforementioned quantity (since it appears in the denominator in the expression for supersaturation). Seems like there is spread of about $\pm$10\%, which doesn't seem like it should really be an issue, but gonna try a new version of \texttt{qss\_vs\_fan} with the full expression just to see what happens. \\
 	I'm also more and more confused about how the `SSW' quantity was calculated in WRF and have emailed David to ask how outputs are specified.
-	
+	\item 3/22/20: v11 (with full expression for denominator of qss SS approx) of \texttt{qss\_vs\_fan} doesn't look much different so that's that. Also made program \texttt{compare\_esat\_formulae} to compare different formulae for saturation vapor pressure of water based on Khain and Pinsky but agreement is pretty perfect so that's out as an explanation. 	
 \end{itemize}
 \end{document}
