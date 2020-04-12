@@ -40,11 +40,12 @@ def main():
     key_ind_dict = {'ADLR':\
                         {'var_names':['time', 'potl_temp', 'vert_wind_vel', \
                             'alt_asl', 'alt_pres', 'lat', 'long', 'stat_temp', \
-                            'stat_pres', 'lwc'], \
+                            'stat_pres', 'lwc', 'TAS'], \
                         'var_units':['s', 'K', 'm/s', 'm', 'm', 'deg', 'deg', \
-                            'K', 'Pa', 'g/g'], \
-                        'var_inds':[0, 12, 17, 4, 5, 23, 24, 20, 7, 21], \
-                        'var_scale':[1. for i in range(7)] + [1., 100., 0.001]}, \
+                            'K', 'Pa', 'g/g', 'm/s'], \
+                        'var_inds':[0, 12, 17, 4, 5, 23, 24, 20, 7, 21, 9], \
+                        'var_scale':[1. for i in range(7)] \
+                                    + [1., 100., 0.001, 1.]}, \
                     'CAS':\
                         {'var_names':['time'] + ['nconc_'+str(i) for i in \
                             range(5, 17)] + ['nconc_tot_TAS_corr', \
@@ -85,17 +86,17 @@ def main():
         basename = filename[0:len(filename)-5]
         if 'adlr' in basename:
             setname = 'ADLR'
-        elif 'CAS_DPOL' in basename:
-            setname = 'CAS'
-            if basename[15:19] == '3914':
-                #weird corrupted file.
-                continue
-        elif 'CCP_CDP' in basename:
-            setname = 'CDP'
-        elif 'NIXECAPS_AC' in basename:
-            setname = 'NIXECAPS'
-        elif 'NIXECAPS_cloudflag' in basename:
-            setname = 'CLOUDFLAG'
+        #elif 'CAS_DPOL' in basename:
+        #    setname = 'CAS'
+        #    if basename[15:19] == '3914':
+        #        #weird corrupted file.
+        #        continue
+        #elif 'CCP_CDP' in basename:
+        #    setname = 'CDP'
+        #elif 'NIXECAPS_AC' in basename:
+        #    setname = 'NIXECAPS'
+        #elif 'NIXECAPS_cloudflag' in basename:
+        #    setname = 'CLOUDFLAG'
         else:
             continue     
         print(basename)
@@ -124,7 +125,8 @@ def main():
         datestr = raw_dict['flight_date'][0] + raw_dict['flight_date'][1] + \
                 raw_dict['flight_date'][2]
         np.save(output_data_dir+setname+'_'+datestr, proc_dict)
-    
+    return
+
     #now calculate LWC values for CAS and CDP and add to raw files.
     files = [f for f in listdir(DATA_DIR + 'npy_proc/')]
     used_dates = []

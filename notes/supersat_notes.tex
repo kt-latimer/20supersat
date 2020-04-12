@@ -127,6 +127,51 @@ Also made meanr/nconc vs LWC plots out of curiosity but didn't see much. Also re
 	\end{itemize}
 	We basically see no effect in the slope/correlation so David's concern is confirmed :/ 
 	\item 2/27/20: notes from mtg with David: try doing correlation optimization wrt ADLR offset for LWC vs w, alternatively figure out a way to match downdrafts w/ cloud edges? unclear if that's really feasible though. (later thought 3/21/20: I feel like the correlations are not going to be that helpful since w deviates above and below 0 whereas LWC only deviates above...)
+	\item 4/12/20: it's been a while but here we are. Sent Professors Jurkat and Weigel (et al on that email thread) a fairly extensive summary of results since January 2020 (all referenced figures in powerpoint in \texttt{pres} directory):\\
+
+{\itshape Thank you for your patience as we have taken your thorough feedback into account in our analyses. In some cases, implementing the previous suggestions led to new questions for us, and we wanted to wait on sending this response until we felt we had a clearer picture of what was going on.
+
+Here we are writing a summary of the points you all have raised throughout the correspondence, along with our subsequent findings. For brevity, we've included the figures in a single file, attached.
+
+1. Various corrections to the datasets
+
+In all cases here, we are filtering out points with liquid water content (LWC) less than 3*10$^-5$ g/g. Using a smaller LWC cutoff, we begin to see artifacts arising from the particle size distributions reported by the CDP instrument; see discussion in part (2)(A).
+
+A. Commensurate sample volume correction factors
+
+The ames files on the HALO database for the CAS instrument were corrected using the factor TAS/PAS, whereas for the CDP instrument they were corrected using the factor xi (as derived in Weigel et al (2016)). We re-corrected the CAS values using xi (provided as well in the datafiles), and generally don't see much improvement in correlation for number concentration (this correction doesn't change mean radius correlation since the volumetric factors cancel in the weighted average). See Figure 1.
+
+B. Lower bound on particle size
+
+As suggested by Dr. Jurkat, we performed the same comparison using only bins with a lower bound for droplet diameter greater than 3 um. This improves the value of the regression slope, but not the correlation, for number concentration (Figure 2), and nearly eliminates the constant offset between CAS and CDP mean radius (Figure 3).
+
+C. Time offset between instruments
+
+We also reran the analysis after offsetting the instrument times relative to one another such that the correlation between number concentration and mean radius measurements was optimized (these offsets varied across flight dates; see Figure 4). This correction yielded a significant improvement in agreement for number concentration (Figure 5), although not for mean radius (Figure 6).  Unfortunately, it's not clear to us how we should correctly sync CAS and CDP measurements to other instruments (in particular ADLR, which records most of the basic environmental variables).
+
+The combined effect of corrections described in (A), (B), and (C) is shown in Figure 7. We also have analogues of Figures 1-6 for each individual flight date, and are happy to share those.
+
+2. Cloud-by-cloud analysis
+
+We were hoping to understand why the CDP instrument seems to report multi-modal cloud droplet size distributions, and Dr. Weigel suggested we analyze individual cloud events for each flight. We did so (working with the fully-corrected data described in part (1)), and an example plot is shown in Figure 8. We can provide the entire set upon request, but since there are many of them, we will summarize our main observations here:
+
+A. We find CDP consistently reports bi- or multi-modal cloud droplet size distributions, even at the level of individual clouds (we are accounting for the variable bin size ranges when computing these distributions). For instance, on the 09 Sept flight, we found that about half of the CDP size distributions are non-unimodal, whereas all of the CAS size distributions are unimodal. This effect is most apparent in the mean cloud droplet size data at low LWC; if we use an LWC cutoff of 1*10$^-5$ (rather than 3*10$^-5$ as in part (1)), we see the cluster of points with anomalously high mean radius reported by CDP, as visible in Figure 9.
+
+B. While LWC values reported by CAS and CDP are generally in good agreement (up to the ~1 second time offsets described in part (1)), there is one flight date (19 Sept) where they differ significantly even though neither reports error values, see Figure 10.
+
+3. Comparison with other instruments
+
+The only other bin-resolved cloud droplet data available in the online dataset from the GoAmazon field campaign was the NIXE-CAPS set. We did not find those files to be useful, due to high error rates. In particular, there were no timesteps in any of the flight dates where non-error-valued data were present for the whole particle size range of interest (3 um - 50 um diameter).
+
+We did find (non-bin-resolved) LWC data in the ADLR set. However, it appears those measurements include rain droplets as well as cloud droplets, since the LWC values are considerably higher than those we calculated using the CAS and CDP sets (referring back to Figures 8 and 10).}\\
+
+	\indent Selected points of feedback after this message:
+	\begin{itemize}
+		\item \emph{There are hotwire LWC measurements available. The hotwire was mounted on the CAS-DPOL but is an independent LWC measurement.  Ramon Braga also compared these in his paper with the CAS measurements (see plot below).} 
+		\item \emph{We also have information on the phase and can thus apply a binning to either ice phase or liquid phase.  The current binning is chosen such that the ice and liquid can both be unambiguously detected. The consequence is a reduced size resolution in the lower size range. I can give you recommendations on how to do the binning. Once this is done, we can talk again about the comparison of the mean radius. As far as I remember there have been a few differences when going to higher MVDs.} 
+		\item \emph{What might help is to compare the PAS (measured by the CAS) with the TAS of HALO and synchronize it with respect to level changes (generally correlated to air speed changes).} 
+	\end{itemize}
+	\indent Of these, the last is the most relevant since our main concern at the moment is syncing ADLR to CAS (update: have basically decided not to use CDP data due to multimodal particle size distributions from that instrument). However, CAS is actually just pulling TAS measurements directly from ADLR (see \texttt{ASvst\_figshow.py}), so seems not super valid as a basis for time syncing. In any case, made \texttt{w\_tas\_optimizes\_offset[\_figsrc].py} which shows R$^2$ for $TAS_{ADLR}$ and $TAS_{CAS}$ (blue) and $LWC_{CAS}$ vs $|w|_{ADLR}$ (red) as a function of $\Delta t_{ADLR/CAS}$. David suggested looking at the standard deviation and 99th percentile of CAS SS values versus $\Delta t_{ADLR/CAS}$, which I did in v3 of \texttt{ss\_optimize\_offsets[\_figsrc].py}...not looking great.
 \end{itemize}
 
 \begin{table}[ht]
@@ -238,5 +283,195 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 	needless to say, these kind of look like shit and David doesn't necessarily have an idea of what is going on here. Have gone back to Rogers and Yau (RY) to try to figure out what might be the issue. First thing: check quantity RY calls $\frac{Q_2}{F_k + F_d}$, which in my code above has just been a constant $D$. This code is \texttt{qss\_expand\_denom\_figsrc.py}; see v5 figures, where I've plotted the distribution for the reciprocal of aforementioned quantity (since it appears in the denominator in the expression for supersaturation). Seems like there is spread of about $\pm$10\%, which doesn't seem like it should really be an issue, but gonna try a new version of \texttt{qss\_vs\_fan} with the full expression just to see what happens. \\
 	I'm also more and more confused about how the `SSW' quantity was calculated in WRF and have emailed David to ask how outputs are specified.
 	\item 3/22/20: v11 (with full expression for denominator of qss SS approx) of \texttt{qss\_vs\_fan} doesn't look much different so that's that. Also made program \texttt{compare\_esat\_formulae} to compare different formulae for saturation vapor pressure of water based on Khain and Pinsky but agreement is pretty perfect so that's out as an explanation. 	
+	\item 3/25/20: new code: \texttt{backtrack\_qss\_figsrc.py} - basically data exploration. in all versions, I use LWC greater than 1e-5; in even versions, I additionally enforce abs val of vert wind vel greater than 1 m/s.
+	\begin{itemize}
+		\item v1/v2: $\frac{\rho_a*(F_k + F_d)*LH}{\rho_L}$ vs $\frac{Aw}{D}$ - LH is `TEMPDIFFL' output from WRF.
+		\item v3/v4: same but first quantity above multiplied by ${1}{L_v}$ (arithmetic error on my part...afterwards I realized it should also be multiplied by $C_{ap}$, but didn't bother to make the figure for that)
+		\item v5/v6: WRF SSW output vs $\frac{\rho_a*(F_k + F_d)*LH}{4\pi \rho_L L_v *nconc*meanr}$ (this is also missing a factor of $C_{ap}$ which is why it looks weird)
+		\item v7/v8: same but I made axes to be equally scaled so it didn't work
+		\item v9/v10: same but no equal scaling of axes and colored by temp; x-axis has large outliers so also doesn't work
+		\item v11/v12: same but limit of $\pm$1000 for x-axis
+	\end{itemize}
+	\item 3/29/20: more versions of \texttt{backtrack\_qss}:
+	\begin{itemize}
+		\item v13: same as v11/12 but with T greater than 273K filter
+		\item v14: blank
+		\item v15/16: WRF SSW output vs $C_{ap}*LH$
+		\item v17/18: same as v11/12 but color by mean radius
+	\end{itemize}
+	\item 3/30/20: tbh just brute force trying to figure out what's going on in these plots. the following versions plot SSW vs ``$SS_{RY}$'' $\equiv\frac{\rho_a*(F_k + F_d)*C_{ap}*LH}{4 \pi \rho_L L_v*nconc*meanr}$ with filters of LWC greater than 1e-5 and meanr between 0 and 60um (not sure why default colorbar extends negative...TODO look into that), odd versions cutoff $SS_{RY}$ at $\pm$1000\% and even versions allow default axis scaling which should show the entire domain:
+	\begin{itemize}
+		\item v19/20: color by mean radius (v20 updated later to truncate out severe outliers in unpolluted case)
+		\item v21/22: color by number concentration
+		\item v23/24: color by $F_k + F_d\equiv F$
+		\item v25/26: color by LH
+		\item v27/28: color by $\rho_a$ (v28 updated later to truncate out severe outliers in unpolluted case)
+		\item v35/36: color by w
+		\item v37/38: color by z
+	\end{itemize}
+\indent Based on the appearance of v21/22, decided to tweak filtering a bit for the next few - same quantities being plotted and version parity convention, all colored by number concentration:
+	\begin{itemize}
+		\item v29/30: LWC greater than 1e-5, meanr between 0 and 60um, nconc greater than 1e7
+		\item v31/32: LWC greater than 3e-5
+		\item v33/34: LWC greater than 3e-5, meanr between 0 and 60um
+	\end{itemize}
+	\item 3/31/20: v39/40 of \texttt{backtrack\_qss}: LWC greater than 5e-5, color by z
+	\item 4/12/20: back after another dry spell without updates...including more \texttt{backtrack\_qss} versions!!
+	\begin{itemize}
+		\item v41/42: LWC greater than 5e-5, meanr between 0 and 60um, color by w
+		\item v43/44: LWC greater than 5e-5, meanr between 0 and 60um, z greater than 6km, color by z
+		\item v45: apparently does not exist.
+		\item v46/47: LWC greater than 1e-4, meanr between 0 and 60um, color by z
+		\item v48/49: LWC greater than 5e-5, meanr between 0 and 60um, color by meanr 
+		\item v50/51: LWC greater than 5e-5, meanr between 0 and 30um, color by z
+	\end{itemize}
+	\indent Additionally, wrote and ran \texttt{ptcount\_backtrack\_qss.py} to make sure that coloring seen e.g. in v39/40 is just because red points are being plotted on top of blue points (yes, this is the case).\\
+
+	\indent Comparing v50/51 with v39/40 shows that regions with large drops seem to be the problem in terms of divergence of $SS_{RY}$...I thought it was because coalexcence is taking over condensation as the dominant growth mechanism in that regime, but David pointed out it could be because Qindan and I have only been looking at the first 15 `rain/cloud' microphysics bins from WRF output (to which he also attributes strange values of LWC (cloud only) and diffusional latent heating that I am still working to understand)...rerunning \texttt{make\_secondary\_vars.py} to include all 33 bins in meanr and nconc calculations.\\
+
+	\indent Related note: data organization on Lawrencium a little messy right now because I made some consolidated files for David to look at...TODO: fix that up. Also the docstrings on everything :'(
 \end{itemize}
+
+\subsection{Theory}
+(adding figures here rather than in \texttt{pres} directory to keep everything together)\\
+
+\noindent Mostly just paraphrasing Rogers and Yau.
+
+\subsubsection{Single spherical droplet}
+\begin{itemize}
+	\item solve H2O vapor and heat diffusion equations
+	\item also assume $T$ at drop surface $\approx T_{env}$
+\end{itemize}
+\begin{align}
+\Rightarrow \frac{dm}{dt} &= 4\pi r^2 \rho_L \frac{dr}{dt} \nonumber\\
+&= 4\pi r \rho_L \Bigg(\frac{S - 1 - \frac{a}{r} + \frac{b}{r^3}}{F_k + F_d}\Bigg),
+\end{align}
+where $m,r$ are droplet mass and radius, $S=\frac{e}{e_{sat}}$, $a,b$ are Kohler parameters related to surface tension and soluble ion content, resp., and $F_k, F_d$ are functions of $T_{env}$ related to heat and H2O vapor diffusion, resp.
+
+\subsubsection{Many spherical droplets}
+\begin{itemize}
+	\item let the droplets be described by size distribution $p(r)\equiv\frac{\text{\# drops with radius between r, r+dr}}{V*dr}$, where $V$ is volume of the parcel. Then:
+\end{itemize}
+\begin{align}
+\int dr \, p(r) &= n \\
+\frac{\int dr \, p(r)r}{\int dr \, p(r)} &= \langle r \rangle \\
+etc. \nonumber
+\end{align}
+\indent(where $n$ is the number concentration)
+\begin{align}
+\Rightarrow \frac{dQ}{dt} &= L_v \frac{dm_{tot}}{dt} \nonumber \\
+&= L_v V \frac{d}{dt} \int dr \, p(r) \frac{4}{3}\pi \rho_L r^3 
+\end{align}
+\begin{itemize} 
+	\item assume p(r) is constant (???)
+\end{itemize}
+\begin{align}
+\Rightarrow \frac{dQ}{dt} &= L_v V 4 \pi \rho_L \int dr \, pr(r) r \Bigg(\frac{S - 1 - \frac{a}{r} + \frac{b}{r^3}}{F_k + F_d}\Bigg) \nonumber \\
+&= \frac{L_v V 4 \pi \rho_L \langle r \rangle n}{F_k + F_d} \Big(S - 1 - \frac{a}{\langle r \rangle} + \frac{b}{\langle r \rangle \langle r^2 \rangle}\Big)
+\end{align}
+\begin{itemize}
+	\item WRF gives latent heating ($LH$) due to H2O diffusion in units of $K/s$.
+\end{itemize}
+\begin{align}
+\label{ssry}
+\Rightarrow S - 1 - \frac{a}{\langle r \rangle} + \frac{b}{\langle r^2 \rangle \langle r \rangle} &= \frac{\big(F_k + F_d\big) \frac{dQ}{dt}}{L_v V 4 \pi \rho_L \langle r \rangle n} \nonumber \\
+&= \frac{\big(F_k + F_d\big) C_{ap} m_a LH}{L_v V 4 \pi \rho_L \langle r \rangle n} \nonumber \\
+&= \frac{\big(F_k + F_d\big) C_{ap} \rho_a LH}{L_v 4 \pi \rho_L \langle r \rangle n} 
+\end{align} 
+Below we have plotted supersaturation as described by Equation (\ref{ssry}) -- neglecting size effects, i.e. setting $a,b=0$ -- versus the WRF supersaturation output.
+
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v37_backtrack_qss_Polluted_figure.png}
+    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, polluted case. Points plotted have LWC $> 10^{-5}$. The domain has been restricted manually.}
+    \label{v37pol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v38_backtrack_qss_Polluted_figure.png}
+    \caption{Same as Figure (\ref{v37pol}), but with the full domain.}
+    \label{v38pol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v37_backtrack_qss_Unpolluted_figure.png}
+    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, unpolluted case. Points plotted have LWC $> 10^{-5}$. The domain has been restricted manually.}
+    \label{v37unpol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v38_backtrack_qss_Unpolluted_figure.png}
+    \caption{Same as Figure (\ref{v37unpol}), but with the full domain.}
+    \label{v38unpol}
+\end{figure}
+
+\clearpage
+
+Can disagreement be attributed to neglect of finite droplet size effects? We would expect those effects to occur in cases where mean radius is smallest. However it seems this would not explain what we are seeing in Figures (\ref{v37pol})-(\ref{v38unpol}):
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v19_backtrack_qss_Polluted_figure.png}
+    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, polluted case. Points plotted have LWC $> 10^{-5}$. The domain has been restricted manually.}
+    \label{v19pol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v20_backtrack_qss_Polluted_figure.png}
+    \caption{Same as Figure (\ref{v19pol}), but with the full domain.}
+    \label{v20pol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v19_backtrack_qss_Unpolluted_figure.png}
+    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, unpolluted case. Points plotted have LWC $> 10^{-5}$. The domain has been restricted manually.}
+    \label{v19unpol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v20_backtrack_qss_Unpolluted_figure.png}
+    \caption{Same as Figure (\ref{v19unpol}), but with the full domain.}
+    \label{v20unpol}
+\end{figure}
+
+\clearpage
+
+Increasing the LWC cutoff does seem to improve the situation, however (see figures below). Based on my own exploration this has a similar effect to filtering out low-$n$ points (unsurprising then that many of the large-$SS_{RY}$ points are removed, since $n$ appears in the denominator).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v39_backtrack_qss_Polluted_figure.png}
+    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, polluted case. Points plotted have LWC $> 5*10^{-5}$. The domain has been restricted manually.}
+    \label{v39pol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v40_backtrack_qss_Polluted_figure.png}
+    \caption{Same as Figure (\ref{v39pol}), but with the full domain.}
+    \label{v40pol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v39_backtrack_qss_Unpolluted_figure.png}
+    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, unpolluted case. Points plotted have LWC $> 5*10^{-5}$. The domain has been restricted manually.}
+    \label{v39unpol}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{mywrf/v40_backtrack_qss_Unpolluted_figure.png}
+    \caption{Same as Figure (\ref{v39unpol}), but with the full domain.}
+    \label{v40unpol}
+\end{figure}
+
 \end{document}

@@ -22,7 +22,7 @@ centr_cdp = (CDP_bins['upper'] + CDP_bins['lower'])/4. #diam to radius
 dr_cdp = CDP_bins['upper'] - CDP_bins['lower']
 nbins_cdp = len(centr_cdp)
 
-low_bin_cas = 4 #previous three cols are environmental vars
+low_bin_cas = 6 #previous six cols are environmental vars
 high_bin_cas = low_bin_cas + nbins_cas
 low_bin_cdp = 4 + high_bin_cas #extra +4 due to addition of LWC cols
 high_bin_cdp = low_bin_cdp + nbins_cdp
@@ -195,34 +195,36 @@ def get_datablock(adlrinds, casinds, cdpinds, adlrdata, casdata, cdpdata):
     """
     Consolidate data for easier processing 
     Format of output array (order of columns): time, temperature, vertical \
-    velocity, cas correction factor,  number conc for cas bins (12 cols), \
-    LWC for cas (4 cols), number conc for cdp bins (15 cols), LWC for cdp \
-    (4 cols)
+    velocity, ADLR TAS, CAS TAS, CAS correction factor,  number conc for cas \
+    bins (12 cols), LWC for cas (4 cols), number conc for cdp bins (15 cols), \
+    LWC for cdp (4 cols)
     """
-    # extra twelve columns: time, temperature, 
-    # vertical wind velocity, cas corr factor, 
-    # lwc for cas and cdp
-    datablock = np.zeros([len(adlrinds), 12 + nbins_cas + nbins_cdp])
+    # extra fourteen columns: time, temperature, 
+    # vertical wind velocity, ADLR TAS, CAS TAS, 
+    # CAS corr factor, lwc for cas and cdp
+    datablock = np.zeros([len(adlrinds), 14 + nbins_cas + nbins_cdp])
     datablock[:, 0] = np.around(adlrdata['data']['time'][adlrinds])
     datablock[:, 1] = adlrdata['data']['stat_temp'][adlrinds]
     datablock[:, 2] = adlrdata['data']['vert_wind_vel'][adlrinds]
-    datablock[:, 3] = casdata['data']['TAS'][casinds]\
+    datablock[:, 3] = adlrdata['data']['TAS'][adlrinds]
+    datablock[:, 4] = casdata['data']['TAS'][casinds]
+    datablock[:, 5] = casdata['data']['TAS'][casinds]\
 			/casdata['data']['PAS'][casinds]\
 			*casdata['data']['xi'][casinds]
     for i in range(nbins_cas):
         key = 'nconc_' + str(i+5)
         datablock[:, i+low_bin_cas] = casdata['data'][key][casinds]
-    datablock[:, 4+nbins_cas] = casdata['data']['lwc']['00'][casinds]
-    datablock[:, 5+nbins_cas] = casdata['data']['lwc']['01'][casinds]
-    datablock[:, 6+nbins_cas] = casdata['data']['lwc']['10'][casinds]
-    datablock[:, 7+nbins_cas] = casdata['data']['lwc']['11'][casinds]
+    datablock[:, high_bin_cas] = casdata['data']['lwc']['00'][casinds]
+    datablock[:, 1+high_bin_cas] = casdata['data']['lwc']['01'][casinds]
+    datablock[:, 2+high_bin_cas] = casdata['data']['lwc']['10'][casinds]
+    datablock[:, 3+high_bin_cas] = casdata['data']['lwc']['11'][casinds]
     for i in range(nbins_cdp):
         key = 'nconc_' + str(i+1)
         datablock[:, i+low_bin_cdp] = cdpdata['data'][key][cdpinds]
-    datablock[:, 8+nbins_cas+nbins_cdp] = cdpdata['data']['lwc']['00'][cdpinds]
-    datablock[:, 9+nbins_cas+nbins_cdp] = cdpdata['data']['lwc']['01'][cdpinds]
-    datablock[:, 10+nbins_cas+nbins_cdp] = cdpdata['data']['lwc']['10'][cdpinds]
-    datablock[:, 11+nbins_cas+nbins_cdp] = cdpdata['data']['lwc']['11'][cdpinds]
+    datablock[:, high_bin_cdp] = cdpdata['data']['lwc']['00'][cdpinds]
+    datablock[:, 1+high_bin_cdp] = cdpdata['data']['lwc']['01'][cdpinds]
+    datablock[:, 2+high_bin_cdp] = cdpdata['data']['lwc']['10'][cdpinds]
+    datablock[:, 3+high_bin_cdp] = cdpdata['data']['lwc']['11'][cdpinds]
 
     return datablock
 
@@ -240,7 +242,7 @@ def get_nconc_vs_t(datablock, change_cas_corr, cutoff_bins):
     nconc_cdp = []
     for i, row in enumerate(datablock):
         if change_cas_corr:
-            nconc_cas.append(np.sum(row[3]*row[(low_bin_cas+cas_offset):high_bin_cas]))
+            nconc_cas.append(np.sum(row[5]*row[(low_bin_cas+cas_offset):high_bin_cas]))
         else:
             nconc_cas.append(np.sum(row[(low_bin_cas+cas_offset):high_bin_cas]))
         nconc_cdp.append(np.sum(row[(low_bin_cdp+cdp_offset):high_bin_cdp]))
@@ -260,9 +262,9 @@ def get_meanr_vs_t(datablock, change_cas_corr, cutoff_bins):
     meanr_cdp = []
     for row in datablock:
         if change_cas_corr:
-            meanr_cas.append(np.sum(row[3]*row[(low_bin_cas+cas_offset):high_bin_cas]\
+            meanr_cas.append(np.sum(row[5]*row[(low_bin_cas+cas_offset):high_bin_cas]\
                 *centr_cas[nbins_cas-(high_bin_cas-(low_bin_cas+cas_offset)):nbins_cas])\
-                /np.sum(row[3]*row[(low_bin_cas+cas_offset):high_bin_cas]))
+                /np.sum(row[5]*row[(low_bin_cas+cas_offset):high_bin_cas]))
         else:
             meanr_cas.append(np.sum(row[(low_bin_cas+cas_offset):high_bin_cas]\
                 *centr_cas[nbins_cas-(high_bin_cas-(low_bin_cas+cas_offset)):nbins_cas])\
@@ -271,6 +273,35 @@ def get_meanr_vs_t(datablock, change_cas_corr, cutoff_bins):
             *centr_cdp[nbins_cdp-(high_bin_cdp-(low_bin_cdp+cdp_offset)):nbins_cdp])\
             /np.sum(row[(low_bin_cdp+cdp_offset):high_bin_cdp]))
     return (np.array(meanr_cas), np.array(meanr_cdp))
+
+def get_ss_vs_t(datablock, change_cas_corr, cutoff_bins):
+    """
+    Returns (ss_cas, ss_cdp) [redundant to ss_scatter_figsrc module at the
+    moment which is not the best but whatever]
+    """
+    (meanr_cas, meanr_cdp) = get_meanr_vs_t(datablock, \
+                                            change_cas_corr, cutoff_bins)
+    (nconc_cas, nconc_cdp) = get_nconc_vs_t(datablock, \
+                                            change_cas_corr, cutoff_bins)
+   
+    #physical constants
+    C_ap = 1005. #dry air heat cap at const P (J/(kg K))
+    D = 0.23e-4 #diffus coeff water in air (m^2/s)
+    g = 9.8 #grav accel (m/s^2)
+    L_v = 2501000. #latent heat of evaporation of water (J/kg)
+    Mm_a = .02896 #Molecular weight of dry air (kg/mol)
+    Mm_v = .01806 #Molecular weight of water vapour (kg/mol)
+    R = 8.317 #universal gas constant (J/(mol K))
+    R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
+    R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
+
+    T = datablock[:, 1]
+    w = datablock[:, 2]
+    A = g*(L_v*R_a/(C_ap*R_v)*1/T - 1)*1./R_a*1./T
+    ss_cas = A*w/(4*np.pi*D*nconc_cas*meanr_cas)*100
+    ss_cdp = A*w/(4*np.pi*D*nconc_cdp*meanr_cdp)*100
+ 
+    return (np.array(ss_cas), np.array(ss_cdp))
 
 def pad_lwc_arrays(dataset, change_cas_corr, cutoff_bins):
     lwc_t_inds = dataset['data']['lwc_t_inds']

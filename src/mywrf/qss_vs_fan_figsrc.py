@@ -14,8 +14,8 @@ from halo.utils import linregress
 from mywrf import BASE_DIR, DATA_DIR, FIG_DIR 
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
-lwc_cutoff = 1.e-5
-versionstr = 'v11_'
+lwc_cutoff = 1.e-4
+versionstr = 'v12_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
@@ -40,9 +40,6 @@ def main():
     For both polluted and unpolluted model runs, plot qss SS approx vs WRF SS.
     """
     for model_label in model_dirs.keys():
-        
-        if model_label == 'C_BG':
-           continue
 
         model_dir = model_dirs[model_label]        
 

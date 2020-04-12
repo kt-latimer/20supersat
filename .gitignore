@@ -47,5 +47,10 @@ figures/halo/nconc_scatter_*
 *v4_qss_vs*
 *v5_qss_vs*
 *v6_qss_vs*
+*tas_indiv*
+*investigate*
+*lagra*
+*find_*lier*
+*terminaloutput*
 src/mywrf/slurm*
 *.pyc

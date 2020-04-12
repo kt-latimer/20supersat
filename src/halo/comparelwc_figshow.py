@@ -17,7 +17,7 @@ def main():
     creates and shows the figure
     """
     
-    date = '20140916'
+    date = '20140909'
     
     casmin = 0 
     casmax = -1 
@@ -54,14 +54,16 @@ def main():
     ax.set_xlabel('t (s)')
 
     #look at vertical wind velocity data as well
-    ax2 = ax.twinx()
-    ax2.plot(adlrt, adlrw, label='Vertical wind velocity', \
-        color=colors['w'])
-    ax2.set_ylabel('w (m/s)')
+    #ax2 = ax.twinx()
+    #ax2.plot(adlrt, adlrw, label='Vertical wind velocity', \
+    #    color=colors['w'])
+    #ax2.set_ylabel('w (m/s)')
     
     lines, labels = ax.get_legend_handles_labels()
-    lines2, labels2 = ax2.get_legend_handles_labels() 
-    ax.legend(lines + lines2, labels + labels2, loc=0)
+    #lines2, labels2 = ax2.get_legend_handles_labels() 
+    
+    #ax.legend(lines + lines2, labels + labels2, loc=0)
+    ax.legend(lines, labels, loc=0)
 
     #listen for user clicks 
     fig.canvas.mpl_connect('button_press_event',onclick)
