@@ -1,7 +1,6 @@
 """
-Create and save figure qss_vs_wrf. This is a scatter plot comparing WRF's
-supersaturation output against a simplified version of the quasi-steady-state
-supersaturation equation in Korolev 2003.
+Count points lying outside specified ranges in backtrack_qss analysis (fairly
+self-explanatory from the printed output)
 """
 from datetime import datetime
 
@@ -18,7 +17,7 @@ g = 9.8 #grav accel (m/s^2)
 
 def main():
     """
-    For both polluted and unpolluted model runs, plot qss SS approx vs WRF SS.
+    main routine.
     """
     for model_label in model_dirs.keys():
 

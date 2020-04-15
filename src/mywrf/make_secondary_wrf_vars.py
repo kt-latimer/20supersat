@@ -5,7 +5,8 @@ variables 'meanr' (mean cloud drop radius; m), 'nconc' (cloud drop number
 concentration; m^-3), 'pres' (total pressure; Pa), 'rho_air' (dry air density
 from ideal gas law; kg/m^3), 'temp' (total temperature; K), 'theta' 
 (total potential temperature; K), and 'w' (vertical wind velocity averaged to 
-the centered (mass) grid; m/s).
+the centered (mass) grid; m/s). [update: for later versions, also included
+variables 'lwc', 'ss_qss', and 'ss_ry' for David to look at.]
 """
 from netCDF4 import Dataset, MFDataset
 import numpy as np
@@ -16,9 +17,15 @@ model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
 #physical constants
 C_ap = 1005. #dry air heat cap at const P (J/(kg K))
+D = 0.23e-4 #diffus coeff water in air (m^2/s)
+g = 9.8 #grav accel (m/s^2)
+K = 2.4e-2 #therm conductivity of air (J/(m s K))
+L_v = 2501000. #latent heat of evaporation of water (J/kg)
 Mm_a = .02896 #Molecular weight of dry air (kg/mol)
+Mm_v = .01806 #Molecular weight of water vapour (kg/mol)
 R = 8.317 #universal gas constant (J/(mol K))
 R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
+R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 rho_w = 1000. #density of water (kg/m^3)
 
 #wrf reference values
@@ -38,7 +45,8 @@ def main():
         ncprimvars = ncinfile.variables
         
         #create secondary datafile
-        ncoutfile = Dataset(DATA_DIR + model_dir + 'wrfout_d01_secondary_vars', 'w')
+        ncoutfile = Dataset(DATA_DIR + model_dir \
+                        + 'wrfout_d01_secondary_vars_with_ss_v3', 'w')
 
         #make file dimensions
         ncoutfile.createDimension('west_east', 450)
@@ -48,6 +56,7 @@ def main():
         dims = ('Time', 'bottom_top', 'south_north', 'west_east')
 
         #get primary variables from wrf output
+        LH = ncprimvars['TEMPDIFFL'][...]
         PB = ncprimvars['PB'][...]
         P = ncprimvars['P'][...]
         T = ncprimvars['T'][...]
@@ -59,28 +68,46 @@ def main():
         #calculate secondary variables
         theta_data = T_0 + T 
         pres_data = PB + P
+        del PB, P, T, W #for memory
         temp_data = theta_data*np.power((pres_data/P_0), R_a/C_ap)
         rho_air_data = pres_data/(R_a*temp_data) 
 
         #compute mean radius of cloud droplets
-        diams = [4*(2.**(i/3.))*10**(-6) for i in range(15)] #bin diams in m
+        diams = [4*(2.**(i/3.))*10**(-6) for i in range(33)] #bin diams in m
         rads = [d/2. for d in diams] 
-        rN_sum = np.empty(np.shape(P))
-        N_sum = np.empty(np.shape(P))
-        for i in range(15):
+        rN_sum = np.empty(np.shape(pres_data))
+        N_sum = np.empty(np.shape(pres_data))
+        for i in range(33):
             r = rads[i]
             ff_i_wrf = ncprimvars['ff1i'+f'{i+1:02}'][...]
             N_i = ff_i_wrf/(4./3.*np.pi*r**3.*rho_w/rho_air_data)
             N_sum += N_i
             rN_sum += N_i*r
+            del ff_i_wrf, N_i #for memory
         meanr_data = rN_sum/N_sum
         nconc_data = N_sum
+        del N_sum, rN_sum #for memory
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp_data - 1)*1./R_a*1./temp_data
+        ss_qss_data = w_data*A/(4*np.pi*D*nconc_data*meanr_data)
+        del A #for memory
+        e_s = 611.2*np.exp(17.67*(temp_data - 273)/(temp_data - 273 + 243.5))
+        
+        #quantities defined in ch 7 of Rogers and Yau
+        F_k = (L_v/(R_v*temp_data) - 1)*(L_v*rho_w/(K*temp_data))
+        F_d = rho_w*R_v*temp_data/(D*e_s)
+
+        #ss formula from RY p 102
+        ss_ry_data = C_ap*rho_air_data \
+            *(F_k + F_d)*LH/(4*np.pi*L_v*rho_w*meanr_data*nconc_data)
+        del e_s, F_d, F_k, LH #for memory
 
         #make variables for netCDF file
         meanr = ncoutfile.createVariable('meanr', np.dtype('float32'), dims)
         nconc = ncoutfile.createVariable('nconc', np.dtype('float32'), dims)
         pres = ncoutfile.createVariable('pres' , np.dtype('float32'), dims)
         rho_air = ncoutfile.createVariable('rho_air', np.dtype('float32'), dims)
+        ss_qss = ncoutfile.createVariable('ss_qss', np.dtype('float32'), dims)
+        ss_ry = ncoutfile.createVariable('ss_ry', np.dtype('float32'), dims)
         temp = ncoutfile.createVariable('temp', np.dtype('float32'), dims)
         theta = ncoutfile.createVariable('theta', np.dtype('float32'), dims)
         w = ncoutfile.createVariable('w', np.dtype('float32'), dims)
@@ -90,9 +117,14 @@ def main():
         nconc[...] = nconc_data
         pres[...] = pres_data
         rho_air[...] = rho_air_data
+        ss_qss[...] = ss_qss_data
+        ss_ry[...] = ss_ry_data
         temp[...] = temp_data
         theta[...] = theta_data
         w[...] = w_data
+
+        del meanr_data, nconc_data, pres_data, rho_air_data, ss_qss_data, \
+            ss_ry_data, temp_data, theta_data, w_data  #for memory
 
         #close outfile
         ncoutfile.close()

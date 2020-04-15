@@ -1,7 +1,5 @@
 """
-was looking to see if using the more complicated temperature-dependent
-expression for D in the qss ss approximation would make a difference (it didn't
-really)
+looking at temperature dependence of Q1/Q2 as defined in Rogers and Yau p 106.
 """
 from datetime import datetime
 
@@ -15,12 +13,11 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v5_'
+versionstr = 'v1_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
-colors = {'line': '#000000', 'denom': '#88720A'}
 
 #physical constants
 C_ap = 1005. #dry air heat cap at const P (J/(kg K))
@@ -37,7 +34,7 @@ rho_w = 1000. #density of water (kg/m^3)
 
 def main():
     """
-    For both polluted and unpolluted model runs, plot qss SS approx vs WRF SS.
+    For both polluted and unpolluted model runs, plot Q1/Q2 vs T
     """
     for model_label in model_dirs.keys():
 
@@ -54,46 +51,42 @@ def main():
         
         #get secondary variables
         pres = ncsecvars['pres'][...]
+        rho_air = ncsecvars['rho_air'][...]
         temp = ncsecvars['temp'][...]
+        
+        #convert to celcius
+        temp_C = temp - 273.15
 
         #formula for saturation vapor pressure from Rogers and Yau - converted
-        #to mks units (p 16)
-        e_s = 611.2*np.exp(17.67*(temp - 273)/(temp - 273 + 243.5))
-        
-        #quantities defined in ch 7 of Rogers and Yau
-        Q_2 = rho_w*(R_v*temp/e_s + R_a*L_v**2./(pres*temp*R_v*C_ap))
-        F_k = (L_v/(R_v*temp) - 1)*(L_v*rho_w/(K*temp))
-        F_d = rho_w*R_v*temp/(D*e_s)
+        #to Pa (p 16)
+        e_sat = 611.2*np.exp(17.67*temp_C/(temp_C + 243.5))
 
-        #factor in denominator of Rogers and Yau qss ss formula (p 110)
-        denom = Q_2/(F_k + F_d)
+        #quantities Q1 and Q2 def'd on p 106 of RY
+        Q1 = 1./temp*(L_v*g/(R_v*C_ap*temp) - g/R_a)
+        Q2 = rho_air*(R_v*temp/e_sat + R_a*L_v**2./(R_v*pres*temp*C_ap))
+        qratio = Q1/Q2
+        print(np.nanmin(qratio))
+        print(np.nanmax(qratio))
+        print(np.nanmean(qratio))
+        print(np.nanmedian(qratio))
+        print(np.nanstd(qratio))
 
-        #make mask on LWC values
+        return 
+
+        #make filter mask
         mask = LWC > lwc_cutoff
-        #print(np.sum(mask))
-        #print('denom stats')
-        #print(np.nanmean(denom[mask]))
-        #print(np.nanstd(denom[mask]))
-        #print('Q_2 stats')
-        #print(np.nanmean(Q_2[mask]))
-        #print(np.nanstd(Q_2[mask]))
-        #print('F_k stats')
-        #print(np.nanmean(F_k[mask]))
-        #print(np.nanstd(F_k[mask]))
-        #print('F_d stats')
-        #print(np.nanmean(F_d[mask]))
-        #print(np.nanstd(F_d[mask]))
+
         #plot the supersaturations against each other with regression line
-        #fig, ax = plt.subplots()
-        #ax.scatter(denom[mask], D*np.ones(np.shape(denom))[mask], c=colors['denom'])
-        #ax.set_xlabel('RY denominator')
-        #ax.set_ylabel('constant denominator')
-        #fig.set_size_inches(21, 12)
-        fact = 1./denom
-        plt.hist(fact[mask], bins=30)
-        outfile = FIG_DIR + versionstr + 'qss_expand_denom_' \
+        fig, ax = plt.subplots()
+        im = ax.scatter(temp[mask], qratio[mask])
+        ax.set_xlabel('T (K)')
+        ax.set_ylabel('Q1/Q2')
+        fig.set_size_inches(21, 12)
+        
+        outfile = FIG_DIR + versionstr + 'qratio_vs_temp_' \
                     + model_label + '_figure.png'
         plt.savefig(outfile)
+        plt.close(fig=fig)
 
 if __name__ == "__main__":
     main()

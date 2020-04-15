@@ -1,7 +1,6 @@
 """
-Create and save figure qss_vs_wrf. This is a scatter plot comparing WRF's
-supersaturation output against a simplified version of the quasi-steady-state
-supersaturation equation in Korolev 2003.
+Create and save figure backtrack_qss. [note from the future: on like the 50th
+version of this plot, see notes for documentation] 
 """
 from datetime import datetime
 
@@ -38,7 +37,8 @@ rho_w = 1000. #density of water (kg/m^3)
 
 def main():
     """
-    For both polluted and unpolluted model runs, plot qss SS approx vs WRF SS.
+    For both polluted and unpolluted model runs, plot some quantity described
+    in the notes.
     """
     for model_label in model_dirs.keys():
 
