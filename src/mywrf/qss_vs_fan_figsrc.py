@@ -14,8 +14,8 @@ from halo.utils import linregress
 from mywrf import BASE_DIR, DATA_DIR, FIG_DIR 
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
-lwc_cutoff = 1.e-4
-versionstr = 'v12_'
+lwc_cutoff = 1.e-5
+versionstr = 'v14_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
@@ -40,6 +40,9 @@ def main():
     For both polluted and unpolluted model runs, plot qss SS approx vs WRF SS.
     """
     for model_label in model_dirs.keys():
+
+        if model_label == 'Polluted':
+            continue
 
         model_dir = model_dirs[model_label]        
 
@@ -74,13 +77,12 @@ def main():
         
         #compute quasi steady state ss 
         A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
-        ss = w*A/(4*np.pi*denom*nconc*meanr)
-        #ss = w*A/(4*np.pi*D*nconc*meanr)
+        #ss = w*A/(4*np.pi*denom*nconc*meanr)
+        ss = w*A/(4*np.pi*D*nconc*meanr)
         
         del meanr
         del nconc
         del pres
-        del temp
         del e_s
         del Q_2
         del F_k
@@ -97,10 +99,15 @@ def main():
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
+        #mask = np.logical_and.reduce(( \
+        #                            (LWC > lwc_cutoff), \
+        #                            (np.abs(w) > 1)))
         mask = np.logical_and.reduce(( \
                                     (LWC > lwc_cutoff), \
-                                    (np.abs(w) > 1)))
+                                    (temp > 273), \
+                                    (np.abs(w) > 5)))
         
+        del temp
         print(np.shape(mask))
         print('num above lwc cutoff and nonzero w: ', np.sum(mask))
         

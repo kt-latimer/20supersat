@@ -14,7 +14,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v5_'
+versionstr = 'v10`_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
@@ -36,25 +36,22 @@ rho_w = 1000. #density of water (kg/m^3)
 
 def main():
     """
-    For both polluted and unpolluted model runs, plot ss_qss SS approx vs WRF SS.
+    For both polluted and unpolluted model runs, plot ss_qss ss_wrf approx vs WRF ss_wrf.
     """
     for model_label in model_dirs.keys():
 
         model_dir = model_dirs[model_label]        
 
         #load datafiles
-        ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
-        ncprimvars = ncprimfile.variables
         ncsecfile = Dataset(DATA_DIR + model_dir +
-                            'wrfout_d01_secondary_vars_with_ss_v3', 'r')
+                            'wrfout_d01_secondary_vars_with_ss_v4', 'r')
         ncsecvars = ncsecfile.variables
         
-        #get relevant primary variables from wrf output
-        LWC_C = ncprimvars['QCLOUD'][...]
-        SS = ncprimvars['SSW'][...]
-
         #get secondary variables
+        lwc = ncsecvars['lwc_cloud'][...]
         ss_qss = ncsecvars['ss_qss'][...]
+        ss_wrf = ncsecvars['ss_wrf'][...]
+        temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
         
         #make filter mask
@@ -66,15 +63,19 @@ def main():
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
+        #mask = np.logical_and.reduce(( \
+        #                            (LWC_C > lwc_cutoff), \
+        #                            (np.abs(w) > 5)))
         mask = np.logical_and.reduce(( \
-                                    (LWC_C > lwc_cutoff), \
-                                    (np.abs(w) > 5)))
+                                    (lwc > lwc_cutoff), \
+                                    (temp > 273), \
+                                    (np.abs(w) > 4)))
         
         print(np.shape(mask))
         print('num above lwc cutoff: ', np.sum(mask))
         
         #do regression analysis
-        m, b, R, sig = linregress(ss_qss[mask]*100, SS[mask]*100)
+        m, b, R, sig = linregress(ss_qss[mask]*100, ss_wrf[mask]*100)
         print(m, b, R**2)
         
         #count number of points outside range [-100, 100] for qss_qss set
@@ -90,19 +91,19 @@ def main():
         
         n_q1 = np.sum(np.logical_and.reduce(( \
                                     (ss_qss > 0), \
-                                    (SS > 0), \
+                                    (ss_wrf > 0), \
                                      mask)))
         n_q2 = np.sum(np.logical_and.reduce(( \
                                     (ss_qss < 0), \
-                                    (SS > 0), \
+                                    (ss_wrf > 0), \
                                      mask)))
         n_q3 = np.sum(np.logical_and.reduce(( \
                                     (ss_qss < 0), \
-                                    (SS < 0), \
+                                    (ss_wrf < 0), \
                                      mask)))
         n_q4 = np.sum(np.logical_and.reduce(( \
                                     (ss_qss > 0), \
-                                    (SS < 0), \
+                                    (ss_wrf < 0), \
                                      mask)))
         
         print('Number of points in Q1:', n_q1)
@@ -113,18 +114,18 @@ def main():
         
         ##get limits of the data for plotting purposes
         #xlim_max = np.max(np.array( \
-        #                [np.max(SS_qss[mask]), \
-        #                 np.max(SS_wrf[mask])]))
+        #                [np.max(ss_wrf_qss[mask]), \
+        #                 np.max(ss_wrf_wrf[mask])]))
         #xlim_min = np.min(np.array( \
-        #                [np.min(SS_qss[mask]), \
-        #                 np.min(SS_wrf[mask])]))
+        #                [np.min(ss_wrf_qss[mask]), \
+        #                 np.min(ss_wrf_wrf[mask])]))
         #ax_lims = np.array([100*xlim_min, 100*xlim_max])
         #print(ax_lims)
         
         ax_lims = np.array([-100, 100])
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
-        ax.scatter(ss_qss[mask]*100, SS[mask]*100, c=colors['ss'])
+        ax.scatter(ss_qss[mask]*100, ss_wrf[mask]*100, c=colors['ss'])
         ax.plot(ax_lims, np.add(b, m*ax_lims), \
                         c=colors['line'], \
                         linestyle='dashed', \
@@ -134,8 +135,8 @@ def main():
         ax.set_aspect('equal', 'box')
         #ax.set_xlim(ax_lims)
         #ax.set_ylim(ax_lims)
-        ax.set_xlabel('Quasi steady state SS (%)')
-        ax.set_ylabel('WRF SS (%)')
+        ax.set_xlabel('Quasi steady state ss_wrf (%)')
+        ax.set_ylabel('ss_wrf (%)')
         fig.legend()
         fig.set_size_inches(21, 12)
 

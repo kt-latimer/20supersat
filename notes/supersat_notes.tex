@@ -330,6 +330,31 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 	\indent Comparing v50/51 with v39/40 shows that regions with large drops seem to be the problem in terms of divergence of $SS_{RY}$...I thought it was because coalexcence is taking over condensation as the dominant growth mechanism in that regime, but David pointed out it could be because Qindan and I have only been looking at the first 15 `rain/cloud' microphysics bins from WRF output (to which he also attributes strange values of LWC (cloud only) and diffusional latent heating that I am still working to understand)...rerunning \texttt{make\_secondary\_vars.py} to include all 33 bins in meanr and nconc calculations.\\
 
 	\indent Related note: data organization on Lawrencium a little messy right now because I made some consolidated files for David to look at...TODO: fix that up. Also the docstrings on everything :'(
+	\item 4/17/20: Now that my meanr and nconc data include rain drops, I redid comparisons of SS\_WRF to SS\_QSS and SS\_RY, using code \texttt{inclrain\_qss\_vs\_fan\_figsrc.py} and \texttt{inclrain\_backtrack\_qss\_figsrc.py}, resp. For \texttt{inclrain\_backtrack\_qss}:
+	\begin{itemize}
+		\item v1: LWC greater than 1e-5 [note: still using LWC from clouds only to filter]
+		\item v2: LWC greater than 1e-5, no ax lims
+	\end{itemize}
+	\noindent For \texttt{inclrain\_qss\_vs\_fan}:
+	\begin{itemize}
+		\item v1: LWC greater than 1e-5
+		\item v2: LWC greater than 1e-5, no ax lims
+		\item v3: LWC greater than 1e-5, abs w > 5 
+		\item v4: LWC greater than 1e-5, abs w > 5, no ax lims
+		\item v5: LWC greater than 1e-5, abs w > 5, T > 0
+		\item v6: LWC greater than 1e-5, abs w > 1, T > 0
+		\item v7: LWC greater than 1e-5, abs w > 2, T > 0
+		\item v8: LWC greater than 1e-5, abs w > 3, T > 0
+		\item v9: LWC greater than 1e-5, abs w > 4, T > 0
+	\end{itemize}
+	\noindent Additionally, for \texttt{qss\_vs\_fan} (i.e. no rain drops included):
+	\begin{itemize}
+		\item v13: LWC greater than 1e-5, abs w > 5, T > 0 - polluted
+		\item v14: LWC greater than 1e-5, abs w > 5, T > 0 - unpolluted (only a different version because of minor code setup bug)
+	\end{itemize}
+	\noindent Summary of interpretation: including rain drops improves SS\_RY approximation because WRF latent heating output includes diffusional growth of rain droplets (so my earlier hypothesis regarding dominant growth mechanisms wasn't correct). Including rain drops only improves SS\_QSS if I limit to points below the freezing line - this is because, above that line, there are relatively few liquid water drops (i.e. meanr, nconc $\approx$ 0), but there may still be appreciable up/downdrafts. Whereas for SS\_RY, if meanr and nconc are close to zero, then latent heating is also close to zero, so we don't get these extreme divergences. Lastly, we see better agreement between SS\_QSS and SS\_WRF for larger magnitude of vertical wind velocity.\\
+
+	\noindent Note: cleaned up docstrings for wrf code!
 \end{itemize}
 
 \subsection{Theory}
