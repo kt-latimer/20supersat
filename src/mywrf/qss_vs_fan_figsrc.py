@@ -15,10 +15,10 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v14_'
+versionstr = 'v15_'
 
 #plot stuff
-matplotlib.rcParams.update({'font.size': 21})
+matplotlib.rcParams.update({'font.size': 24})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
 
@@ -41,9 +41,6 @@ def main():
     """
     for model_label in model_dirs.keys():
 
-        if model_label == 'Polluted':
-            continue
-
         model_dir = model_dirs[model_label]        
 
         #load datafiles
@@ -59,36 +56,36 @@ def main():
         #get secondary variables
         meanr = ncsecvars['meanr'][...]
         nconc = ncsecvars['nconc'][...]
-        pres = ncsecvars['pres'][...]
+        #pres = ncsecvars['pres'][...]
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
 
         #formula for saturation vapor pressure from Rogers and Yau - converted
         #to mks units (p 16)
-        e_s = 611.2*np.exp(17.67*(temp - 273)/(temp - 273 + 243.5))
+        #e_s = 611.2*np.exp(17.67*(temp - 273)/(temp - 273 + 243.5))
         
         #quantities defined in ch 7 of Rogers and Yau
-        Q_2 = rho_w*(R_v*temp/e_s + R_a*L_v**2./(pres*temp*R_v*C_ap))
-        F_k = (L_v/(R_v*temp) - 1)*(L_v*rho_w/(K*temp))
-        F_d = rho_w*R_v*temp/(D*e_s)
+        #Q_2 = rho_w*(R_v*temp/e_s + R_a*L_v**2./(pres*temp*R_v*C_ap))
+        #F_k = (L_v/(R_v*temp) - 1)*(L_v*rho_w/(K*temp))
+        #F_d = rho_w*R_v*temp/(D*e_s)
         
         #factor in denominator of Rogers and Yau qss ss formula (p 110)
-        denom = Q_2/(F_k + F_d)
+        #denom = Q_2/(F_k + F_d)
         
         #compute quasi steady state ss 
         A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
         #ss = w*A/(4*np.pi*denom*nconc*meanr)
         ss = w*A/(4*np.pi*D*nconc*meanr)
         
-        del meanr
-        del nconc
-        del pres
-        del e_s
-        del Q_2
-        del F_k
-        del F_d
-        del denom
-        del A
+        #del meanr
+        #del nconc
+        #del pres
+        #del e_s
+        #del Q_2
+        #del F_k
+        #del F_d
+        #del denom
+        #del A
         
         #make filter mask
         #mask = LWC > lwc_cutoff
@@ -99,15 +96,15 @@ def main():
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
-        #mask = np.logical_and.reduce(( \
-        #                            (LWC > lwc_cutoff), \
-        #                            (np.abs(w) > 1)))
         mask = np.logical_and.reduce(( \
                                     (LWC > lwc_cutoff), \
-                                    (temp > 273), \
-                                    (np.abs(w) > 5)))
+                                    (np.abs(w) > 2)))
+        #mask = np.logical_and.reduce(( \
+        #                            (LWC > lwc_cutoff), \
+        #                            (temp > 273), \
+        #                            (np.abs(w) > 5)))
         
-        del temp
+        #del temp
         print(np.shape(mask))
         print('num above lwc cutoff and nonzero w: ', np.sum(mask))
         
@@ -125,7 +122,9 @@ def main():
         print(model_label)
         print('n_hi: ', n_hi)
         print('n_lo: ', n_lo)
-        
+        print('ssqss max:', np.nanmax(ss)) 
+        print('ssqss min: ', np.nanmin(ss)) 
+
         n_q1 = np.sum(np.logical_and.reduce(( \
                                     (ss > 0), \
                                     (SS > 0), \
@@ -172,9 +171,9 @@ def main():
         ax.set_aspect('equal', 'box')
         ax.set_xlim(ax_lims)
         ax.set_ylim(ax_lims)
-        ax.set_xlabel('Quasi steady state SS (%)')
-        ax.set_ylabel('WRF SS (%)')
-        fig.legend()
+        ax.set_xlabel(r'$SS_{QSS}$ (%)')
+        ax.set_ylabel(r'$SS_{WRF}$ (%)')
+        fig.legend(loc=2)
         fig.set_size_inches(21, 12)
 
         outfile = FIG_DIR + versionstr + 'qss_vs_fan_' \

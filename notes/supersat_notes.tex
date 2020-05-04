@@ -339,22 +339,85 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 	\begin{itemize}
 		\item v1: LWC greater than 1e-5
 		\item v2: LWC greater than 1e-5, no ax lims
-		\item v3: LWC greater than 1e-5, abs w > 5 
-		\item v4: LWC greater than 1e-5, abs w > 5, no ax lims
-		\item v5: LWC greater than 1e-5, abs w > 5, T > 0
-		\item v6: LWC greater than 1e-5, abs w > 1, T > 0
-		\item v7: LWC greater than 1e-5, abs w > 2, T > 0
-		\item v8: LWC greater than 1e-5, abs w > 3, T > 0
-		\item v9: LWC greater than 1e-5, abs w > 4, T > 0
+		\item v3: LWC greater than 1e-5, abs w greater than 1
+		\item v4: LWC greater than 1e-5, abs w greater than 5 
+		\item v5: LWC greater than 1e-5, abs w greater than 5, no ax lims
+		\item v6: LWC greater than 1e-5, abs w greater than 5, T greater than 0
+		\item v7: LWC greater than 1e-5, abs w greater than 1, T greater than 0
+		\item v8: LWC greater than 1e-5, abs w greater than 2, T greater than 0
+		\item v9: LWC greater than 1e-5, abs w greater than 3, T greater than 0
+		\item v10: LWC greater than 1e-5, abs w greater than 4, T greater than 0
 	\end{itemize}
 	\noindent Additionally, for \texttt{qss\_vs\_fan} (i.e. no rain drops included):
 	\begin{itemize}
-		\item v13: LWC greater than 1e-5, abs w > 5, T > 0 - polluted
-		\item v14: LWC greater than 1e-5, abs w > 5, T > 0 - unpolluted (only a different version because of minor code setup bug)
+		\item v13: LWC greater than 1e-5, abs w greater than 5, T greater than 0 - polluted
+		\item v14: LWC greater than 1e-5, abs w greater than 5, T greater than 0 - unpolluted (only a different version because of minor code setup bug)
 	\end{itemize}
 	\noindent Summary of interpretation: including rain drops improves SS\_RY approximation because WRF latent heating output includes diffusional growth of rain droplets (so my earlier hypothesis regarding dominant growth mechanisms wasn't correct). Including rain drops only improves SS\_QSS if I limit to points below the freezing line - this is because, above that line, there are relatively few liquid water drops (i.e. meanr, nconc $\approx$ 0), but there may still be appreciable up/downdrafts. Whereas for SS\_RY, if meanr and nconc are close to zero, then latent heating is also close to zero, so we don't get these extreme divergences. Lastly, we see better agreement between SS\_QSS and SS\_WRF for larger magnitude of vertical wind velocity.\\
 
 	\noindent Note: cleaned up docstrings for wrf code!
+	\item 5/1/20: Various figure series updates:
+	\begin{itemize}
+		\item \texttt{backtrack\_qss}:
+		\begin{itemize}
+			\item v52: cloud LWC greater than 1e-5, abs w greater than 2 (cleaned up)
+		\end{itemize}
+		\item \texttt{qss\_vs\_fan}:
+		\begin{itemize}
+			\item v15: cloud LWC greater than 1e-5, abs w greater than 2 (cleaned up)
+		\end{itemize}
+		\item \texttt{inclrain\_backtrack\_qss}:
+		\begin{itemize}
+			\item v3: total LWC greater than 1e-11, LH greater than 0, T greater than 0
+			\item v4: cloud LWC greater than 1e-5, abs w greater than 2 (cleaned up)
+			\item v5: cloud LWC greater than 1e-5, abs w greater than 2, T greater than 0 (cleaned up)
+		\end{itemize}
+		\item \texttt{inclrain\_qss\_vs\_fan}:
+		\begin{itemize}
+			\item v11: cloud LWC greater than 1e-11, LH greater than 0, T greater than 0
+			\item v12: cloud LWC greater than 1e-11, LH greater than 0, T greater than 0, [0, 42, :, :]
+			\item v13: cloud LWC greater than 1e-11, LH greater than 0, T greater than 0, [1, 42, :, :]
+			\item v14: cloud LWC greater than 1e-11, LH greater than 0, T greater than 0, [0, 43, :, :]
+			\item v15: ? lost notes 
+			\item v16: total LWC greater than 1e-11, LH greater than 0, T greater than 0, [0, 42, :, :]
+			\item v17: total LWC greater than 1e-5, LH greater than 0, T greater than 0
+			\item v18: total LWC greater than 1e-11, LH greater than 0, [0, 42, :, :]
+			\item v19: total LWC greater than 1e-11, LH greater than 0
+			\item v20: total LWC greater than 1e-5, LH greater than 0
+			\item v21: total LWC greater than 1e-11, LH greater than 0, T greater than 0
+			\item v22: total LWC greater than 1e-5, LH greater than 0, T greater than 0
+			\item v23: total LWC greater than 1e-11, LH greater than 0 [31, 28, :, :]
+			\item v24: total LWC greater than 1e-5, LH greater than 0, T greater than 0, w greater than 2
+			\item v25: total LWC greater than 1e-5, T greater than 0, w greater than 2
+			\item v26: total LWC greater than 1e-5, T greater than 0, w greater than 5
+			\item v27: total LWC greater than 1e-5, T greater than 0, w greater than 4
+			\item v28: total LWC greater than 1e-5, T greater than 0, w greater than 3
+			\item v29: total LWC greater than 1e-5, T greater than 0, w greater than 2 (same as v25)
+			\item v30: total LWC greater than 1e-5, T greater than 0, w greater than 1
+			\item v31: cloud LWC greater than 1e-5, abs w greater than 2 (cleaned up)
+			\item v32: cloud LWC greater than 1e-5, abs w greater than 2, T greater than 0 (cleaned up)
+		\end{itemize}
+		\item \texttt{inclrain\_cloudmap}: horizonal slice heatmap to identify where subsaturated updrafts are occurring relative to cloudy areas
+		\begin{itemize}
+			\item v1: cloud LWC greater than 1e-5, T greater than 0, w greater than 2, t ind = 0, z ind = 42
+			\item v2: cloud LWC greater than 1e-5, T greater than 0, w greater than 2, t ind = , z ind = 
+			\item v3: cloud LWC greater than 1e-5, T greater than 0, w greater than 2, t ind = 33, z ind = 44
+		\end{itemize}
+		\item \texttt{inclrain\_cloudmap\_level42}:
+		\begin{itemize}
+			\item v1: cloud LWC greater than 1e-5, T greater than 0, w greater than 2
+		\end{itemize}
+		\item \texttt{inclrain\_cloudmap\_slice201}:
+		\begin{itemize}
+			\item v1: cloud LWC greater than 1e-5, T greater than 0, w greater than 2
+		\end{itemize}
+	\end{itemize}
+	\indent Also have a few non-figure runs. \texttt{inclrain\_cloudmap\_ptcount} counts how many subsaturated updrafts points are adjacent to (super)saturated updraft points - see docs in code. For \texttt{find\_outliers}:
+	\begin{itemize}
+		\item v6: cloud LWC greater than 1e-5, T greater than 0, w greater than 2, ss\_wrf greater less than 0
+		\item v7: cloud LWC greater than 1e-5, T greater than 0, w greater than 2, ss\_wrf greater greater than 0
+	\end{itemize}
+	\indent Misc clean-up: secondary vars data files, code docs. Work in progress: ventilation corrections.
 \end{itemize}
 
 \subsection{Theory}

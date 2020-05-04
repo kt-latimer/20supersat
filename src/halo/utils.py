@@ -74,8 +74,6 @@ def match_multiple_arrays(arrays):
 
 def calc_lwc(setname, setdata, envdata, cutoff_bins, change_cas_corr):
     """
-    calculate liquid water content given particle number concentrations \
-    and environmental data. 
 
     Returns: (lwc_array, time_inds)
     -lwc_array = array of lwc values
@@ -226,6 +224,39 @@ def get_datablock(adlrinds, casinds, cdpinds, adlrdata, casdata, cdpdata):
     datablock[:, 2+high_bin_cdp] = cdpdata['data']['lwc']['10'][cdpinds]
     datablock[:, 3+high_bin_cdp] = cdpdata['data']['lwc']['11'][cdpinds]
 
+    return datablock
+
+def get_datablock_with_sharc(adlrinds, casinds, sharcinds, \
+                                adlrdata, casdata, sharcdata):
+    """
+    Consolidate data for easier processing 
+    Format of output array (order of columns): time, temperature, vertical \
+    velocity, ADLR TAS, CAS TAS, CAS correction factor,  number conc for cas \
+    bins (12 cols), LWC for cas (4 cols), theta_v_adlr, theta_v_sharc, ss_sharc
+    """
+    # extra 13 columns: time, temperature, 
+    # vertical wind velocity, ADLR TAS, CAS TAS, 
+    # CAS corr factor, lwc for cas, theta_v for adlr,
+    # theta_v for sharc, ss
+    datablock = np.zeros([len(adlrinds), 13 + nbins_cas])
+    datablock[:, 0] = np.around(adlrdata['data']['time'][adlrinds])
+    datablock[:, 1] = adlrdata['data']['stat_temp'][adlrinds]
+    datablock[:, 2] = adlrdata['data']['vert_wind_vel'][adlrinds]
+    datablock[:, 3] = adlrdata['data']['TAS'][adlrinds]
+    datablock[:, 4] = casdata['data']['TAS'][casinds]
+    datablock[:, 5] = casdata['data']['TAS'][casinds]\
+			/casdata['data']['PAS'][casinds]\
+			*casdata['data']['xi'][casinds]
+    for i in range(nbins_cas):
+        key = 'nconc_' + str(i+5)
+        datablock[:, i+low_bin_cas] = casdata['data'][key][casinds]
+    datablock[:, high_bin_cas] = casdata['data']['lwc']['00'][casinds]
+    datablock[:, 1+high_bin_cas] = casdata['data']['lwc']['01'][casinds]
+    datablock[:, 2+high_bin_cas] = casdata['data']['lwc']['10'][casinds]
+    datablock[:, 3+high_bin_cas] = casdata['data']['lwc']['11'][casinds]
+    datablock[:, 4+high_bin_cas] = adlrdata['data']['virt_potl_temp'][adlrinds]
+    datablock[:, 5+high_bin_cas] = sharcdata['data']['virt_potl_temp'][sharcinds]
+    datablock[:, 6+high_bin_cas] = sharcdata['data']['RH_w'][sharcinds] - 100
     return datablock
 
 def get_nconc_vs_t(datablock, change_cas_corr, cutoff_bins):

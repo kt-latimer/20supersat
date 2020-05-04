@@ -14,10 +14,10 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v2_'
+versionstr = 'v6_'
 
 #plot stuff
-matplotlib.rcParams.update({'font.size': 21})
+matplotlib.rcParams.update({'font.size': 24})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
 
@@ -47,18 +47,34 @@ def main():
         ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
         ncprimvars = ncprimfile.variables
         ncsecfile = Dataset(DATA_DIR + model_dir +
-                            'wrfout_d01_secondary_vars_with_ss_v3', 'r')
+                            'wrfout_d01_secondary_vars_with_ss_v4', 'r')
         ncsecvars = ncsecfile.variables
+        nctertfile = Dataset(DATA_DIR + model_dir +
+                            'wrfout_d01_ventilation_data', 'r')
+        nctertvars = ncsecfile.variables
         
         #get relevant primary variables from wrf output
-        LWC_C = ncprimvars['QCLOUD'][...]
         SS = ncprimvars['SSW'][...]
 
         #get secondary variables
+        lh_K_s = ncsecvars['lh_K_s'][...]
+        lwc = ncsecvars['lwc_cloud'][...]
         ss_ry = ncsecvars['ss_ry'][...]
+        temp = ncsecvars['temp'][...]
+        w = ncsecvars['w'][...]
+
+        #get tertiary variables
+        f = nctertvars['f'][...]
+
+        #ventilation correction
+        ss_ry = ss_ry/f
+        
+        ncprimfile.close()
+        ncsecfile.close()
+        nctertfile.close()
         
         #make filter mask
-        mask = LWC_C > lwc_cutoff
+        #mask = LWC_C > lwc_cutoff
         #mask = np.logical_and.reduce(( \
         #                            (LWC > lwc_cutoff), \
         #                            (nconc > 3.e6)))
@@ -66,9 +82,14 @@ def main():
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
+        mask = np.logical_and.reduce(( \
+                                    (lwc > lwc_cutoff), \
+                                    (temp > 273), \
+                                    (np.abs(w) > 2)))
         #mask = np.logical_and.reduce(( \
-        #                            (LWC > lwc_cutoff), \
-        #                            (np.abs(w) > 1)))
+        #                            (lwc > lwc_cutoff), \
+        #                            (temp > 273), \
+        #                            (lh_K_s > 0)))
         
         print(np.shape(mask))
         print('num above lwc cutoff: ', np.sum(mask))
@@ -87,6 +108,8 @@ def main():
         print(model_label)
         print('n_hi: ', n_hi)
         print('n_lo: ', n_lo)
+        print('max ssry:', np.nanmax(ss_ry))
+        print('min ssry:', np.nanmin(ss_ry))
         
         n_q1 = np.sum(np.logical_and.reduce(( \
                                     (ss_ry > 0), \
@@ -132,11 +155,11 @@ def main():
                         label=('m = ' + str(np.round(m, decimals=2)) + \
                                 ', R^2 = ' + str(np.round(R**2, decimals=2))))
         ax.set_aspect('equal', 'box')
-        #ax.set_xlim(ax_lims)
-        #ax.set_ylim(ax_lims)
-        ax.set_xlabel('RY SS (%)')
-        ax.set_ylabel('WRF SS (%)')
-        fig.legend()
+        ax.set_xlim(ax_lims)
+        ax.set_ylim(ax_lims)
+        ax.set_xlabel(r'$SS_{RY}$ (%)')
+        ax.set_ylabel(r'$SS_{WRF}$ (%)')
+        fig.legend(loc=2)
         fig.set_size_inches(21, 12)
 
         outfile = FIG_DIR + versionstr + 'inclrain_backtrack_qss_' \

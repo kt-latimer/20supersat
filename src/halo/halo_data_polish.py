@@ -40,12 +40,12 @@ def main():
     key_ind_dict = {'ADLR':\
                         {'var_names':['time', 'potl_temp', 'vert_wind_vel', \
                             'alt_asl', 'alt_pres', 'lat', 'long', 'stat_temp', \
-                            'stat_pres', 'lwc', 'TAS'], \
+                            'stat_pres', 'lwc', 'TAS', 'virt_potl_temp'], \
                         'var_units':['s', 'K', 'm/s', 'm', 'm', 'deg', 'deg', \
-                            'K', 'Pa', 'g/g', 'm/s'], \
-                        'var_inds':[0, 12, 17, 4, 5, 23, 24, 20, 7, 21, 9], \
+                            'K', 'Pa', 'g/g', 'm/s', 'K'], \
+                        'var_inds':[0, 12, 17, 4, 5, 23, 24, 20, 7, 21, 9, 13], \
                         'var_scale':[1. for i in range(7)] \
-                                    + [1., 100., 0.001, 1.]}, \
+                                    + [1., 100., 0.001, 1., 1.]}, \
                     'CAS':\
                         {'var_names':['time'] + ['nconc_'+str(i) for i in \
                             range(5, 17)] + ['nconc_tot_TAS_corr', \
@@ -73,7 +73,14 @@ def main():
                         'var_names':['time', 'in_cloud'], \
                         'var_units':['s', 'none'], \
                         'var_inds':[0, 1], \
-                        'var_scale':[1., 1.]}}
+                        'var_scale':[1., 1.]}, \
+                    'SHARC':{\
+                        'var_names':['time', 'abs_hum', 'Td', 'virt_potl_temp', \
+                            'potl_temp', 'lwc', 'lwc_vol', 'RH_w', 'RH_i'], \
+                        'var_units':['s', 'kg/m^3', 'K', 'K', 'K', 'g/g',
+                            'ppmV', 'percent', 'percent'], \
+                        'var_inds':[i for i in range(9)], \
+                        'var_scale':[1., 0.001, 1., 1., 1., 0.001, 1., 1., 1.]}}
     
     #get names of data files with no issues (see notes)
     with open('good_ames_files.txt','r') as readFile:
@@ -84,8 +91,12 @@ def main():
     for filename in good_ames_filenames:
         #pick out relevant datasets and load raw .npy files
         basename = filename[0:len(filename)-5]
-        if 'adlr' in basename:
+        if 'sharc' in basename:
+            setname = 'SHARC'
+        elif 'adlr' in basename:
             setname = 'ADLR'
+        #if 'adlr' in basename:
+        #    setname = 'ADLR'
         #elif 'CAS_DPOL' in basename:
         #    setname = 'CAS'
         #    if basename[15:19] == '3914':
@@ -125,6 +136,8 @@ def main():
         datestr = raw_dict['flight_date'][0] + raw_dict['flight_date'][1] + \
                 raw_dict['flight_date'][2]
         np.save(output_data_dir+setname+'_'+datestr, proc_dict)
+    
+    #if not modifying CAS/CDP files (else comment out line below)
     return
 
     #now calculate LWC values for CAS and CDP and add to raw files.

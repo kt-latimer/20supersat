@@ -54,3 +54,4 @@ figures/halo/nconc_scatter_*
 *terminaloutput*
 src/mywrf/slurm*
 *.pyc
+*sharc*

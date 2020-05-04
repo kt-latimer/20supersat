@@ -13,12 +13,12 @@ from halo.utils import linregress
 from mywrf import BASE_DIR, DATA_DIR, FIG_DIR 
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
-lwc_cutoff = 5.e-5
-versionstr = 'v50_'
+lwc_cutoff = 1.e-5
+versionstr = 'v52_'
 cutoff_x_axis = False 
 
 #plot stuff
-matplotlib.rcParams.update({'font.size': 21})
+matplotlib.rcParams.update({'font.size': 24})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
 
@@ -94,17 +94,17 @@ def main():
         #                            (z < 6000), \
         #                            (meanr > 0), \
         #                            (meanr < 60.e-6)))
-        mask = np.logical_and.reduce(( \
-                                    (LWC > lwc_cutoff), \
-                                    (meanr > 0), \
-                                    (meanr < 30.e-6)))
+        #mask = np.logical_and.reduce(( \
+        #                            (LWC > lwc_cutoff), \
+        #                            (meanr > 0), \
+        #                            (meanr < 30.e-6)))
         #mask = np.logical_and.reduce(( \
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
-        #mask = np.logical_and.reduce(( \
-        #                            (LWC > lwc_cutoff), \
-        #                            (np.abs(w) > 1)))
+        mask = np.logical_and.reduce(( \
+                                    (LWC > lwc_cutoff), \
+                                    (np.abs(w) > 2)))
         #
         #print(np.shape(mask))
         #print('num above lwc cutoff and nonzero w: ', np.sum(mask))
@@ -123,6 +123,8 @@ def main():
         #print(model_label)
         #print('n_hi: ', n_hi)
         #print('n_lo: ', n_lo)
+        print('max ssry: ', np.nanmax(ss)) 
+        print('min ssry: ', np.nanmin(ss)) 
         #
         #n_q1 = np.sum(np.logical_and.reduce(( \
         #                            (ss > 0), \
@@ -157,39 +159,57 @@ def main():
         #ax_lims = np.array([100*xlim_min, 100*xlim_max])
         #print(ax_lims)
         
-        x_ax_lims = np.array([-1000, 1000])
-        #x_ax_lims = np.array([-1, 1])
-        y_ax_lims = np.array([-100, 100])
+        #x_ax_lims = np.array([-1000, 1000])
+        ##x_ax_lims = np.array([-1, 1])
+        #y_ax_lims = np.array([-100, 100])
+        #
+        ##plot the supersaturations against each other with regression line
+        #fig, ax = plt.subplots()
+        #im = ax.scatter(ss[mask]*100, SS[mask]*100, c=z[mask], cmap='coolwarm')#c=colors['ss'])
+        ##im = ax.scatter(LH[mask]*C_ap, SS[mask]*100, c=temp[mask], cmap='coolwarm')#c=colors['ss'])
+        #ax.plot(x_ax_lims, np.add(b, m*x_ax_lims), \
+        #                c=colors['line'], \
+        #                linestyle='dashed', \
+        #                linewidth=3, \
+        #                label=('m = ' + str(np.round(m, decimals=2)) + \
+        #                        ', R^2 = ' + str(np.round(R**2, decimals=2))))
+        ##ax.set_aspect('equal', 'box')
+        #if cutoff_x_axis:
+        #    ax.set_xlim(x_ax_lims)
+        #else:
+        #    if model_label == 'Unpolluted':
+        #        #there's a couple weird outliers above 1.e6 
+        #        ax.set_xlim(np.array([-1.e5, 1.e6]))
+        #ax.set_ylim(y_ax_lims)
+        #ax.set_xlabel('RY supersat (%)')
+        #ax.set_ylabel('WRF supersat (%)')
+        #fig.legend(loc=2)
+        #fig.set_size_inches(21, 12)
+        ##fig.colorbar(im, ax=ax, label='Mean radius (m)')
+        ##fig.colorbar(im, ax=ax, label='Num. conc. (m^-3)')
+        ##fig.colorbar(im, ax=ax, label='F_k + F_d (s m^-2)')
+        ##fig.colorbar(im, ax=ax, label='LH (K/s)')
+        ##fig.colorbar(im, ax=ax, label='Air dens. (kg m^-3)')
+        ##fig.colorbar(im, ax=ax, label='w (m/s)')
+        #fig.colorbar(im, ax=ax, label='Altitude (m)')
         
+        ax_lims = np.array([-100, 100])
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
-        im = ax.scatter(ss[mask]*100, SS[mask]*100, c=z[mask], cmap='coolwarm')#c=colors['ss'])
-        #im = ax.scatter(LH[mask]*C_ap, SS[mask]*100, c=temp[mask], cmap='coolwarm')#c=colors['ss'])
-        ax.plot(x_ax_lims, np.add(b, m*x_ax_lims), \
+        ax.scatter(ss[mask]*100, SS[mask]*100, c=colors['ss'])
+        ax.plot(ax_lims, np.add(b, m*ax_lims), \
                         c=colors['line'], \
                         linestyle='dashed', \
                         linewidth=3, \
                         label=('m = ' + str(np.round(m, decimals=2)) + \
                                 ', R^2 = ' + str(np.round(R**2, decimals=2))))
-        #ax.set_aspect('equal', 'box')
-        if cutoff_x_axis:
-            ax.set_xlim(x_ax_lims)
-        else:
-            if model_label == 'Unpolluted':
-                #there's a couple weird outliers above 1.e6 
-                ax.set_xlim(np.array([-1.e5, 1.e6]))
-        ax.set_ylim(y_ax_lims)
-        ax.set_xlabel('RY supersat (%)')
-        ax.set_ylabel('WRF supersat (%)')
-        fig.legend()
+        ax.set_aspect('equal', 'box')
+        ax.set_xlim(ax_lims)
+        ax.set_ylim(ax_lims)
+        ax.set_xlabel(r'$SS_{RY}$ (%)')
+        ax.set_ylabel(r'$SS_{WRF}$ (%)')
+        fig.legend(loc=2)
         fig.set_size_inches(21, 12)
-        #fig.colorbar(im, ax=ax, label='Mean radius (m)')
-        #fig.colorbar(im, ax=ax, label='Num. conc. (m^-3)')
-        #fig.colorbar(im, ax=ax, label='F_k + F_d (s m^-2)')
-        #fig.colorbar(im, ax=ax, label='LH (K/s)')
-        #fig.colorbar(im, ax=ax, label='Air dens. (kg m^-3)')
-        #fig.colorbar(im, ax=ax, label='w (m/s)')
-        fig.colorbar(im, ax=ax, label='Altitude (m)')
         
         outfile = FIG_DIR + versionstr + 'backtrack_qss_' \
                     + model_label + '_figure.png'

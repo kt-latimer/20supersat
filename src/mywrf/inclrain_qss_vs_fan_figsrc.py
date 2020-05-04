@@ -14,10 +14,10 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v10`_'
+versionstr = 'v32_'
 
 #plot stuff
-matplotlib.rcParams.update({'font.size': 21})
+matplotlib.rcParams.update({'font.size': 24})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
 
@@ -48,11 +48,18 @@ def main():
         ncsecvars = ncsecfile.variables
         
         #get secondary variables
+        lh_K_s = ncsecvars['lh_K_s'][...]
         lwc = ncsecvars['lwc_cloud'][...]
         ss_qss = ncsecvars['ss_qss'][...]
         ss_wrf = ncsecvars['ss_wrf'][...]
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
+        #lh_K_s = ncsecvars['lh_K_s'][31, 28, :, :]
+        #lwc = ncsecvars['lwc_tot'][31, 28, :, :]
+        #ss_qss = ncsecvars['ss_qss'][31, 28, :, :]
+        #ss_wrf = ncsecvars['ss_wrf'][31, 28, :, :]
+        #temp = ncsecvars['temp'][31, 28, :, :]
+        #w = ncsecvars['w'][31, 28, :, :]
         
         #make filter mask
         #mask = LWC_C > lwc_cutoff
@@ -63,13 +70,18 @@ def main():
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
-        #mask = np.logical_and.reduce(( \
-        #                            (LWC_C > lwc_cutoff), \
-        #                            (np.abs(w) > 5)))
         mask = np.logical_and.reduce(( \
                                     (lwc > lwc_cutoff), \
                                     (temp > 273), \
-                                    (np.abs(w) > 4)))
+                                    (np.abs(w) > 2)))
+        #mask = np.logical_and.reduce(( \
+        #                            (lwc > lwc_cutoff), \
+        #                            (temp > 273), \
+        #                            (np.abs(w) > 4)))
+        #mask = np.logical_and.reduce(( \
+        #                            (lwc > lwc_cutoff), \
+        #                            (temp > 273), \
+        #                            (w > 4)))
         
         print(np.shape(mask))
         print('num above lwc cutoff: ', np.sum(mask))
@@ -88,6 +100,8 @@ def main():
         print(model_label)
         print('n_hi: ', n_hi)
         print('n_lo: ', n_lo)
+        print('ssqss max:', np.nanmax(ss_qss))
+        print('ssqss min:', np.nanmin(ss_qss))
         
         n_q1 = np.sum(np.logical_and.reduce(( \
                                     (ss_qss > 0), \
@@ -126,18 +140,18 @@ def main():
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
         ax.scatter(ss_qss[mask]*100, ss_wrf[mask]*100, c=colors['ss'])
-        ax.plot(ax_lims, np.add(b, m*ax_lims), \
+        ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
                         c=colors['line'], \
                         linestyle='dashed', \
                         linewidth=3, \
                         label=('m = ' + str(np.round(m, decimals=2)) + \
                                 ', R^2 = ' + str(np.round(R**2, decimals=2))))
         ax.set_aspect('equal', 'box')
-        #ax.set_xlim(ax_lims)
-        #ax.set_ylim(ax_lims)
-        ax.set_xlabel('Quasi steady state ss_wrf (%)')
-        ax.set_ylabel('ss_wrf (%)')
-        fig.legend()
+        ax.set_xlim(ax_lims)
+        ax.set_ylim(ax_lims)
+        ax.set_xlabel(r'$SS_{QSS}$ (%)')
+        ax.set_ylabel(r'$SS_{WRF}$ (%)')
+        fig.legend(loc=2)
         fig.set_size_inches(21, 12)
 
         outfile = FIG_DIR + versionstr + 'inclrain_qss_vs_fan_' \
