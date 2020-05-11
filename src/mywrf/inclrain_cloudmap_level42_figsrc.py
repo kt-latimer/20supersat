@@ -6,7 +6,7 @@ from datetime import datetime
 
 import matplotlib
 import matplotlib.pyplot as plt
-from netCDF4 import Dataset, MFDataset
+from netCDF4 import Dataset
 import numpy as np
 
 from halo.utils import linregress
@@ -14,7 +14,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v1_'
+versionstr = 'v2_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 21})
@@ -43,20 +43,20 @@ def main():
         model_dir = model_dirs[model_label]        
 
         #load datafiles
-        ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
-        ncprimvars = ncprimfile.variables
+        #ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
+        #ncprimvars = ncprimfile.variables
         ncsecfile = Dataset(DATA_DIR + model_dir +
-                            'wrfout_d01_secondary_vars_with_ss_v4', 'r')
+                            'wrfout_d01_secondary_vars_with_rain', 'r')
         ncsecvars = ncsecfile.variables
-        
-        XLAT = ncprimvars['XLAT'][...] #latitude
-        XLONG = ncprimvars['XLONG'][...] #longitude
-
-        lat = np.transpose(np.tile(XLAT, [66, 1, 1, 1]), \
-                            [1, 0, 2, 3])[:, 42, :, 0]
-        lon = np.transpose(np.tile(XLONG, [66, 1, 1, 1]), \
-                            [1, 0, 2, 3])[:, 42, 0, :]
-        del XLAT, XLONG
+        print('got vars')
+        #XLAT = ncprimvars['XLAT'][...] #latitude
+        #XLONG = ncprimvars['XLONG'][...] #longitude
+        #
+        #lat = np.transpose(np.tile(XLAT, [66, 1, 1, 1]), \
+        #                    [1, 0, 2, 3])[:, 42, :, 0]
+        #lon = np.transpose(np.tile(XLONG, [66, 1, 1, 1]), \
+        #                    [1, 0, 2, 3])[:, 42, 0, :]
+        #del XLAT, XLONG
 
         #get secondary variables
         #lh_K_s = ncsecvars['lh_K_s'][...]
@@ -67,19 +67,22 @@ def main():
         #w = ncsecvars['w'][...]
         lh_K_s = ncsecvars['lh_K_s'][:, 42, :, :]
         lwc = ncsecvars['lwc_cloud'][:, 42, :, :]
-        ss_qss = ncsecvars['ss_qss'][:, 42, :, :]
-        ss_wrf = ncsecvars['ss_wrf'][:, 42, :, :]
+        nconc = ncsecvars['nconc'][:, 42, :, :]
+        #ss_qss = ncsecvars['ss_qss'][:, 42, :, :]
+        #ss_wrf = ncsecvars['ss_wrf'][:, 42, :, :]
         temp = ncsecvars['temp'][:, 42, :, :]
         w = ncsecvars['w'][:, 42, :, :]
 
-        ncprimfile.close()
+        #ncprimfile.close()
         ncsecfile.close()
+        print('closed file')
         
         for t in range(84):
             lwc_t = lwc[t, :, :]
+            nconc_t = nconc[t, :, :]
             temp_t = temp[t, :, :]
             w_t = w[t, :, :]
-            ss_wrf_t = ss_wrf[t, :, :]
+            #ss_wrf_t = ss_wrf[t, :, :]
             #make filter mask
             #mask = LWC_C > lwc_cutoff
             #mask = np.logical_and.reduce(( \
@@ -96,15 +99,25 @@ def main():
             #                            (lwc > lwc_cutoff), \
             #                            (temp > 273), \
             #                            (np.abs(w) > 4)))
+            #mask1 = np.logical_and.reduce(( \
+            #                            (lwc_t > lwc_cutoff), \
+            #                            (temp_t > 273), \
+            #                            (ss_wrf_t > 0), \
+            #                            (w_t > 2)))
+            #mask2 = np.logical_and.reduce(( \
+            #                            (lwc_t > lwc_cutoff), \
+            #                            (temp_t > 273), \
+            #                            (ss_wrf_t < 0), \
+            #                            (w_t > 2)))
             mask1 = np.logical_and.reduce(( \
                                         (lwc_t > lwc_cutoff), \
+                                        (nconc_t < 1.e7), \
                                         (temp_t > 273), \
-                                        (ss_wrf_t > 0), \
                                         (w_t > 2)))
             mask2 = np.logical_and.reduce(( \
                                         (lwc_t > lwc_cutoff), \
+                                        (nconc_t > 1.e7), \
                                         (temp_t > 273), \
-                                        (ss_wrf_t < 0), \
                                         (w_t > 2)))
             
             cloudmap = np.ones((450, 450))
@@ -114,6 +127,9 @@ def main():
                         cloudmap[i, j] = 2
                     elif mask2[i, j]:
                         cloudmap[i, j] = 0
+
+            lat = 1
+            lon = 1
 
             #plot the supersaturations against each other with regression line
             fig, ax = plt.subplots()

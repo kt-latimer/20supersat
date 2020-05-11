@@ -417,11 +417,67 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 		\item v6: cloud LWC greater than 1e-5, T greater than 0, w greater than 2, ss\_wrf greater less than 0
 		\item v7: cloud LWC greater than 1e-5, T greater than 0, w greater than 2, ss\_wrf greater greater than 0
 	\end{itemize}
-	\indent Misc clean-up: secondary vars data files, code docs. Work in progress: ventilation corrections.
-\end{itemize}
+	\indent Misc clean-up: secondary vars data files, code docs. Work in progress: ventilation corrections. 
+	\item 5/11/20: Besides all the figure source code described below, implemented ventilation corrections a la Pruppacher and Klett (specific page numbers cited within \texttt{make\_secondary\_vars\_with\_rain\_and\_vent.py}). Post file clean-up, the processed data are in \texttt{wrfout\_d01\_secondary\_vars\_no\_rain}, \texttt{wrfout\_d01\_secondary\_vars\_with\_rain}, and \texttt{wrfout\_d01\_secondary\_vars\_with\_rain\_and\_vent} (names are pretty self-explanatory). Full description of variables therein in docstrings. Note these files were constructed using associated \texttt{make\_secondary\_vars\_(...).py} files in \texttt{src\\mywrf} dir. 
 
+	\indent For the following, I am referring to the conditions "cloud LWC greater than 1e-5, T greater than 0, and w greater than 2" as the "standard filter."
+	\begin{itemize}
+		\item \texttt{check\_meanu}: meant to compare number- and mass-weighted average fall velocities b/t those computed using empirical formulae from Pruppacher and Klett and those output by WRF. Saw some outlier values that threw off the axis scaling and haven't gone back to try and fix that yet (TODO)
+		\begin{itemize}
+			\item v1: cloud LWC greater than 1e-5
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_backtrack\_qss}:
+		\begin{itemize}
+			\item v1: standard filter but abs val w greater than 2
+			\item v2: standard filter
+			\item v3: DNE
+			\item v4: standard filter; no figure created, just printed corrected to uncorrected meanr ratio stats
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_qss\_vs\_fan}:
+		\begin{itemize}
+			\item v1: standard filter but abs val w greater than 2
+			\item v2: standard filter
+			\item v3: standard filter but cloud LWC plus cloud ice greater than 1e-5
+			\item v4: DNE
+			\item v5: full temperature-dependent denominator
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_hist\_qss}: trying to understand distribution of true SS values (note: y axis label should read "SS\_WRF")
+		\begin{itemize}
+			\item v1: mistakes; ignore
+			\item v2: standard filter
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_fr\_vs\_r}:
+		\begin{itemize}
+			\item v1: mistakes; ignore
+			\item v2: standard filter
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_breakdown\_qss}: plot each individual contribution to SS\_QSS vs SS\_WRF to try to better understand dependencies. Conclusion: most important functional form is that of number concentration.
+		\begin{itemize}
+			\item v1: standard filter
+			\item v2: (nconc, w) --$\rangle$ (cloud nconc, rain nconc)
+			\item v3: readjust $A$ and $\langle f(r)\cdot r \rangle$ horz axis lims
+		\end{itemize}
+		\item \texttt{inclrain\_cloudmap\_level42}:
+		\begin{itemize}
+			\item v2: red = standard filter and nconc less than 1e7, blue = standard filter and nconc greater than 1e7
+		\end{itemize}
+		\item \texttt{inclrain\_cloudmap\_slice201}:
+		\begin{itemize}
+			\item v2: red = standard filter and nconc less than 1e7, blue = standard filter and nconc greater than 1e7
+		\end{itemize}
+		\item \texttt{inclrain\_lagrang\_nconc}: 
+		\begin{itemize}
+			\item v1: cloud LWC greater than 1e-5 
+			\item v2: standard filter
+			\item v3: standard filter + SS\_WRF less than 0
+		\end{itemize}
+		\item \texttt{sumr\_cloud\_vs\_rain}: to check David's question about whether sumr\_cloud is much greater than sumr\_rain (conclusion: it is)
+		\begin{itemize}
+			\item v1: standard filter
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 \subsection{Theory}
-(adding figures here rather than in \texttt{pres} directory to keep everything together)\\
 
 \noindent Mostly just paraphrasing Rogers and Yau.
 
@@ -466,100 +522,5 @@ etc. \nonumber
 &= \frac{\big(F_k + F_d\big) C_{ap} m_a LH}{L_v V 4 \pi \rho_L \langle r \rangle n} \nonumber \\
 &= \frac{\big(F_k + F_d\big) C_{ap} \rho_a LH}{L_v 4 \pi \rho_L \langle r \rangle n} 
 \end{align} 
-Below we have plotted supersaturation as described by Equation (\ref{ssry}) -- neglecting size effects, i.e. setting $a,b=0$ -- versus the WRF supersaturation output.
-
-\clearpage
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v37_backtrack_qss_Polluted_figure.png}
-    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, polluted case. Points plotted have LWC $> 10^{-5}$. The domain has been restricted manually.}
-    \label{v37pol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v38_backtrack_qss_Polluted_figure.png}
-    \caption{Same as Figure (\ref{v37pol}), but with the full domain.}
-    \label{v38pol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v37_backtrack_qss_Unpolluted_figure.png}
-    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, unpolluted case. Points plotted have LWC $> 10^{-5}$. The domain has been restricted manually.}
-    \label{v37unpol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v38_backtrack_qss_Unpolluted_figure.png}
-    \caption{Same as Figure (\ref{v37unpol}), but with the full domain.}
-    \label{v38unpol}
-\end{figure}
-
-\clearpage
-
-Can disagreement be attributed to neglect of finite droplet size effects? We would expect those effects to occur in cases where mean radius is smallest. However it seems this would not explain what we are seeing in Figures (\ref{v37pol})-(\ref{v38unpol}):
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v19_backtrack_qss_Polluted_figure.png}
-    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, polluted case. Points plotted have LWC $> 10^{-5}$. The domain has been restricted manually.}
-    \label{v19pol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v20_backtrack_qss_Polluted_figure.png}
-    \caption{Same as Figure (\ref{v19pol}), but with the full domain.}
-    \label{v20pol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v19_backtrack_qss_Unpolluted_figure.png}
-    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, unpolluted case. Points plotted have LWC $> 10^{-5}$. The domain has been restricted manually.}
-    \label{v19unpol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v20_backtrack_qss_Unpolluted_figure.png}
-    \caption{Same as Figure (\ref{v19unpol}), but with the full domain.}
-    \label{v20unpol}
-\end{figure}
-
-\clearpage
-
-Increasing the LWC cutoff does seem to improve the situation, however (see figures below). Based on my own exploration this has a similar effect to filtering out low-$n$ points (unsurprising then that many of the large-$SS_{RY}$ points are removed, since $n$ appears in the denominator).
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v39_backtrack_qss_Polluted_figure.png}
-    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, polluted case. Points plotted have LWC $> 5*10^{-5}$. The domain has been restricted manually.}
-    \label{v39pol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v40_backtrack_qss_Polluted_figure.png}
-    \caption{Same as Figure (\ref{v39pol}), but with the full domain.}
-    \label{v40pol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v39_backtrack_qss_Unpolluted_figure.png}
-    \caption{$SS_{RY}$ as described by Equation (\ref{ssry}) vs WRF SS output, unpolluted case. Points plotted have LWC $> 5*10^{-5}$. The domain has been restricted manually.}
-    \label{v39unpol}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{mywrf/v40_backtrack_qss_Unpolluted_figure.png}
-    \caption{Same as Figure (\ref{v39unpol}), but with the full domain.}
-    \label{v40unpol}
-\end{figure}
 
 \end{document}

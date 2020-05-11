@@ -53,5 +53,6 @@ figures/halo/nconc_scatter_*
 *find_*lier*
 *terminaloutput*
 src/mywrf/slurm*
+figures/mywrf/*cloudmap*
 *.pyc
 *sharc*

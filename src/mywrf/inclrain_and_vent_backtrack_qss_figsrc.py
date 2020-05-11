@@ -13,7 +13,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v2_'
+versionstr = 'v4_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -51,6 +51,7 @@ def main():
         lh_K_s = ncsecvars['lh_K_s'][...]
         lwc = ncsecvars['lwc_cloud'][...]
         meanfr = ncsecvars['meanfr'][...]
+        meanr = ncsecvars['meanr'][...]
         nconc = ncsecvars['nconc'][...]
         rho_air = ncsecvars['rho_air'][...]
         ss_wrf = ncsecvars['ss_wrf'][...]
@@ -90,6 +91,16 @@ def main():
         #                            (temp > 273), \
         #                            (lh_K_s > 0)))
         
+        print(model_label)
+        ratio = meanfr[mask]/meanr[mask]
+        print('ratio mean: ', np.nanmean(ratio))
+        print('ratio median: ', np.nanmedian(ratio))
+        print('ratio std: ', np.nanstd(ratio))
+        print('ratio max: ', np.nanmax(ratio))
+        print('ratio min: ', np.nanmin(ratio))
+       
+        continue 
+
         print(np.shape(mask))
         print('num above lwc cutoff: ', np.sum(mask))
         

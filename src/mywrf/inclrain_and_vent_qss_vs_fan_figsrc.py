@@ -13,7 +13,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v3_'
+versionstr = 'v5_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -39,15 +39,17 @@ def main():
     """
     for model_label in model_dirs.keys():
 
-        if model_label == 'Polluted':
-            continue
-
         model_dir = model_dirs[model_label]        
 
         #load datafiles
+        ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
+        ncprimvars = ncprimfile.variables
         ncsecfile = Dataset(DATA_DIR + model_dir +
                             'wrfout_d01_secondary_vars_with_rain_and_vent', 'r')
         ncsecvars = ncsecfile.variables
+
+        #get primary variables
+        q_ice = ncprimvars['QICE'][...]
         
         #get secondary variables
         lwc = ncsecvars['lwc_cloud'][...]
@@ -57,6 +59,11 @@ def main():
         ss_wrf = ncsecvars['ss_wrf'][...]
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
+
+        ncprimfile.close()
+        ncsecfile.close()
+
+        lwc = lwc + q_ice
 
         #formula for saturation vapor pressure from Rogers and Yau - converted
         #to mks units (p 16)
@@ -74,7 +81,7 @@ def main():
         #ss_qss = w*A/(4*np.pi*D*nconc*meanfr)
         ss_qss = w*A/(4*np.pi*denom*nconc*meanfr)
         
-        del e_s, Q_2, F_d, F_k, denom, A
+        del e_s, Q_2, F_d, F_k, denom, A, q_ice, pres, nconc #for memory
         #make filter mask
         #mask = LWC_C > lwc_cutoff
         #mask = np.logical_and.reduce(( \
@@ -87,7 +94,7 @@ def main():
         mask = np.logical_and.reduce(( \
                                     (lwc > lwc_cutoff), \
                                     (temp > 273), \
-                                    (np.abs(w) > 2)))
+                                    (w > 2)))
         #mask = np.logical_and.reduce(( \
         #                            (lwc > lwc_cutoff), \
         #                            (temp > 273), \
