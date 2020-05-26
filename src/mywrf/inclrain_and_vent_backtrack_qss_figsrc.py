@@ -13,7 +13,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v4_'
+versionstr = 'v6_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -54,7 +54,8 @@ def main():
         meanr = ncsecvars['meanr'][...]
         nconc = ncsecvars['nconc'][...]
         rho_air = ncsecvars['rho_air'][...]
-        ss_wrf = ncsecvars['ss_wrf'][...]
+        ss_qss = ncsecvars['ss_qss'][...]
+        #ss_wrf = ncsecvars['ss_wrf'][...]
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
         
@@ -85,63 +86,64 @@ def main():
         mask = np.logical_and.reduce(( \
                                     (lwc > lwc_cutoff), \
                                     (temp > 273), \
-                                    (w > 2)))
+                                    (np.abs(w) > 2)))
         #mask = np.logical_and.reduce(( \
         #                            (lwc > lwc_cutoff), \
         #                            (temp > 273), \
         #                            (lh_K_s > 0)))
         
-        print(model_label)
-        ratio = meanfr[mask]/meanr[mask]
-        print('ratio mean: ', np.nanmean(ratio))
-        print('ratio median: ', np.nanmedian(ratio))
-        print('ratio std: ', np.nanstd(ratio))
-        print('ratio max: ', np.nanmax(ratio))
-        print('ratio min: ', np.nanmin(ratio))
+        #print(model_label)
+        #ratio = meanfr[mask]/meanr[mask]
+        #print('ratio mean: ', np.nanmean(ratio))
+        #print('ratio median: ', np.nanmedian(ratio))
+        #print('ratio std: ', np.nanstd(ratio))
+        #print('ratio max: ', np.nanmax(ratio))
+        #print('ratio min: ', np.nanmin(ratio))
        
-        continue 
+        #continue 
 
-        print(np.shape(mask))
-        print('num above lwc cutoff: ', np.sum(mask))
+        #print(np.shape(mask))
+        #print('num above lwc cutoff: ', np.sum(mask))
         
         #do regression analysis
-        m, b, R, sig = linregress(ss_ry[mask]*100, ss_wrf[mask]*100)
-        print(m, b, R**2)
+        #m, b, R, sig = linregress(ss_ry[mask]*100, ss_wrf[mask]*100)
+        m, b, R, sig = linregress(ss_qss[mask]*100, ss_ry[mask]*100)
+        #print(m, b, R**2)
         
-        #count number of points outside range [-100, 100] for qss_ry set
-        n_hi = np.sum(np.logical_and.reduce(( \
-                                    (ss_ry > 1), \
-                                     mask)))
-        n_lo = np.sum(np.logical_and.reduce(( \
-                                    (ss_ry < -1), \
-                                     mask)))
-        print(model_label)
-        print('n_hi: ', n_hi)
-        print('n_lo: ', n_lo)
-        print('max ssry:', np.nanmax(ss_ry))
-        print('min ssry:', np.nanmin(ss_ry))
-        
-        n_q1 = np.sum(np.logical_and.reduce(( \
-                                    (ss_ry > 0), \
-                                    (ss_wrf > 0), \
-                                     mask)))
-        n_q2 = np.sum(np.logical_and.reduce(( \
-                                    (ss_ry < 0), \
-                                    (ss_wrf > 0), \
-                                     mask)))
-        n_q3 = np.sum(np.logical_and.reduce(( \
-                                    (ss_ry < 0), \
-                                    (ss_wrf < 0), \
-                                     mask)))
-        n_q4 = np.sum(np.logical_and.reduce(( \
-                                    (ss_ry > 0), \
-                                    (ss_wrf < 0), \
-                                     mask)))
-        
-        print('Number of points in Q1:', n_q1)
-        print('Number of points in Q2:', n_q2)
-        print('Number of points in Q3:', n_q3)
-        print('Number of points in Q4:', n_q4)
+        ##count number of points outside range [-100, 100] for qss_ry set
+        #n_hi = np.sum(np.logical_and.reduce(( \
+        #                            (ss_ry > 1), \
+        #                             mask)))
+        #n_lo = np.sum(np.logical_and.reduce(( \
+        #                            (ss_ry < -1), \
+        #                             mask)))
+        #print(model_label)
+        #print('n_hi: ', n_hi)
+        #print('n_lo: ', n_lo)
+        #print('max ssry:', np.nanmax(ss_ry))
+        #print('min ssry:', np.nanmin(ss_ry))
+        #
+        #n_q1 = np.sum(np.logical_and.reduce(( \
+        #                            (ss_ry > 0), \
+        #                            (ss_wrf > 0), \
+        #                             mask)))
+        #n_q2 = np.sum(np.logical_and.reduce(( \
+        #                            (ss_ry < 0), \
+        #                            (ss_wrf > 0), \
+        #                             mask)))
+        #n_q3 = np.sum(np.logical_and.reduce(( \
+        #                            (ss_ry < 0), \
+        #                            (ss_wrf < 0), \
+        #                             mask)))
+        #n_q4 = np.sum(np.logical_and.reduce(( \
+        #                            (ss_ry > 0), \
+        #                            (ss_wrf < 0), \
+        #                             mask)))
+        #
+        #print('Number of points in Q1:', n_q1)
+        #print('Number of points in Q2:', n_q2)
+        #print('Number of points in Q3:', n_q3)
+        #print('Number of points in Q4:', n_q4)
         print()
         
         ##get limits of the data for plotting purposes
@@ -157,7 +159,8 @@ def main():
         ax_lims = np.array([-100, 100])
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
-        ax.scatter(ss_ry[mask]*100, ss_wrf[mask]*100, c=colors['ss'])
+        #ax.scatter(ss_ry[mask]*100, ss_wrf[mask]*100, c=colors['ss'])
+        ax.scatter(ss_qss[mask]*100, ss_ry[mask]*100, c=colors['ss'])
         ax.plot(ax_lims, np.add(b, m*ax_lims), \
                         c=colors['line'], \
                         linestyle='dashed', \
@@ -167,8 +170,10 @@ def main():
         ax.set_aspect('equal', 'box')
         ax.set_xlim(ax_lims)
         ax.set_ylim(ax_lims)
-        ax.set_xlabel(r'$SS_{RY}$ (%)')
-        ax.set_ylabel(r'$SS_{WRF}$ (%)')
+        ax.set_xlabel(r'$SS_{QSS}$ (%)')
+        ax.set_ylabel(r'$SS_{RY}$ (%)')
+        #ax.set_xlabel(r'$SS_{RY}$ (%)')
+        #ax.set_ylabel(r'$SS_{WRF}$ (%)')
         fig.legend(loc=2)
         fig.set_size_inches(21, 12)
 

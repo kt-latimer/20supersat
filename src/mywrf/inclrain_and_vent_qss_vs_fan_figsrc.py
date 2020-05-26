@@ -13,7 +13,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v5_'
+versionstr = 'v13_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -42,6 +42,8 @@ def main():
         model_dir = model_dirs[model_label]        
 
         #load datafiles
+        #ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
+        #ncprimvars = ncprimfile.variables
         ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
         ncprimvars = ncprimfile.variables
         ncsecfile = Dataset(DATA_DIR + model_dir +
@@ -49,39 +51,60 @@ def main():
         ncsecvars = ncsecfile.variables
 
         #get primary variables
-        q_ice = ncprimvars['QICE'][...]
+        #q_ice = ncprimvars['QICE'][...]
+        PH = ncprimvars['PH'][...] #geopotential perturbation
+        PHB = ncprimvars['PHB'][...] #geopotential base value
         
+        z = (PH + PHB)/g #altitude rel to sea level
+        z = (z[:, 0:-1, :, :] + z[:, 1:, :, :])/2
+
+        del PH, PHB #for memory
+
         #get secondary variables
-        lwc = ncsecvars['lwc_cloud'][...]
-        meanfr = ncsecvars['meanfr'][...]
-        nconc = ncsecvars['nconc'][...]
-        pres = ncsecvars['pres'][...]
-        ss_wrf = ncsecvars['ss_wrf'][...]
+        lwc = ncsecvars['lwc_cloud'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        meanfr = ncsecvars['meanfr'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        nconc = ncsecvars['nconc'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        #pres = ncsecvars['pres'][...]
+        ss_wrf = ncsecvars['ss_wrf'][...][0:-1, 0:-1, 0:-1, 0:-1]
         temp = ncsecvars['temp'][...]
-        w = ncsecvars['w'][...]
+        w = ncsecvars['w'][...][0:-1, 0:-1, 0:-1, 0:-1]
+
+        delta_z = z[0:-1, 1:, 0:-1, 0:-1] - z[0:-1, 0:-1, 0:-1, 0:-1]
+        temp_derv = (temp[0:-1, 1:, 0:-1, 0:-1] \
+                    - temp[0:-1, 0:-1, 0:-1, 0:-1])/delta_z
+
+        temp = temp[0:-1, 0:-1, 0:-1, 0:-1]
+
+        del delta_z, z #for memory
 
         ncprimfile.close()
         ncsecfile.close()
 
-        lwc = lwc + q_ice
+        #lwc = lwc + q_ice
 
         #formula for saturation vapor pressure from Rogers and Yau - converted
         #to mks units (p 16)
-        e_s = 611.2*np.exp(17.67*(temp - 273)/(temp - 273 + 243.5))
+        #e_s = 611.2*np.exp(17.67*(temp - 273)/(temp - 273 + 243.5))
         
-        #quantities defined in ch 7 of Rogers and Yau
-        Q_2 = rho_w*(R_v*temp/e_s + R_a*L_v**2./(pres*temp*R_v*C_ap))
-        F_k = (L_v/(R_v*temp) - 1)*(L_v*rho_w/(K*temp))
-        F_d = rho_w*R_v*temp/(D*e_s)
+        #quantities defined in ch 7 of Rogers and Yau (B is slightly different
+        #from Q_2 because)
+        #B = rho_w*(R_v*temp/e_s + R_a*L_v**2./(pres*temp*R_v*C_ap))
+        #F_k = (L_v/(R_v*temp) - 1)*(L_v*rho_w/(K*temp))
+        #F_d = rho_w*R_v*temp/(D*e_s)
         
         #factor in denominator of Rogers and Yau qss ss formula (p 110)
-        denom = Q_2/(F_k + F_d)
+        #denom = B/(F_k + F_d)
 
-        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
-        #ss_qss = w*A/(4*np.pi*D*nconc*meanfr)
-        ss_qss = w*A/(4*np.pi*denom*nconc*meanfr)
-        
-        del e_s, Q_2, F_d, F_k, denom, A, q_ice, pres, nconc #for memory
+        #A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        A = (-1.*temp_derv*L_v*R_a/R_v*1./temp - g)*1./R_a*1./temp
+        #A = -1.*temp_derv*L_v/(R_v*temp**2.)
+        ss_qss = w*A/(4*np.pi*D*nconc*meanfr)
+        #ss_qss = w*A/(4*np.pi*denom*nconc*meanfr)
+       
+        del temp_derv #for memory
+
+        del A, meanfr, nconc #for memory
+        #del e_s, B, F_d, F_k, denom, A, q_ice, pres, nconc #for memory
         #make filter mask
         #mask = LWC_C > lwc_cutoff
         #mask = np.logical_and.reduce(( \
@@ -94,7 +117,9 @@ def main():
         mask = np.logical_and.reduce(( \
                                     (lwc > lwc_cutoff), \
                                     (temp > 273), \
-                                    (w > 2)))
+                                    (np.abs(w) > 7)))
+        #new_lwc_cutoff = np.percentile(lwc, 10)
+        #mask = np.logical_and(mask, lwc > new_lwc_cutoff)
         #mask = np.logical_and.reduce(( \
         #                            (lwc > lwc_cutoff), \
         #                            (temp > 273), \
@@ -103,52 +128,44 @@ def main():
         #                            (lwc > lwc_cutoff), \
         #                            (temp > 273), \
         #                            (w > 4)))
+        ss_qss = ss_qss[mask]
+        ss_wrf = ss_wrf[mask]
         
-        print(np.shape(mask))
-        print('num above lwc cutoff: ', np.sum(mask))
-        
+        #print(np.shape(mask))
+        #print('num above lwc cutoff: ', np.sum(mask))
+        #
         #do regression analysis
-        m, b, R, sig = linregress(ss_qss[mask]*100, ss_wrf[mask]*100)
+        m, b, R, sig = linregress(ss_qss*100, ss_wrf*100)
         print(m, b, R**2)
-        
-        #count number of points outside range [-100, 100] for qss_qss set
-        n_hi = np.sum(np.logical_and.reduce(( \
-                                    (ss_qss > 1), \
-                                     mask)))
-        n_lo = np.sum(np.logical_and.reduce(( \
-                                    (ss_qss < -1), \
-                                     mask)))
-        print(model_label)
-        print('n_hi: ', n_hi)
-        print('n_lo: ', n_lo)
-        print('ssqss max:', np.nanmax(ss_qss))
-        print('ssqss min:', np.nanmin(ss_qss))
-        
-        n_q1 = np.sum(np.logical_and.reduce(( \
-                                    (ss_qss > 0), \
-                                    (ss_wrf > 0), \
-                                     mask)))
-        n_q2 = np.sum(np.logical_and.reduce(( \
-                                    (ss_qss < 0), \
-                                    (ss_wrf > 0), \
-                                     mask)))
-        n_q3 = np.sum(np.logical_and.reduce(( \
-                                    (ss_qss < 0), \
-                                    (ss_wrf < 0), \
-                                     mask)))
-        n_q4 = np.sum(np.logical_and.reduce(( \
-                                    (ss_qss > 0), \
-                                    (ss_wrf < 0), \
-                                     mask)))
+        #
+        ##count number of points outside range [-100, 100] for qss_qss set
+        #n_hi = np.sum(np.logical_and.reduce(( \
+        #                            (ss_qss > 1), \
+        #                             mask)))
+        #n_lo = np.sum(np.logical_and.reduce(( \
+        #                            (ss_qss < -1), \
+        #                             mask)))
+        #print(model_label)
+        #print('n_hi: ', n_hi)
+        #print('n_lo: ', n_lo)
+        #print('ssqss max:', np.nanmax(ss_qss))
+        #print('ssqss min:', np.nanmin(ss_qss))
+        #
+        n_q1 = np.sum(np.logical_and(ss_qss > 0, ss_wrf > 0))
+        n_q2 = np.sum(np.logical_and(ss_qss < 0, ss_wrf > 0))
+        n_q3 = np.sum(np.logical_and(ss_qss < 0, ss_wrf < 0))
+        n_q4 = np.sum(np.logical_and(ss_qss > 0, ss_wrf < 0))
         
         print('Number of points in Q1:', n_q1)
         print('Number of points in Q2:', n_q2)
         print('Number of points in Q3:', n_q3)
         print('Number of points in Q4:', n_q4)
         print()
-        
-        ##get limits of the data for plotting purposes
-        #xlim_max = np.max(np.array( \
+        print('Domain:', np.min(ss_qss), np.max(ss_qss))
+        print('Range:', np.min(ss_wrf), np.max(ss_wrf))
+       # 
+       # ##get limits of the data for plotting purposes
+       # #xlim_max = np.max(np.array( \
         #                [np.max(ss_wrf_qss[mask]), \
         #                 np.max(ss_wrf_wrf[mask])]))
         #xlim_min = np.min(np.array( \
@@ -160,7 +177,7 @@ def main():
         ax_lims = np.array([-100, 100])
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
-        ax.scatter(ss_qss[mask]*100, ss_wrf[mask]*100, c=colors['ss'])
+        ax.scatter(ss_qss*100, ss_wrf*100, c=colors['ss'])
         ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
                         c=colors['line'], \
                         linestyle='dashed', \
@@ -179,6 +196,8 @@ def main():
                     + model_label + '_figure.png'
         plt.savefig(outfile)
         plt.close(fig=fig)
+        
+        del lwc, mask, ss_qss, ss_wrf, temp, w #for memory
 
 if __name__ == "__main__":
     main()

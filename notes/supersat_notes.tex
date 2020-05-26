@@ -9,7 +9,14 @@
 \usepackage{physics}
 \usepackage{amsfonts}
 \usepackage{hyperref}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{color}
+\usepackage{xcolor}
 \graphicspath{{../figures/}}
+
+\definecolor{color1}{HTML}{88720A}
+\definecolor{color2}{HTML}{BA3F00}
+\definecolor{color3}{HTML}{095793}
 
 \title{notes: supersat}
 \author{K. Latimer}
@@ -476,6 +483,61 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 			\item v1: standard filter
 		\end{itemize}
 	\end{itemize}
+	\item 5/25/20: Have mostly been trying to figure out the points in Q4 of SS\_WRF vs SS\_QSS per David's request. To summarize my findings from the various figures described below, Since I've shown previously that SS\_RY is a good approximation for SS\_WRF, we can just as well ask about the form of the scatter plots of SS\_RY vs SS\_QSS (inclrain\_and\_vent\_backtrack\_qss v5). As I show in inclrain\_and\_vent\_fancy\_breakdown\_qss, the dominating contribution to both of these is the shared factor $\frac{F}{4\pi\langle fr\rangle n}$; in particular, this shared factor (colored in blue) decreases drastically on the log scale around RH=1. As a rough approximation then, we can think of the quantity I've colored in yellow as "constant" and that I've colored in red as an appropriately shifted and rescaled Heaviside function. That being more or less settled, there was still the remaining question of what experimentally-accessible filter we can use to remove those points; setting a higher vertical wind velocity cutoff was effective (this was David's suggestion and I need to ask him what is going on physically there). Finally I am still not sure how to rectify the slope of the (now fairly linear) SS\_WRF vs SS\_QSS plot, that is a work in progress.
+	\begin{itemize}
+		\item \texttt{inclrain\_and\_vent\_breakdown\_qss}:
+		\begin{itemize}
+			\item v4: standard filter A changed to Aw/(fr), (fr) changed to LH
+			\item v5: standard filter nconc changed to 1/nconc
+			\item v6: standard filter change x-axis lims
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_fancy\_breakdown\_qss}:
+		\begin{itemize}
+			\item v1: standard filter
+			\item v2: same as v1 but fix formatting and take log(abs(LH))
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_backtrack\_qss}:
+		\begin{itemize}
+			\item v5: change SS\_WRF to SS\_QSS and switch axes
+			\item v6: standard filter but abs w greater than 2
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_lwc\_hist}:
+		\begin{itemize}
+			\item v1: cloud LWC distribution; edge $\equiv$ SS\_WRF less than zero but SS\_QSS greater than zero
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_qss\_vs\_fan}:
+		\begin{itemize}
+			\item v6: standard filter taking only top 90\% by cloud LWC of each given time step and horizontal slice
+			\item v7: standard filter w greater than 5
+			\item v8: standard filter same as v7
+			\item v9: standard filter w greater than 8
+			\item v10: standard filter w greater than 10 (not quite sure about v9 and v10 cause I can't find the record in my notes but easy enough to check if needed)
+			\item v11: standard filter w greater than 7
+			\item v12: standard filter w greater than 7, $\frac{g}{R_a T}(\frac{R_aL_v}{C_{ap}R_vT} - 1)$ changed to $\frac{-\Gamma_{env}L_v}{R_v T^2}$
+			\item v13: standard filter w greater than 7, $\frac{g}{R_a T}(\frac{R_aL_v}{C_{ap}R_vT} - 1)$ changed to $\frac{1}{R_aT}(\frac{-\Gamma_{env}L_vR_a}{R_v T}-g)$
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_by\_w\_hist\_qss}:
+		\begin{itemize}
+			\item v1: standard filter but with w greater than cutoff specified in figure title
+		\end{itemize}
+		\item \texttt{inclrain\_and\_vent\_hist\_qss}:
+		\begin{itemize}
+			\item v1: mistake
+			\item v2: standard filter
+		\end{itemize}
+		\item \texttt{w\_vs\_lwc}:
+		\begin{itemize}
+			\item v1: mistake
+			\item v2: standard filter
+			\item v3: standard filter with LH in J/m\^3/s
+			\item v4: standard filter and SS\_WRF less than zero
+		\end{itemize}
+		\item \texttt{fancy\_w\_vs\_lwc}:
+		\begin{itemize}
+			\item v1-v3: mistakes .\_.
+			\item v4: standard filter
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 \subsection{Theory}
 
@@ -523,4 +585,12 @@ etc. \nonumber
 &= \frac{\big(F_k + F_d\big) C_{ap} \rho_a LH}{L_v 4 \pi \rho_L \langle r \rangle n} 
 \end{align} 
 
+(below is for slides)
+\begin{align}
+SS_{QSS} &= \frac{\textcolor{color3}{F}\textcolor{color1}{A w}}{\textcolor{color3}{4\pi \langle f(r) \cdot r \rangle n} \textcolor{color1}{B}} \nonumber \\
+SS_{RY} &= \frac{\textcolor{color3}{F} \textcolor{color2}{\rho_a C_{ap} LH}}{\textcolor{color3}{4\pi \langle f(r) \cdot r \rangle n}\textcolor{color2}{L_v \rho_L}} \nonumber \\
+A &= \frac{g}{R_aT}\Big(\frac{L_v R_a}{C_{ap} R_v T} - 1\Big)\nonumber \\
+B &= \rho_L\Big(\frac{R_v T}{e_s} + \frac{R_a L_v^2}{P T R_v C_{ap}}\Big)\nonumber \\
+F &= \frac{\rho_L L_v}{K T}\Big(\frac{L_v}{R_v T} - 1\Big) + \frac{\rho_L R_v T}{D e_s}\nonumber \\
+\end{align}
 \end{document}

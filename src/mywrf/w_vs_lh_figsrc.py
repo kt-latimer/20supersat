@@ -14,7 +14,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v6_'
+versionstr = 'v4_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -44,22 +44,14 @@ def main():
         model_dir = model_dirs[model_label]        
 
         #load datafiles
-        #ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
-        #ncprimvars = ncprimfile.variables
         ncsecfile = Dataset(DATA_DIR + model_dir +
                             'wrfout_d01_secondary_vars_with_rain_and_vent', 'r')
         ncsecvars = ncsecfile.variables
 
-        ##get primary variables
-        #q_ice = ncprimvars['QICE'][...]
-        
         #get secondary variables
-        lh_K_s = ncsecvars['lh_K_s'][...]
+        #lh_K_s = ncsecvars['lh_K_s'][...]
+        lh_J_m3_s = ncsecvars['lh_J_m3_s'][...]
         lwc = ncsecvars['lwc_cloud'][...]
-        meanfr = ncsecvars['meanfr'][...]
-        nconc = ncsecvars['nconc'][...]
-        #nconccloud = ncsecvars['nconccloud'][...]
-        #nconcrain = ncsecvars['nconcrain'][...]
         ss_wrf = ncsecvars['ss_wrf'][...]
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
@@ -67,10 +59,6 @@ def main():
         #ncprimfile.close()
         ncsecfile.close()
 
-        #lwc = lwc + q_ice
-
-        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
-        
         #make filter mask
         #mask = LWC_C > lwc_cutoff
         #mask = np.logical_and.reduce(( \
@@ -84,6 +72,7 @@ def main():
                                     (lwc > lwc_cutoff), \
                                     (temp > 273), \
                                     (w > 2)))
+        mask = np.logical_and(mask, ss_wrf < 0)
         #mask = np.logical_and.reduce(( \
         #                            (lwc > lwc_cutoff), \
         #                            (temp > 273), \
@@ -93,48 +82,34 @@ def main():
         #                            (temp > 273), \
         #                            (w > 4)))
        
-        A = A[mask]
-        lh_K_s = lh_K_s[mask]
-        meanfr = meanfr[mask]
-        nconc = nconc[mask]
-        #nconccloud = nconccloud[mask]
-        #nconcrain = nconcrain[mask]
-        ss_wrf = ss_wrf[mask]
+        #lh_K_s = lh_K_s[mask]
+        lh_J_m3_s = lh_J_m3_s[mask]
         w = w[mask]
 
+        #do regression analysis
+        #m, b, R, sig = linregress(lh_K_s, w)
+        m, b, R, sig = linregress(lh_J_m3_s, w)
+        print(m, b, R**2)
+        
         #plot the supersaturations against each other with regression line
-        fig, ax = plt.subplots(2, 2)
-        ax[0][0].scatter(A*w/meanfr, ss_wrf*100, c=colors['ss'])
-        #ax[0][0].scatter(A, ss_wrf*100, c=colors['ss'])
-        ax[0][1].scatter(lh_K_s, ss_wrf*100, c=colors['ss'])
-        #ax[0][1].scatter(meanfr, ss_wrf*100, c=colors['ss'])
-        ax[1][0].scatter(1./nconc, ss_wrf*100, c=colors['ss'])
-        ax[1][0].set_xlim(np.array([np.min(1./nconc), np.max(1./nconc)]))
-        ax[1][1].scatter(w, ss_wrf*100, c=colors['ss'])
-        #ax[1][0].scatter(nconccloud, ss_wrf*100, c=colors['ss'])
-        #ax[1][1].scatter(nconcrain, ss_wrf*100, c=colors['ss'])
-        ax[0][0].set_xlabel(r'$A*w/meanfr$ ()')
-        #ax[0][0].set_xlabel(r'$A$ ()')
-        ax[0][1].set_xlabel('LH (K/s)')
-        #ax[0][1].set_xlabel(r'$\langle f(r) \cdot r \rangle$ (m)')
-        ax[1][0].set_xlabel('1/Num. Conc. (m^-3)')
-        ax[1][1].set_xlabel('w (m/s)')
-        #ax[1][0].set_xlabel('Num. Conc. [cloud] (m^-3)')
-        #ax[1][1].set_xlabel('Num. Conc. [rain] (m^-3)')
-        ax[0][0].set_ylabel(r'$SS_{WRF}$ (%)')
-        ax[0][1].set_ylabel(r'$SS_{WRF}$ (%)')
-        ax[1][0].set_ylabel(r'$SS_{WRF}$ (%)')
-        ax[1][1].set_ylabel(r'$SS_{WRF}$ (%)')
-        #ax[0][0].set_xlim(np.array([-1.e-3, 1.e-3]))
-        #ax[0][1].set_xlim(np.array([-9.e-4, 9.e-4]))
+        fig, ax = plt.subplots()
+        ax.scatter(lh_J_m3_s, w, c=colors['ss'])
+        ax.plot(np.array(ax.get_xlim()), np.add(b, m*np.array(ax.get_xlim())), \
+                        c=colors['line'], \
+                        linestyle='dashed', \
+                        linewidth=3, \
+                        label=('m = ' + str(np.round(m, decimals=2)) + \
+                                ', R^2 = ' + str(np.round(R**2, decimals=2))))
+        #ax.set_xlabel('LH (K/s)')
+        ax.set_xlabel('LH (J/(m^3 s))')
+        ax.set_ylabel('w (m/s)')
+        fig.legend(loc=2)
         fig.set_size_inches(21, 12)
 
-        outfile = FIG_DIR + versionstr + 'inclrain_and_vent_breakdown_qss_' \
+        outfile = FIG_DIR + versionstr + 'w_vs_lh_' \
                     + model_label + '_figure.png'
         plt.savefig(outfile)
         plt.close(fig=fig)
-
-        del A, lwc, mask, meanfr, nconc, ss_wrf, temp, w #for memory
 
 if __name__ == "__main__":
     main()
