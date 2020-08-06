@@ -14,7 +14,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v32_'
+versionstr = 'v33_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -44,7 +44,7 @@ def main():
 
         #load datafiles
         ncsecfile = Dataset(DATA_DIR + model_dir +
-                            'wrfout_d01_secondary_vars_with_ss_v4', 'r')
+                            'wrfout_d01_secondary_vars_with_rain', 'r')
         ncsecvars = ncsecfile.variables
         
         #get secondary variables
@@ -71,10 +71,18 @@ def main():
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
+        #mask = np.logical_and.reduce(( \
+        #                            (lwc > lwc_cutoff), \
+        #                            (temp > 273), \
+        #                            (np.abs(w) > 2)))
         mask = np.logical_and.reduce(( \
                                     (lwc > lwc_cutoff), \
-                                    (temp > 273), \
+                                    (np.abs(ss_wrf) < 0.01), \
                                     (np.abs(w) > 2)))
+        #mask = np.logical_and.reduce(( \
+        #                            (lwc > lwc_cutoff), \
+        #                            (ss_wrf < 0.01), \
+        #                            (np.abs(w) > 2)))
         #mask = np.logical_and.reduce(( \
         #                            (lwc > lwc_cutoff), \
         #                            (temp > 273), \

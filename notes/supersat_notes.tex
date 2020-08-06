@@ -593,4 +593,51 @@ A &= \frac{g}{R_aT}\Big(\frac{L_v R_a}{C_{ap} R_v T} - 1\Big)\nonumber \\
 B &= \rho_L\Big(\frac{R_v T}{e_s} + \frac{R_a L_v^2}{P T R_v C_{ap}}\Big)\nonumber \\
 F &= \frac{\rho_L L_v}{K T}\Big(\frac{L_v}{R_v T} - 1\Big) + \frac{\rho_L R_v T}{D e_s}\nonumber \\
 \end{align}
+\newpage
+\subsubsection{How to derive the quasi-steady-state supersaturation formula}
+We begin with the definition for supersaturation $S$:
+\begin{equation}
+S+1\equiv \frac{e}{e_s},
+\end{equation}
+where $e(_s)$ is the (saturation) vapor pressure. By chain rule:
+\begin{equation}
+\label{dsdt}
+\frac{dS}{dt} = \frac{dz}{dt}\frac{\partial S}{\partial z}\Big\rvert_{q_v} + \frac{dq_v}{dt}\frac{\partial S}{\partial q_v}\Big\rvert_{z}
+\end{equation}
+In this expression we expand the first term:
+\begin{align}
+\label{partialz}
+\frac{\partial S}{\partial z}\Big\rvert_{q_v} &= \frac{1}{e_s^2}\Big(e_s\frac{\partial e}{\partial z}\Big\rvert_{q_v} - e\frac{\partial e_s}{\partial z}\Big\rvert_{q_v}\Big)\nonumber\\
+&=\frac{1}{e_s^2}\Big(e_s\frac{q_vR_v}{R_a}\frac{\partial p}{\partial z}\Big\rvert_{q_v} - e\frac{de_s}{dT}\frac{\partial T}{\partial z}\Big\rvert_{q_v}\Big)\nonumber\\
+&=\frac{1}{e_s^2}\Big(-e_s\frac{q_vR_v}{R_a}\rho_a g + e\frac{L_ve_s}{R_vT^2}\frac{g}{C_p}\Big)\nonumber\\
+&=(S+1)\Big(-\frac{g}{R_aT} + \frac{L_vg}{R_vC_pT}\Big)
+\end{align}
+In the above, we have used the fact that:
+\begin{equation}
+e = \frac{q_vR_vp}{R_a}
+\end{equation}
+and also hydrostatic balance\footnote{In invoking hydrostatic balance, we also assume zero buoyancy.}, the Clausius-Clapeyron equation and dry adiabatic lapse rate. Next we expand the second term:
+\begin{align}
+\label{partialqv}
+\frac{\partial S}{\partial q_v}\Big\rvert_{z} &= \frac{1}{e_s^2}\Big(e_s\frac{\partial e}{\partial q_v}\Big\rvert_{z} - e\frac{\partial e_s}{\partial q_v}\Big\rvert_{z}\Big)\nonumber\\
+&=\frac{1}{e_s^2}\Big(e_s\frac{R_vp}{R_a} - e\frac{de_s}{dT}\frac{\partial T}{\partial q_v}\Big\rvert_{z}\Big)\nonumber\\
+&=\frac{1}{e_s^2}\Big(e_s\frac{R_vp}{R_a} + e\frac{L_ve_s}{R_vT^2}\frac{L_v}{C_p}\Big)\nonumber\\
+&=(S+1)\Big(\frac{R_vp}{R_ae_s} + \frac{L_v^2}{R_vC_pT^2}\Big)
+\end{align}
+Combining equations \eqref{partialz} and \eqref{partialqv} yield the expressions (7.22)-(7.24) in Rogers and Yau (3rd ed.).\footnote{Note however that they have omitted a factor of $\frac{1}{S+1}$ in the denominator on the left hand side of (7.22); see e.g. equation (13-29) of Pruppacher and Klett (2nd ed.) and comments directly following.}
+Now we express the condensation rate in terms of droplet growth (assuming a uniform size distribution):
+\begin{align}
+\label{condrate}
+\frac{dq_v}{dt} &= \frac{d}{dt}\frac{m_v}{m_a}\nonumber\\
+&=\frac{1}{m_a}\frac{dm_v}{dt}\nonumber\\
+&=-\frac{1}{m_a}\frac{dm_c}{dt}\nonumber\\
+&=-\frac{1}{m_a}nV\cdot4\pi\rho_{\ell}r^2\frac{dr}{dt}\nonumber\\
+&=-\frac{1}{\rho_a}n\cdot4\pi\rho_{\ell}r\frac{S}{F_k + F_d} 
+\end{align}
+Here we have used the following notation: $m_v$ and $m_a$ are the masses of water vapor and dry air in the parcel, respectively; $m_c$ is the mass of cloud water in the parcel; $n$ is the volumetric number concentration of cloud particles in the parcel (assumed constant, i.e. no nucleation or precipitation); $V$ is the volume of the parcel; $\rho_{\ell}$ is the density of liquid water; $r$ is the radius of the cloud droplets; and $F_k$ and $F_d$ are temperature-dependent coefficients that come from solving the diffusion equations for heat and water vapor around the (spherical) droplets.
+
+By plugging the results \eqref{partialz}, \eqref{partialqv}, and \eqref{condrate} into \eqref{dsdt} and setting $\frac{dS}{dt}=0$ for the steady-state assumption, we obtain:
+\begin{equation}
+S = \frac{w\Big(-\frac{g}{R_aT} + \frac{L_vg}{R_vC_pT}\Big)(F_k + F_d)}{4\pi nr\rho_{\ell}\Big(\frac{R_vT}{e_s} + \frac{L_v^2}{R_vC_p\rho_aT^2}\Big)}
+\end{equation}
 \end{document}

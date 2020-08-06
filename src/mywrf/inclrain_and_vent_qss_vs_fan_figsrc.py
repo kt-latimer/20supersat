@@ -11,9 +11,11 @@ import numpy as np
 from halo.utils import linregress
 from mywrf import BASE_DIR, DATA_DIR, FIG_DIR 
 
+PROJ_DATA_DIR = '/global/home/users/kalatimer/proj/20supersat/data/mywrf/'
+
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
-lwc_cutoff = 1.e-5
-versionstr = 'v13_'
+lwc_cutoff = 1.e-4 
+versionstr = 'v28_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -44,41 +46,54 @@ def main():
         #load datafiles
         #ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
         #ncprimvars = ncprimfile.variables
-        ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
-        ncprimvars = ncprimfile.variables
         ncsecfile = Dataset(DATA_DIR + model_dir +
                             'wrfout_d01_secondary_vars_with_rain_and_vent', 'r')
+                            #'wrfout_d01_secondary_vars_no_rain', 'r')
         ncsecvars = ncsecfile.variables
 
         #get primary variables
         #q_ice = ncprimvars['QICE'][...]
-        PH = ncprimvars['PH'][...] #geopotential perturbation
-        PHB = ncprimvars['PHB'][...] #geopotential base value
+        #PH = ncprimvars['PH'][...] #geopotential perturbation
+        #PHB = ncprimvars['PHB'][...] #geopotential base value
         
-        z = (PH + PHB)/g #altitude rel to sea level
-        z = (z[:, 0:-1, :, :] + z[:, 1:, :, :])/2
+        #z = (PH + PHB)/g #altitude rel to sea level
+        #z = (z[:, 0:-1, :, :] + z[:, 1:, :, :])/2
 
-        del PH, PHB #for memory
-
+        #del PH, PHB #for memory
+        
         #get secondary variables
-        lwc = ncsecvars['lwc_cloud'][...][0:-1, 0:-1, 0:-1, 0:-1]
-        meanfr = ncsecvars['meanfr'][...][0:-1, 0:-1, 0:-1, 0:-1]
-        nconc = ncsecvars['nconc'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        lwc = ncsecvars['lwc_cloud'][...]
+        meanfr = ncsecvars['meanfr'][...]
+        #meanr = ncsecvars['meanr'][...]
+        nconc = ncsecvars['nconc'][...]
         #pres = ncsecvars['pres'][...]
-        ss_wrf = ncsecvars['ss_wrf'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        ss_wrf = ncsecvars['ss_wrf'][...]
         temp = ncsecvars['temp'][...]
-        w = ncsecvars['w'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        w = ncsecvars['w'][...]
+        #lwc = ncsecvars['lwc_cloud'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        #meanfr = ncsecvars['meanfr'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        #nconc = ncsecvars['nconc'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        ##pres = ncsecvars['pres'][...]
+        #ss_wrf = ncsecvars['ss_wrf'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        #temp = ncsecvars['temp'][...]
+        #w = ncsecvars['w'][...][0:-1, 0:-1, 0:-1, 0:-1]
+        ##
+        #delta_z = z[0:-1, 1:, 0:-1, 0:-1] - z[0:-1, 0:-1, 0:-1, 0:-1]
+        #temp_derv = (temp[0:-1, 1:, 0:-1, 0:-1] \
+        #            - temp[0:-1, 0:-1, 0:-1, 0:-1])/delta_z
+        #filename = PROJ_DATA_DIR + 'temp_derv_' + model_label + '.npy'
+        #np.save(filename, temp_derv.tolist())
+        #continue
+        #for j in range(temp_derv.shape[0]):
+        #    for k in range(temp_derv.shape[1]):
+        #        temp_derv[j, k, :, :] = np.mean(temp_derv[j, k, :, :])    
+        #temp = temp[0:-1, 0:-1, 0:-1, 0:-1]
+        
+        #del delta_z, z #for memory
 
-        delta_z = z[0:-1, 1:, 0:-1, 0:-1] - z[0:-1, 0:-1, 0:-1, 0:-1]
-        temp_derv = (temp[0:-1, 1:, 0:-1, 0:-1] \
-                    - temp[0:-1, 0:-1, 0:-1, 0:-1])/delta_z
-
-        temp = temp[0:-1, 0:-1, 0:-1, 0:-1]
-
-        del delta_z, z #for memory
-
-        ncprimfile.close()
+        #ncprimfile.close()
         ncsecfile.close()
+
 
         #lwc = lwc + q_ice
 
@@ -95,15 +110,17 @@ def main():
         #factor in denominator of Rogers and Yau qss ss formula (p 110)
         #denom = B/(F_k + F_d)
 
-        #A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
-        A = (-1.*temp_derv*L_v*R_a/R_v*1./temp - g)*1./R_a*1./temp
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        #A = (-1.*temp_derv*L_v*R_a/R_v*1./temp - g)*1./R_a*1./temp
         #A = -1.*temp_derv*L_v/(R_v*temp**2.)
         ss_qss = w*A/(4*np.pi*D*nconc*meanfr)
+        #ss_qss = w*A/(4*np.pi*D*nconc*meanr)
         #ss_qss = w*A/(4*np.pi*denom*nconc*meanfr)
        
-        del temp_derv #for memory
+        #del temp_derv #for memory
 
         del A, meanfr, nconc #for memory
+        #del A, meanr, nconc #for memory
         #del e_s, B, F_d, F_k, denom, A, q_ice, pres, nconc #for memory
         #make filter mask
         #mask = LWC_C > lwc_cutoff
@@ -117,7 +134,13 @@ def main():
         mask = np.logical_and.reduce(( \
                                     (lwc > lwc_cutoff), \
                                     (temp > 273), \
-                                    (np.abs(w) > 7)))
+                                    (w > 2)))
+        #mask = np.logical_and.reduce(( \
+        #                            (lwc > lwc_cutoff), \
+        #                            (np.abs(ss_wrf) < 0.01), \
+        #                            (temp > 273), \
+        #                            (np.abs(w) > 2)))
+                                    #(w > 1)))
         #new_lwc_cutoff = np.percentile(lwc, 10)
         #mask = np.logical_and(mask, lwc > new_lwc_cutoff)
         #mask = np.logical_and.reduce(( \
@@ -128,6 +151,17 @@ def main():
         #                            (lwc > lwc_cutoff), \
         #                            (temp > 273), \
         #                            (w > 4)))
+        #mask = np.array(np.zeros(lwc.shape), dtype=bool)
+        #for j in range(lwc.shape[1]): #all z coords
+        #    mask_z = np.logical_and.reduce(( \
+        #                            (lwc[:, j, :, :] > lwc_cutoff), \
+        #                            (temp[:, j, :, :] > 273), \
+        #                            (w[:, j, :, :] > 2)))
+        #    if np.sum(mask_z) != 0:
+        #        lwc_z = lwc[:, j, :, :][mask_z]
+        #        cutoff_z = np.percentile(lwc_z, 10)
+        #        mask[:, j, :, :] = np.logical_and(mask_z, \
+        #                            lwc[:, j, :, :] > cutoff_z)
         ss_qss = ss_qss[mask]
         ss_wrf = ss_wrf[mask]
         

@@ -1,6 +1,6 @@
 """
 Second round of HALO data processing: extract relevant data for ADLR, \
-CAS, CDP, and NIXE-CAPS sets and convert to mks units. 
+CAS, CDP, NIXE-CAPS, SHARC, and CIP sets and convert to mks units. 
 
 Input location: /data/halo/npy_raw
 Output location: /data/halo/npy_proc
@@ -28,11 +28,19 @@ from halo.utils import calc_lwc
 input_data_dir =  DATA_DIR + 'npy_raw/'
 output_data_dir = DATA_DIR + 'npy_proc/'
 
+cipbinfile = DATA_DIR + 'CIP_bins.npy'
+CIP_bins = np.load(cipbinfile, allow_pickle=True).item()
+centr_cip = (CIP_bins['upper'] + CIP_bins['lower'])/4. #diam to radius
+dr_cip = CIP_bins['upper'] - CIP_bins['lower']
+nbins_cip = len(centr_cip)
+cipg_bin_diams = [25, 75, 125, 175, 225, 275, 325, 400, 475, 550, \
+                625, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000]
+                #in um which doesn't matter since we just take ratios
 def main():
     """
     extract time, environment variables from ADLR; time, nconc, and \
-    other available quantities from CAS, CDP, AND NIXE-CAPS. also \
-    calculate lwc for CAS and CDP.
+    other available quantities from CAS, CDP, NIXE-CAPS, SHARC, and 
+    CIP. also calculate lwc for CAS and CDP.
     """
     
     #clean variable names and their mks units (and scale factors into those \
@@ -40,12 +48,14 @@ def main():
     key_ind_dict = {'ADLR':\
                         {'var_names':['time', 'potl_temp', 'vert_wind_vel', \
                             'alt_asl', 'alt_pres', 'lat', 'long', 'stat_temp', \
-                            'stat_pres', 'lwc', 'TAS', 'virt_potl_temp'], \
+                            'stat_pres', 'lwc', 'TAS', 'virt_potl_temp', \
+                            'alt_igi'], \
                         'var_units':['s', 'K', 'm/s', 'm', 'm', 'deg', 'deg', \
-                            'K', 'Pa', 'g/g', 'm/s', 'K'], \
-                        'var_inds':[0, 12, 17, 4, 5, 23, 24, 20, 7, 21, 9, 13], \
+                            'K', 'Pa', 'g/g', 'm/s', 'K', 'm'], \
+                        'var_inds':[0, 12, 17, 4, 5, 23, 24, 20, 7, 21, 9, \
+                            13, 25],
                         'var_scale':[1. for i in range(7)] \
-                                    + [1., 100., 0.001, 1., 1.]}, \
+                                    + [1., 100., 0.001, 1., 1., 1.]}, \
                     'CAS':\
                         {'var_names':['time'] + ['nconc_'+str(i) for i in \
                             range(5, 17)] + ['nconc_tot_TAS_corr', \
@@ -80,7 +90,17 @@ def main():
                         'var_units':['s', 'kg/m^3', 'K', 'K', 'K', 'g/g',
                             'ppmV', 'percent', 'percent'], \
                         'var_inds':[i for i in range(9)], \
-                        'var_scale':[1., 0.001, 1., 1., 1., 0.001, 1., 1., 1.]}}
+                        'var_scale':[1., 0.001, 1., 1., 1., 0.001, 1., 1.,
+                        1.]}, \
+                    'CIP':{\
+                        'var_names':['time', 'nconc_tot_PAS_corr',
+                        'geom_mean_diam'] + ['nconc_'+str(i) for i in \
+                            range(1, 20)] + ['xi'], \
+                        'var_units':['s', 'm^-3', 'm'] + ['m^-3' for i in \
+                            range(1, 20)] + ['none', 'kg/kg'], \
+                        'var_inds':[0, 1, 2] + [i for i in range(3, 22)] + [22], \
+                        'var_scale':[1., 1.e6, 1.e-6] + [1.e6 for i in range(20)] +
+                        [1.]}}
     
     #get names of data files with no issues (see notes)
     with open('good_ames_files.txt','r') as readFile:
@@ -91,19 +111,21 @@ def main():
     for filename in good_ames_filenames:
         #pick out relevant datasets and load raw .npy files
         basename = filename[0:len(filename)-5]
-        if 'sharc' in basename:
-            setname = 'SHARC'
-        elif 'adlr' in basename:
-            setname = 'ADLR'
-        #if 'adlr' in basename:
+        #if 'sharc' in basename:
+        #    setname = 'SHARC'
+        #elif 'adlr' in basename:
         #    setname = 'ADLR'
-        #elif 'CAS_DPOL' in basename:
-        #    setname = 'CAS'
-        #    if basename[15:19] == '3914':
-        #        #weird corrupted file.
-        #        continue
-        #elif 'CCP_CDP' in basename:
-        #    setname = 'CDP'
+        if 'CIP' in basename:
+            setname = 'CIP'
+        if 'adlr' in basename:
+            setname = 'ADLR'
+        elif 'CAS_DPOL' in basename:
+            setname = 'CAS'
+            if basename[15:19] == '3914':
+                #weird corrupted file.
+                continue
+        elif 'CCP_CDP' in basename:
+            setname = 'CDP'
         #elif 'NIXECAPS_AC' in basename:
         #    setname = 'NIXECAPS'
         #elif 'NIXECAPS_cloudflag' in basename:
@@ -127,6 +149,12 @@ def main():
             #need to divide ptcl num by sample volume
                 proc_dict['data'][var_names[i]] = var_scale[i]\
                         *raw_dict['data'][:,var_inds[i]]/raw_dict['data'][:,2]
+            elif setname == 'CIP' and i in range(3, 22):
+            #need to multiply dN/dlogDp by log of bin bound ratio
+            #to get bin conc
+                proc_dict['data'][var_names[i]] = var_scale[i]\
+                        *raw_dict['data'][:, var_inds[i]]\
+                        *np.log10(CIP_bins['upper'][i-3]/CIP_bins['lower'][i-3])
             else:
                 proc_dict['data'][var_names[i]] = var_scale[i]\
                         *raw_dict['data'][:,var_inds[i]]
@@ -137,8 +165,8 @@ def main():
                 raw_dict['flight_date'][2]
         np.save(output_data_dir+setname+'_'+datestr, proc_dict)
     
-    #if not modifying CAS/CDP files (else comment out line below)
-    return
+    #if not modifying CAS/CDP/CIP files (else comment out line below)
+    #return
 
     #now calculate LWC values for CAS and CDP and add to raw files.
     files = [f for f in listdir(DATA_DIR + 'npy_proc/')]
@@ -160,8 +188,8 @@ def main():
         except FileNotFoundError:
             adlrdata = {'data': None} 
 
-        #process cas / cdp  datasets from flight date
-        for setname in ['CAS', 'CDP']:
+        #process cas / cdp / cip  datasets from flight date
+        for setname in ['CAS', 'CDP', 'CIP']:
             try:    
                 filename = DATA_DIR + 'npy_proc/' + setname + '_' \
                         + date + '.npy'
@@ -169,6 +197,9 @@ def main():
                 updated_dataset = dataset.copy()
                 updated_dataset['data']['lwc'] = {}
                 updated_dataset['units']['lwc'] = {}
+                if setname in ['CAS', 'CIP']:
+                    updated_dataset['data']['lwc_with_cip'] = {}
+                    updated_dataset['units']['lwc_with_cip'] = {}
             except FileNotFoundError:
                 print(filename + 'not found')
                 continue
@@ -181,7 +212,7 @@ def main():
                     #avoid redundant calculations
                     pass
                 else:
-                    (lwc, t_inds) = calc_lwc(setname, dataset['data'], \
+                    (lwc, lwc_with_cip, t_inds) = calc_lwc(setname, dataset['data'], \
                         adlrdata['data'], cutoff_bins, change_cas_corr)
                 #only this dataset is weird so fixing manually 
                 if date == '20140906' and setname == 'CAS':
@@ -191,6 +222,13 @@ def main():
                 
                 updated_dataset['data']['lwc'].update({booleankey: lwc})
                 updated_dataset['units']['lwc'].update({booleankey: 'g/g'})
+                if setname == 'CAS':
+                    updated_dataset['data']['lwc_with_cip'].update({booleankey: lwc_with_cip})
+                    updated_dataset['units']['lwc_with_cip'].update({booleankey: 'g/g'})
+                if setname == 'CIP':#possibly the most horrendous code I have
+                                    #written
+                    updated_dataset['data']['lwc_with_cip'].update({booleankey: lwc})
+                    updated_dataset['units']['lwc_with_cip'].update({booleankey: 'g/g'})
                 
                 #time inds don't depend on booleans so just update once.
                 if booleankey == '00':

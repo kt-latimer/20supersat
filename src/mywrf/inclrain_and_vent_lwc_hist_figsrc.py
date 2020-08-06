@@ -13,7 +13,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v1_'
+versionstr = 'v2_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -94,8 +94,8 @@ def main():
         
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
-        ax.hist(lwc[mask1], bins = 40, label='Cloud bulk')
-        ax.hist(lwc[mask2], bins = 40, label='Cloud edge')
+        ax.hist(lwc[mask1], bins = 40, label='Cloud bulk', density=True)
+        ax.hist(lwc[mask2], bins = 40, label='Cloud edge', density=True)
         ax.set_xlabel('Count')
         ax.set_ylabel(r'LWC$_{CLOUD}$ (g/g)')
         fig.legend(loc=2)

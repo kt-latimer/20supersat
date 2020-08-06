@@ -15,7 +15,7 @@ from mywrf import BASE_DIR, DATA_DIR, FIG_DIR
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 lwc_cutoff = 1.e-5
-versionstr = 'v15_'
+versionstr = 'v16_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -44,19 +44,19 @@ def main():
         model_dir = model_dirs[model_label]        
 
         #load datafiles
-        ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
-        ncprimvars = ncprimfile.variables
-        ncsecfile = Dataset(DATA_DIR + model_dir + 'wrfout_d01_secondary_vars', 'r')
+        #ncprimfile = MFDataset(DATA_DIR + model_dir + 'wrfout_d01_2014*', 'r')
+        #ncprimvars = ncprimfile.variables
+        ncsecfile = Dataset(DATA_DIR + model_dir + \
+            'wrfout_d01_secondary_vars_no_rain', 'r')
         ncsecvars = ncsecfile.variables
         
-        #get relevant primary variables from wrf output
-        LWC = ncprimvars['QCLOUD'][...]
-        SS = ncprimvars['SSW'][...]
-
         #get secondary variables
-        meanr = ncsecvars['meanr'][...]
-        nconc = ncsecvars['nconc'][...]
+        lwc = ncsecvars['lwc_cloud'][...]
+        #meanr = ncsecvars['meanr'][...]
+        #nconc = ncsecvars['nconc'][...]
         #pres = ncsecvars['pres'][...]
+        ss_qss = ncsecvars['ss_qss'][...]
+        ss_wrf = ncsecvars['ss_wrf'][...]
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
 
@@ -73,9 +73,9 @@ def main():
         #denom = Q_2/(F_k + F_d)
         
         #compute quasi steady state ss 
-        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        #A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
         #ss = w*A/(4*np.pi*denom*nconc*meanr)
-        ss = w*A/(4*np.pi*D*nconc*meanr)
+        #ss = w*A/(4*np.pi*D*nconc*meanr)
         
         #del meanr
         #del nconc
@@ -96,8 +96,12 @@ def main():
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
+        #mask = np.logical_and.reduce(( \
+        #                            (LWC > lwc_cutoff), \
+        #                            (np.abs(w) > 2)))
         mask = np.logical_and.reduce(( \
-                                    (LWC > lwc_cutoff), \
+                                    (lwc > lwc_cutoff), \
+                                    (np.abs(ss_wrf) < 0.01), \
                                     (np.abs(w) > 2)))
         #mask = np.logical_and.reduce(( \
         #                            (LWC > lwc_cutoff), \
@@ -109,37 +113,37 @@ def main():
         print('num above lwc cutoff and nonzero w: ', np.sum(mask))
         
         #do regression analysis
-        m, b, R, sig = linregress(ss[mask]*100, SS[mask]*100)
+        m, b, R, sig = linregress(ss_qss[mask]*100, ss_wrf[mask]*100)
         print(m, b, R**2)
         
-        #count number of points outside range [-100, 100] for qss set
+        #count number of points outside range [-100, 100] for ss set
         n_hi = np.sum(np.logical_and.reduce(( \
-                                    (ss > 1), \
+                                    (ss_qss > 1), \
                                      mask)))
         n_lo = np.sum(np.logical_and.reduce(( \
-                                    (ss < -1), \
+                                    (ss_qss < -1), \
                                      mask)))
         print(model_label)
         print('n_hi: ', n_hi)
         print('n_lo: ', n_lo)
-        print('ssqss max:', np.nanmax(ss)) 
-        print('ssqss min: ', np.nanmin(ss)) 
+        print('ss_qss max:', np.nanmax(ss_qss)) 
+        print('ss_qss min: ', np.nanmin(ss_qss)) 
 
         n_q1 = np.sum(np.logical_and.reduce(( \
-                                    (ss > 0), \
-                                    (SS > 0), \
+                                    (ss_qss > 0), \
+                                    (ss_wrf > 0), \
                                      mask)))
         n_q2 = np.sum(np.logical_and.reduce(( \
-                                    (ss < 0), \
-                                    (SS > 0), \
+                                    (ss_qss < 0), \
+                                    (ss_wrf > 0), \
                                      mask)))
         n_q3 = np.sum(np.logical_and.reduce(( \
-                                    (ss < 0), \
-                                    (SS < 0), \
+                                    (ss_qss < 0), \
+                                    (ss_wrf < 0), \
                                      mask)))
         n_q4 = np.sum(np.logical_and.reduce(( \
-                                    (ss > 0), \
-                                    (SS < 0), \
+                                    (ss_qss > 0), \
+                                    (ss_wrf < 0), \
                                      mask)))
         
         print('Number of points in Q1:', n_q1)
@@ -150,18 +154,18 @@ def main():
         
         ##get limits of the data for plotting purposes
         #xlim_max = np.max(np.array( \
-        #                [np.max(SS_qss[mask]), \
-        #                 np.max(SS_wrf[mask])]))
+        #                [np.max(ss_wrf_qss[mask]), \
+        #                 np.max(ss_wrf_wrf[mask])]))
         #xlim_min = np.min(np.array( \
-        #                [np.min(SS_qss[mask]), \
-        #                 np.min(SS_wrf[mask])]))
+        #                [np.min(ss_wrf_qss[mask]), \
+        #                 np.min(ss_wrf_wrf[mask])]))
         #ax_lims = np.array([100*xlim_min, 100*xlim_max])
         #print(ax_lims)
         
         ax_lims = np.array([-100, 100])
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
-        ax.scatter(ss[mask]*100, SS[mask]*100, c=colors['ss'])
+        ax.scatter(ss_qss[mask]*100, ss_wrf[mask]*100, c=colors['ss'])
         ax.plot(ax_lims, np.add(b, m*ax_lims), \
                         c=colors['line'], \
                         linestyle='dashed', \

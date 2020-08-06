@@ -13,7 +13,7 @@ from halo.utils import get_datablock, get_ind_bounds, \
 
 #for plotting
 colors = {'control': '#777777', 'modified': '#88720A'}
-versionstr = 'v6_'
+versionstr = 'v8_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -112,6 +112,7 @@ def main():
         #make figures for this date
         make_comparison_scatter(datablock, datablock_offset, False, False,
             'Optimal time offset', '_toffset', date)
+        print('second')
         make_comparison_scatter(datablock, datablock, True, False, 
             'Same volumetric rescaling factors', '_cascorr', date)
         make_comparison_scatter(datablock, datablock, False, True, 
@@ -170,11 +171,13 @@ def filter_and_rescale(datablock, change_cas_corr, cutoff_bins):
     lwc_cas = datablock[:, high_bin_cas+booleanind]
     lwc_cdp = datablock[:, high_bin_cdp+booleanind]
     filter_inds = np.logical_and.reduce((
+                    (w > 2), \
+                    (T > 273), \
                     (lwc_cas > lwc_filter_val), \
                     (lwc_cdp > lwc_filter_val), \
                     np.logical_not(np.isnan(nconc_cas)), \
                     np.logical_not(np.isnan(nconc_cdp))))
-
+    print('hello', sum(filter_inds))
     #filter spurious values and rescale to um
     meanr_cas = meanr_cas[filter_inds]*1.e6
     meanr_cdp = meanr_cdp[filter_inds]*1.e6
