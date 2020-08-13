@@ -23,10 +23,11 @@ from os import listdir
 import numpy as np
 
 from caipeex import BASE_DIR, DATA_DIR, FIG_DIR
-from caipeex.utils import dsd_radii
+from caipeex.utils import centr_dsd, DSD_bins
 
 input_data_dir =  DATA_DIR + 'npy_raw/'
 output_data_dir = DATA_DIR + 'npy_proc/'
+centr_dsd = DSD_bins['lower']/2.
 
 #physical constants
 C_ap = 1005. #dry air heat cap at const P (J/(kg K))
@@ -52,18 +53,20 @@ def main():
     #units), as well as column indices of relevant values in the raw files.
     key_ind_dict = {'MET':\
                         {'var_names':['time', 'sectime', 'temp', 'pres', \
-                            'alt', 'vert_wind_vel', 'nconc_cdp', 'reff_cdp'], \
+                            'alt', 'vert_wind_vel', 'nconc_cdp', \
+                            'reff_cdp', 'lwc_cdp'], 
                         'var_units':['HHMMSS', 'sec', 'K', 'Pa', 'm', 'm/s', \
-                            'm^-3', 'm'], \
-                        'var_inds':[0, 1, 2, 4, 9, 14, 19, 20],
-                        'var_scale':[1., 1., 1., 100., 1., 1., 1.e6, 1.e-6], \
-                        'var_shift':[0., 0., 273., 0., 0., 0., 0., 0.]}, \
+                            'm^-3', 'm', 'kg/m^3'], \
+                        'var_inds':[0, 1, 2, 4, 9, 14, 19, 20, 22], \
+                        'var_scale':[1., 1., 1., 100., 1., 1., \
+                            1.e6, 1.e-6, 1.e-3], \
+                        'var_shift':[0., 0., 273., 0., 0., 0., 0., 0., 0.]}, \
                     'DSD':\
                         {'var_names':['time'] + ['nconc_'+str(i) for i in \
                             range(1, 92)], \
                         'var_units':['HHMMSS'] + ['m^-3' for i in range(1, 92)], \
                         'var_inds':[0] + [i for i in range(9, 100)], \
-                        'var_scale':[1.] + [1.e6 for i in range(9, 100)], \
+                        'var_scale':[1.] + [1.e-6 for i in range(9, 100)], \
                         'var_shift':[0. for i in range(92)]}}
     
     #get names of data files with no issues (see notes)
@@ -98,17 +101,14 @@ def main():
                     *(raw_dict['data'][:,var_inds[i]] \
                     + var_shift[i])
             else:
-                if i == 1: #time variable
+                if i == 0: #time variable
                     proc_dict['data'][var_names[i]] = var_scale[i] \
                         *(raw_dict['data'][var_inds[i],:] \
                         + var_shift[i])
                 else: #mass distribution vars; convert to nconc (var_shift=0)
                     proc_dict['data'][var_names[i]] = var_scale[i] \
                         *(raw_dict['data'][var_inds[i],:]/(4./3.*np.pi \
-                        *(1.e-2*dsd_radii[i-1])**3.)) #idrk whats up with the
-                                                      #raw data units tbh but 
-                                                      #thats what the caipeex
-                                                      #pi told qindan to do
+                        *centr_dsd[i-1]**3.))
             proc_dict['units'][var_names[i]] = var_units[i]
         
         #save processed files
@@ -149,11 +149,11 @@ def main():
             if i < 31: #CDP range; cloud droplets
                 var_key = 'nconc_' + str(i)
                 cloud_water_dens += dataset['data'][var_key] \
-                    *4./3.*np.pi*(dsd_radii[i-1]*1.e-6)**3.*rho_w
+                    *4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w
             else: #CIP range; rain drops
                 var_key = 'nconc_' + str(i)
                 rain_water_dens += dataset['data'][var_key] \
-                    *4./3.*np.pi*(dsd_radii[i-1]*1.e-6)**3.*rho_w
+                    *4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w
 
         updated_dataset['data']['lwc_cloud'] = cloud_water_dens/rho_air
         updated_dataset['units']['lwc_cloud'] = 'g/g'

@@ -50,8 +50,9 @@ def main():
             np.around(cdpdata['data']['time'])])
         datablock = get_datablock(adlrinds, casinds, cdpinds, \
                                     adlrdata, casdata, cdpdata)
-        lwc_cas_ames = casdata['data']['lwc_calc'][casinds]/1.e6 #convert roughly from
-                                                                 #kg/m3 to g/g
+        #there's a mistake in halo_data_polish rn for lwc scaling factor
+        lwc_cas_ames = casdata['data']['lwc_calc'][casinds]/1.e6
+                                                                 
         #for j, val in enumerate(lwc_cas_ames):
         #    if val > 0.0008:
         #        print(casdata['data']['time'][casinds]

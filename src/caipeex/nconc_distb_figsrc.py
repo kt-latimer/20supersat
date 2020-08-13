@@ -12,7 +12,7 @@ from caipeex.utils import get_ss_full, get_meanr, get_nconc
 
 #for plotting
 colors = {'ss': '#88720A'}
-versionstr = 'v3_'
+versionstr = 'v4_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})

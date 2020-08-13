@@ -16,12 +16,12 @@ from halo.utils import get_datablock_with_cip, get_ind_bounds, \
 
 #for plotting
 colors = {'ss': '#88720A'}
-versionstr = 'v3_'
+versionstr = 'v7_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
-lwc_filter_val = 1.e-4 
+lwc_filter_val = 1.e-4
 w_cutoff = 2
 
 change_cas_corr = True
@@ -69,10 +69,11 @@ def main():
         nconc = get_nconc_vs_t_with_cip(datablock, True, True)
 
         #get time-aligned theta data 
+        alt = datablock[:, -1]
         w = datablock[:, 2]
         temp = datablock[:, 1]
         ss = get_full_ss_vs_t_with_cip_and_vent(datablock, change_cas_corr, cutoff_bins)
-        ss2 = get_full_ss_vs_t_with_cip(datablock, change_cas_corr, cutoff_bins)
+        #ss = get_full_ss_vs_t_with_cip(datablock, change_cas_corr, cutoff_bins)
 
         #filter on LWC vals
         booleanind = int(change_cas_corr) + int(cutoff_bins)*2
@@ -91,7 +92,6 @@ def main():
         #print(nconc[filter_inds])
         ##apply lwc filters
         ss = ss[filter_inds]
-        ss2 = ss2[filter_inds]
         #print(ss)
         #print(ss2)
         
@@ -108,13 +108,15 @@ def main():
             ss_alldates = ss
         else:
             ss_alldates = np.concatenate((ss_alldates, ss))
+        print(ss.shape)
+        print(alt[filter_inds])
         #make histogram
         fig, ax = plt.subplots()
         fig.set_size_inches(21, 12)
         ax.hist(ss, bins=30)#, color=colors['tot_derv'])
         #ax.set_title('w distribution, no filter')
         #ax.set_title('w distribution, LWC > 1e-5 g/g')
-        ax.set_title('SS distribution, LWC > 1.e-4 g/g, T > 273K, w > 2 m/s, \
+        ax.set_title('SS distribution, LWC > 2.e-4 g/g, T > 273K, w > 2 m/s, \
         with raindrops and ventilation corrections')
         #ax.set_title('SS distribution, w > 2 m/s')
         #ax.set_title('SS distribution, LWC > 1e-5 g/g, w > 2 m/s')
@@ -132,7 +134,7 @@ def main():
     ax.hist(ss_alldates, bins=30)#, color=colors['tot_derv'])
     #ax.set_title('w distribution, no filter')
     #ax.set_title('w distribution, LWC > 1e-5 g/g')
-    ax.set_title('SS distribution, LWC > 1.e-4 g/g, T > 273K, w > 2 m/s, \
+    ax.set_title('SS distribution, LWC > 2.e-4 g/g, T > 273K, w > 2 m/s, \
         with raindrops and ventilation corrections')
     #ax.set_title('SS distribution, LWC > 1e-5 g/g')
     #ax.set_title('SS distribution, w > 2 m/s')

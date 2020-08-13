@@ -290,7 +290,8 @@ def get_datablock_with_cip(adlrinds, casinds, cipinds, \
     """
     # extra fifteen columns: time, temperature, 
     # vertical wind velocity, ADLR TAS, CAS TAS, 
-    # CAS corr factor, lwc for cas and cas+cip, pressure
+    # CAS corr factor, lwc for cas and cas+cip, \
+    # pressure, altitude
     datablock = np.zeros([len(adlrinds), 15 + nbins_cas_with_cip + nbins_cip])
     datablock[:, 0] = np.around(adlrdata['data']['time'][adlrinds])
     datablock[:, 1] = adlrdata['data']['stat_temp'][adlrinds]
@@ -325,7 +326,8 @@ def get_datablock_with_cip(adlrinds, casinds, cipinds, \
             casdata['data']['lwc_with_cip']['11'][casinds] \
                    + cipdata['data']['lwc_with_cip']['11'][cipinds]
 
-    datablock[:, -1] = adlrdata['data']['stat_pres'][adlrinds]
+    datablock[:, -2] = adlrdata['data']['stat_pres'][adlrinds]
+    datablock[:, -1] = adlrdata['data']['alt_asl'][adlrinds]
 
     return datablock
 
@@ -515,7 +517,7 @@ def get_full_ss_vs_t_with_cip_and_vent(datablock, change_cas_corr, cutoff_bins):
     #print(T)
     w = datablock[:, 2]
     #print(w)
-    rho_a = datablock[:, -1]/(R_a*T)
+    rho_a = datablock[:, -2]/(R_a*T)
     #print(rho_a)
     A = g*(L_v*R_a/(C_ap*R_v)*1/T - 1)*1./R_a*1./T
     e_s = get_sat_vap_pres(T)
@@ -538,7 +540,7 @@ def get_full_ss_vs_t_with_cip(datablock, change_cas_corr, cutoff_bins):
    
     T = datablock[:, 1]
     w = datablock[:, 2]
-    rho_a = datablock[:, -1]/(R_a*T)
+    rho_a = datablock[:, -2]/(R_a*T)
     A = g*(L_v*R_a/(C_ap*R_v)*1/T - 1)*1./R_a*1./T
     e_s = get_sat_vap_pres(T)
     B = rho_w*(R_v*T/e_s + L_v**2./(R_v*C_ap*rho_a*T**2.))
@@ -560,7 +562,7 @@ def get_full_ss_vs_t(datablock, change_cas_corr, cutoff_bins):
    
     T = datablock[:, 1]
     w = datablock[:, 2]
-    rho_a = datablock[:, -1]/(R_a*T)
+    rho_a = datablock[:, -2]/(R_a*T)
     A = g*(L_v*R_a/(C_ap*R_v)*1/T - 1)*1./R_a*1./T
     e_s = get_sat_vap_pres(T)
     B = rho_w*(R_v*T/e_s + L_v**2./(R_v*C_ap*rho_a*T**2.))

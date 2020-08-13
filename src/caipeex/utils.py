@@ -4,10 +4,14 @@ various utility methods for halo package.
 from itertools import product
 import numpy as np
 
-from halo import BASE_DIR, DATA_DIR, FIG_DIR
+from caipeex import BASE_DIR, DATA_DIR, FIG_DIR
 
-#bin size data and settings depending on cutoff_bins param
-#(indices are for columns of datablock variable)
+dsdbinfile = DATA_DIR + 'DSD_bins.npy'
+DSD_bins = np.load(dsdbinfile, allow_pickle=True).item()
+centr_dsd = (DSD_bins['upper'] + DSD_bins['lower'])/4. #diam to radius
+dr_dsd = DSD_bins['upper'] - DSD_bins['lower']
+nbins_dsd = len(centr_dsd)
+
 #physical constants
 C_ap = 1005. #dry air heat cap at const P (J/(kg K))
 D = 0.23e-4 #diffus coeff water in air (m^2/s)
@@ -29,26 +33,14 @@ N_Re_regime2_coeffs = [-0.318657e1, 0.992696, -0.153193e-2, \
                         -0.327815e-5] #417
 N_Re_regime3_coeffs = [-0.500015e1, 0.523778e1, -0.204914e1, \
                         0.475294, -0.542819e-1, 0.238449e-2] #418
-dsd_radii = np.array([2.5,	3.5,	4.5,	5.5,	6.5,	7.5,	8.5,	9.5,
-10.5,	11.5,	12.5,	13.5,	15.0,	17.0,	19.0,	21.0,	23.0,	25.0,
-27.0,	29.0,	31.0,	33.0,	35.0,	37.0,	39.0,	41.0,	43.0,	45.0,
-47.0,	49.0,	50.0,	75.0,	100.0,	125.0,	150.0,	175.0,	200.0,	225.0,
-250.0,	275.0,	300.0,	325.0,	350.0,	375.0,	400.0,	425.0,	450.0,	475.0,
-500.0,	525.0,	550.0,	575.0,	600.0,	625.0,	650.0,	675.0,	700.0,	725.0,
-750.0,	775.0,	800.0,	825.0,	850.0,	875.0,	900.0,	925.0,	950.0,	975.0,
-1000.0,	1025.0,	1050.0,	1075.0,	1100.0,	1125.0,	1150.0,	1175.0,	1200.0,	1225.0,
-1250.0,	1275.0,	1300.0,	1325.0,	1350.0,	1375.0,	1400.0,	1425.0,	1450.0,	1475.0,
-1500.0,	1525.0,	1550.0]) #in um
 
 def get_meanr(dataset):
     nconc = get_nconc(dataset) 
     radsum = np.zeros(dataset['data']['time'].shape)
 
-    radii = dsd_radii*1.e-6 #um to m 
-
     for i in range(1, 31):
         var_key = 'nconc_' + str(i)
-        radsum += radii[i-1]*dataset['data'][var_key]
+        radsum += centr_dsd[i-1]*dataset['data'][var_key]
     return radsum/nconc
 
 def get_nconc(dataset):
@@ -71,29 +63,25 @@ def get_meanfr_inclrain(dataset, metdata):
     N_Bo_div_r2 = g*rho_w/sigma #pr&kl p 418
     N_P = sigma**3.*rho_a**2./(eta**4.*g*rho_w) #pr&kl p 418
 
-    radii = dsd_radii*1.e-6 #um to m 
-
     u_term = np.array([get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, \
-                            N_P, pres, rho_a, temp) for r in radii])
-    N_Re_vals = np.array([2*rho_a*r*u_term[j]/eta for j, r in enumerate(radii)])
+                            N_P, pres, rho_a, temp) for r in centr_dsd])
+    N_Re_vals = np.array([2*rho_a*r*u_term[j]/eta for j, r in enumerate(centr_dsd)])
     f_vals = np.array([get_vent_coeff(N_Re) for N_Re in N_Re_vals])
 
     nconc = get_nconc_inclrain(dataset) 
     ventradsum = np.zeros(dataset['data']['time'].shape)
     for i in range(1, 92):
         var_key = 'nconc_' + str(i)
-        ventradsum += f_vals[i-1]*radii[i-1]*dataset['data'][var_key]
+        ventradsum += f_vals[i-1]*centr_dsd[i-1]*dataset['data'][var_key]
     return ventradsum/nconc
 
 def get_meanr_inclrain(dataset):
     nconc = get_nconc_inclrain(dataset) 
     radsum = np.zeros(dataset['data']['time'].shape)
 
-    radii = dsd_radii*1.e-6 #um to m 
-
     for i in range(1, 92):
         var_key = 'nconc_' + str(i)
-        radsum += radii[i-1]*dataset['data'][var_key]
+        radsum += centr_dsd[i-1]*dataset['data'][var_key]
     return radsum/nconc
 
 def get_nconc_inclrain(dataset):
@@ -205,3 +193,66 @@ def get_vent_coeff(N_Re):
                     [lambda N_Re: 1. + 0.086*N_Re, \
                     lambda N_Re: 0.78 + 0.27*N_Re**0.5])
     return f
+
+def linregress(x, y=None):
+    """
+    ~~copy pasta from scipy so I don't have to import the whole damn module~~
+    Calculate a regression line
+    This computes a least-squares regression for two sets of measurements.
+    Parameters
+    ----------
+    x, y : array_like
+        two sets of measurements.  Both arrays should have the same length.
+        If only x is given (and y=None), then it must be a two-dimensional
+        array where one dimension has length 2.  The two sets of measurements
+        are then found by splitting the array along the length-2 dimension.
+    Returns
+    -------
+    slope : float
+        slope of the regression line
+    intercept : float
+        intercept of the regression line
+    r-value : float
+        correlation coefficient
+    stderr : float
+        Standard error of the estimate
+    """
+    TINY = 1.0e-20
+    if y is None:  # x is a (2, N) or (N, 2) shaped array_like
+        x = np.asarray(x)
+        if x.shape[0] == 2:
+            x, y = x
+        elif x.shape[1] == 2:
+            x, y = x.T
+        else:
+            msg = "If only `x` is given as input, it has to be of shape (2, N) \
+            or (N, 2), provided shape was %s" % str(x.shape)
+            raise ValueError(msg)
+    else:
+        x = np.asarray(x)
+        y = np.asarray(y)
+    n = len(x)
+    xmean = np.mean(x,None)
+    ymean = np.mean(y,None)
+
+    # average sum of squares:
+    ssxm, ssxym, ssyxm, ssym = np.cov(x, y, bias=1).flat
+    r_num = ssxym
+    r_den = np.sqrt(ssxm*ssym)
+    if r_den == 0.0:
+        r = 0.0
+    else:
+        r = r_num / r_den
+        # test for numerical error propagation
+        if (r > 1.0):
+            r = 1.0
+        elif (r < -1.0):
+            r = -1.0
+
+    df = n-2
+    t = r*np.sqrt(df/((1.0-r+TINY)*(1.0+r+TINY)))
+    slope = r_num / ssxm
+    intercept = ymean - slope*xmean
+    sterrest = np.sqrt((1-r*r)*ssym / ssxm / df)
+    return slope, intercept, r, sterrest
+
