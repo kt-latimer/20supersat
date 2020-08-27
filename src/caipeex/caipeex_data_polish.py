@@ -154,11 +154,11 @@ def main():
             if i < 31: #CDP range; cloud droplets
                 var_key = 'nconc_' + str(i)
                 cloud_water_dens += dataset['data'][var_key] \
-                    /(4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w)
+                    *(4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w)
             else: #CIP range; rain drops
                 var_key = 'nconc_' + str(i)
                 rain_water_dens += dataset['data'][var_key] \
-                    /(4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w)
+                    *(4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w)
 
         updated_dataset['data']['lwc_cloud'] = cloud_water_dens/rho_air
         updated_dataset['units']['lwc_cloud'] = 'g/g'
