@@ -292,7 +292,7 @@ def get_datablock_with_cip(adlrinds, casinds, cipinds, \
     # vertical wind velocity, ADLR TAS, CAS TAS, 
     # CAS corr factor, lwc for cas and cas+cip, \
     # pressure, altitude
-    datablock = np.zeros([len(adlrinds), 15 + nbins_cas_with_cip + nbins_cip])
+    datablock = np.zeros([len(adlrinds), 16 + nbins_cas_with_cip + nbins_cip])
     datablock[:, 0] = np.around(adlrdata['data']['time'][adlrinds])
     datablock[:, 1] = adlrdata['data']['stat_temp'][adlrinds]
     datablock[:, 2] = adlrdata['data']['vert_wind_vel'][adlrinds]
@@ -459,7 +459,7 @@ def get_meanfr_vs_t_with_cip(datablock, change_cas_corr, cutoff_bins):
     Returns meanr from cas+cip data 
     """
     T = datablock[:, 1]
-    P = datablock[:, -1]
+    P = datablock[:, -2]
     rho_air = P/(R_a*T)
     eta = get_dyn_visc(T)
     sigma = sum([sigma_coeffs[i]*(T - 273)**i for i in \
@@ -653,7 +653,6 @@ def get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, N_P, pres, rho_air, temp):
                                     range(len(N_Re_regime3_coeffs))]))
         u_term = eta*N_Re/(2*rho_air*r)
     return u_term
-
 
 def get_dyn_visc(temp):
     """

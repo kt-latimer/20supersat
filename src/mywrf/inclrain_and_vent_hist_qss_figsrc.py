@@ -12,8 +12,8 @@ from halo.utils import linregress
 from mywrf import BASE_DIR, DATA_DIR, FIG_DIR 
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
-lwc_cutoff = 1.e-5
-versionstr = 'v2_'
+lwc_cutoff = 1.e-4
+versionstr = 'v4_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -39,6 +39,9 @@ def main():
     """
     for model_label in model_dirs.keys():
 
+        if model_label == 'Polluted':
+            continue
+
         model_dir = model_dirs[model_label]        
 
         #load datafiles
@@ -48,9 +51,27 @@ def main():
         
         #get secondary variables
         lwc = ncsecvars['lwc_cloud'][...]
+        meanfr = ncsecvars['meanfr'][...]
+        nconc = ncsecvars['nconc'][...]
         ss_wrf = ncsecvars['ss_wrf'][...]
+        pres = ncsecvars['pres'][...]
         temp = ncsecvars['temp'][...]
         w = ncsecvars['w'][...]
+
+        ncsecfile.close()
+        
+        #calc full ss_qss
+        rho_a = pres/(R_a*temp)
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        e_s = get_sat_vap_pres(temp)
+        B = rho_w*(R_v*temp/e_s + L_v**2./(R_v*C_ap*rho_a*temp**2.))
+        F_d = rho_w*R_v*temp/(D*e_s) 
+        F_k = (L_v/(R_v*temp) - 1)*L_v*rho_w/(K*temp)
+        ss_qss = A*w*(F_d + F_k)/(4*np.pi*nconc*meanfr*B)*100
+        #A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        #ss_qss = w*A/(4*np.pi*D*nconc*meanfr)
+
+        del A, meanfr, nconc #for memory
 
         #make filter mask
         #mask = LWC_C > lwc_cutoff
@@ -88,16 +109,24 @@ def main():
         #print(ax_lims)
         
         fig, ax = plt.subplots()
-        ax.hist(ss_wrf[mask], bins=30, color=colors['ss'],
-                orientation='horizontal')
-        ax.set_xlabel('Frequency')
-        ax.set_ylabel(r'$SS_{QSS}$')
+        #ax.hist(ss_qss[mask], bins=30, density=False)
+        ax.hist(ss_wrf[mask]*100, bins=30, density=False)
+        #ax.set_xlabel(r'$SS_{QSS}$ (%)')
+        ax.set_xlabel(r'$SS_{WRF}$ (%)')
+        ax.set_ylabel('Count')
         fig.set_size_inches(21, 12)
 
         outfile = FIG_DIR + versionstr + 'inclrain_and_vent_hist_qss_' \
                     + model_label + '_figure.png'
         plt.savefig(outfile)
         plt.close(fig=fig)
+
+def get_sat_vap_pres(T):
+    """
+    returns saturation vapor pressure in Pa given temp in K
+    """
+    e_s = 611.2*np.exp(17.67*(T - 273)/(T - 273 + 243.5))
+    return e_s
 
 if __name__ == "__main__":
     main()

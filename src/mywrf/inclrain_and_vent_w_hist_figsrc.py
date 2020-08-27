@@ -12,8 +12,8 @@ from halo.utils import linregress
 from mywrf import BASE_DIR, DATA_DIR, FIG_DIR 
 
 model_dirs = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
-lwc_cutoff = 1.e-5
-versionstr = 'v1_'
+lwc_cutoff = 1.e-4
+versionstr = 'v2_'
 
 #plot stuff
 matplotlib.rcParams.update({'font.size': 24})
@@ -63,24 +63,24 @@ def main():
         #                            (LWC > lwc_cutoff), \
         #                            (np.abs(w) > 1), \
         #                            (np.abs(w) < 10)))
-        mask1 = np.logical_and.reduce(( \
-                                    (lwc > lwc_cutoff), \
-                                    (temp > 273), \
-                                    (ss_wrf > 0), \
-                                    (w > 2)))
-        mask2 = np.logical_and.reduce(( \
-                                    (lwc > lwc_cutoff), \
-                                    (temp > 273), \
-                                    (ss_wrf < 0), \
-                                    (w > 2)))
+        #mask1 = np.logical_and.reduce(( \
+        #                            (lwc > lwc_cutoff), \
+        #                            (temp > 273), \
+        #                            (ss_wrf > 0), \
+        #                            (w > 2)))
+        #mask2 = np.logical_and.reduce(( \
+        #                            (lwc > lwc_cutoff), \
+        #                            (temp > 273), \
+        #                            (ss_wrf < 0), \
+        #                            (w > 2)))
         #mask = np.logical_and.reduce(( \
         #                            (lwc > lwc_cutoff), \
         #                            (temp > 273), \
         #                            (np.abs(w) > 4)))
-        #mask = np.logical_and.reduce(( \
-        #                            (lwc > lwc_cutoff), \
-        #                            (temp > 273), \
-        #                            (w > 4)))
+        mask = np.logical_and.reduce(( \
+                                    (lwc > lwc_cutoff), \
+                                    (temp > 273), \
+                                    (w > 2)))
         
         ##get limits of the data for plotting purposes
         #xlim_max = np.max(np.array( \
@@ -94,11 +94,13 @@ def main():
         
         #plot the supersaturations against each other with regression line
         fig, ax = plt.subplots()
-        ax.hist(w[mask1], bins = 40, label='Cloud bulk', density=True)
-        ax.hist(w[mask2], bins = 40, label='Cloud edge', density=True)
+        #ax.hist(w[mask1], bins = 40, label='Cloud bulk', density=True)
+        #ax.hist(w[mask2], bins = 40, label='Cloud edge', density=True)
+        ax.hist(w[mask], bins = 30, density=False)
         #ax.set_xlabel(r'$|u_h|$ (m/s)')
         ax.set_xlabel('w (m/s)')
-        ax.set_ylabel('Frequency')
+        #ax.set_ylabel('Frequency')
+        ax.set_ylabel('Count')
         fig.legend(loc=2)
         fig.set_size_inches(21, 12)
 

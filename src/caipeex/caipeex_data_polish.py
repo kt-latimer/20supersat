@@ -23,11 +23,12 @@ from os import listdir
 import numpy as np
 
 from caipeex import BASE_DIR, DATA_DIR, FIG_DIR
-from caipeex.utils import centr_dsd, DSD_bins
+#from caipeex.utils import centr_dsd, DSD_bins
 
 input_data_dir =  DATA_DIR + 'npy_raw/'
 output_data_dir = DATA_DIR + 'npy_proc/'
-centr_dsd = DSD_bins['lower']/2.
+#centr_dsd = DSD_bins['lower']/2.
+#centr_dsd = DSD_bins['lower']
 
 #physical constants
 C_ap = 1005. #dry air heat cap at const P (J/(kg K))
@@ -48,6 +49,9 @@ def main():
     other available quantities from CAS, CDP, NIXE-CAPS, SHARC, and 
     CIP. also calculate lwc for CAS and CDP.
     """
+    
+    #centr_dsd = centr_dsd*2.
+    from caipeex.utils import centr_dsd, DSD_bins
     
     #clean variable names and their mks units (and scale factors into those \
     #units), as well as column indices of relevant values in the raw files.
@@ -116,6 +120,7 @@ def main():
         np.save(output_data_dir+setname+'_'+datestr, proc_dict)
 
     #now calculate LWC values for DSD files 
+    #centr_dsd = centr_dsd/2.
     files = [f for f in listdir(DATA_DIR + 'npy_proc/')]
     used_dates = []
     for f in files:
@@ -149,11 +154,11 @@ def main():
             if i < 31: #CDP range; cloud droplets
                 var_key = 'nconc_' + str(i)
                 cloud_water_dens += dataset['data'][var_key] \
-                    *4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w
+                    /(4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w)
             else: #CIP range; rain drops
                 var_key = 'nconc_' + str(i)
                 rain_water_dens += dataset['data'][var_key] \
-                    *4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w
+                    /(4./3.*np.pi*(centr_dsd[i-1])**3.*rho_w)
 
         updated_dataset['data']['lwc_cloud'] = cloud_water_dens/rho_air
         updated_dataset['units']['lwc_cloud'] = 'g/g'

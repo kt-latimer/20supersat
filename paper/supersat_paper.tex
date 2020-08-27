@@ -30,7 +30,7 @@ introductory notes.
 		\item w \textgreater 2 m/s (reasonably strong updrafts)
 		\item cloud LWC \textgreater 1e-4 g/g (in the convection core)
 	\end{itemize}
-	\item *to discuss* don't see the same distinction as from CAIPEEX between bulk and edge wrt high supersaturation values (see figs \ref{wrfsshistunpoll} and \ref{wrfsshistpoll})
+	\item upon applying above filters, the distributions of $SS_{QSS}$, $w$, and LWC (cloud only) are shown in figs \ref{wrfqsshist}, \ref{wrfwhist}, and \ref{wrflwchist}.
 \end{itemize}
 \begin{figure}[ht]
     \centering
@@ -44,23 +44,11 @@ introductory notes.
     \caption{Actual ($SS_{WRF}$) vs predicted ($SS_{QSS}$) supersaturation in polluted case.}
     \label{wrfvsqsspoll}
 \end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{mywrf/v13_inclrain_and_vent_bulkedge_hist_Unpolluted_figure.png}
-    \caption{Actual ($SS_{WRF}$) supersaturation distribution in unpolluted case. ``Edge" points are lowest 5th percentile LWC of all cloud points in the same altitude slice.}
-    \label{wrfsshistunpoll}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{mywrf/v13_inclrain_and_vent_bulkedge_hist_Polluted_figure.png}
-    \caption{Actual ($SS_{WRF}$) supersaturation distribution in polluted case. ``Edge" points are lowest 5th percentile LWC of all cloud points in the same altitude slice.}
-    \label{wrfsshistpoll}
-\end{figure}
 
 \section{Experimental data}
 \begin{itemize}
 	\item using criteria from second bullet point of section 2, $SS_{QSS}$ distribution from HALO data looks like fig \ref{haloqsshist}. 
-	\item using criteria from second bullet point of section 2, $SS_{QSS}$ distribution from CAIPEEX data looks like fig \ref{caipeexqsshist}. 
+	\item using criteria from second bullet point of section 2, $SS_{QSS}$ distribution from CAIPEEX data looks like fig \ref{caipeexqsshist} (note: currently don't have raindrop data for CAIPEEX...)
 \end{itemize}
 \begin{figure}[ht]
     \centering
@@ -74,13 +62,37 @@ introductory notes.
     \caption{Predicted ($SS_{QSS}$) supersaturation distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
     \label{caipeexqsshist}
 \end{figure}
+\section{Line of argument}
+\subsection{CLAIM}
+Figures \ref{haloqsshist} and \ref{caipeexqsshist} demonstrate that we don't observe the same high supersaturations seen in LES simulations (i.e. WRF data) 
+\subsection{POSSIBLE COUNTERARGUMENTS}
+\begin{enumerate}
+	\item Experimentalists just didn't fly through strong enough convective cells / cloudy enough regions (see figs \ref{wrfwhist} and \ref{wrflwchist} which show somewhat broader ranges than we observe from the campaign data).
+	\item Experimental sites were too polluted to observe the high supersaturations
+	\item Something must be wrong because the CAIPEEX and HALO supersaturation distributions look very different
+	\item (more philosophical I guess) If you don't trust WRF to give you realistic supersaturation values then why do you trust it to give you the reasonable regime of validity for the QSS approximation?
+\end{enumerate}
+\subsection{POSSIBLE COUNTERARGUMENTS TO THE POSSIBLE COUNTERARGUMENTS}
+\begin{enumerate}
+	\item In fact in the WRF data we don't see a strong correlation (for the data filtered as described above) between $SS_{QSS}$ and...
+	\begin{itemize}
+		\item LWC (fig \ref{ssqssvslwc})
+		\item w (fig \ref{ssqssvsw})
+	\end{itemize}
+	\item Compare experiment vs simulation for **mystery kernel** integrated over aerosol distribution
+	\item \^ ditto but compare CAIPEEX vs HALO
+	\item Not sure yet.
+\end{enumerate}
+\section{Figures to include in supplementary info}
+\begin{itemize}
+	\item figs \ref{haloqsshist} and \ref{caipeexqsshist} but without lower bin cutoffs
+	\item figs \ref{haloqsshist} and \ref{caipeexqsshist} but without corrections from including raindrops / ventilation factors
+\end{itemize}
 \section{TODO / remaining questions}
 \begin{itemize}
-	\item equivalent of figs \ref{wrfsshistpoll} / \ref{wrfsshistunpoll} for experimental data
 	\item error analysis for experimental data
 	\item look into commensurate binning in simulation / experiment comparisons?
 	\item analytical justification for why actual and QSS supersaturation is still in linear relation
-	\item how much do HALO and CAIPEEX histograms change taking out raindrops / ventilation corrections?
 \end{itemize}
 This is a reference \cite{Fan2018}.
 %\begin{figure}[h]

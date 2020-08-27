@@ -34,23 +34,32 @@ N_Re_regime2_coeffs = [-0.318657e1, 0.992696, -0.153193e-2, \
 N_Re_regime3_coeffs = [-0.500015e1, 0.523778e1, -0.204914e1, \
                         0.475294, -0.542819e-1, 0.238449e-2] #418
 
-def get_meanr(dataset):
-    nconc = get_nconc(dataset) 
+def get_meanr(dataset, cutoff_bins):
+    nconc = get_nconc(dataset, cutoff_bins) 
     radsum = np.zeros(dataset['data']['time'].shape)
+    if cutoff_bins:
+        low_bin_dsd = 4
+    else:
+        low_bin_dsd = 1
 
-    for i in range(1, 31):
+    for i in range(low_bin_dsd, 31):
         var_key = 'nconc_' + str(i)
         radsum += centr_dsd[i-1]*dataset['data'][var_key]
     return radsum/nconc
 
-def get_nconc(dataset):
+def get_nconc(dataset, cutoff_bins):
     nconc = np.zeros(dataset['data']['time'].shape)
-    for i in range(1, 31):
+    if cutoff_bins:
+        low_bin_dsd = 4
+    else:
+        low_bin_dsd = 1
+
+    for i in range(low_bin_dsd, 31):
         var_key = 'nconc_' + str(i)
         nconc += dataset['data'][var_key]
     return nconc
 
-def get_meanfr_inclrain(dataset, metdata):
+def get_meanfr_inclrain(dataset, metdata, cutoff_bins):
     pres = metdata['data']['pres']
     temp = metdata['data']['temp']
     w = metdata['data']['vert_wind_vel']
@@ -68,33 +77,50 @@ def get_meanfr_inclrain(dataset, metdata):
     N_Re_vals = np.array([2*rho_a*r*u_term[j]/eta for j, r in enumerate(centr_dsd)])
     f_vals = np.array([get_vent_coeff(N_Re) for N_Re in N_Re_vals])
 
-    nconc = get_nconc_inclrain(dataset) 
+    nconc = get_nconc_inclrain(dataset, cutoff_bins) 
     ventradsum = np.zeros(dataset['data']['time'].shape)
-    for i in range(1, 92):
+
+    if cutoff_bins:
+        low_bin_dsd = 4
+    else:
+        low_bin_dsd = 1
+
+    for i in range(low_bin_dsd, 92):
         var_key = 'nconc_' + str(i)
         ventradsum += f_vals[i-1]*centr_dsd[i-1]*dataset['data'][var_key]
     return ventradsum/nconc
 
-def get_meanr_inclrain(dataset):
-    nconc = get_nconc_inclrain(dataset) 
+def get_meanr_inclrain(dataset, cutoff_bins):
+    nconc = get_nconc_inclrain(dataset, cutoff_bins) 
     radsum = np.zeros(dataset['data']['time'].shape)
 
-    for i in range(1, 92):
+    if cutoff_bins:
+        low_bin_dsd = 4
+    else:
+        low_bin_dsd = 1
+
+    for i in range(low_bin_dsd, 92):
         var_key = 'nconc_' + str(i)
         radsum += centr_dsd[i-1]*dataset['data'][var_key]
     return radsum/nconc
 
-def get_nconc_inclrain(dataset):
+def get_nconc_inclrain(dataset, cutoff_bins):
     nconc = np.zeros(dataset['data']['time'].shape)
-    for i in range(1, 92):
+
+    if cutoff_bins:
+        low_bin_dsd = 4
+    else:
+        low_bin_dsd = 1
+
+    for i in range(low_bin_dsd, 92):
         var_key = 'nconc_' + str(i)
         nconc += dataset['data'][var_key]
     return nconc
 
-def get_ss_full(dataset, metdata):
+def get_ss_full(dataset, metdata, cutoff_bins):
 
-    meanr = get_meanr(dataset)
-    nconc = get_nconc(dataset)
+    meanr = get_meanr(dataset, cutoff_bins)
+    nconc = get_nconc(dataset, cutoff_bins)
     pres = metdata['data']['pres']
     temp = metdata['data']['temp']
     w = metdata['data']['vert_wind_vel']
@@ -109,10 +135,10 @@ def get_ss_full(dataset, metdata):
 
     return (np.array(ss))
 
-def get_ss_full_inclrain(dataset, metdata):
+def get_ss_full_inclrain(dataset, metdata, cutoff_bins):
 
-    meanr = get_meanr_inclrain(dataset)
-    nconc = get_nconc_inclrain(dataset)
+    meanr = get_meanr_inclrain(dataset, cutoff_bins)
+    nconc = get_nconc_inclrain(dataset, cutoff_bins)
     pres = metdata['data']['pres']
     temp = metdata['data']['temp']
     w = metdata['data']['vert_wind_vel']
@@ -127,10 +153,10 @@ def get_ss_full_inclrain(dataset, metdata):
 
     return (np.array(ss))
 
-def get_ss_full_inclrain_and_vent(dataset, metdata):
+def get_ss_full_inclrain_and_vent(dataset, metdata, cutoff_bins):
 
-    meanfr = get_meanfr_inclrain(dataset, metdata)
-    nconc = get_nconc_inclrain(dataset)
+    meanfr = get_meanfr_inclrain(dataset, metdata, cutoff_bins)
+    nconc = get_nconc_inclrain(dataset, cutoff_bins)
     pres = metdata['data']['pres']
     temp = metdata['data']['temp']
     w = metdata['data']['vert_wind_vel']
@@ -172,7 +198,6 @@ def get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, N_P, pres, rho_a, temp):
                                     range(len(N_Re_regime3_coeffs))]))
         u_term = eta*N_Re/(2*rho_a*r)
     return u_term
-
 
 def get_dyn_visc(temp):
     """

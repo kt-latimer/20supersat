@@ -10,11 +10,12 @@ from halo import BASE_DIR, DATA_DIR, FIG_DIR
 from halo import BASE_DIR, DATA_DIR, FIG_DIR
 from halo.utils import get_datablock, get_ind_bounds, \
                         match_multiple_arrays, high_bin_cas, \
-                        pad_lwc_arrays, linregress, get_full_ss_vs_t
+                        pad_lwc_arrays, linregress, \
+                        get_full_ss_vs_t
 
 #for plotting
 colors = {'bulk': '#095793', 'edge': '#88720A'}
-versionstr = 'v1_'
+versionstr = 'v3_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -83,42 +84,46 @@ def main():
         ssedge = []
         layermax = 500 #m
 
-        ##for taking 5th perc of entire set
-        #total_filter = np.logical_and.reduce((
-        #                (lwc_cas > lwc_cas_filter_val), \
-        #                (w > w_cutoff), \
-        #                (w < 100), \
-        #                (temp > 273)))
-        #
-        #total_cutoff = np.percentile(lwc_cas[total_filter], 5)
-        #bulk_filter = lwc_cas[total_filter] >= total_cutoff
-        #edge_filter = np.logical_not(bulk_filter)
-        #ssbulk = ss_cas[total_filter][bulk_filter]
-        #ssedge = ss_cas[total_filter][edge_filter]
-        #group data in 500m layers by altitude
-        while layermax < np.max(alt):
-            layer_filter = np.logical_and.reduce((
-                            (lwc_cas > lwc_filter_val), \
-                            (layermax-500 <= alt), \
-                            (alt < layermax), \
-                            (w > w_cutoff), \
-                            (temp > 273)))
-            nedge = 0
-            if np.sum(layer_filter) != 0:
-                nperlayer.append(np.sum(layer_filter))
-                perc_cutoff = np.percentile(lwc_cas[layer_filter], 5)
-                lwcfifthperc.append(perc_cutoff)
-                for j, val in enumerate(ss_cas[layer_filter]):
-                    if lwc_cas[layer_filter][j] < perc_cutoff:
-                        nedge += 1
-                        ssedge.append(val)
-                    else:
-                        ssbulk.append(val)
-            else:
-                nperlayer.append(0)
-                lwcfifthperc.append(np.nan)
-            nedgeperlayer.append(nedge)
-            layermax += 500
+        #for taking 5th perc of entire set
+        total_filter = np.logical_and.reduce((
+                        (lwc_cas > lwc_filter_val), \
+                        (w > w_cutoff), \
+                        (w < 100), \
+                        (temp > 273)))
+        
+        if np.sum(total_filter) != 0:
+            total_cutoff = np.percentile(lwc_cas[total_filter], 5)
+            bulk_filter = lwc_cas[total_filter] >= total_cutoff
+            edge_filter = np.logical_not(bulk_filter)
+            ssbulk = ss_cas[total_filter][bulk_filter]
+            ssedge = ss_cas[total_filter][edge_filter]
+        else:
+            ssbulk = []
+            ssedge = []
+        ##group data in 500m layers by altitude
+        #while layermax < np.max(alt):
+        #    layer_filter = np.logical_and.reduce((
+        #                    (lwc_cas > lwc_filter_val), \
+        #                    (layermax-500 <= alt), \
+        #                    (alt < layermax), \
+        #                    (w > w_cutoff), \
+        #                    (temp > 273)))
+        #    nedge = 0
+        #    if np.sum(layer_filter) != 0:
+        #        nperlayer.append(np.sum(layer_filter))
+        #        perc_cutoff = np.percentile(lwc_cas[layer_filter], 5)
+        #        lwcfifthperc.append(perc_cutoff)
+        #        for j, val in enumerate(ss_cas[layer_filter]):
+        #            if lwc_cas[layer_filter][j] < perc_cutoff:
+        #                nedge += 1
+        #                ssedge.append(val)
+        #            else:
+        #                ssbulk.append(val)
+        #    else:
+        #        nperlayer.append(0)
+        #        lwcfifthperc.append(np.nan)
+        #    nedgeperlayer.append(nedge)
+        #    layermax += 500
         
         print(nperlayer)
         print(nedgeperlayer)

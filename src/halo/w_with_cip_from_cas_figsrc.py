@@ -16,7 +16,7 @@ from halo.utils import get_datablock_with_cip, get_ind_bounds, \
 
 #for plotting
 colors = {'ss': '#88720A'}
-versionstr = 'v1_'
+versionstr = 'v2_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})

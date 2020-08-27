@@ -12,13 +12,14 @@ from caipeex.utils import get_ss_full, get_meanr, get_nconc
 
 #for plotting
 colors = {'ss': '#88720A'}
-versionstr = 'v1_'
+versionstr = 'v2_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
 lwc_filter_val = 1.e-4
 w_cutoff = 2
+cutoff_bins = False
 
 def main():
     """
@@ -54,7 +55,7 @@ def main():
                         (w > w_cutoff), \
                         (temp > 273)))
         
-        ss_qss = get_ss_full(dataset, metdata)
+        ss_qss = get_ss_full(dataset, metdata, cutoff_bins)
         ss_qss = ss_qss[filter_inds]
         outlier_filter = ss_qss > 100 #at 10:19:45 on 08/23 w=327m/s
         w = w[filter_inds][np.logical_not(outlier_filter)]

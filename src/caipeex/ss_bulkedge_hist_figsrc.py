@@ -12,13 +12,15 @@ from caipeex.utils import get_ss_full, get_meanr, get_nconc
 
 #for plotting
 colors = {'bulk': '#095793', 'edge': '#88720A'}
-versionstr = 'v2_'
+versionstr = 'v3_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
 lwc_filter_val = 1.e-5
 w_cutoff = 2
+
+cutoff_bins = False
 
 def main():
     """
@@ -49,7 +51,7 @@ def main():
         lwc = dataset['data']['lwc_cloud']
         temp = metdata['data']['temp']
         time = metdata['data']['sectime']#in seconds
-        ss_qss = get_ss_full(dataset, metdata)
+        ss_qss = get_ss_full(dataset, metdata, cutoff_bins)
         w = metdata['data']['vert_wind_vel']
 
         #set up arrays
@@ -74,12 +76,13 @@ def main():
         #ssedge = ss_qss[total_filter][edge_filter]
         #group data in 500m layers by altitude
         while layermax < np.max(alt):
+            #at 10:19:45 on 08/23 w=327m/s
             layer_filter = np.logical_and.reduce((
                             (lwc > lwc_filter_val), \
                             (layermax-500 <= alt), \
                             (alt < layermax), \
                             (w > w_cutoff), \
-                            (w < 100), \ #at 10:19:45 on 08/23 w=327m/s
+                            (w < 100), \
                             (temp > 273)))
             nedge = 0
             if np.sum(layer_filter) != 0:
@@ -113,11 +116,14 @@ def main():
         #make histogram
         fig, ax = plt.subplots()
         fig.set_size_inches(21, 12)
-        ax.hist(ssbulk, bins=30, color=colors['bulk'], alpha=0.7, label='bulk')
-        ax.hist(ssedge, bins=30, color=colors['edge'], alpha=0.7, label='edge')
+        ax.hist(ssbulk_alldates, bins=30, color=colors['bulk'], \
+                alpha=0.7, label='bulk', density=True)
+        ax.hist(ssedge_alldates, bins=30, color=colors['edge'], \
+                alpha=0.7, label='edge', density=True)
         ax.set_title('SS distribution, LWC > 1.e-5 g/g, T > 273K, w > 2 m/s')
         ax.set_xlabel('SS (%)')
-        ax.set_ylabel('Count')
+        #ax.set_ylabel('Count')
+        ax.set_ylabel('Probability')
         ax.legend(loc=1)
         outfile = FIG_DIR + versionstr + 'ss_bulkedge_hist_' \
                 + date + '_figure.png'
@@ -131,13 +137,16 @@ def main():
     nedge = np.sum(ssedge_alldates >= 2)
     fig, ax = plt.subplots()
     fig.set_size_inches(21, 12)
-    ax.hist(ssbulk_alldates, bins=30, color=colors['bulk'], alpha=0.7, label='bulk')
-    ax.hist(ssedge_alldates, bins=30, color=colors['edge'], alpha=0.7, label='edge')
+    ax.hist(ssbulk_alldates, bins=30, color=colors['bulk'], \
+            alpha=0.7, label='bulk', density=True)
+    ax.hist(ssedge_alldates, bins=30, color=colors['edge'], \
+            alpha=0.7, label='edge', density=True)
     ax.text(0.8, 0.8, '$N_{SS>2\%, bulk}$: ' + str(nbulk), transform=ax.transAxes) 
     ax.text(0.8, 0.7, '$N_{SS>2\%, edge}$: ' + str(nedge), transform=ax.transAxes) 
     ax.set_title('SS distribution, LWC > 1.e-5 g/g, T > 273K, w > 2 m/s')
     ax.set_xlabel('SS (%)')
-    ax.set_ylabel('Count')
+    #ax.set_ylabel('Count')
+    ax.set_ylabel('Probability')
     ax.legend(loc=1)
     outfile = FIG_DIR + versionstr + 'ss_bulkedge_hist_' \
             + 'alldates_figure.png'

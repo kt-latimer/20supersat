@@ -19,7 +19,7 @@ versionstr = 'v3_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
-lwc_filter_val = 1.e-4
+lwc_filter_val = 2.e-4
 w_cutoff = 2
 
 change_cas_corr = True
