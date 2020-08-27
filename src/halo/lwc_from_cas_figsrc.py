@@ -14,7 +14,7 @@ from halo.utils import get_datablock, get_ind_bounds, \
 
 #for plotting
 #colors = {'control': '#777777', 'modified': '#88720A'}
-versionstr = 'v4_'
+versionstr = 'v5_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -77,7 +77,7 @@ def main():
         #                (w > 2)))
         filter_inds = np.logical_and.reduce((
                         (lwc_cas > lwc_filter_val), \
-                        (w > 1), \
+               #         (w > 1), \
                         (temp > 273)))
         
         #apply lwc filters
@@ -119,8 +119,8 @@ def main():
     ax.text(0.9, 0.8, '$N_{> 2.e-4 g/g}$: ' + str(n_hi_lwc), transform=ax.transAxes) 
     #ax.set_title('w distribution, no filter')
     #ax.set_title('w distribution, LWC > 1e-5 g/g')
-    #ax.set_title('LWC distribution, LWC > 1e-5 g/g, T > 273K')
-    ax.set_title('LWC distribution, LWC > 1e-5 g/g, T > 273K, w > 1 m/s')
+    ax.set_title('LWC distribution, LWC > 1e-5 g/g, T > 273K')
+    #ax.set_title('LWC distribution, LWC > 1e-5 g/g, T > 273K, w > 1 m/s')
     #ax.set_title('SS distribution, LWC > 1e-5 g/g')
     #ax.set_title('SS distribution, w > 2 m/s')
     #ax.set_title('SS distribution, LWC > 1e-5 g/g, w > 2 m/s')

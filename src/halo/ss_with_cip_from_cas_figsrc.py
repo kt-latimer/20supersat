@@ -13,11 +13,11 @@ from halo.utils import get_datablock_with_cip, get_ind_bounds, \
                         pad_lwc_arrays_with_cip, linregress, \
                         get_full_ss_vs_t_with_cip, get_meanfr_vs_t_with_cip, \
                         get_nconc_vs_t_with_cip, \
-                        get_full_ss_vs_t_with_cip_and_vent
+                        get_full_ss_vs_t_with_cip_and_vent, high_bin_cas
 
 #for plotting
 colors = {'ss': '#88720A'}
-versionstr = 'v8_'
+versionstr = 'v9_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
