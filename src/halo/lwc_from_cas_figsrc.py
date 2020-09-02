@@ -14,15 +14,15 @@ from halo.utils import get_datablock, get_ind_bounds, \
 
 #for plotting
 #colors = {'control': '#777777', 'modified': '#88720A'}
-versionstr = 'v5_'
+versionstr = 'v6_'
 
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
 lwc_filter_val = 1.e-5
 
-change_cas_corr = True
-cutoff_bins = True
+change_cas_corr = False 
+cutoff_bins = False
 
 def main():
     """
