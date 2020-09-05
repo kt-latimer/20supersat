@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from halo import BASE_DIR, DATA_DIR, FIG_DIR
-from halo import BASE_DIR, DATA_DIR, FIG_DIR
 from halo.utils import get_datablock, get_ind_bounds, \
                         match_multiple_arrays, high_bin_cas, \
                         pad_lwc_arrays, linregress, get_full_ss_vs_t

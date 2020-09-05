@@ -1,6 +1,11 @@
 """
 revisiting halo_data_polish to figure out data discrepancies for lack of
 documentation :'(
+
+TODO: implement time offset optimization (right now just rounding t vals to 
+floor and matching directly between files...eventually planning to sync CAS
+to ADLR using TAS / PAS and then CAS to CDP with xi vals (CDP and CIP seem 
+to be coming from same master instrument so they're matched already)
 """
 import numpy as np
 import re
@@ -8,7 +13,7 @@ import re
 from revhalo import DATA_DIR, CAS_bins, CDP_bins, CIP_bins
 
 var_info_dict = {'ADLR':{'var_names':['time', 'pres', 'temp', 'w'], \
-                         'var_inds':[0, 7, 10, 17], \
+                         'var_inds':[0, 7, 20, 17], \
                          'var_units':['s', 'Pa', 'K', 'm/s'], \
                          'var_scale':[1., 100., 1., 1.]}, \
                  'CAS':{'var_names':['time'] + ['nconc_'+str(i) for i in \
@@ -252,6 +257,7 @@ def add_lwc_to_processed_dsd_files(date):
     (adlr_dict, cas_dict, cdp_dict, cip_dict) = \
             sync_and_match_times(adlr_dict, cas_dict, cdp_dict, cip_dict)
 
+    save_processed_file('ADLR', date, adlr_dict)
     add_lwc_to_processed_cas_file(date, adlr_dict, cas_dict)
     add_lwc_to_processed_cdp_file(date, adlr_dict, cdp_dict)
     add_lwc_to_processed_cip_file(date, adlr_dict, cip_dict)
@@ -403,8 +409,10 @@ def add_lwc_to_processed_cdp_file(date, adlr_dict, cdp_dict):
     
     adlr_t = adlr_dict['data']['time']
     
+    #technically 25um is 24.6um for CDP...
     r_cubed_sum_sub_5um_diam = np.zeros(np.shape(adlr_t))
-    r_cubed_sum_above_5um_diam = np.zeros(np.shape(adlr_t))
+    r_cubed_sum_5um_to_25um_diam = np.zeros(np.shape(adlr_t))
+    r_cubed_sum_above_25um_diam = np.zeros(np.shape(adlr_t))
 
     for i in range(1, 3):
         bin_ind = i - 1
@@ -412,10 +420,16 @@ def add_lwc_to_processed_cdp_file(date, adlr_dict, cdp_dict):
         r_cubed_sum_sub_5um_diam += \
                 cdp_dict['data'][var_key]*bin_radii[bin_ind]**3.
 
-    for i in range(3, 16):
+    for i in range(3, 10):
         bin_ind = i - 1
         var_key = 'nconc_' + str(i)
-        r_cubed_sum_above_5um_diam += \
+        r_cubed_sum_5um_to_25um_diam += \
+                cdp_dict['data'][var_key]*bin_radii[bin_ind]**3.
+
+    for i in range(10, 16):
+        bin_ind = i - 1 
+        var_key = 'nconc_' + str(i)
+        r_cubed_sum_above_25um_diam += \
                 cdp_dict['data'][var_key]*bin_radii[bin_ind]**3.
 
     rho_air = adlr_dict['data']['pres']/(R_a*adlr_dict['data']['temp'])
@@ -423,9 +437,12 @@ def add_lwc_to_processed_cdp_file(date, adlr_dict, cdp_dict):
     cdp_dict['data']['lwc_sub_5um_diam'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_sub_5um_diam/rho_air
     cdp_dict['units']['lwc_sub_5um_diam'] = 'kg/kg'
-    cdp_dict['data']['lwc_above_5um_diam'] = \
-            4./3.*np.pi*rho_l*r_cubed_sum_above_5um_diam/rho_air
-    cdp_dict['units']['lwc_above_5um_diam'] = 'kg/kg'
+    cdp_dict['data']['lwc_5um_to_25um_diam'] = \
+            4./3.*np.pi*rho_l*r_cubed_sum_5um_to_25um_diam/rho_air
+    cdp_dict['units']['lwc_5um_to_25um_diam'] = 'kg/kg'
+    cdp_dict['data']['lwc_above_25um_diam'] = \
+            4./3.*np.pi*rho_l*r_cubed_sum_above_25um_diam/rho_air
+    cdp_dict['units']['lwc_above_25um_diam'] = 'kg/kg'
 
     save_processed_file('CDP', date, cdp_dict)
 

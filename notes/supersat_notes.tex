@@ -179,7 +179,13 @@ We did find (non-bin-resolved) LWC data in the ADLR set. However, it appears tho
 		\item \emph{What might help is to compare the PAS (measured by the CAS) with the TAS of HALO and synchronize it with respect to level changes (generally correlated to air speed changes).} 
 	\end{itemize}
 	\indent Of these, the last is the most relevant since our main concern at the moment is syncing ADLR to CAS (update: have basically decided not to use CDP data due to multimodal particle size distributions from that instrument). However, CAS is actually just pulling TAS measurements directly from ADLR (see \texttt{ASvst\_figshow.py}), so seems not super valid as a basis for time syncing. In any case, made \texttt{w\_tas\_optimizes\_offset[\_figsrc].py} which shows R$^2$ for $TAS_{ADLR}$ and $TAS_{CAS}$ (blue) and $LWC_{CAS}$ vs $|w|_{ADLR}$ (red) as a function of $\Delta t_{ADLR/CAS}$. David suggested looking at the standard deviation and 99th percentile of CAS SS values versus $\Delta t_{ADLR/CAS}$, which I did in v3 of \texttt{ss\_optimize\_offsets[\_figsrc].py}...not looking great.
+	\item 9/5/20: hello again, world. I have revised the entire codebase for all data sets, starting with the \texttt{revhalo} package. The \texttt{revhalo\_data\_cleanup.py} file is basically just c/p from \texttt{halo} package, but other than that I am transitioning to self-documenting code for greater clarity and easier debugging. Now that I have trimmed out all the exploratory stuff I think it should be fairly clear what all is going on but just want to make a few notes on details that have been cleaned up from original \texttt{halo} implementations:
+	\begin{itemize}
+		\item making bin cutoffs more uniform...5um for everything for both CAS and CDP (note e.g. that in \texttt{calc\_lwc} method of \texttt{src/halo/utils.py}, lower bin cutoff is 3um.) Tina told us to use 3um but sticking with 5 since CAS has a 3-5 bin and CDP has a 2.9-5 bin so 5 just seems cleaner.
+		\item (relevant when I actually implement time offset optimization) doing all offsets at the very beginning of processing stage and saving the data as it is post-offset, post time-sync. Actually saving data post time-sync is already relevant and saves headaches when using the npy\_proc files. 
+	\end{itemize}
 \end{itemize}
+
 
 \begin{table}[ht]
 \centering

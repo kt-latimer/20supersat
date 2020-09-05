@@ -2,12 +2,15 @@
 First round of HALO data processing: .ames --> .npy, stripping unnecessary \
 metadata from .ames files. 
 
-Input location: /data/halo/ames
-Output location: /data/halo/npy_raw
+Input location: /data/halo/ames (just using original raw files to save space)
+Output location: /data/revhalo/npy_raw
 Output format: .npy file containing one dictionary formatted as: \
-        {"flight_date": ['YYYY', 'MM', 'DD'], \
+        {"date": ['YYYY', 'MM', 'DD'], \
          "var_names": ['<full var name 1>', ...], \
          "data": <numpy array with columns labeled by var_names>}
+
+TODO: rewrite this code in self-documented style (relatively simple proceedure
+and works ok so low priority for now)
 """
 import numpy as np
 
