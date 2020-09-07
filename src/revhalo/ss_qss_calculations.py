@@ -47,7 +47,7 @@ rho_w = 1000. #density of water (kg/m^3)
 ## methods to get ss_qss for cas and cdp
 ##
 def get_ss_vs_t_cas(adlr_dict, cas_dict, cip_dict, \
-                change_cas_corr, cutoff_bins, incl_rain, incl_vent, full_ss):
+                change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent):
 
     if incl_rain:
         meanr = get_meanr_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
@@ -81,7 +81,7 @@ def get_ss_vs_t_cas(adlr_dict, cas_dict, cip_dict, \
     return ss_qss
 
 def get_ss_vs_t_cdp(adlr_dict, cdp_dict, cip_dict, \
-                cutoff_bins, incl_rain, incl_vent, full_ss):
+                cutoff_bins, full_ss, incl_rain, incl_vent):
 
     if incl_rain:
         meanr = get_meanr_vs_t_from_cdp_and_cip(adlr_dict, cdp_dict, cip_dict, \
@@ -379,7 +379,7 @@ def get_nconc_contribution_from_cas_var(var_name, adlr_dict, cas_dict, \
         return zero_arr 
 
     has_correct_upper_bin_cutoff = \
-        has_correct_upper_bin_cutoff_cas(var_name, cutoff_bins)
+        has_correct_upper_bin_cutoff_cas(var_name, incl_rain)
     if not has_correct_upper_bin_cutoff:
         return zero_arr 
 
@@ -403,7 +403,7 @@ def get_nconc_contribution_from_cdp_var(var_name, adlr_dict, \
         return zero_arr 
 
     has_correct_upper_bin_cutoff = \
-        has_correct_upper_bin_cutoff_cdp(var_name, cutoff_bins)
+        has_correct_upper_bin_cutoff_cdp(var_name, incl_rain)
     if not has_correct_upper_bin_cutoff:
         return zero_arr 
 

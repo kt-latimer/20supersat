@@ -27,6 +27,13 @@
 \maketitle
 
 \section{CAIPEEX}
+9/7/20: Been working on this for a while but just now starting to write down my notes. The \texttt{caipeex} package was largely exploratory and \texttt{revcaipeex} (the revised version) should be taken as the more reliable / up-to-date iteration. Everything is more or less carried over from \texttt{revhalo} with a few miscellaneous differences:
+\begin{itemize}
+	\item only one instrument was used to measure cloud drop spectra in CAIPEEX campaign which simplifies things slightly. The dsd's are given in kg/m$^3$ and we carry out conversions accordingly.
+	\item as of 9/7/20 we still don't have rain drop data from CAIPEEX (contacted PI and haven't heard back yet...). So all figures with \texttt{incl\_rain} or \texttt{incl\_vent} are nonsense right now.
+	\item \texttt{change\_cas\_corr} is not applicable for this data set but keeping in the \texttt{get\_boolean\_params} method in histogram figure source code files to keep things simple for now.
+	\item won't need to worry about time offset optimization because met and dsd seem to be synced fine already in raw data files.
+\end{itemize}
 
 \section{HALO}
 \subsection{Data processing}

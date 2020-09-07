@@ -4,6 +4,7 @@ make and save histograms showing SS_QSS distribution from HALO CAS measurements
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 
 from revhalo import DATA_DIR, FIG_DIR
 from revhalo.ss_qss_calculations import get_nconc_vs_t_from_cas, get_lwc_from_cas
@@ -14,7 +15,7 @@ matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
 lwc_filter_val = 1.e-5 
-w_cutoff = -100
+w_cutoff = -100 
 
 change_cas_corr = False
 cutoff_bins = False 
@@ -75,7 +76,7 @@ def make_and_save_nconc_hist(nconc, label):
     ax.hist(nconc, bins=30, density=False)
     ax.set_xlabel('nconc (m^-3)')
     ax.set_ylabel('Count')
-    ax.set_title(label + ' SS_QSS distb' \
+    ax.set_title(label + ' cloud drom num conc distb' \
                     + ', change_cas_corr=' + str(change_cas_corr) \
                     + ', cutoff_bins=' + str(cutoff_bins) \
                     + ', incl_rain=' + str(incl_rain) \
@@ -84,6 +85,40 @@ def make_and_save_nconc_hist(nconc, label):
             + label + '_figure.png'
     plt.savefig(outfile)
     plt.close(fig=fig)    
+
+def get_boolean_params(versionnum):
+
+    versionnum = versionnum - 1 #for modular arithmetic
+    
+    if versionnum > 23:
+        return versionnum
+
+    if versionnum < 12:
+        change_cas_corr = False
+    else:
+        change_cas_corr = True
+
+    if versionnum % 12 < 6:
+        cutoff_bins = False
+    else:
+        cutoff_bins = True
+
+    if versionnum % 6 < 3:
+        full_ss = False
+    else:
+        full_ss = True
+
+    if versionnum % 3 == 0:
+        incl_rain = False
+    else:
+        incl_rain = True
+
+    if versionnum % 3 == 2:
+        incl_vent = True
+    else:
+        incl_vent = False
+
+    return (change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent)
 
 if __name__ == "__main__":
     main()

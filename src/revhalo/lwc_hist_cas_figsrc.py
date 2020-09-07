@@ -82,7 +82,7 @@ def make_and_save_lwc_hist(lwc, label, versionstr, change_cas_corr, \
     ax.hist(lwc, bins=30, density=False)
     ax.set_xlabel('LWC cloud (kg/kg)')
     ax.set_ylabel('Count')
-    ax.set_title(label + ' LWC distb' \
+    ax.set_title(label + ' LWC cloud distb' \
                     + ', change_cas_corr=' + str(change_cas_corr) \
                     + ', cutoff_bins=' + str(cutoff_bins) \
                     + ', incl_rain=' + str(incl_rain) \

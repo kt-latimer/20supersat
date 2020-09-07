@@ -90,7 +90,7 @@ def make_processed_adlr_file(good_ames_filename):
     var_names = var_info_dict['ADLR']['var_names']
     var_scale = var_info_dict['ADLR']['var_scale']
     var_units = var_info_dict['ADLR']['var_units']
-    processed_data_dict = {'setname': 'ADLR', 'date': raw_data_dict['date'], \
+    processed_data_dict = {'setname': 'ADLR', 'date': date, \
                            'raw_numpy_filename': good_numpy_filename, \
                            'data': {}, 'units': {}}
 
@@ -146,7 +146,7 @@ def make_processed_cdp_file_without_lwc(good_ames_filename):
     var_names = var_info_dict['CDP']['var_names']
     var_scale = var_info_dict['CDP']['var_scale']
     var_units = var_info_dict['CDP']['var_units']
-    processed_data_dict = {'setname': 'CDP', 'date': raw_data_dict['date'], \
+    processed_data_dict = {'setname': 'CDP', 'date': date, \
                            'raw_numpy_filename': good_numpy_filename, \
                            'data': {}, 'units': {}}
 
