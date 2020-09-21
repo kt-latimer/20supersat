@@ -1,0 +1,26 @@
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+0.49120696488403703 272.8013205491902 0.22212772921325474
+Number of points in Q1: 3447030
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 0.12643238609822618 22.86671843401042
+Range: 2.000001 15.722084
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_vs_w_figsrc.py", line 161, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_vs_w_figsrc.py", line 41, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_vs_w_figsrc.py", line 62, in make_and_save_ss_qss_vs_w
+    full_ss, incl_rain, incl_vent)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py", line 44, in get_ss
+    ss_qss = A*w/(4*np.pi*B*meanr*nconc)*100. #as a percentage
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 4157, in __truediv__
+    return true_divide(self, other)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 1177, in __call__
+    m |= domain(da, db)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 864, in __call__
+    return umath.absolute(a) * self.tolerance >= umath.absolute(b)
+MemoryError: Unable to allocate 8.36 GiB for an array with shape (84, 66, 450, 450) and data type float64

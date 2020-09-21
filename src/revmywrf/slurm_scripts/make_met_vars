@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/revmywrf/make_met_vars.py

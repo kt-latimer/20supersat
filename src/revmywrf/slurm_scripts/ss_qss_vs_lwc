@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/revmywrf/ss_qss_vs_lwc_figsrc.py

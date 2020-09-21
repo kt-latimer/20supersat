@@ -6,6 +6,10 @@ TODO: implement time offset optimization (right now just rounding t vals to
 floor and matching directly between files...eventually planning to sync CAS
 to ADLR using TAS / PAS and then CAS to CDP with xi vals (CDP and CIP seem 
 to be coming from same master instrument so they're matched already)
+
+henceforth:
+dsd = drop size distribution
+asd = aerosol dize distribution
 """
 import numpy as np
 import re
@@ -39,7 +43,12 @@ var_info_dict = {'ADLR':{'var_names':['time', 'pres', 'temp', 'w'], \
                          'var_units':['s', 'm^-3', 'm'] + ['m^-3' for i in \
                          range(1, 20)] + ['None'], \
                          'var_scale':[1., 1.e6, 1.e-6] + [1.e6 for i in \
-                         range(1, 20)] + [1.]}}
+                         range(1, 20)] + [1.]}, \
+                 'PCASP':{'var_names':['time'] + ['stp_nconc_'+str(i) \
+                         for i in range(1, 31)], \
+                         'var_inds':[i for i in range(31)], \
+                         'var_units':['s'] + ['m^-3' for i in range(1, 31)], \
+                         'var_scale':[1.] + [1.e6 for i in range(1, 31)]}}
 
 input_data_dir = DATA_DIR + 'npy_raw/'
 output_data_dir = DATA_DIR + 'npy_proc/'
@@ -52,13 +61,17 @@ R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
 R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 rho_l = 1000. #density of water (kg/m^3) 
 
+#std pres and temp
+P_0 = 101300
+T_0 = 273.15
+
 def main():
 
     with open('good_ames_filenames.txt','r') as readFile:
         good_ames_filenames = [line.strip() for line in readFile.readlines()]
 
     for good_ames_filename in good_ames_filenames:
-        make_processed_file_without_lwc(good_ames_filename)
+        make_processed_file_without_additions_requiring_adlr(good_ames_filename)
 
     with open('good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]
@@ -66,8 +79,11 @@ def main():
     for date in good_dates:
         print(date)
         add_lwc_to_processed_dsd_files(date)
+        add_nonstp_nconc_to_processed_asd_files(date)
 
-def make_processed_file_without_lwc(good_ames_filename):
+#"additions requiring adlr" for dsd files = lwc
+#"additions requiring adlr" for asd files = undoing stp standardization
+def make_processed_file_without_additions_requiring_adlr(good_ames_filename):
     
     if 'adlr' in good_ames_filename:
         make_processed_adlr_file(good_ames_filename)
@@ -77,6 +93,8 @@ def make_processed_file_without_lwc(good_ames_filename):
         make_processed_cdp_file_without_lwc(good_ames_filename)
     elif 'CIP' in good_ames_filename:
         make_processed_cip_file_without_lwc(good_ames_filename)
+    elif 'pcasp' in good_ames_filename:
+        make_processed_pcasp_file_without_nonstp_nconc(good_ames_filename)
 
 def make_processed_adlr_file(good_ames_filename):
 
@@ -182,6 +200,29 @@ def make_processed_cip_file_without_lwc(good_ames_filename):
 
     save_processed_file('CIP', date, processed_data_dict)
 
+def make_processed_pcasp_file_without_nonstp_nconc(good_ames_filename):
+
+    good_numpy_filename = good_ames_filename[0:-4] + 'npy' #change file type
+    raw_data_dict = np.load(DATA_DIR + 'npy_raw/' + good_numpy_filename, \
+                            allow_pickle=True).item()
+    data = raw_data_dict['data']
+    date_array = raw_data_dict['date']
+    date = date_array[0] + date_array[1] + date_array[2]
+    var_inds = var_info_dict['PCASP']['var_inds']
+    var_names = var_info_dict['PCASP']['var_names']
+    var_scale = var_info_dict['PCASP']['var_scale']
+    var_units = var_info_dict['PCASP']['var_units']
+    processed_data_dict = {'setname': 'PCASP', 'date': date, \
+                           'raw_numpy_filename': good_numpy_filename, \
+                           'data': {}, 'units': {}}
+
+    for i, var_name in enumerate(var_names):
+        processed_data_dict = add_var_to_processed_pcasp_dict(var_name, \
+                                var_inds[i], var_scale[i], var_units[i], \
+                                processed_data_dict, data)
+
+    save_processed_file('PCASP', date, processed_data_dict)
+
 def add_var_to_processed_adlr_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
@@ -243,6 +284,19 @@ def add_var_to_processed_cip_dict(var_name, var_ind, var_scale, \
 
     return processed_data_dict
 
+def add_var_to_processed_pcasp_dict(var_name, var_ind, var_scale, \
+                                    var_unit, processed_data_dict, data):
+
+    if var_name == 'time':
+        processed_data_dict['data'][var_name] = \
+                                np.around(data[:, var_ind])*var_scale
+    else:
+        processed_data_dict['data'][var_name] = \
+                                data[:, var_ind]*var_scale
+    processed_data_dict['units'][var_name] = var_unit
+
+    return processed_data_dict
+
 def add_lwc_to_processed_dsd_files(date):
 
     adlr_dict = np.load(output_data_dir + 'ADLR_' + date + '.npy', \
@@ -255,14 +309,15 @@ def add_lwc_to_processed_dsd_files(date):
                 allow_pickle=True).item()
 
     (adlr_dict, cas_dict, cdp_dict, cip_dict) = \
-            sync_and_match_times(adlr_dict, cas_dict, cdp_dict, cip_dict)
+            sync_and_match_times_adlr_dsd(adlr_dict, \
+            cas_dict, cdp_dict, cip_dict)
 
     save_processed_file('ADLR', date, adlr_dict)
     add_lwc_to_processed_cas_file(date, adlr_dict, cas_dict)
     add_lwc_to_processed_cdp_file(date, adlr_dict, cdp_dict)
     add_lwc_to_processed_cip_file(date, adlr_dict, cip_dict)
 
-def sync_and_match_times(adlr_dict, cas_dict, cdp_dict, cip_dict):
+def sync_and_match_times_adlr_dsd(adlr_dict, cas_dict, cdp_dict, cip_dict):
 
     delta_cas = get_adlr_cas_offset(adlr_dict, cas_dict)
     delta_cdp = get_cas_cdp_offset(cas_dict, cdp_dict) + delta_cas
@@ -298,6 +353,84 @@ def get_cas_cdp_offset(cas_dict, cdp_dict):
     #some day do some stuff
     return 0
 
+def add_nonstp_nconc_to_processed_asd_files(date):
+
+    if date == '20140906' or date == '20140921': #dates dne for pcasp
+        return
+
+    adlr_dict = np.load(output_data_dir + 'ADLR_' + date + '.npy', \
+                allow_pickle=True).item()
+    pcasp_dict = np.load(output_data_dir + 'PCASP_' + date + '.npy', \
+                allow_pickle=True).item()
+
+    (adlr_dict, pcasp_dict) = \
+            sync_and_match_times_adlr_asd(adlr_dict, pcasp_dict)
+
+    stp_factor = P_0*adlr_dict['data']['temp']/(T_0*adlr_dict['data']['pres']) 
+
+    for i in range(1, 31):
+        var_name = 'nconc_' + str(i)
+        pcasp_dict['data'][var_name] = \
+                pcasp_dict['data']['stp_'+var_name]/stp_factor
+        pcasp_dict['units'][var_name] = 'm^-3'
+
+def sync_and_match_times_adlr_asd(adlr_dict, pcasp_dict):
+
+    #For now there is no way to sync adlr and pcasp that I can tell...
+    #possible that I will need to get aerosol data from other instruments
+    #than PCASP in the future so may be that further offset functions
+    #are required. For now just moving ahead with zero offset and 
+    #also assuming ADLR has already been updated via the function 
+    #sync_and_match_times_adlr_dsd (i.e. everything is rounded to nearest
+    #integer and aligned to most recent specification with dsd instruments).
+    #In order not to fuck up dsd files and their respective analyses, I
+    #am just inserting nan's in times where PCASP is missing data and
+    #deleting times where PCASP has values but ADLR (and by extension
+    #all dsd files) does not.
+
+    adlr_t = adlr_dict['data']['time']
+    pcasp_t = pcasp_dict['data']['time']
+
+    [adlr_inds, pcasp_inds] = match_multiple_arrays([adlr_t, pcasp_t])
+
+    pcasp_dict['data'] = \
+        get_time_matched_data_dict_asd_only(pcasp_dict['data'], \
+                                    adlr_dict['data'], pcasp_inds, adlr_inds)
+
+    return (adlr_dict, pcasp_dict)
+
+def get_time_matched_data_dict_asd_only(pcasp_data_dict, adlr_data_dict, \
+                                        pcasp_inds, adlr_inds):
+
+    length_adlr_var = np.shape(adlr_data_dict['temp'])[0]
+
+    for key in pcasp_data_dict.keys():
+        pcasp_data_dict[key] = pad_asd_dict_with_nans(length_adlr_var, \
+                                pcasp_data_dict[key], pcasp_inds, adlr_inds)
+        
+    return pcasp_data_dict 
+
+def pad_asd_dict_with_nans(length_adlr_var, pcasp_var, pcasp_inds, adlr_inds):
+    
+    new_pcasp_var = np.zeros(length_adlr_var)
+
+    for i in range(length_adlr_var):
+        new_pcasp_var = add_data_to_pcasp_var_row(i, new_pcasp_var, \
+                                    pcasp_var, pcasp_inds, adlr_inds)
+
+    return new_pcasp_var
+    
+def add_data_to_pcasp_var_row(i, new_pcasp_var, pcasp_var, \
+                                pcasp_inds, adlr_inds):
+
+    if i in adlr_inds:
+        pcasp_ind = pcasp_inds[np.where(adlr_inds == i)[0][0]]
+        new_pcasp_var[i] = pcasp_var[pcasp_ind]
+    else:
+        new_pcasp_var[i] = np.nan
+
+    return new_pcasp_var
+    
 def match_multiple_arrays(arrays):
 
     """

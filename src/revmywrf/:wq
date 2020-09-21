@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/make_lo_dsdsum_vars.py", line 131, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/make_lo_dsdsum_vars.py", line 47, in main
+    make_dsdsum_file(case_label, case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/make_lo_dsdsum_vars.py", line 115, in make_dsdsum_file
+    output_var[:] = var_data[i]
+  File "netCDF4/_netCDF4.pyx", line 4537, in netCDF4._netCDF4.Variable.__setitem__
+ValueError: could not convert string to float: 'nconc_sum_data'

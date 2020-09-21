@@ -191,6 +191,13 @@ We did find (non-bin-resolved) LWC data in the ADLR set. However, it appears tho
 		\item making bin cutoffs more uniform...5um for everything for both CAS and CDP (note e.g. that in \texttt{calc\_lwc} method of \texttt{src/halo/utils.py}, lower bin cutoff is 3um.) Tina told us to use 3um but sticking with 5 since CAS has a 3-5 bin and CDP has a 2.9-5 bin so 5 just seems cleaner.
 		\item (relevant when I actually implement time offset optimization) doing all offsets at the very beginning of processing stage and saving the data as it is post-offset, post time-sync. Actually saving data post time-sync is already relevant and saves headaches when using the npy\_proc files. 
 	\end{itemize}
+	\item 9/21/20: incorporated `PCASP' data into those processed in \texttt{revhalo\_data\_polish.py}, which is aerosols with diam 0.1-3um. This should align roughly with PCASP data set from CAIPEEX (described in literature but we don't have the raw data yet). Notes on this:
+	\begin{itemize}
+		\item a couple of dates are missing from pcasp rel to adlr and dsd files, just skipping those.
+		\item there's no data in pcasp files that I can possibly use to optimize time offset so just taking offset relative to adlr as being zero. 
+		\item didn't want to fuck with adlr and dsd time values so for pcasp data, I make the arrays the same length as adlr (post-time-sync with dsd), inserting data where times match and putting nan's where they don't.
+		\item aerosol conc's in file reported at STP so I correct them and include both values in the processed numpy files; not really sure why they do this correction for aerosols but not water droplets; maybe ask David at some point.  
+	\end{itemize}
 \end{itemize}
 
 
@@ -551,6 +558,7 @@ Background: Qindan has shown that in clouds (which we are defining as LWC > 1e-5
 			\item v4: standard filter
 		\end{itemize}
 	\end{itemize}
+	\item 9/21/20: Introducing revised version of \texttt{mywrf} package, \texttt{revmywrf}. Everything has been rewritten including initial data processing; many scripts which were more exploratory in nature are discarded and I am focusing on distributions of LWC, meanr, nconc, ss, and w; as well as comparing ss\_qss to ss\_wrf and examining its correlation with LWC and w for the paper. As with other revised packages I think the code is relatively self-explanatory but will add notes as needed. 
 \end{itemize}
 \subsection{Theory}
 
