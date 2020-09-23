@@ -1,2 +1,20 @@
 /var/spool/slurmd/job26134745/slurm_script: line 2: 165159 Killed                  python $HOME/proj/20supersat/src/revmywrf/ss_qss_vs_w_figsrc.py
 slurmstepd: error: Detected 1 oom-kill event(s) in step 26134745.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+0.31966929291844587 274.9537143210192 0.17828341384804186
+Number of points in Q1: 3514347
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: 2.000001 15.722084
+0.066240470948333 290.80227656399467 0.05088549025277498
+Number of points in Q1: 2869937
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: 2.0000005 12.649279

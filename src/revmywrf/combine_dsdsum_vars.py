@@ -19,7 +19,8 @@ def combine_dsdsum_files(case_label, case_dir_name):
 
     #make output file
     output_file = Dataset(DATA_DIR + case_dir_name \
-                    + 'wrfout_d01_all_dsdsum_vars_v2', 'w')
+                    + 'wrfout_d01_all_dsdsum_vars', 'w')
+                    #+ 'wrfout_d01_all_dsdsum_vars_v2', 'w')
 
     #make file dimensions
     output_file.createDimension('west_east', 450)
@@ -39,8 +40,8 @@ def add_section_vars_to_combined_file(case_dir_name, section_str, output_file):
 
     #get input file variables
     input_file = Dataset(DATA_DIR + case_dir_name + 'wrfout_d01_' +
-                            #section_str + '_dsdsum_vars', 'r')
-                            section_str + '_dsdsum_vars_v2', 'r')
+                            section_str + '_dsdsum_vars', 'r')
+                            #section_str + '_dsdsum_vars_v2', 'r')
     input_vars = input_file.variables
 
     base_var_names = ['nconc_sum', 'rn_sum', 'r3n_sum', 'frn_sum', 'fr3n_sum']

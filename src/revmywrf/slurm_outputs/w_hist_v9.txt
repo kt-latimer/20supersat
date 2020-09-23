@@ -4,3 +4,27 @@ Traceback (most recent call last):
   File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 30, in main
     versionnum = int(os.environ['versionnum'])
 NameError: name 'os' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 123, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 39, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 46, in make_and_save_w_hist
+    met_file = Dataset(DATA_DIR + case_dir_name + \
+NameError: name 'Dataset' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 124, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 40, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 49, in make_and_save_w_hist
+    met_vars = met_input_file.variables
+NameError: name 'met_input_file' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 124, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 40, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 81, in make_and_save_w_hist
+    + ', full_ss=' + str(full_ss))
+NameError: name 'label' is not defined

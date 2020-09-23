@@ -8,6 +8,7 @@
 \usepackage{amsmath}
 \usepackage{physics}
 \usepackage{amsfonts}
+\usepackage{subcaption}
 \graphicspath{{../figures/}}
 
 \title{paper draft: supersat}
@@ -24,75 +25,177 @@ introductory notes.
 \section{Theory + Simulation}
 \begin{itemize}
 	\item brief statement of quasi steady state formula 
-	\item we see agreement between actual and QSS supersaturation under the conditions (see figs \ref{wrfvsqssunpoll} and \ref{wrfvsqsspoll}):
+	\item we see agreement between actual and QSS supersaturation under the conditions (see fig \ref{wrfvsqss}):
 	\begin{itemize}
-		\item T \textgreater 273K (we're not including ice in the theory)
-		\item w \textgreater 2 m/s (reasonably strong updrafts)
-		\item cloud LWC \textgreater 1e-4 g/g (in the convection core)
+		\item T \textgreater  273K (we're not including ice in the theory)
+		\item w \textgreater  2 m/s (reasonably strong updrafts)
+		\item cloud LWC \textgreater  1e-4 g/g (in the convection core)
+		\item including rain droplets and ventillation corrections
 	\end{itemize}
-	\item upon applying above filters, the distributions of $SS_{QSS}$, $w$, and LWC (cloud only) are shown in figs \ref{wrfqsshist}, \ref{wrfwhist}, and \ref{wrflwchist}.
+	\item upon applying above filters, the distributions of $SS_{QSS}$, LWC (cloud only) and $w$, are shown in figs \ref{wrfssqsshist}, \ref{wrfwhist}, and \ref{wrflwchist}.
 \end{itemize}
 \begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{mywrf/v28_inclrain_and_vent_qss_vs_fan_Unpolluted_figure.png}
-    \caption{Actual ($SS_{WRF}$) vs predicted ($SS_{QSS}$) supersaturation in unpolluted case.}
-    \label{wrfvsqssunpoll}
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v12_ss_qss_vs_ss_wrf_Unpolluted_figure.png}
+		\caption{Unpolluted case.}
+		\label{wrfvsqssunpoll}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v12_ss_qss_vs_ss_wrf_Polluted_figure.png}
+		\caption{Polluted case.}
+		\label{wrfvsqsspoll}
+	\end{subfigure}
+	\caption{Actual ($SS_{WRF}$) vs predicted ($SS_{QSS}$) supersaturation.}
+	\label{wrfvsqss}
 \end{figure}
 \begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{mywrf/v28_inclrain_and_vent_qss_vs_fan_Polluted_figure.png}
-    \caption{Actual ($SS_{WRF}$) vs predicted ($SS_{QSS}$) supersaturation in polluted case.}
-    \label{wrfvsqsspoll}
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v12_ss_qss_hist_Unpolluted_figure.png}
+		\caption{Unpolluted case.}
+		\label{wrfssqsshistunpoll}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v12_ss_qss_hist_Polluted_figure.png}
+		\caption{Polluted case.}
+		\label{wrfssqsshistpoll}
+	\end{subfigure}
+	\caption{$SS_{WRF}$ distribution in WRF simulation using filtering criteria described in the text.}
+	\label{wrfssqsshist}
 \end{figure}
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v9_lwc_hist_Unpolluted_figure.png}
+		\caption{Unpolluted case.}
+		\label{wrflwchistunpoll}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v9_lwc_hist_Polluted_figure.png}
+		\caption{Polluted case.}
+		\label{wrflwchistpoll}
+	\end{subfigure}
+	\caption{Cloud LWC distribution in WRF simulation using filtering criteria described in the text.}
+	\label{wrflwchist}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v9_w_hist_Unpolluted_figure.png}
+		\caption{Unpolluted case.}
+		\label{wrfwhistunpoll}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v9_w_hist_Polluted_figure.png}
+		\caption{Polluted case.}
+		\label{wrfwhistpoll}
+	\end{subfigure}
+	\caption{Vertical wind velocity distribution in WRF simulation using filtering criteria described in the text.}
+	\label{wrfwhist}
+\end{figure}
+
+\clearpage
+\newpage
 
 \section{Experimental data}
 \begin{itemize}
-	\item using criteria from second bullet point of section 2, $SS_{QSS}$ distribution from HALO data looks like fig \ref{haloqsshist}. 
-	\item using criteria from second bullet point of section 2, $SS_{QSS}$ distribution from CAIPEEX data looks like fig \ref{caipeexqsshist} (note: currently don't have raindrop data for CAIPEEX...)
+	\item using criteria from second bullet point of section 2, $SS_{QSS}$ distributions from HALO and CAIPEEX campaigns look like figs \ref{haloqsshist} and \ref{caipeexqsshist}, respectively (note: currently don't have raindrop data for CAIPEEX...). 
+	\item using same criteria, cloud LWC distributions are given in figs \ref{halolwchist} and \ref{caipeexlwchist}. 
+	\item using same criteria, vertical wind velocity distributions are given in figs \ref{halowhist} and \ref{caipeexwhist}. 
 \end{itemize}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{halo/v3_ss_with_cip_from_cas_alldates_figure.png}
+    \includegraphics[width=9cm]{revhalo/v24_ss_qss_hist_cas_alldates_figure.png}
     \caption{Predicted ($SS_{QSS}$) supersaturation distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
     \label{haloqsshist}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{caipeex/v1_ss_from_dsd_alldates_figure.png}
+    \includegraphics[width=9cm]{revcaipeex/v10_ss_qss_hist_alldates_figure.png}
     \caption{Predicted ($SS_{QSS}$) supersaturation distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
     \label{caipeexqsshist}
 \end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=9cm]{revhalo/v24_lwc_hist_cas_alldates_figure.png}
+    \caption{Cloud LWC distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
+    \label{halolwchist}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=9cm]{revcaipeex/v10_lwc_hist_alldates_figure.png}
+    \caption{Cloud LWC distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
+    \label{caipeexlwchist}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=9cm]{revhalo/v24_w_hist_cas_alldates_figure.png}
+    \caption{Vertical wind velocity distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
+    \label{halowhist}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=9cm]{revcaipeex/v10_w_hist_alldates_figure.png}
+    \caption{Vertical wind velocity distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
+    \label{caipeexwhist}
+\end{figure}
+
+\clearpage
+\newpage
+
 \section{Line of argument}
 \subsection{CLAIM}
 Figures \ref{haloqsshist} and \ref{caipeexqsshist} demonstrate that we don't observe the same high supersaturations seen in LES simulations (i.e. WRF data) 
 \subsection{POSSIBLE COUNTERARGUMENTS}
 \begin{enumerate}
-	\item Experimentalists just didn't fly through strong enough convective cells / cloudy enough regions (see figs \ref{wrfwhist} and \ref{wrflwchist} which show somewhat broader ranges than we observe from the campaign data).
 	\item Experimental sites were too polluted to observe the high supersaturations
-	\item Something must be wrong because the CAIPEEX and HALO supersaturation distributions look very different
+	\item Something must be wrong because $SS_{QSS}$ distributions are so different between HALO and CAIPPEX.
 	\item (more philosophical I guess) If you don't trust WRF to give you realistic supersaturation values then why do you trust it to give you the reasonable regime of validity for the QSS approximation?
 \end{enumerate}
 \subsection{POSSIBLE COUNTERARGUMENTS TO THE POSSIBLE COUNTERARGUMENTS}
 \begin{enumerate}
-	\item In fact in the WRF data we don't see a strong correlation (for the data filtered as described above) between $SS_{QSS}$ and...
-	\begin{itemize}
-		\item LWC (fig \ref{ssqssvslwc})
-		\item w (fig \ref{ssqssvsw})
-	\end{itemize}
-	\item Compare experiment vs simulation for **mystery kernel** integrated over aerosol distribution
-	\item \^ ditto but compare CAIPEEX vs HALO
-	\item Not sure yet.
+	\item Compare experiment vs simulation for **mystery kernel** integrated over aerosol distribution. For now I am setting mystery kernel = 1 (i.e. final integrated quantity is just the number concentration) and plotting distributions for HALO in fig \ref{haloaerohist}, and for WRF in fig \ref{wrfaeronconchist}. CAIPEEX figure is pending data from Thara. Right now the disparities in form of distributions is due to different diameter ranges (discuss w/ David).
+	\item Ideally the figures referenced in above point will also address this concern, but hard to say right now w/o CAIPEEX aerosol data. Also not sure if we'll have the necessary info based on literature (also a point to discuss) 
+	\item Not sure yet...
 \end{enumerate}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=9cm]{revhalo/v1_aero_nconc_hist_cas_alldates_figure.png}
+    \caption{Aerosol number concentration distribution for particles 0.1-3.0um in HALO field campaign. All points below the freezing level and have cloud LWC less than 1e-5.}
+    \label{haloaerohist}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v1_aero_nconc_hist_Unpolluted_figure.png}
+		\caption{Unpolluted case.}
+		\label{wrfaeronconchistunpoll}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v1_aero_nconc_hist_Polluted_figure.png}
+		\caption{Polluted case.}
+		\label{wrfaeronconchistpoll}
+	\end{subfigure}
+	\caption{Aerosol (unknown diam range ?!?) number concentration distribution in WRF simulation, in clear sky regions (cloud LWC less than 1e-5) and below freezing level.}
+	\label{wrfaeronconchist}
+\end{figure}
+
+\clearpage
+\newpage
+
 \section{Figures to include in supplementary info}
 \begin{itemize}
-	\item figs \ref{haloqsshist} and \ref{caipeexqsshist} but without lower bin cutoffs
-	\item figs \ref{haloqsshist} and \ref{caipeexqsshist} but without corrections from including raindrops / ventilation factors
+	\item all figures without lower bin cutoffs
+	\item all figures without corrections from including raindrops / ventilation factors
 \end{itemize}
 \section{TODO / remaining questions}
 \begin{itemize}
+	\item in code: optimize HALO instrument time offsets
 	\item error analysis for experimental data
 	\item look into commensurate binning in simulation / experiment comparisons?
 	\item analytical justification for why actual and QSS supersaturation is still in linear relation
+	\item expt vs model cloud/rain droplet size boundary
 \end{itemize}
 This is a reference \cite{Fan2018}.
 %\begin{figure}[h]

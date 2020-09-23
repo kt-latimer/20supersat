@@ -374,6 +374,8 @@ def add_nonstp_nconc_to_processed_asd_files(date):
                 pcasp_dict['data']['stp_'+var_name]/stp_factor
         pcasp_dict['units'][var_name] = 'm^-3'
 
+    save_processed_file('PCASP', date, pcasp_dict)
+
 def sync_and_match_times_adlr_asd(adlr_dict, pcasp_dict):
 
     #For now there is no way to sync adlr and pcasp that I can tell...

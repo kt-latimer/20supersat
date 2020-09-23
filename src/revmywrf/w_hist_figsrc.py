@@ -3,7 +3,9 @@ make and save histograms showing SS_QSS distribution from HALO CAS measurements
 """
 import matplotlib
 import matplotlib.pyplot as plt
+from netCDF4 import Dataset
 import numpy as np
+import os
 import sys
 
 from revmywrf import DATA_DIR, FIG_DIR
@@ -44,12 +46,12 @@ def make_and_save_w_hist(case_label, case_dir_name, \
     #get met file variables 
     met_file = Dataset(DATA_DIR + case_dir_name + \
                                 'wrfout_d01_met_vars', 'r')
-    met_vars = met_input_file.variables
+    met_vars = met_file.variables
 
     #get dsd sum file variables
     dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_all_dsdsum_vars', 'r')
-    dsdsum_vars = dsdsum_input_file.variables
+                                'wrfout_d01_all_dsdsum_vars_v2', 'r')
+    dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys
     lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
@@ -72,7 +74,7 @@ def make_and_save_w_hist(case_label, case_dir_name, \
     ax.hist(w, bins=30, density=False)
     ax.set_xlabel('w (m/s)')
     ax.set_ylabel('Count')
-    ax.set_title(label + ' Vert wind vel distb' \
+    ax.set_title(case_label + ' Vert wind vel distb' \
                     + ', cutoff_bins=' + str(cutoff_bins) \
                     + ', incl_rain=' + str(incl_rain) \
                     + ', incl_vent=' + str(incl_vent) \

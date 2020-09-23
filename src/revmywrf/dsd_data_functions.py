@@ -34,7 +34,7 @@ N_Re_regime3_coeffs = [-0.500015e1, 0.523778e1, -0.204914e1, \
 def get_bin_nconc(i, input_vars, rho_air_data):
 
     r_i = bin_radii[i-1]
-    wrf_var_name = 'ff1i'+f'{i+1:02}'
+    wrf_var_name = 'ff1i'+f'{i:02}'
     wrf_var_data = input_vars[wrf_var_name][...]
     nconc_data = wrf_var_data/(4./3.*np.pi*r_i**3.*rho_w/rho_air_data)
 

@@ -24,3 +24,21 @@ Traceback (most recent call last):
   File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 864, in __call__
     return umath.absolute(a) * self.tolerance >= umath.absolute(b)
 MemoryError: Unable to allocate 8.36 GiB for an array with shape (84, 66, 450, 450) and data type float64
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+0.2571796701445497 279.9063646382253 0.170657401706669
+Number of points in Q1: 3514367
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 0.19936891300149526 32.36627499790818
+Range: 2.000001 15.722084
+0.058066962221847776 291.3854096715512 0.04938685185689556
+Number of points in Q1: 2869966
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 0.21489674838692727 52.78419976656503
+Range: 2.0000005 12.649279

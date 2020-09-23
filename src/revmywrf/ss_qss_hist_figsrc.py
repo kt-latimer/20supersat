@@ -50,7 +50,7 @@ def make_and_save_ss_qss_hist(case_label, case_dir_name, \
 
     #get dsd sum file variables
     dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_all_dsdsum_vars', 'r')
+                                'wrfout_d01_all_dsdsum_vars_v2', 'r')
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys
@@ -70,10 +70,16 @@ def make_and_save_ss_qss_hist(case_label, case_dir_name, \
                     (temp > 273)))
 
     ss_qss = ss_qss[filter_inds]
-    
+    print(case_label)
+    print('max: ' + str(np.nanmax(ss_qss)))
+    print('# pts total: ' + str(np.sum(ss_qss < 200)))
+    print('# pts ss > 2%: ' + str(np.sum(ss_qss > 2)))
+
     fig, ax = plt.subplots()
     fig.set_size_inches(21, 12)
+    #bins = [0+0.7*i for i in range(30)]
     ax.hist(ss_qss, bins=30, density=False)
+    #ax.hist(ss_qss, bins=bins, density=False)
     ax.set_xlabel('SS (%)')
     ax.set_ylabel('Count')
     ax.set_title(case_label + ' SS_QSS distb' \

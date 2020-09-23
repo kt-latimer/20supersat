@@ -51,7 +51,7 @@ def make_and_save_ss_qss_vs_lwc(case_label, case_dir_name, \
 
     #get dsd sum file variables
     dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_all_dsdsum_vars', 'r')
+                                'wrfout_d01_all_dsdsum_vars_v2', 'r')
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys
@@ -74,7 +74,7 @@ def make_and_save_ss_qss_vs_lwc(case_label, case_dir_name, \
     ss_qss = ss_qss[filter_inds]
     lwc = lwc[filter_inds]
 
-    m, b, R, sig = linregress(ss_qss*100, lwc*100)
+    m, b, R, sig = linregress(ss_qss, lwc)
     print(m, b, R**2)
    
     print_point_count_per_quadrant(ss_qss, lwc)
@@ -83,7 +83,7 @@ def make_and_save_ss_qss_vs_lwc(case_label, case_dir_name, \
     #plot the supersaturations against each other with regression line
     fig, ax = plt.subplots()
     ax.scatter(ss_qss, lwc, c=colors['ss'])
-    ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
+    ax.plot(ax_lims, np.add(b, m*ax_lims), \
                     c=colors['line'], \
                     linestyle='dashed', \
                     linewidth=3, \
@@ -91,7 +91,6 @@ def make_and_save_ss_qss_vs_lwc(case_label, case_dir_name, \
                             ', R^2 = ' + str(np.round(R**2, decimals=2))))
     ax.set_aspect('equal', 'box')
     ax.set_xlim(ax_lims)
-    ax.set_ylim(ax_lims)
     ax.set_xlabel(r'$SS_{QSS}$ (%)')
     ax.set_ylabel(r'LWC cloud (kg/kg)')
     fig.legend(loc=2)

@@ -24,3 +24,5 @@ Traceback (most recent call last):
   File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 864, in __call__
     return umath.absolute(a) * self.tolerance >= umath.absolute(b)
 MemoryError: Unable to allocate 8.36 GiB for an array with shape (84, 66, 450, 450) and data type float64
+/var/spool/slurmd/job26157747/slurm_script: line 2: 109975 Killed                  python $HOME/proj/20supersat/src/revmywrf/ss_qss_vs_w_figsrc.py
+slurmstepd: error: Detected 1 oom-kill event(s) in step 26157747.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.

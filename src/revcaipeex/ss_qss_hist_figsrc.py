@@ -75,8 +75,14 @@ def add_to_alldates_array(ss_qss, ss_qss_alldates):
 def make_and_save_ss_qss_hist(ss_qss, label, versionstr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent):
     
+    print('# pts total: ' + str(np.sum(ss_qss < 200)))
+    if np.sum(ss_qss) != 0:
+        print('max: ' + str(np.nanmax(ss_qss)))
+        print('# pts ss > 2%: ' + str(np.sum(ss_qss > 2)))
     fig, ax = plt.subplots()
     fig.set_size_inches(21, 12)
+    #bins = [0+0.7*i for i in range(30)]
+    #ax.hist(ss_qss, bins=bins, density=False)
     ax.hist(ss_qss, bins=30, density=False)
     ax.set_xlabel('SS (%)')
     ax.set_ylabel('Count')

@@ -17,7 +17,7 @@ matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
 
-lwc_filter_val = 1.e-5
+lwc_filter_val = 1.e-4
 w_cutoff = 2
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
@@ -36,6 +36,8 @@ def main():
     versionstr = 'v' + str(versionnum) + '_'
 
     for case_label in case_label_dict.keys():
+        #if case_label == 'Polluted':
+        #    continue
         make_and_save_ss_qss_vs_ss_wrf(case_label, case_label_dict[case_label], \
                                     cutoff_bins, full_ss, incl_rain, \
                                     incl_vent, versionstr)
@@ -51,7 +53,7 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
 
     #get dsd sum file variables
     dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_all_dsdsum_vars', 'r')
+                                'wrfout_d01_all_dsdsum_vars_v2', 'r')
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys
@@ -61,8 +63,6 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     ss_qss = get_ss(met_vars, dsdsum_vars, cutoff_bins, \
                         full_ss, incl_rain, incl_vent)
     ss_wrf = met_vars['ss_wrf'][...]*100
-    print(ss_qss)
-    print(ss_wrf)
 
     #close files for memory
     met_file.close()
@@ -71,7 +71,8 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     #apply filtering criteria
     filter_inds = np.logical_and.reduce((
                     (lwc > lwc_filter_val), \
-                    (np.abs(w) > w_cutoff), \
+                    #(np.abs(w) > w_cutoff), \
+                    (w > w_cutoff), \
                     (temp > 273)))
                     #(temp > -2730)))
 
@@ -80,8 +81,13 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
 
     m, b, R, sig = linregress(ss_qss, ss_wrf)
     print(m, b, R**2)
+    print(case_label)
+    print('# pts total: ' + str(np.sum(ss_qss < 200)))
+    print('max: ' + str(np.nanmax(ss_qss)))
+    print('# pts ss > 2%: ' + str(np.sum(ss_qss > 2)))
    
     print_point_count_per_quadrant(ss_qss, ss_wrf)
+    return
 
     ax_lims = np.array([-100, 100])
     #plot the supersaturations against each other with regression line

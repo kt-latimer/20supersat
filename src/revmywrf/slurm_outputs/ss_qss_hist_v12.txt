@@ -1,2 +1,52 @@
 /global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
   return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+slurmstepd: error: *** JOB 26160981 ON n0094.lr6 CANCELLED AT 2020-09-22T21:37:36 ***
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_hist_figsrc.py", line 76
+    continue
+    ^
+SyntaxError: 'continue' not properly in loop
+slurmstepd: error: *** JOB 26163824 ON n0032.lr6 CANCELLED AT 2020-09-23T07:17:27 ***
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+max: 20.411121523993486
+# pts total: 3274731
+# pts ss > 2%: 582425
+Unpolluted
+max: 8.474011559542127
+# pts total: 2281852
+# pts ss > 2%: 231005
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+max: 25.50090081897629
+# pts total: 3514347
+# pts ss > 2%: 820444
+Unpolluted
+max: 45.558524915137916
+# pts total: 2869937
+# pts ss > 2%: 817084
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+max: 25.50090081897629
+# pts total: 3514347
+# pts ss > 2%: 820444
+Unpolluted
+max: 45.558524915137916
+# pts total: 2869937
+# pts ss > 2%: 817084
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+max: 25.50090081897629
+# pts total: 3514347
+# pts ss > 2%: 820444
+Unpolluted
+max: 45.558524915137916
+# pts total: 2869937
+# pts ss > 2%: 817084
