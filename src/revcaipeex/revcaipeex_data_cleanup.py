@@ -24,7 +24,7 @@ def main():
     """
 
     #get names of data files with no issues (see notes)
-    with open('good_csv_files.txt','r') as readFile:
+    with open('good_csv_filenames.txt','r') as readFile:
         good_csv_filenames = [line.strip() for line in readFile.readlines()]
     readFile.close()
 
@@ -40,6 +40,14 @@ def main():
                     data_arr.append(row)
             data_arr = np.array(data_arr)
             var_names = np.concatenate((data_arr[0:9, 0], data_arr[9:, 1]))
+            data = np.array(data_arr[:, 2:], dtype=float)
+        elif 'PCASP' in filename:
+            with open(input_data_dir+filename, 'r') as readFile:
+                csvreader = csv.reader(readFile, delimiter=',')
+                for row in csvreader:
+                    data_arr.append(row)
+            data_arr = np.array(data_arr)
+            var_names = np.concatenate((data_arr[0:10, 0], data_arr[10:, 1]))
             data = np.array(data_arr[:, 2:], dtype=float)
         else:
             with open(input_data_dir+filename, 'r') as readFile:

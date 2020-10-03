@@ -8,12 +8,12 @@ superaturation from CAIPEEX campaign data
 import numpy as np
 import re
 
-from revcaipeex import DSD_bins
+from revcaipeex import CDP_bins
 
 ##
 ## center radii of bins
 ##
-DSD_bin_radii = (DSD_bins['upper'] + DSD_bins['lower'])/4.
+CDP_bin_radii = (CDP_bins['upper'] + CDP_bins['lower'])/4.
 
 ##
 ## various series expansion coeffs - comment = page in pruppacher and klett
@@ -44,12 +44,12 @@ rho_w = 1000. #density of water (kg/m^3)
 ##
 ## methods to get ss_qss 
 ##
-def get_ss_vs_t(met_dict, dsd_dict, \
+def get_ss_vs_t(met_dict, cpd_dict, \
                 cutoff_bins, full_ss, incl_rain, incl_vent):
 
-    meanr = get_meanr_vs_t(met_dict, dsd_dict, \
+    meanr = get_meanr_vs_t(met_dict, cpd_dict, \
                     cutoff_bins, incl_rain, incl_vent)
-    nconc = get_nconc_vs_t(met_dict, dsd_dict, \
+    nconc = get_nconc_vs_t(met_dict, cpd_dict, \
                     cutoff_bins, incl_rain, incl_vent)
 
     temp = met_dict['data']['temp']
@@ -73,36 +73,36 @@ def get_ss_vs_t(met_dict, dsd_dict, \
 ##
 ## methods to get meanr and nconc 
 ##
-def get_meanr_vs_t(met_dict, dsd_dict, cutoff_bins, \
+def get_meanr_vs_t(met_dict, cpd_dict, cutoff_bins, \
                             incl_rain, incl_vent):
 
-    nconc = get_nconc_vs_t(met_dict, dsd_dict, cutoff_bins, \
+    nconc = get_nconc_vs_t(met_dict, cpd_dict, cutoff_bins, \
                                     incl_rain, incl_vent)
 
     meanr = np.zeros(np.shape(met_dict['data']['time']))
 
-    for var_name in dsd_dict['data'].keys():
-        meanr += get_meanr_contribution_from_dsd_var(var_name, \
-                    met_dict, dsd_dict, cutoff_bins, incl_rain, incl_vent)
+    for var_name in cpd_dict['data'].keys():
+        meanr += get_meanr_contribution_from_cpd_var(var_name, \
+                    met_dict, cpd_dict, cutoff_bins, incl_rain, incl_vent)
 
     return meanr/nconc
 
-def get_nconc_vs_t(met_dict, dsd_dict, cutoff_bins, \
+def get_nconc_vs_t(met_dict, cpd_dict, cutoff_bins, \
                             incl_rain, incl_vent):
 
     nconc = np.zeros(np.shape(met_dict['data']['time']))
 
-    for var_name in dsd_dict['data'].keys():
-        nconc += get_nconc_contribution_from_dsd_var(var_name, \
-                    met_dict, dsd_dict, cutoff_bins, incl_rain, incl_vent)
+    for var_name in cpd_dict['data'].keys():
+        nconc += get_nconc_contribution_from_cpd_var(var_name, \
+                    met_dict, cpd_dict, cutoff_bins, incl_rain, incl_vent)
 
     return nconc
 
 ##
-## methods to get meanr and nconc contributions from dsd data. 
+## methods to get meanr and nconc contributions from cpd data. 
 ## note: meanr contribution is weighted by nconc for that bin
 ##
-def get_meanr_contribution_from_dsd_var(var_name, met_dict, dsd_dict, \
+def get_meanr_contribution_from_cpd_var(var_name, met_dict, cpd_dict, \
                                         cutoff_bins, incl_rain, incl_vent):
 
     zero_arr = np.zeros(np.shape(met_dict['data']['time']))
@@ -116,7 +116,7 @@ def get_meanr_contribution_from_dsd_var(var_name, met_dict, dsd_dict, \
         return zero_arr
 
     bin_ind = nconc_ind - 1 
-    r = DSD_bin_radii[bin_ind]
+    r = CDP_bin_radii[bin_ind]
 
     pres = met_dict['data']['pres']
     temp = met_dict['data']['temp']
@@ -134,15 +134,15 @@ def get_meanr_contribution_from_dsd_var(var_name, met_dict, dsd_dict, \
     N_Re = 2*rho_air*r*u_term/eta
     f = get_ventilation_coefficient(N_Re, incl_vent)
 
-    nconc_contribution_from_var = get_nconc_contribution_from_dsd_var( \
-        var_name, met_dict, dsd_dict, cutoff_bins, \
+    nconc_contribution_from_var = get_nconc_contribution_from_cpd_var( \
+        var_name, met_dict, cpd_dict, cutoff_bins, \
         incl_rain, incl_vent)
 
     mean_r_contribution_from_var = nconc_contribution_from_var*r*f
 
     return mean_r_contribution_from_var
 
-def get_nconc_contribution_from_dsd_var(var_name, met_dict, dsd_dict, \
+def get_nconc_contribution_from_cpd_var(var_name, met_dict, cpd_dict, \
                         cutoff_bins, incl_rain, incl_vent):
 
     zero_arr = np.zeros(np.shape(met_dict['data']['time']))
@@ -152,16 +152,16 @@ def get_nconc_contribution_from_dsd_var(var_name, met_dict, dsd_dict, \
         return zero_arr 
 
     has_correct_lower_bin_cutoff = \
-        has_correct_lower_bin_cutoff_dsd(var_name, cutoff_bins)
+        has_correct_lower_bin_cutoff_cpd(var_name, cutoff_bins)
     if not has_correct_lower_bin_cutoff:
         return zero_arr 
 
     has_correct_upper_bin_cutoff = \
-        has_correct_upper_bin_cutoff_dsd(var_name, incl_rain)
+        has_correct_upper_bin_cutoff_cpd(var_name, incl_rain)
     if not has_correct_upper_bin_cutoff:
         return zero_arr 
 
-    nconc_contribution_from_var = dsd_dict['data'][var_name]
+    nconc_contribution_from_var = cpd_dict['data'][var_name]
 
     return nconc_contribution_from_var
     
@@ -225,28 +225,28 @@ def check_if_bin_var(var_name):
     else:
         return False
 
-def has_correct_lower_bin_cutoff_dsd(var_name, cutoff_bins):
+def has_correct_lower_bin_cutoff_cpd(var_name, cutoff_bins):
 
     if not cutoff_bins:
         return True
     
     nconc_ind = int(re.findall(r'\d+', var_name)[0])
     bin_ind = nconc_ind - 1 
-    lower_bin_radius = DSD_bins['lower'][bin_ind]
+    lower_bin_radius = CDP_bins['lower'][bin_ind]
     
     if lower_bin_radius >= 5.e-6:
         return True
     else:
         return False
 
-def has_correct_upper_bin_cutoff_dsd(var_name, incl_rain):
+def has_correct_upper_bin_cutoff_cpd(var_name, incl_rain):
 
     if incl_rain:
         return True
     
     nconc_ind = int(re.findall(r'\d+', var_name)[0])
     bin_ind = nconc_ind - 1 
-    upper_bin_radius = DSD_bins['upper'][bin_ind]
+    upper_bin_radius = CDP_bins['upper'][bin_ind]
     
     if upper_bin_radius <= 50.e-6: 
         return True
@@ -268,14 +268,77 @@ def get_sat_vap_pres(temp):
 ## also not considering ventilation corrections under the [as of now untested]
 ## assumption that they won't be significant for cloud size droplets)
 ## 
-def get_lwc(dsd_dict, cutoff_bins):
+def get_lwc(cpd_dict, cutoff_bins):
 
     lwc_var_keys = ['lwc_5um_to_50um_diam']
     if not cutoff_bins:
         lwc_var_keys.append('lwc_sub_5um_diam')
 
-    lwc = np.zeros(np.shape(dsd_dict['data']['time']))
+    lwc = np.zeros(np.shape(cpd_dict['data']['time']))
     for lwc_var_key in lwc_var_keys:
-        lwc += dsd_dict['data'][lwc_var_key]
+        lwc += cpd_dict['data'][lwc_var_key]
 
     return lwc
+
+def linregress(x, y=None):
+    """
+    ~~copy pasta from scipy so I don't have to import the whole damn module~~
+    Calculate a regression line
+    This computes a least-squares regression for two sets of measurements.
+    Parameters
+    ----------
+    x, y : array_like
+        two sets of measurements.  Both arrays should have the same length.
+        If only x is given (and y=None), then it must be a two-dimensional
+        array where one dimension has length 2.  The two sets of measurements
+        are then found by splitting the array along the length-2 dimension.
+    Returns
+    -------
+    slope : float
+        slope of the regression line
+    intercept : float
+        intercept of the regression line
+    r-value : float
+        correlation coefficient
+    stderr : float
+        Standard error of the estimate
+    """
+    TINY = 1.0e-20
+    if y is None:  # x is a (2, N) or (N, 2) shaped array_like
+        x = np.asarray(x)
+        if x.shape[0] == 2:
+            x, y = x
+        elif x.shape[1] == 2:
+            x, y = x.T
+        else:
+            msg = "If only `x` is given as input, it has to be of shape (2, N) \
+            or (N, 2), provided shape was %s" % str(x.shape)
+            raise ValueError(msg)
+    else:
+        x = np.asarray(x)
+        y = np.asarray(y)
+    n = len(x)
+    xmean = np.mean(x,None)
+    ymean = np.mean(y,None)
+
+    # average sum of squares:
+    ssxm, ssxym, ssyxm, ssym = np.cov(x, y, bias=1).flat
+    r_num = ssxym
+    r_den = np.sqrt(ssxm*ssym)
+    if r_den == 0.0:
+        r = 0.0
+    else:
+        r = r_num / r_den
+        # test for numerical error propagation
+        if (r > 1.0):
+            r = 1.0
+        elif (r < -1.0):
+            r = -1.0
+
+    df = n-2
+    t = r*np.sqrt(df/((1.0-r+TINY)*(1.0+r+TINY)))
+    slope = r_num / ssxm
+    intercept = ymean - slope*xmean
+    sterrest = np.sqrt((1-r*r)*ssym / ssxm / df)
+
+    return slope, intercept, r, sterrest

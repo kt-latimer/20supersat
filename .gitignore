@@ -56,3 +56,4 @@ src/mywrf/slurm*
 figures/mywrf/*cloudmap*
 *.pyc
 *sharc*
+timeline.xlsx

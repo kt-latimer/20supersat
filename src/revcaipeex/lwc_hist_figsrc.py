@@ -39,7 +39,7 @@ def main():
     for date in good_dates:
         metfile = DATA_DIR + 'npy_proc/MET_' + date + '.npy'
         met_dict = np.load(metfile, allow_pickle=True).item()
-        dsdfile = DATA_DIR + 'npy_proc/DSD_' + date + '.npy'
+        dsdfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
         dsd_dict = np.load(dsdfile, allow_pickle=True).item()
 
         lwc = get_lwc(dsd_dict,cutoff_bins)

@@ -17,7 +17,7 @@ matplotlib.rcParams.update({'font.family': 'serif'})
 lwc_filter_val = 1.e-4
 w_cutoff = 2
 
-#change_dsd_corr = False
+#change_cpd_corr = False
 #cutoff_bins = False 
 #incl_rain = False
 #incl_vent = False
@@ -39,18 +39,20 @@ def main():
     for date in good_dates:
         metfile = DATA_DIR + 'npy_proc/MET_' + date + '.npy'
         met_dict = np.load(metfile, allow_pickle=True).item()
-        dsdfile = DATA_DIR + 'npy_proc/DSD_' + date + '.npy'
-        dsd_dict = np.load(dsdfile, allow_pickle=True).item()
+        cpdfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
+        cpd_dict = np.load(cpdfile, allow_pickle=True).item()
 
-        lwc = get_lwc(dsd_dict,cutoff_bins)
+        lwc = get_lwc(cpd_dict,cutoff_bins)
         temp = met_dict['data']['temp']
         w = met_dict['data']['w']
-        ss_qss = get_ss_vs_t(met_dict, dsd_dict, cutoff_bins, \
+        ss_qss = get_ss_vs_t(met_dict, cpd_dict, cutoff_bins, \
                             full_ss, incl_rain, incl_vent)
-
+ 
+        #there's a weird outlier which the third line removes
         filter_inds = np.logical_and.reduce((
                         (lwc > lwc_filter_val), \
                         (w > w_cutoff), \
+                        (ss_qss < 100), \
                         (temp > 273)))
 
         print(date)
