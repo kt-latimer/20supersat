@@ -48,7 +48,17 @@ var_info_dict = {'ADLR':{'var_names':['time', 'pres', 'temp', 'w'], \
                          for i in range(1, 31)], \
                          'var_inds':[i for i in range(31)], \
                          'var_units':['s'] + ['m^-3' for i in range(1, 31)], \
-                         'var_scale':[1.] + [1.e6 for i in range(1, 31)]}}
+                         'var_scale':[1.] + [1.e6 for i in range(1, 31)]}, \
+                 'UHSAS':{'var_names':['time'] + ['stp_nconc_'+str(i) \
+                         for i in range(15, 81)], \
+                         'var_inds':[0] + [i for i in range(3, 69)], \
+                         'var_units':['s'] + ['m^-3' for i in range(66)], \
+                         'var_scale':[1.] + [1.e6 for i in range(66)]}, \
+                 'UHSAS2':{'var_names':['time'] + ['stp_nconc_'+str(i) \
+                         for i in range(4, 56)], \
+                         'var_inds':[0] + [i for i in range(3, 57)], \
+                         'var_units':['s'] + ['m^-3' for i in range(54)], \
+                         'var_scale':[1.] + [1.e6 for i in range(54)]}}
 
 input_data_dir = DATA_DIR + 'npy_raw/'
 output_data_dir = DATA_DIR + 'npy_proc/'
@@ -95,6 +105,8 @@ def make_processed_file_without_additions_requiring_adlr(good_ames_filename):
         make_processed_cip_file_without_lwc(good_ames_filename)
     elif 'pcasp' in good_ames_filename:
         make_processed_pcasp_file_without_nonstp_nconc(good_ames_filename)
+    elif 'UHSAS' in good_ames_filename:
+        make_processed_uhsas_file_without_nonstp_nconc(good_ames_filename)
 
 def make_processed_adlr_file(good_ames_filename):
 
@@ -223,6 +235,37 @@ def make_processed_pcasp_file_without_nonstp_nconc(good_ames_filename):
 
     save_processed_file('PCASP', date, processed_data_dict)
 
+def make_processed_uhsas_file_without_nonstp_nconc(good_ames_filename):
+
+    good_numpy_filename = good_ames_filename[0:-4] + 'npy' #change file type
+    raw_data_dict = np.load(DATA_DIR + 'npy_raw/' + good_numpy_filename, \
+                            allow_pickle=True).item()
+    data = raw_data_dict['data']
+    date_array = raw_data_dict['date']
+    date = date_array[0] + date_array[1] + date_array[2]
+    var_info_dict_key = get_uhsas_var_info_dict_key(date)
+    var_inds = var_info_dict[var_info_dict_key]['var_inds']
+    var_names = var_info_dict[var_info_dict_key]['var_names']
+    var_scale = var_info_dict[var_info_dict_key]['var_scale']
+    var_units = var_info_dict[var_info_dict_key]['var_units']
+    processed_data_dict = {'setname': 'UHSAS', 'date': date, \
+                           'raw_numpy_filename': good_numpy_filename, \
+                           'data': {}, 'units': {}}
+
+    for i, var_name in enumerate(var_names):
+        processed_data_dict = add_var_to_processed_uhsas_dict(var_name, \
+                                var_inds[i], var_scale[i], var_units[i], \
+                                processed_data_dict, data)
+
+    save_processed_file('UHSAS', date, processed_data_dict)
+
+def get_uhsas_var_info_dict_key(date):
+    
+    if date in ['20140916', '20140918', '20140919', '20140921']:
+        return 'UHSAS2'
+    else:
+        return 'UHSAS'
+
 def add_var_to_processed_adlr_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
@@ -285,6 +328,19 @@ def add_var_to_processed_cip_dict(var_name, var_ind, var_scale, \
     return processed_data_dict
 
 def add_var_to_processed_pcasp_dict(var_name, var_ind, var_scale, \
+                                    var_unit, processed_data_dict, data):
+
+    if var_name == 'time':
+        processed_data_dict['data'][var_name] = \
+                                np.around(data[:, var_ind])*var_scale
+    else:
+        processed_data_dict['data'][var_name] = \
+                                data[:, var_ind]*var_scale
+    processed_data_dict['units'][var_name] = var_unit
+
+    return processed_data_dict
+
+def add_var_to_processed_uhsas_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
     if var_name == 'time':
@@ -362,6 +418,15 @@ def add_nonstp_nconc_to_processed_asd_files(date):
                 allow_pickle=True).item()
     pcasp_dict = np.load(output_data_dir + 'PCASP_' + date + '.npy', \
                 allow_pickle=True).item()
+    uhsas_dict = np.load(output_data_dir + 'UHSAS_' + date + '.npy', \
+                allow_pickle=True).item()
+
+    #do time syncing inside dataset-specific routines
+
+    add_nonstp_nconc_to_processed_pcasp_file(adlr_dict, pcasp_dict, date) 
+    add_nonstp_nconc_to_processed_uhsas_file(adlr_dict, uhsas_dict, date) 
+    
+def add_nonstp_nconc_to_processed_pcasp_file(adlr_dict, pcasp_dict, date):
 
     (adlr_dict, pcasp_dict) = \
             sync_and_match_times_adlr_asd(adlr_dict, pcasp_dict)
@@ -376,7 +441,31 @@ def add_nonstp_nconc_to_processed_asd_files(date):
 
     save_processed_file('PCASP', date, pcasp_dict)
 
-def sync_and_match_times_adlr_asd(adlr_dict, pcasp_dict):
+def add_nonstp_nconc_to_processed_uhsas_file(adlr_dict, uhsas_dict, date):
+
+    (adlr_dict, uhsas_dict) = \
+            sync_and_match_times_adlr_asd(adlr_dict, uhsas_dict)
+
+    stp_factor = P_0*adlr_dict['data']['temp']/(T_0*adlr_dict['data']['pres']) 
+
+    bin_range = get_uhsas_bin_range(date)
+
+    for i in bin_range:
+        var_name = 'nconc_' + str(i)
+        uhsas_dict['data'][var_name] = \
+                uhsas_dict['data']['stp_'+var_name]/stp_factor
+        uhsas_dict['units'][var_name] = 'm^-3'
+
+    save_processed_file('UHSAS', date, uhsas_dict)
+
+def get_uhsas_bin_range(date):
+    
+    if date in ['20140916', '20140918', '20140919', '20140921']:
+        return range(4, 56) 
+    else:
+        return range(15, 81) 
+
+def sync_and_match_times_adlr_asd(adlr_dict, asd_dict):
 
     #For now there is no way to sync adlr and pcasp that I can tell...
     #possible that I will need to get aerosol data from other instruments
@@ -389,17 +478,18 @@ def sync_and_match_times_adlr_asd(adlr_dict, pcasp_dict):
     #am just inserting nan's in times where PCASP is missing data and
     #deleting times where PCASP has values but ADLR (and by extension
     #all dsd files) does not.
-
+    #update 10/5/20: making generic for asd files (ie PCASP and UHSAS) 
+    
     adlr_t = adlr_dict['data']['time']
-    pcasp_t = pcasp_dict['data']['time']
+    asd_t = asd_dict['data']['time']
 
-    [adlr_inds, pcasp_inds] = match_multiple_arrays([adlr_t, pcasp_t])
+    [adlr_inds, asd_inds] = match_multiple_arrays([adlr_t, asd_t])
 
-    pcasp_dict['data'] = \
-        get_time_matched_data_dict_asd_only(pcasp_dict['data'], \
-                                    adlr_dict['data'], pcasp_inds, adlr_inds)
+    asd_dict['data'] = \
+        get_time_matched_data_dict_asd_only(asd_dict['data'], \
+                                    adlr_dict['data'], asd_inds, adlr_inds)
 
-    return (adlr_dict, pcasp_dict)
+    return (adlr_dict, asd_dict)
 
 def get_time_matched_data_dict_asd_only(pcasp_data_dict, adlr_data_dict, \
                                         pcasp_inds, adlr_inds):

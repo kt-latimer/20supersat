@@ -11,13 +11,13 @@ import sys
 from revcaipeex import DATA_DIR, FIG_DIR, PCASP_bins
 
 #for plotting
-versionstr = 'v2_'
+versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'polluted': '#87cfeb', 'unpolluted': '#0b0bf7'}
 
-#n_samples = -1 #v1
-n_samples = 1 #v2; note each point is a 60-sec avg in raw data files
+n_samples = -1 #v1
+#n_samples = 1 #v2; note each point is a 60-sec avg in raw data files
 
 #diams and differentials
 diams = (PCASP_bins['upper'] + PCASP_bins['lower'])/2.
@@ -109,6 +109,7 @@ def get_aero_size_distb(pcasp_data, filter_inds, n_samples):
 def make_and_save_aero_size_distb_plot(fan_aero_size_distb, \
                                         aero_size_distb, date, n_samples):
 
+        print(date)
         fig, ax = plt.subplots()
         fig.set_size_inches(21, 12)
         ax.plot(diams*1.e9, 1.e-6*aero_size_distb.T, \
@@ -129,7 +130,14 @@ def make_and_save_aero_size_distb_plot(fan_aero_size_distb, \
         ax.set_ylabel('dN/dlogD (cm^-3)')
         ax.set_title(date + ' aerosol size distb' \
                           + ', n samples per curve=' + str(n_samples))
-        ax.legend()
+        #quick lazy dirty
+        if n_samples == -1 and date == 'alldates':
+            handles, labels = ax.get_legend_handles_labels()
+            labels = ['20090823', '20090825', '20090824', '20090818', \
+                        '20090622', '20090621', '20090616'] + labels
+            ax.legend(labels)
+        else:
+            ax.legend()
         outfile = FIG_DIR + versionstr + 'aero_size_distb_' \
                 + date + '_figure.png'
         plt.savefig(outfile)
