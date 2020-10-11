@@ -87,7 +87,6 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     print('# pts ss > 2%: ' + str(np.sum(ss_qss > 2)))
    
     print_point_count_per_quadrant(ss_qss, ss_wrf)
-    return
 
     ax_lims = np.array([-100, 100])
     #plot the supersaturations against each other with regression line

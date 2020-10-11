@@ -16,10 +16,10 @@ import re
 
 from revhalo import DATA_DIR, CAS_bins, CDP_bins, CIP_bins
 
-var_info_dict = {'ADLR':{'var_names':['time', 'pres', 'temp', 'w'], \
-                         'var_inds':[0, 7, 20, 17], \
-                         'var_units':['s', 'Pa', 'K', 'm/s'], \
-                         'var_scale':[1., 100., 1., 1.]}, \
+var_info_dict = {'ADLR':{'var_names':['time', 'pres', 'temp', 'w', 'alt'], \
+                         'var_inds':[0, 7, 20, 17, 25], \
+                         'var_units':['s', 'Pa', 'K', 'm/s', 'm'], \
+                         'var_scale':[1., 100., 1., 1., 1.]}, \
                  'CAS':{'var_names':['time'] + ['nconc_'+str(i) for i in \
                          range(5, 17)] + ['nconc_tot_from_file', \
                          'd_eff_from_file', 'PAS', 'TAS', 'xi'], \

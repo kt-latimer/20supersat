@@ -30,12 +30,12 @@ R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
 R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 rho_w = 1000. #density of water (kg/m^3) 
 
-def get_kernel_weighted_nconc(pcasp_dict, kernel):
+def get_kernel_weighted_nconc(asd_dict, kernel, n_bins, bin_start_ind):
 
-    kernel_weighted_nconc = np.zeros(np.shape(pcasp_dict['data']['time']))
+    kernel_weighted_nconc = np.zeros(np.shape(asd_dict['data']['time']))
 
-    for i in range(30):
-        var_key = 'nconc_' + str(i+1)
-        kernel_weighted_nconc += pcasp_dict['data'][var_key]*kernel[i]
+    for i in range(n_bins):
+        var_key = 'nconc_' + str(i+bin_start_ind)
+        kernel_weighted_nconc += asd_dict['data'][var_key]*kernel[i]
 
     return kernel_weighted_nconc
