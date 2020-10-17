@@ -181,6 +181,54 @@ Figures \ref{haloqsshist} and \ref{caipeexqsshist} demonstrate that we don't obs
 	\label{wrfaeronconchist}
 \end{figure}
 
+\subsection{Statistical analysis of supersaturation distributions}
+\subsubsection{Null hypothesis}
+Quasi-steady-state supersaturation values at selected sample of points from field campaigns are drawn from a ``true'' distribution like one of the ones from WRF. 
+\subsubsection{Test}
+Reduced chi-squared
+\subsubsection{Details}
+Since altitude shows non-negligible correlation with $SS_{QSS}$ in WRF data (Figure \ref{wrfssqssvsz}), we actually need to compare the experimental $SS_{QSS}$ distribution to an adjusted simulated distribution, to account for the differences in altitude distributions for sampled points in both datasets. Specifically:
+\begin{equation}
+\tilde\chi^2 = \frac{1}{d}\Big(\sum_{k} \frac{(\mathcal{O}_k - E_k)^2}{E_k}\Big),
+\end{equation}
+where $k$ labels discrete bins into which we group supersaturation values and,
+\begin{align}
+\mathcal{O}_k &= \text{# of measurements observed in bin $k$ (for all flight dates combined)}\nonumber\\
+E_k &= \text{# of measurements observed in bin $k$ (under adjusted $SS_{QSS}$ distribution $P'_{sim}(SS_k)$)}\nonumber
+\end{align}
+The adjusted distribution is given by:
+\begin{equation}
+P'_{sim}(SS_k) = \sum_{j} P'_{sim}(z_j, SS_k),
+\end{equation}
+where,
+\begin{equation}
+P'_{sim}(z_j, SS_k) = \sum_{k''}\frac{P_{exp}(z_j, SS_{k''})P_{sim}(z_j, SS_k)}{\sum_{k'}P_{sim}(z_j, SS_{k'})}
+\end{equation}
+
+In this analysis, we had to use unequal bin sizes (i.e., group bins in the tail of the $SS_{QSS}$ distributions) in order to ensure $E'_k \geq 5$ and $n_{bins} \geq 4$ (the standard criteria for this statistical test). We set $d = n_{bins} - 2$ to account for the two choices of number of bins in the bivariate probability distributions $P(z_j, SS_k)$.
+\subsubsection{Results}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{\# SS bins} & \textbf{\# z bins} & \textbf{$\tilde\chi^2$ (Polluted)} & \textbf{$\tilde\chi^2$ (Unpolluted)} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
+4 & 10 & 37.24 & 25.01 & 4.61 \\
+4 & 20 & 42.75 & 28.13 & 4.61 \\
+4 & 30 & 44.58 & 32.28 & 4.61 \\
+6 & 10 & 41.53 & 21.90 & 3.32 \\
+6 & 20 & 51.20 & 25.77 & 3.32 \\
+6 & 30 & 55.74 & 26.89 & 3.32 \\
+8 & 10 & 45.96 & 17.46 & 2.80 \\
+8 & 20 & 58.37 & 21.07 & 2.80 \\
+8 / 7 & 30 & 64.83 & 26.44 & 2.80 / 3.10 \\ \bottomrule
+\end{tabular}
+\caption{}
+\label{tab:my-table}
+\end{table}
+\subsubsection{Comments}
+
 \clearpage
 \newpage
 

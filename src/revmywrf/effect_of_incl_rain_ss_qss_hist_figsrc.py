@@ -10,7 +10,7 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_ss, get_lwc
 
 #for plotting
-versionstr = 'v1_'
+versionstr = 'v2_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
@@ -71,11 +71,13 @@ def make_and_save_ss_qss_hist(case_label, case_dir_name, \
                                          bins=30, \
                                          alpha=0.6, \
                                          label='No rain', \
+                                         log=True, \
                                          density=False)
     ax.hist(ss_qss_incl_rain, \
              bins=no_rain_bins, \
              alpha=0.6, \
              label='With rain', \
+             log=True, \
              density=False)
     ax.set_xlabel('SS (%)')
     ax.set_ylabel('Count')
