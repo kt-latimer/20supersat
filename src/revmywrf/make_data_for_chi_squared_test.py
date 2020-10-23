@@ -13,7 +13,8 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
-versionstr = 'v1_'
+#versionstr = 'v1_' #cloud/rain diam bndy ~100 um (same as Qindan orig code)
+versionstr = 'v2_' #cloud/rain diam bndy ~50 um and no rain (to compare to caipeex 2009)
 
 lwc_filter_val = 1.e-4
 w_cutoff = 2
@@ -21,8 +22,8 @@ w_cutoff = 2
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
 cutoff_bins = True 
-incl_rain = True
-incl_vent = True
+incl_rain = False
+incl_vent = False
 full_ss = True
 
 def main():
@@ -37,8 +38,8 @@ def main():
                                                 incl_rain, incl_vent, \
                                                 ss_sim_dict, z_sim_dict)
 
-    np.save(DATA_DIR + 'ss_sim_dict.npy', ss_sim_dict)
-    np.save(DATA_DIR + 'z_sim_dict.npy', z_sim_dict)
+    np.save(DATA_DIR + versionstr + 'ss_sim_dict.npy', ss_sim_dict)
+    np.save(DATA_DIR + versionstr + 'z_sim_dict.npy', z_sim_dict)
 
 def update_dicts_for_chi_squared(case_label, \
                 case_dir_name, \
@@ -53,7 +54,8 @@ def update_dicts_for_chi_squared(case_label, \
 
     #get dsd sum file variables
     dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_all_dsdsum_vars_v2', 'r')
+                                #'wrfout_d01_all_dsdsum_vars_v2', 'r') #v1
+                                'wrfout_d01_all_dsdsum_vars', 'r') #v2 
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys

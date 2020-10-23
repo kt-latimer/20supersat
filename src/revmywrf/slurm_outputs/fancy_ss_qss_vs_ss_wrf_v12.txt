@@ -14,3 +14,117 @@ Traceback (most recent call last):
   File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 1026, in __call__
     result = self.f(da, db, *args, **kwargs)
 MemoryError: Unable to allocate 8.36 GiB for an array with shape (84, 66, 450, 450) and data type float64
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 206, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 71, in make_and_save_ss_qss_vs_ss_wrf
+    np.save(ss_distb_data_dir + ss_qss_filename, ss_qss)
+  File "<__array_function__ internals>", line 6, in save
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/npyio.py", line 541, in save
+    fid = open(file, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: '/global/home/users/kalatimer/proj/20supersat/data/revmywrf/ss_distb/v12_ss_qss_Polluted.npy'
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 201, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 116, in make_and_save_ss_qss_vs_ss_wrf
+    ax_scatter.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
+NameError: name 'ax' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+No handles with labels found to put in legend.
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 201, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/fancy_ss_qss_vs_ss_wrf_figsrc.py", line 147, in make_and_save_ss_qss_vs_ss_wrf
+    plt.close(fig=fig)    
+NameError: name 'fig' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388

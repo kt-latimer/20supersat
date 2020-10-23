@@ -14,8 +14,8 @@ from revhalo.ss_qss_calculations import get_meanr_vs_t_from_cas, get_lwc_from_ca
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
-lwc_filter_val = 1.e-5
-w_cutoff = -100
+lwc_filter_val = 1.e-4
+w_cutoff = 2 
 
 #change_cas_corr = False
 #cutoff_bins = False 

@@ -1,0 +1,33 @@
+slurmstepd: error: *** JOB 26525148 ON n0273.lr6 CANCELLED AT 2020-10-18T11:47:07 ***
+169.6144975341672 1322.820567971525 0.06893603077626519
+Number of points in Q1: 3514347
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 2.000001 15.722084
+Range: 398.3393 5669.6074
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_vs_z_figsrc.py", line 161, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_vs_z_figsrc.py", line 41, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_vs_z_figsrc.py", line 89, in make_and_save_w_vs_z
+    ax.plot(ax_lims, np.add(b, m*ax_lims), \
+TypeError: can't multiply sequence by non-int of type 'numpy.float64'
+169.6144975341672 1322.820567971525 0.06893603077626519
+Number of points in Q1: 3514347
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 2.000001 15.722084
+Range: 398.3393 5669.6074
+55.06573374127972 1530.1416186028564 0.010486672777727668
+Number of points in Q1: 2869937
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 2.0000005 12.649279
+Range: 425.55057 5605.3335

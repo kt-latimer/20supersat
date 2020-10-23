@@ -1,0 +1,37 @@
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Unpolluted
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/understand_outlier_points.py:68: RuntimeWarning: invalid value encountered in less
+  (meanr < 0), \
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/understand_outlier_points.py:73: RuntimeWarning: invalid value encountered in greater
+  (meanr > 0.0002), \
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/understand_outlier_points.py:81: RuntimeWarning: invalid value encountered in greater
+  (meanr > 0.1), \
+Polluted
+lwc:  []
+meanr:  []
+nconc:  []
+pres:  []
+temp:  []
+w:  []
+z:  []
+lwc:  []
+meanr:  []
+nconc:  []
+pres:  []
+temp:  []
+w:  []
+z:  []
+
+Unpolluted
+lwc:  []
+meanr:  []
+nconc:  []
+pres:  []
+temp:  []
+w:  []
+z:  []
+

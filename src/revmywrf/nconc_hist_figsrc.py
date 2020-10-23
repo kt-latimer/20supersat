@@ -16,8 +16,8 @@ from revmywrf.ss_qss_calculations import get_lwc, get_nconc
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
-lwc_filter_val = 1.e-5
-w_cutoff = -100
+lwc_filter_val = 1.e-4
+w_cutoff = 4
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 

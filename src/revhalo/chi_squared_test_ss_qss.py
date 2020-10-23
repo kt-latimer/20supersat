@@ -24,9 +24,9 @@ w_cutoff = 2
 def main():
 
     dict_dir = BASE_DIR + 'data/revmywrf/'
-    ss_sim_dict = np.load(dict_dir + 'ss_sim_dict.npy', \
+    ss_sim_dict = np.load(dict_dir + 'v1_ss_sim_dict.npy', \
                             allow_pickle=True).item() 
-    z_sim_dict = np.load(dict_dir + 'z_sim_dict.npy', \
+    z_sim_dict = np.load(dict_dir + 'v1_z_sim_dict.npy', \
                             allow_pickle=True).item() 
 
     with open('good_dates.txt', 'r') as readFile:
@@ -75,51 +75,56 @@ def main():
 
 def print_chi_squared_test_stats(ss_exp, z_exp, ss_sim_dict, z_sim_dict):
     
-    print(ss_sim_dict.keys())
-    return
+    n_ss_array = []
+    n_z_array = []
+    chi_sq_array = []
+
     for key in ss_sim_dict.keys():
-        calc_and_print_chi_squared_test_stats_for_wrf_case(ss_exp, z_exp, \
+        (partial_n_ss_array, partial_n_z_array, partial_chi_sq_array) = \
+            calc_and_print_chi_squared_test_stats_for_wrf_case(ss_exp, z_exp, \
                                         ss_sim_dict[key], z_sim_dict[key])
+
+        n_ss_array += partial_n_ss_array
+        n_z_array += partial_n_z_array
+        chi_sq_array += partial_chi_sq_array
+
+    for i in range(len(n_ss_array)):
+        print(n_ss_array[i], n_z_array[i], chi_sq_array[i])
 
 def calc_and_print_chi_squared_test_stats_for_wrf_case(ss_exp, z_exp, \
                                                         ss_sim, z_sim):
 
-    n_ss_array = [10, 15, 20, 25, 30, 35] 
-    n_z_array = [10, 20, 30] #fixed / manually alter for now
+    starting_n_ss_array = [65] 
+    starting_n_z_array = [10, 20, 30] #fixed / manually alter for now
 
-    for starting_n_ss in n_ss_array:
-        for n_z in n_z_array:
-            n_ss = starting_n_ss
-            while True:
-                (observed_ss_bin_counts, predicted_ss_bin_counts) = \
-                    get_obs_and_pred_ss_distributions(n_ss, n_z, ss_exp, \
-                                                      z_exp, ss_sim, z_sim)
-                (is_rebinnable, tail_start_ind) = rebin_tail(predicted_ss_bin_counts)
-                if is_rebinnable:
-                    break
-                else:
-                    n_ss += 1
+    n_ss_array = []
+    n_z_array = []
+    chi_sq_array = []
 
-            n_dof = (tail_start_ind + 1) - 2 #2 constraints: n_ss, n_z
-            chi_squared_no_tail = np.sum( \
-                            (observed_ss_bin_counts[:tail_start_ind] \
-                             - predicted_ss_bin_counts[:tail_start_ind])**2./ \
-                             predicted_ss_bin_counts[:tail_start_ind])/n_dof
-            chi_squared_tail = (np.sum(observed_ss_bin_counts[tail_start_ind:]) \
-                                - np.sum(predicted_ss_bin_counts[tail_start_ind:]))**2./ \
-                                np.sum(predicted_ss_bin_counts[tail_start_ind:])/n_dof
+    for starting_n_ss in starting_n_ss_array:
+        for n_z in starting_n_z_array:
+            (observed_ss_bin_counts, predicted_ss_bin_counts) = \
+                get_obs_and_pred_ss_distributions(starting_n_ss, n_z, ss_exp, \
+                                                  z_exp, ss_sim, z_sim)
+            if observed_ss_bin_counts is not None:
+                n_ss = np.shape(observed_ss_bin_counts)[0]
+                n_dof = n_ss - 2 #2 constraints: n_ss, n_z
+                chi_squared = np.sum(
+                    (observed_ss_bin_counts - predicted_ss_bin_counts)**2./ \
+                    predicted_ss_bin_counts)/n_dof
 
-            print('num ss bins: ', tail_start_ind + 1)
-            print('num z bins: ', n_z)
-            print('chi sq val: ', chi_squared_no_tail + chi_squared_tail)
-            print()
+            n_ss_array.append(n_ss)
+            n_z_array.append(n_z)
+            chi_sq_array.append(chi_squared)
 
-def get_obs_and_pred_ss_distributions(n_ss, n_z, ss_exp, \
+    return (n_ss_array, n_z_array, chi_sq_array)
+
+def get_obs_and_pred_ss_distributions(starting_n_ss, n_z, ss_exp, \
                                       z_exp, ss_sim, z_sim):
 
     N_exp = np.shape(ss_exp)[0]
 
-    ss_bins = get_bins(n_ss, ss_exp, ss_sim)
+    ss_bins = get_bins(starting_n_ss, ss_exp, ss_sim)
     z_bins = get_bins(n_z, z_exp, z_sim)
     
     pdf_exp = get_pdf(ss_bins, z_bins, ss_exp, z_exp)
@@ -132,13 +137,24 @@ def get_obs_and_pred_ss_distributions(n_ss, n_z, ss_exp, \
     #print(pdf_sim)
 
     observed_ss_bin_counts = np.array([np.sum(N_exp*pdf_exp[i, :]) \
-                                        for i in range(n_ss)])
+                                        for i in range(starting_n_ss)])
+
+    predicted_ss_bin_counts = get_adjusted_pred_ss_bin_counts(pdf_exp, \
+                                        pdf_sim, starting_n_ss, n_z, N_exp)
+
+    (observed_ss_bin_counts, predicted_ss_bin_counts) = \
+        rebin_ss_bin_counts(observed_ss_bin_counts, predicted_ss_bin_counts)
+
+    print(observed_ss_bin_counts, predicted_ss_bin_counts)
+    return (observed_ss_bin_counts, predicted_ss_bin_counts)
+
+def get_adjusted_pred_ss_bin_counts(pdf_exp, pdf_sim, starting_n_ss, n_z, N_exp):
 
     #adjusted for different z distributions between exp and sim
     adjusted_pdf_sim = np.zeros(np.shape(pdf_sim))
 
     #summing quasi-manually bc numpy indexing syntax gives me anxiety
-    for i in range(n_ss):
+    for i in range(starting_n_ss):
         for j in range(n_z):
             if np.sum(pdf_sim[:, j]) == 0:
                 adjusted_pdf_sim[i, j] = 0 
@@ -147,10 +163,41 @@ def get_obs_and_pred_ss_distributions(n_ss, n_z, ss_exp, \
                     np.sum(pdf_exp[:, j]*pdf_sim[i, j]/np.sum(pdf_sim[:, j]))
 
     predicted_ss_bin_counts = np.array([np.sum(N_exp*adjusted_pdf_sim[i, :]) \
-                                        for i in range(n_ss)])
+                                        for i in range(starting_n_ss)])
 
-    print(observed_ss_bin_counts, predicted_ss_bin_counts)
-    return (observed_ss_bin_counts, predicted_ss_bin_counts)
+    return predicted_ss_bin_counts
+
+def rebin_ss_bin_counts(observed_ss_bin_counts, predicted_ss_bin_counts):
+
+    print(predicted_ss_bin_counts)
+    new_observed_ss_bin_counts = []
+    new_predicted_ss_bin_counts = []
+
+    current_bin_end_ind = np.shape(observed_ss_bin_counts)[0]
+    bin_sum = 0
+    current_ind = current_bin_end_ind - 1
+
+    while current_ind >= 0:
+        bin_sum += predicted_ss_bin_counts[current_ind]
+        if bin_sum >= 5:
+            new_predicted_ss_bin_counts.insert(0, np.sum( \
+                predicted_ss_bin_counts[current_ind:current_bin_end_ind]))
+            new_observed_ss_bin_counts.insert(0, np.sum( \
+                observed_ss_bin_counts[current_ind:current_bin_end_ind]))
+            current_bin_end_ind = current_ind
+            bin_sum = 0
+        elif current_ind == 0:
+            new_predicted_ss_bin_counts[0] += np.sum( \
+                predicted_ss_bin_counts[current_ind:current_bin_end_ind])
+            new_observed_ss_bin_counts[0] += np.sum( \
+                observed_ss_bin_counts[current_ind:current_bin_end_ind])
+        current_ind -= 1
+
+    if len(new_predicted_ss_bin_counts) >= 4:
+        return (np.array(new_observed_ss_bin_counts), \
+                np.array(new_predicted_ss_bin_counts))
+    else:
+        return (None, None)
 
 def get_bins(n_bins, var_1, var_2):
     """

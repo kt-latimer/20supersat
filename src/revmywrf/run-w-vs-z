@@ -1,0 +1,12 @@
+#!/bin/bash
+
+clustername=$1
+#versions=( 1 2 3 7 8 9 )
+versions=( 12 )
+
+for i in "${versions[@]}"
+do
+	outputfilename="slurm_outputs/w_vs_z_v${i}.txt"
+	sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL,versionnum=$i slurm_scripts/w_vs_z
+
+done

@@ -1,0 +1,16 @@
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/make_more_data_for_chi_squared_test.py", line 47
+    case_label_dict[case_label], cutoff_bins, \
+                   ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/make_more_data_for_chi_squared_test.py", line 99, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/make_more_data_for_chi_squared_test.py", line 40, in main
+    nconc_sim_dict, w_sim_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/make_more_data_for_chi_squared_test.py", line 66, in update_dicts_for_chi_squared
+    meanr = meanr(dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
+UnboundLocalError: local variable 'meanr' referenced before assignment
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Unpolluted

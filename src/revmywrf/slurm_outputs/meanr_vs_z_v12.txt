@@ -1,0 +1,36 @@
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+143003033.60634124 -41.82610268310941 0.3950899693309735
+Number of points in Q1: 3514347
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 3.872458256726267e-06 6.506995393061611e-05
+Range: 398.3393 5669.6074
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/meanr_vs_z_figsrc.py", line 163, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/meanr_vs_z_figsrc.py", line 41, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/meanr_vs_z_figsrc.py", line 90, in make_and_save_meanr_vs_z
+    ax.plot(ax_lims, np.add(b, m*ax_lims), \
+TypeError: can't multiply sequence by non-int of type 'numpy.float64'
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+143003033.60634124 -41.82610268310941 0.3950899693309735
+Number of points in Q1: 3514347
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 3.872458256726267e-06 6.506995393061611e-05
+Range: 398.3393 5669.6074
+27549716.48406012 1192.9450125130406 0.34655050988496783
+Number of points in Q1: 2869937
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 3.3798774615868836e-06 0.00012563908330966213
+Range: 425.55057 5605.3335

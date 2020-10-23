@@ -10,20 +10,26 @@ from revhalo import DATA_DIR, FIG_DIR
 from revhalo.ss_qss_calculations import get_nconc_vs_t_from_cas, get_lwc_from_cas
 
 #for plotting
-versionstr = 'v1_'
+#versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
-lwc_filter_val = 1.e-5 
-w_cutoff = -100 
+lwc_filter_val = 1.e-4
+w_cutoff = 2 
 
-change_cas_corr = False
-cutoff_bins = False 
-incl_rain = False
-incl_vent = False
-full_ss = False
+#change_cas_corr = False
+#cutoff_bins = False 
+#incl_rain = False
+#incl_vent = False
+#full_ss = False
 
 def main():
+    
+    if len(sys.argv) > 1:
+        versionnum = int(sys.argv[1])
+        (change_cas_corr, cutoff_bins, full_ss, \
+            incl_rain, incl_vent) = get_boolean_params(versionnum)
+        versionstr = 'v' + str(versionnum) + '_'
 
     with open('good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]
@@ -58,9 +64,11 @@ def main():
 
         nconc_alldates = add_to_alldates_array(nconc, nconc_alldates)
 
-        make_and_save_nconc_hist(nconc, date)
+        make_and_save_nconc_hist(nconc, date, versionstr, change_cas_corr, \
+                                cutoff_bins, full_ss, incl_rain, incl_vent)
 
-    make_and_save_nconc_hist(nconc_alldates, 'alldates')
+    make_and_save_nconc_hist(nconc_alldates, 'alldates', versionstr, change_cas_corr, \
+                                cutoff_bins, full_ss, incl_rain, incl_vent)
 
 def add_to_alldates_array(nconc, nconc_alldates):
 
@@ -69,7 +77,8 @@ def add_to_alldates_array(nconc, nconc_alldates):
     else:
         return np.concatenate((nconc_alldates, nconc))
 
-def make_and_save_nconc_hist(nconc, label):
+def make_and_save_nconc_hist(nconc, label, versionstr, change_cas_corr, \
+                                cutoff_bins, full_ss, incl_rain, incl_vent):
     
     fig, ax = plt.subplots()
     fig.set_size_inches(21, 12)

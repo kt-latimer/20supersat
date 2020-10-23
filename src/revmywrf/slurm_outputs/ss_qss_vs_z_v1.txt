@@ -18,3 +18,13 @@ Domain: 0.21641543320449286 175.4287187406779
 Range: 425.55057 5605.3335
 /var/spool/slurmd/job26386696/slurm_script: line 2: 171252 Killed                  python $HOME/proj/20supersat/src/revmywrf/ss_qss_vs_z_figsrc.py
 slurmstepd: error: Detected 1 oom-kill event(s) in step 26386696.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+42.62283398542868 1555.9960937066135 0.26606607703443247
+Number of points in Q1: 2859764
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 0
+
+Domain: 0.21641543320449286 175.4287187406779
+Range: 425.55057 5605.3335

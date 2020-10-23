@@ -66,11 +66,6 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
                         full_ss, incl_rain, incl_vent)
     ss_wrf = met_vars['ss_wrf'][...]*100
 
-    ss_qss_filename = versionstr + 'ss_qss_' + case_label + '.npy'
-    ss_wrf_filename = versionstr + 'ss_wrf_' + case_label + '.npy'
-    np.save(ss_distb_data_dir + ss_qss_filename, ss_qss)
-    np.save(ss_distb_data_dir + ss_wrf_filename, ss_wrf)
-
     #close files for memory
     met_file.close()
     dsdsum_file.close()
@@ -107,7 +102,7 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     rect_histy = [left + width + spacing, bottom, 0.2, height]
 
     # start with a rectangular Figure
-    plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(20, 10))
 
     ax_scatter = plt.axes(rect_scatter)
     ax_scatter.tick_params(direction='in', top=True, right=True)
@@ -118,7 +113,7 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
 
     # the scatter plot:
     ax_scatter.scatter(ss_qss, ss_wrf, c=colors['ss'])
-    ax_scatter.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
+    ax_scatter.plot(ax_scatter.get_xlim(), np.add(b, m*np.array(ax_scatter.get_xlim())), \
                     c=colors['line'], \
                     linestyle='dashed', \
                     linewidth=3, \
@@ -146,10 +141,10 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
                     + ', incl_rain=' + str(incl_rain) \
                     + ', incl_vent=' + str(incl_vent) \
                     + ', full_ss=' + str(full_ss))
-    outfile = FIG_DIR + versionstr + 'ss_qss_vs_ss_wrf_' \
+    outfile = FIG_DIR + versionstr + 'fancy_ss_qss_vs_ss_wrf_' \
             + case_label + '_figure.png'
     plt.savefig(outfile)
-    plt.close(fig=fig)    
+    plt.close()    
 
 def get_boolean_params(versionnum):
 

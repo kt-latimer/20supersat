@@ -36,6 +36,8 @@ def main():
     versionstr = 'v' + str(versionnum) + '_'
 
     for case_label in case_label_dict.keys():
+        if case_label == 'Polluted':
+            continue
         make_and_save_ss_qss_vs_z(case_label, case_label_dict[case_label], \
                                     cutoff_bins, full_ss, incl_rain, \
                                     incl_vent, versionstr)

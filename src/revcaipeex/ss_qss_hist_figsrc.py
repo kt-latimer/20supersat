@@ -10,18 +10,17 @@ from revcaipeex import DATA_DIR, FIG_DIR
 from revcaipeex.ss_qss_calculations import get_ss_vs_t, get_lwc
 
 #for plotting
-#versionstr = 'v2_'
+#versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
 lwc_filter_val = 1.e-4
 w_cutoff = 2
 
-#change_cpd_corr = False
-#cutoff_bins = False 
+#cutoff_bins = True 
 #incl_rain = False
 #incl_vent = False
-#full_ss = False
+#full_ss = True
 
 def main():
     
