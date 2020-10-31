@@ -114,6 +114,8 @@ def make_and_save_aero_size_distb_plot(fan_aero_size_distb, \
         fig.set_size_inches(21, 12)
         ax.plot(diams*1.e9, 1.e-6*aero_size_distb.T, \
                 linewidth=3)
+        for l in ax.get_lines():
+            print(l.get_color())
         ax.set_xscale('log')
         ax.plot(np.power(10, fan_aero_size_distb[:, 0]), \
                 fan_aero_size_distb[:, 1], \

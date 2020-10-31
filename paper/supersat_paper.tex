@@ -26,8 +26,8 @@
 		\item Introduction
 		\item Based on WRF simulations, under what conditions is quasi-steady-state (QSS) approximation for supersaturation (SS) valid? [A: need to specify stringent enough LWC and vert wind vel cutoffs, only take points below freezing level, and include rain drops and ventilation corrections]
 		\item Under above determined conditions, how do $SS_{QSS}$ distributions from WRF compare to those from experiments (CAIPEEX, HALO)? [A: statistically significant differences in distributions]
-		\item Which variable contributes the most to the difference in $SS_{QSS}$ distributions? [A: ]
-		\item Do environmental conditions allow for a fair comparison between simulation and experiment in these cases? [A: (pollution levels? vert wind vel / LWC distbns?)]
+		\item Which variable contributes the most to the difference in $SS_{QSS}$ distributions? [A: mean radius and number concentration of water drops]
+		\item Do environmental conditions allow for a fair comparison between simulation and experiment in these cases? [A: it seems that aerosol PSDs are quite different in field campaigns than simulations, with higher overall number concentrations in the former cases. This calls into question the validity of directly comparing SS distributions.]
 	\end{enumerate}
 
 \section{Introduction}
@@ -143,45 +143,22 @@ In this analysis, we had to use unequal bin sizes (i.e., group bins in the tail 
 \newpage
 
 \subsubsection{Results}
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}lllll@{}}
-\toprule
-\textbf{\# SS bins} & \textbf{\# z bins} & \textbf{$\tilde\chi^2$ (Polluted)} & \textbf{$\tilde\chi^2$ (Unpolluted)} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
-4 & 10 & 37.24 & 25.01 & 4.61 \\
-4 & 20 & 42.75 & 28.13 & 4.61 \\
-4 & 30 & 44.58 & 32.28 & 4.61 \\
-6 & 10 & 41.53 & 21.90 & 3.32 \\
-6 & 20 & 51.20 & 25.77 & 3.32 \\
-6 & 30 & 55.74 & 26.89 & 3.32 \\
-8 & 10 & 45.96 & 17.46 & 2.80 \\
-8 & 20 & 58.37 & 21.07 & 2.80 \\
-8 / 7 & 30 & 64.83 & 26.44 & 2.80 / 3.10 \\ \bottomrule
-\end{tabular}
-\caption{Reduced chi squared test statistics for comparison of HALO $SS_{QSS}$ distribution to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level. Entries separated by forward slash indicate different number of SS bins used to compare to polluted and unpolluted cases.}
-\label{halochisqtable}
-\end{table}
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}lllll@{}}
-\toprule
-\textbf{\# SS bins} & \textbf{\# z bins} & \textbf{$\tilde\chi^2$ (Polluted)} & \textbf{$\tilde\chi^2$ (Unpolluted)} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
-4 & 10 & 114.91 & 169.54 & 4.61 \\
-4 & 20 & 128.36 & 212.82 & 4.61 \\
-4 & 30 & 141.68 & 179.69 & 4.61 \\
-6 & 10 & 120.17 & 152.94 & 3.32 \\
-5 / 6 & 20 & 176.79 & 170.97 & 3.78 / 3.32 \\
-6 & 30 & 140.27 & 164.95 & 3.32 \\
-7 / 8 & 10 & 149.86 & 136.48 & 3.10 / 2.80 \\
-7 & 20 & 160.19 & 173.21 & 3.10 \\
-7 & 30 & 165.58 & 182.97 & 3.10 \\ \bottomrule
-\end{tabular}
-\caption{Reduced chi squared test statistics for comparison of CAIPEEX (2009 flights) $SS_{QSS}$ distribution to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level. Entries separated by forward slash indicate different number of SS bins used to compare to polluted and unpolluted cases.}
-\label{caipeexchisqtable}
-\end{table}
 
-\clearpage
-\newpage
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{WRF case} & \textbf{Num SS bins} & \textbf{Num z bins} & \textbf{$\tilde\chi^2_{HALO}$} & \textbf{$\tilde\chi^2_{CAIPEEX}$} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
+Polluted & 11 & 10 & 38.31 & 145.97 & 2.41 \\
+ & 11 & 20 & 48.39 & 155.30 & 2.41 \\
+ & 11 & 30 & 53.60 & 151.63 & 2.41 \\
+Unpolluted & 11 & 10 & 46.03 & 139.21 & 2.41 \\
+ & 11 & 20 & 38.71 & 154.42 & 2.41 \\
+ & 11 & 30 & 71.07 & 163.77 & 2.41 \\ \bottomrule
+\end{tabular}
+\caption{Reduced chi squared test statistics for comparison of experimental $SS_{QSS}$ distributions to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level.}
+\label{chisqssqss}
+\end{table}
 
 \subsubsection{Comments}
 \begin{itemize}
@@ -190,18 +167,17 @@ In this analysis, we had to use unequal bin sizes (i.e., group bins in the tail 
 \end{itemize}
 
 \section{Causes of discrepancies between $SS_{QSS}$ distributions (sim vs exp)}
-- under above filtering criteria: meanr distbs for wrf (FIG), halo (FIG) and caipeex (FIG)
-- stat analysis meanr 
-- under above filtering criteria: nconc distbs for wrf (FIG), halo (FIG) and caipeex (FIG)
-- stat analysis nconc 
-- under above filtering criteria: w distbs for wrf (FIG), halo (FIG) and caipeex (FIG)
-- stat analysis w 
 
 Up to temperature-dependent prefactors we have:
 \begin{equation}
 SS_{QSS} \sim \frac{w}{\langle f(r)\cdot r \rangle n},
 \end{equation}
 where $w$ is vertical wind velocity, $f(r)$ is ventilation factor, $r$ is water drop radius, $n$ is water drop number concentration, and $\langle y(r) \rangle$ denotes the average of function $y$ over the radial domain of the given drop size distribution. We compare the distributions of these three quantities in simulation vs experiment below in the same manner as for supersaturation in the previous section.
+
+Overall, we find higher-valued test statistics for mean radius and number concentration distributions than for vertical wind velocity, suggesting that the drop size distributions rather than strength of vertical convection leads to the observed discrepancies in supersaturation distributions.
+
+\clearpage
+\newpage
 
 \subsection{Mean radius (with ventilation correction)}
 
@@ -222,16 +198,34 @@ where $w$ is vertical wind velocity, $f(r)$ is ventilation factor, $r$ is water 
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revhalo/v24_meanr_hist_cas_alldates_figure.png}
+    \includegraphics[width=8cm]{revhalo/v24_meanr_hist_cas_alldates_figure.png}
     \caption{Mean radius (with ventilation corrections) distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
     \label{haloqsshist}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revcaipeex/v10_meanr_hist_alldates_figure.png}
+    \includegraphics[width=8cm]{revcaipeex/v10_meanr_hist_alldates_figure.png}
     \caption{Mean radius distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
     \label{caipeexqsshist}
 \end{figure}
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{WRF case} & \textbf{Num mean r bins} & \textbf{Num z bins} & \textbf{$\tilde\chi^2_{HALO}$} & \textbf{$\tilde\chi^2_{CAIPEEX}$} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
+Polluted & 11 & 10 & 160.67 & 807.45 & 2.41 \\
+ & 11 & 20 & 216.59 & 808.90 & 2.41 \\
+ & 11 & 30 & 183.73 & 961.21 & 2.41 \\
+Unpolluted & 11 & 10 & 118.23 & 908.96 & 2.41 \\
+ & 11 & 20 & 178.23 & 995.21 & 2.41 \\
+ & 11 & 30 & 128.76 & 803.49 & 2.41 \\ \bottomrule
+\end{tabular}
+\caption{Reduced chi squared test statistics for comparison of experimental mean drop radius distributions to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level.}
+\label{chisqmeanr}
+\end{table}
+
+\clearpage
+\newpage
 
 \subsection{Number concentration}
 
@@ -252,16 +246,37 @@ where $w$ is vertical wind velocity, $f(r)$ is ventilation factor, $r$ is water 
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revhalo/v24_nconc_hist_cas_alldates_figure.png}
+    \includegraphics[width=8cm]{revhalo/v24_nconc_hist_cas_alldates_figure.png}
     \caption{Number concentration distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
     \label{haloqsshist}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revcaipeex/v10_nconc_hist_alldates_figure.png}
+    \includegraphics[width=8cm]{revcaipeex/v10_nconc_hist_alldates_figure.png}
     \caption{Number concentration distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
     \label{caipeexqsshist}
 \end{figure}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{WRF case} & \textbf{Num nconc bins} & \textbf{Num z bins} & \textbf{$\tilde\chi^2_{HALO}$} & \textbf{$\tilde\chi^2_{CAIPEEX}$} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
+Polluted & 11 & 10 & 191.82 & 3446.05 & 2.41 \\
+ & 11 & 20 & 229.39 & 3397.21 & 2.41 \\
+ & 11 & 30 & 231.60 & 3564.48 & 2.41 \\
+Unpolluted & 11 & 10 & 224.53 & 4344.51 & 2.41 \\
+ & 11 & 20 & 200.78 & 4450.17 & 2.41 \\
+ & 11 & 30 & 230.98 & 4685.65 & 2.41 \\ \bottomrule
+\end{tabular}
+\caption{Reduced chi squared test statistics for comparison of experimental drop number concentration distributions to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level.}
+\label{chisqnconc}
+\end{table}
+
+\clearpage
+\newpage
 
 \subsection{Vertical wind velocity}
 
@@ -282,20 +297,38 @@ where $w$ is vertical wind velocity, $f(r)$ is ventilation factor, $r$ is water 
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revhalo/v24_w_hist_cas_alldates_figure.png}
+    \includegraphics[width=8cm]{revhalo/v24_w_hist_cas_alldates_figure.png}
     \caption{Vertical wind velocity distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
     \label{halowhist}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revcaipeex/v10_w_hist_alldates_figure.png}
+    \includegraphics[width=8cm]{revcaipeex/v10_w_hist_alldates_figure.png}
     \caption{Vertical wind velocity distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
     \label{caipeexwhist}
 \end{figure}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{WRF case} & \textbf{Num w bins} & \textbf{Num z bins} & \textbf{$\tilde\chi^2_{HALO}$} & \textbf{$\tilde\chi^2_{CAIPEEX}$} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
+Polluted & 11 & 10 & 0.88 & 2.06 & 2.41 \\
+ & 11 & 20 & 0.96 & 4.19 & 2.41 \\
+ & 11 & 30 & 1.04 & 8.46 & 2.41 \\
+Unpolluted & 11 & 10 & 1.68 & 51.34 & 2.41 \\
+ & 11 & 20 & 1.51 & 89.78 & 2.41 \\
+ & 11 & 30 & 1.16 & 87.23 & 2.41 \\ \bottomrule
+\end{tabular}
+\caption{Reduced chi squared test statistics for comparison of experimental vertical wind velocity distributions to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level.}
+\label{chisqw}
+\end{table}
+
+\clearpage
+\newpage
 
 \section{Environmental conditions - simulation vs experiment}
-- under above filtering criteria: lwc distbs for wrf (FIG), halo (FIG) and caipeex (FIG)
-- for clear-sky points below freezing level: aero psds for halo vs wrf (FIG) and caipeex vs wrf (FIG)
 
 \subsection{LWC}
 
@@ -327,6 +360,9 @@ where $w$ is vertical wind velocity, $f(r)$ is ventilation factor, $r$ is water 
     \label{caipeexlwchist}
 \end{figure}
 
+\clearpage
+\newpage
+
 \subsection{Aerosol PSD}
 \begin{figure}[ht]
     \centering
@@ -347,9 +383,12 @@ where $w$ is vertical wind velocity, $f(r)$ is ventilation factor, $r$ is water 
 \begin{itemize}
 	\item all figures without lower bin cutoffs
 	\item all figures without corrections from including raindrops / ventilation factors
+	\item correlations between altitude and mean r, nconc, and w
 \end{itemize}
 \section{TODO / remaining questions}
 \begin{itemize}
+	\item look at caipeex case study from 2011 w rain drop data available
+	\item ditto for aerosol spectra at lower size ranges
 	\item in code: optimize HALO instrument time offsets
 	\item error analysis for experimental data
 	\item look into commensurate binning in simulation / experiment comparisons?

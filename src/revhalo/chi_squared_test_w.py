@@ -88,7 +88,7 @@ def print_chi_squared_test_stats(w_exp, z_exp, w_sim_dict, z_sim_dict):
 def calc_and_print_chi_squared_test_stats_for_wrf_case(w_exp, z_exp, \
                                                         w_sim, z_sim):
 
-    starting_n_w_array = [45] 
+    starting_n_w_array = [50] 
     starting_n_z_array = [10, 20, 30] #fixed / manually alter for now
 
     n_w_array = []

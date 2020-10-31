@@ -1,6 +1,6 @@
 """
 various routines and subroutines for calculating quasi-steady-state
-superaturation from CAIPEEX campaign data
+superaturation from HALO campaign data
 *random and non-comprehensive notes*
 -abandoning 'meanfr' notation and just putting boolean incl_vent arg
 -option to calculate full ss_qss is also now a boolean arg
@@ -8,12 +8,13 @@ superaturation from CAIPEEX campaign data
 import numpy as np
 import re
 
-from revcaipeex import CDP_bins
+from rev11caipeex import FSSP_bins, CIP_bins
 
 ##
 ## center radii of bins
 ##
-CDP_bin_radii = (CDP_bins['upper'] + CDP_bins['lower'])/4.
+FSSP_bin_radii = (FSSP_bins['upper'] + FSSP_bins['lower'])/4.
+CIP_bin_radii = (CIP_bins['upper'] + CIP_bins['lower'])/4.
 
 ##
 ## various series expansion coeffs - comment = page in pruppacher and klett
@@ -42,21 +43,29 @@ R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 rho_w = 1000. #density of water (kg/m^3) 
 
 ##
-## methods to get ss_qss 
+## methods to get ss_qss for fssp and cdp
 ##
-def get_ss_vs_t(met_dict, cpd_dict, \
+def get_ss_vs_t(met_dict, fssp_dict, cip_dict, \
                 cutoff_bins, full_ss, incl_rain, incl_vent):
 
-    meanr = get_meanr_vs_t(met_dict, cpd_dict, \
-                    cutoff_bins, incl_rain, incl_vent)
-    nconc = get_nconc_vs_t(met_dict, cpd_dict, \
-                    cutoff_bins, incl_rain, incl_vent)
+    if incl_rain:
+        meanr = get_meanr_vs_t_from_fssp_and_cip(adlr_dict, fssp_dict, cip_dict, \
+                        change_fssp_corr, cutoff_bins, incl_rain, incl_vent)
+        nconc = get_nconc_vs_t_from_fssp_and_cip(adlr_dict, fssp_dict, cip_dict, \
+                        change_fssp_corr, cutoff_bins, incl_rain, incl_vent)
+    else:
+        meanr = get_meanr_vs_t_from_fssp(adlr_dict, fssp_dict, \
+                                    change_fssp_corr, cutoff_bins, \
+                                    incl_rain, incl_vent)
+        nconc = get_nconc_vs_t_from_fssp(adlr_dict, fssp_dict, \
+                                    change_fssp_corr, cutoff_bins, \
+                                    incl_rain, incl_vent)
 
-    temp = met_dict['data']['temp']
-    w = met_dict['data']['w']
+    temp = adlr_dict['data']['temp']
+    w = adlr_dict['data']['w']
 
     if full_ss:
-        pres = met_dict['data']['pres']
+        pres = adlr_dict['data']['pres']
         rho_air = pres/(R_a*temp) 
         e_s = get_sat_vap_pres(temp)
         F_d = rho_w*R_v*temp/(D*e_s) 
@@ -71,41 +80,82 @@ def get_ss_vs_t(met_dict, cpd_dict, \
     return ss_qss
 
 ##
-## methods to get meanr and nconc 
+## methods to get meanr and nconc with rain (and optionally ventilation 
+## corrections) for fssp and cdp (cip included for both for higher radii)
 ##
-def get_meanr_vs_t(met_dict, cpd_dict, cutoff_bins, \
-                            incl_rain, incl_vent):
+def get_meanr_vs_t_from_fssp_and_cip(adlr_dict, fssp_dict, cip_dict, \
+                cutoff_bins, incl_rain, incl_vent):
 
-    nconc = get_nconc_vs_t(met_dict, cpd_dict, cutoff_bins, \
-                                    incl_rain, incl_vent)
+    nconc = get_nconc_vs_t_from_fssp_and_cip(adlr_dict, fssp_dict, cip_dict, \
+                    change_fssp_corr, cutoff_bins, incl_rain, incl_vent)
 
-    meanr = np.zeros(np.shape(met_dict['data']['time']))
+    meanr_sum = np.zeros(np.shape(fssp_dict['data']['time']))
 
-    for var_name in cpd_dict['data'].keys():
-        meanr += get_meanr_contribution_from_cpd_var(var_name, \
-                    met_dict, cpd_dict, cutoff_bins, incl_rain, incl_vent)
+    for var_name in fssp_dict['data'].keys():
+        meanr_sum += get_meanr_contribution_from_fssp_var(var_name, \
+                            adlr_dict, fssp_dict, change_fssp_corr, \
+                            cutoff_bins, incl_rain, incl_vent)
+    
+    for var_name in cip_dict['data'].keys():
+        meanr_sum += get_meanr_contribution_from_cip_var(var_name, adlr_dict, \
+                            cip_dict, incl_rain, incl_vent)
 
-    return meanr/nconc
+    return meanr_sum/nconc
 
-def get_nconc_vs_t(met_dict, cpd_dict, cutoff_bins, \
-                            incl_rain, incl_vent):
+def get_nconc_vs_t_from_fssp_and_cip(adlr_dict, fssp_dict, cip_dict, \
+                cutoff_bins, incl_rain, incl_vent):
 
-    nconc = np.zeros(np.shape(met_dict['data']['time']))
+    nconc_sum = np.zeros(np.shape(fssp_dict['data']['time']))
 
-    for var_name in cpd_dict['data'].keys():
-        nconc += get_nconc_contribution_from_cpd_var(var_name, \
-                    met_dict, cpd_dict, cutoff_bins, incl_rain, incl_vent)
+    for var_name in fssp_dict['data'].keys():
+        nconc_sum += get_nconc_contribution_from_fssp_var(var_name, \
+                            adlr_dict, fssp_dict, change_fssp_corr, \
+                            cutoff_bins, incl_rain, incl_vent)
 
-    return nconc
+    for var_name in cip_dict['data'].keys():
+        nconc_sum += get_nconc_contribution_from_cip_var(var_name, adlr_dict, \
+                            cip_dict)
+
+    return nconc_sum
 
 ##
-## methods to get meanr and nconc contributions from cpd data. 
-## note: meanr contribution is weighted by nconc for that bin
+## methods to get meanr and nconc without rain for fssp and cdp
 ##
-def get_meanr_contribution_from_cpd_var(var_name, met_dict, cpd_dict, \
+def get_meanr_vs_t_from_fssp(adlr_dict, fssp_dict, \
+                            cutoff_bins, incl_rain, incl_vent):
+
+    nconc = get_nconc_vs_t_from_fssp(adlr_dict, fssp_dict, \
+                    cutoff_bins, incl_rain, incl_vent)
+
+    meanr_sum = np.zeros(np.shape(fssp_dict['data']['time']))
+
+    for var_name in fssp_dict['data'].keys():
+        meanr_sum += get_meanr_contribution_from_fssp_var(var_name, \
+                            adlr_dict, fssp_dict, \
+                            cutoff_bins, incl_rain, incl_vent)
+
+    return meanr_sum/nconc
+
+def get_nconc_vs_t_from_fssp(adlr_dict, fssp_dict, \
+                            cutoff_bins, incl_rain, incl_vent):
+
+    nconc_sum = np.zeros(np.shape(fssp_dict['data']['time']))
+
+    for var_name in fssp_dict['data'].keys():
+        nconc_sum += get_nconc_contribution_from_fssp_var(var_name, \
+                            adlr_dict, fssp_dict, \
+                            cutoff_bins, incl_rain, incl_vent)
+
+    return nconc_sum
+
+##
+## methods to get meanr and nconc contributions from fssp, cdp, and cip
+## dsd data. note: meanr contribution is weighted by nconc for that bin
+##
+def get_meanr_contribution_from_fssp_var(var_name, adlr_dict, fssp_dict, \
                                         cutoff_bins, incl_rain, incl_vent):
 
-    zero_arr = np.zeros(np.shape(met_dict['data']['time']))
+    zero_arr = np.zeros(np.shape(adlr_dict['data']['time']))
 
     if 'diam' in var_name:
         return zero_arr
@@ -115,11 +165,11 @@ def get_meanr_contribution_from_cpd_var(var_name, met_dict, cpd_dict, \
     except IndexError: #there's no integer in var_name (not a bin variable)
         return zero_arr
 
-    bin_ind = nconc_ind - 1 
-    r = CDP_bin_radii[bin_ind]
+    bin_ind = nconc_ind - 5
+    r = FSSP_bin_radii[bin_ind]
 
-    pres = met_dict['data']['pres']
-    temp = met_dict['data']['temp']
+    pres = adlr_dict['data']['pres']
+    temp = adlr_dict['data']['temp']
 
     rho_air = pres/(R_a*temp)
     eta = get_dyn_visc(temp)
@@ -134,37 +184,87 @@ def get_meanr_contribution_from_cpd_var(var_name, met_dict, cpd_dict, \
     N_Re = 2*rho_air*r*u_term/eta
     f = get_ventilation_coefficient(N_Re, incl_vent)
 
-    nconc_contribution_from_var = get_nconc_contribution_from_cpd_var( \
-        var_name, met_dict, cpd_dict, cutoff_bins, \
+    nconc_contribution_from_var = get_nconc_contribution_from_fssp_var( \
+        var_name, adlr_dict, fssp_dict, cutoff_bins, \
         incl_rain, incl_vent)
 
     mean_r_contribution_from_var = nconc_contribution_from_var*r*f
 
     return mean_r_contribution_from_var
 
-def get_nconc_contribution_from_cpd_var(var_name, met_dict, cpd_dict, \
+def get_meanr_contribution_from_cip_var(var_name, adlr_dict, \
+                                        cip_dict, incl_rain, \
+                                        incl_vent):
+
+    zero_arr = np.zeros(np.shape(adlr_dict['data']['time']))
+    
+    try:
+        nconc_ind = int(re.findall(r'\d+', var_name)[0])
+    except IndexError: #there's no integer in var_name (not a bin variable)
+        return zero_arr
+
+    bin_ind = nconc_ind - 1
+    r = CIP_bin_radii[bin_ind]
+
+    pres = adlr_dict['data']['pres']
+    temp = adlr_dict['data']['temp']
+
+    rho_air = pres/(R_a*temp)
+    eta = get_dyn_visc(temp)
+    sigma = sum([sigma_coeffs[i]*(temp - 273)**i for i in \
+                range(len(sigma_coeffs))])*1.e-3
+    N_Be_div_r3 = 32*rho_w*rho_air*g/(3*eta**2.) #pr&kl p 417
+    N_Bo_div_r2 = g*rho_w/sigma #pr&kl p 418
+    N_P = sigma**3.*rho_air**2./(eta**4.*g*rho_w) #pr&kl p 418
+
+    u_term = get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, \
+                            N_P, pres, rho_air, temp)
+    N_Re = 2*rho_air*r*u_term/eta
+    f = get_ventilation_coefficient(N_Re, incl_vent)
+
+    nconc_contribution_from_var = get_nconc_contribution_from_cip_var( \
+        var_name, adlr_dict, cip_dict)
+
+    mean_r_contribution_from_var = nconc_contribution_from_var*r*f
+
+    return mean_r_contribution_from_var
+
+def get_nconc_contribution_from_fssp_var(var_name, adlr_dict, fssp_dict, \
                         cutoff_bins, incl_rain, incl_vent):
 
-    zero_arr = np.zeros(np.shape(met_dict['data']['time']))
+    zero_arr = np.zeros(np.shape(adlr_dict['data']['time']))
     
     is_bin_var = check_if_bin_var(var_name)
     if not is_bin_var:
         return zero_arr 
 
     has_correct_lower_bin_cutoff = \
-        has_correct_lower_bin_cutoff_cpd(var_name, cutoff_bins)
+        has_correct_lower_bin_cutoff_fssp(var_name, cutoff_bins)
     if not has_correct_lower_bin_cutoff:
         return zero_arr 
 
     has_correct_upper_bin_cutoff = \
-        has_correct_upper_bin_cutoff_cpd(var_name, incl_rain)
+        has_correct_upper_bin_cutoff_fssp(var_name, incl_rain)
     if not has_correct_upper_bin_cutoff:
         return zero_arr 
 
-    nconc_contribution_from_var = cpd_dict['data'][var_name]
+    nconc_contribution_from_var = fssp_dict['data'][var_name]
 
     return nconc_contribution_from_var
-    
+
+def get_nconc_contribution_from_cip_var(var_name, adlr_dict, \
+                                        cip_dict):
+
+    zero_arr = np.zeros(np.shape(adlr_dict['data']['time']))
+
+    is_bin_var = check_if_bin_var(var_name)
+    if not is_bin_var:
+        return zero_arr 
+
+    nconc_contribution_from_var = cip_dict['data'][var_name]
+
+    return nconc_contribution_from_var
+
 ##
 ## methods to get ventilation factor
 ##
@@ -220,35 +320,35 @@ def get_ventilation_coefficient(N_Re, incl_vent):
 ##
 def check_if_bin_var(var_name):
 
-    if 'nconc' in var_name and 'cdp' not in var_name:
+    if 'nconc' in var_name and 'file' not in var_name:
         return True
     else:
         return False
 
-def has_correct_lower_bin_cutoff_cpd(var_name, cutoff_bins):
+def has_correct_lower_bin_cutoff_fssp(var_name, cutoff_bins):
 
     if not cutoff_bins:
         return True
     
     nconc_ind = int(re.findall(r'\d+', var_name)[0])
     bin_ind = nconc_ind - 1 
-    lower_bin_radius = CDP_bins['lower'][bin_ind]
+    lower_bin_radius = FSSP_bins['lower'][bin_ind]
     
-    if lower_bin_radius >= 5.e-6:
+    if lower_bin_radius >= 4.5e-6:
         return True
     else:
         return False
 
-def has_correct_upper_bin_cutoff_cpd(var_name, incl_rain):
+def has_correct_upper_bin_cutoff_fssp(var_name, incl_rain):
 
-    if incl_rain:
+    if not incl_rain:
         return True
     
     nconc_ind = int(re.findall(r'\d+', var_name)[0])
     bin_ind = nconc_ind - 1 
-    upper_bin_radius = CDP_bins['upper'][bin_ind]
+    upper_bin_radius = FSSP_bins['upper'][bin_ind]
     
-    if upper_bin_radius <= 50.e-6: 
+    if upper_bin_radius <= 25.e-6: 
         return True
     else:
         return False
@@ -256,27 +356,29 @@ def has_correct_upper_bin_cutoff_cpd(var_name, incl_rain):
 ##
 ## method to get saturation vapor pressure
 ##
-def get_sat_vap_pres(temp):
+def get_sat_vap_pres(T):
     """
     returns saturation vapor pressure in Pa given temp in K
     """
-    e_s = 611.2*np.exp(17.67*(temp - 273)/(temp - 273 + 243.5))
+    e_s = 611.2*np.exp(17.67*(T - 273)/(T - 273 + 243.5))
     return e_s
 
 ##
-## methods to get lwc (for now, cloud only, i.e. up to 50um diameter). I'm
-## also not considering ventilation corrections under the [as of now untested]
+## methods to get lwc (for now, cloud only, i.e. up to either top bin in 
+## fssp / cdp. this is imperfect in the case where incl_rain is True but
+## there doesn't seem to be a clear best choice in this case. I'm also
+## not considering ventilation corrections under the [as of now untested]
 ## assumption that they won't be significant for cloud size droplets)
 ## 
-def get_lwc(cpd_dict, cutoff_bins):
+def get_lwc_from_fssp(fssp_dict, cutoff_bins):
 
-    lwc_var_keys = ['lwc_5um_to_50um_diam']
+    lwc_var_keys = ['lwc_5um_to_25um_diam', 'lwc_above_25um_diam']
     if not cutoff_bins:
         lwc_var_keys.append('lwc_sub_5um_diam')
 
-    lwc = np.zeros(np.shape(cpd_dict['data']['time']))
+    lwc = np.zeros(np.shape(fssp_dict['data']['time']))
     for lwc_var_key in lwc_var_keys:
-        lwc += cpd_dict['data'][lwc_var_key]
+        lwc += fssp_dict['data'][lwc_var_key]
 
     return lwc
 

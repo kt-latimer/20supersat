@@ -89,7 +89,7 @@ def print_chi_squared_test_stats(meanr_exp, z_exp, meanr_sim_dict, z_sim_dict):
 def calc_and_print_chi_squared_test_stats_for_wrf_case(meanr_exp, z_exp, \
                                                         meanr_sim, z_sim):
 
-    starting_n_meanr_array = [15] 
+    starting_n_meanr_array = [16] 
     starting_n_z_array = [10, 20, 30] #fixed / manually alter for now
 
     n_meanr_array = []
