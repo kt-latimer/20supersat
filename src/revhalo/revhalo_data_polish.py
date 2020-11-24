@@ -54,6 +54,10 @@ var_info_dict = {'ADLR':{'var_names':['time', 'pres', 'temp', 'w', 'alt'], \
                          'var_inds':[0] + [i for i in range(3, 69)], \
                          'var_units':['s'] + ['m^-3' for i in range(66)], \
                          'var_scale':[1.] + [1.e6 for i in range(66)]}, \
+                 'CPC':{'var_names':['time', 'cpc0_nconc', 'cpc3_nconc'], \
+                         'var_inds':[0, 1, 4], \
+                         'var_units':['s', 'm^-3', 'm^-3', 'm^-3'], \
+                         'var_scale':[1., 1.e6, 1.e6, 1.e6]}, \
                  'UHSAS2':{'var_names':['time'] + ['stp_nconc_'+str(i) \
                          for i in range(4, 56)], \
                          'var_inds':[0] + [i for i in range(3, 57)], \
@@ -107,6 +111,8 @@ def make_processed_file_without_additions_requiring_adlr(good_ames_filename):
         make_processed_pcasp_file_without_nonstp_nconc(good_ames_filename)
     elif 'UHSAS' in good_ames_filename:
         make_processed_uhsas_file_without_nonstp_nconc(good_ames_filename)
+    elif 'CPC0' in good_ames_filename:
+        make_processed_cpc_file(good_ames_filename)
 
 def make_processed_adlr_file(good_ames_filename):
 
@@ -266,6 +272,29 @@ def get_uhsas_var_info_dict_key(date):
     else:
         return 'UHSAS'
 
+def make_processed_cpc_file(good_ames_filename):
+
+    good_numpy_filename = good_ames_filename[0:-4] + 'npy' #change file type
+    raw_data_dict = np.load(DATA_DIR + 'npy_raw/' + good_numpy_filename, \
+                            allow_pickle=True).item()
+    data = raw_data_dict['data']
+    date_array = raw_data_dict['date']
+    date = date_array[0] + date_array[1] + date_array[2]
+    var_inds = var_info_dict['CPC']['var_inds']
+    var_names = var_info_dict['CPC']['var_names']
+    var_scale = var_info_dict['CPC']['var_scale']
+    var_units = var_info_dict['CPC']['var_units']
+    processed_data_dict = {'setname': 'CPC', 'date': date, \
+                           'raw_numpy_filename': good_numpy_filename, \
+                           'data': {}, 'units': {}}
+
+    for i, var_name in enumerate(var_names):
+        processed_data_dict = add_var_to_processed_cpc_dict(var_name, \
+                                var_inds[i], var_scale[i], var_units[i], \
+                                processed_data_dict, data)
+
+    save_processed_file('CPC', date, processed_data_dict)
+
 def add_var_to_processed_adlr_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
@@ -341,6 +370,19 @@ def add_var_to_processed_pcasp_dict(var_name, var_ind, var_scale, \
     return processed_data_dict
 
 def add_var_to_processed_uhsas_dict(var_name, var_ind, var_scale, \
+                                    var_unit, processed_data_dict, data):
+
+    if var_name == 'time':
+        processed_data_dict['data'][var_name] = \
+                                np.around(data[:, var_ind])*var_scale
+    else:
+        processed_data_dict['data'][var_name] = \
+                                data[:, var_ind]*var_scale
+    processed_data_dict['units'][var_name] = var_unit
+
+    return processed_data_dict
+
+def add_var_to_processed_cpc_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
     if var_name == 'time':

@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/goama/ranges_of_spectra_figsrc.py

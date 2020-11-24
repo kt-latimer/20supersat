@@ -1,0 +1,225 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 4, in <module>
+    import matplotlib
+ImportError: No module named matplotlib
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 121, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 26, in main
+    smpsfile = Dataset(DATA_DIR + data_date_tuple[0], 'r')
+NameError: name 'Dataset' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 122, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 34, in main
+    get_spectra_and_times(smpsvars, n_spectra, 'SMPS')
+NameError: name 'n_spectra' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 124, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 36, in main
+    get_spectra_and_times(smpsvars, n_spectra, 'SMPS')
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 74, in get_spectra_and_times
+    size_distb = variables[psd_key][...]
+KeyError: 'size_distribution'
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 124, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 36, in main
+    get_spectra_and_times(smpsvars, n_spectra, 'SMPS')
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 84, in get_spectra_and_times
+    size_distb[i*n_steps_per_sample:(i+1)*n_steps_per_sample], axis=0))
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+TypeError: slice indices must be integers or None or have an __index__ method
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 124, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 40, in main
+    smps_labels = ['SMPS ' + t for t in smps_times]
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 40, in <listcomp>
+    smps_labels = ['SMPS ' + t for t in smps_times]
+TypeError: can only concatenate str (not "numpy.float64") to str
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 124, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 41, in main
+    uhsas_labels = ['UHSAS ' + t for t in uhsas_times]
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 41, in <listcomp>
+    uhsas_labels = ['UHSAS ' + t for t in uhsas_times]
+TypeError: can only concatenate str (not "numpy.float64") to str
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 124, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 45, in main
+    date)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 107, in make_and_save_aero_size_distb_plot
+    label=smps_labels)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_axes.py", line 1666, in plot
+    lines = [*self._get_lines(*args, data=data, **kwargs)]
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 225, in __call__
+    yield from self._plot_args(this, kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 391, in _plot_args
+    x, y = self._xy_from_xy(x, y)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 270, in _xy_from_xy
+    "have shapes {} and {}".format(x.shape, y.shape))
+ValueError: x and y must have same first dimension, but have shapes (104,) and (10, 104)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 124, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 45, in main
+    date)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 106, in make_and_save_aero_size_distb_plot
+    smps_spectra.T, \
+AttributeError: 'list' object has no attribute 'T'
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 105
+    for i in range n_spectra:
+                           ^
+SyntaxError: invalid syntax
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py:5216: RuntimeWarning: Mean of empty slice.
+  dtype=dtype, **kwargs)[()]
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:154: RuntimeWarning: invalid value encountered in true_divide
+  ret, rcount, out=ret, casting='unsafe', subok=False)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 150, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 41, in main
+    get_spectra_and_times(smpsvars, n_spectra, smps_inds, 'SMPS')
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 109, in get_spectra_and_times
+    spectrum_dates.append(time[i*n_steps_per_sample])
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+IndexError: index 0 is out of bounds for axis 0 with size 0
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py:5216: RuntimeWarning: Mean of empty slice.
+  dtype=dtype, **kwargs)[()]
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:154: RuntimeWarning: invalid value encountered in true_divide
+  ret, rcount, out=ret, casting='unsafe', subok=False)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 151, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 42, in main
+    get_spectra_and_times(smpsvars, n_spectra, smps_inds, 'SMPS')
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 110, in get_spectra_and_times
+    spectrum_dates.append(time[i*n_steps_per_sample])
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+IndexError: index 0 is out of bounds for axis 0 with size 0
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py:5216: RuntimeWarning: Mean of empty slice.
+  dtype=dtype, **kwargs)[()]
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:154: RuntimeWarning: invalid value encountered in true_divide
+  ret, rcount, out=ret, casting='unsafe', subok=False)
+[]
+[]
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 154, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 45, in main
+    get_spectra_and_times(smpsvars, n_spectra, smps_inds, 'SMPS')
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 113, in get_spectra_and_times
+    spectrum_dates.append(time[i*n_steps_per_sample])
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+IndexError: index 0 is out of bounds for axis 0 with size 0
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py:5216: RuntimeWarning: Mean of empty slice.
+  dtype=dtype, **kwargs)[()]
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:154: RuntimeWarning: invalid value encountered in true_divide
+  ret, rcount, out=ret, casting='unsafe', subok=False)
+[  164.   464.   764.  1064.  1364.  1664.  1964.  2264.  2564.  2864.
+  3164.  3464.  3765.  4065.  4365.  4665.  4965.  5265.  5564.  5864.
+  6164.  6464.  6764.  7064.  7364.  7664.  7964.  8264.  8564.  8864.
+  9164.  9464.  9764. 10064. 10364. 10664. 10964. 11264. 11564. 11864.
+ 12164. 12464. 12764. 13064. 13364. 13664. 13964. 14264. 14564. 14865.
+ 15165. 15465. 15765. 16065. 16365. 16665. 16965. 17265. 17565. 17865.
+ 18164. 18464. 18764. 19064. 19364. 19664. 19964. 20264. 20564. 20864.
+ 21164. 21464. 21764. 22064. 22364. 22664. 22964. 23264. 23564. 23864.
+ 24164. 24464. 24764. 25064. 25364. 25664. 25964. 26264. 26564. 26864.
+ 27164. 27464. 27764. 28064. 28365. 28665. 28965. 29264. 29564. 29864.
+ 30164. 30464. 30764. 31064. 31364. 31664. 31964. 32264. 32564. 32864.
+ 33164. 33464. 33764. 34064. 34364. 34664. 34964. 35264. 35564. 35864.
+ 36164. 36464. 36764. 37064. 37364. 37664. 37964. 38264. 38564. 38864.
+ 39164. 39464. 39764. 40064. 40364. 40664. 40964. 41265. 41565. 41865.
+ 42165. 42465. 42765. 43065. 43365. 43665. 43965. 44265. 44565. 44865.
+ 45164. 45464. 45764. 46064. 46364. 46664. 46964. 47264. 47564. 47864.
+ 48164. 48464. 48764. 49065. 49364. 49664. 49964. 50264. 50564. 50864.
+ 51164. 51464. 51764. 52064. 52364. 52664. 52964. 53264. 53564. 53864.
+ 54164. 54464. 54764. 55064. 55364. 55664. 55964. 56264. 56564. 56864.
+ 57164. 57464. 57764. 58064. 58364. 58665. 58964. 59264. 59564. 59864.
+ 60164. 60464. 60764. 61064. 61364. 61664. 61965. 62264. 62564. 62864.
+ 63164. 63464. 63764. 64065. 64364. 64664. 64964. 65264. 65564. 65864.
+ 66164. 66464. 66764. 67064. 67364. 67665. 67964. 68264. 68564. 68864.
+ 69164. 69464. 69764. 70064. 70364. 70665. 70964. 71264. 71564. 71864.
+ 72164. 72464. 72764. 73064. 73364. 73664. 73964. 74264. 74564. 74864.
+ 75164. 75464. 75764. 76064. 76364. 76664. 76964. 77264. 77564. 77864.
+ 78164. 78464. 78764. 79064. 79364. 79664. 79964. 80264. 80564. 80864.
+ 81164. 81464. 81764. 82064. 82364. 82664. 82964. 83264. 83564. 83864.
+ 84164. 84464. 84764. 85064. 85364. 85664. 85964. 86264.]
+[9.600000e+00 1.959000e+01 2.960000e+01 ... 8.637152e+04 8.638152e+04
+ 8.639152e+04]
+[]
+[]
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 157, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 48, in main
+    get_spectra_and_times(smpsvars, n_spectra, smps_inds, 'SMPS')
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 116, in get_spectra_and_times
+    spectrum_dates.append(time[i*n_steps_per_sample])
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+IndexError: index 0 is out of bounds for axis 0 with size 0
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 160, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 37, in main
+    get_smps_spectra_and_times(smpsvars)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 95, in get_smps_spectra_and_times
+    n_steps_per_sample = int(np.ceil(np.shape(size_distb)[0]/n_samples))
+NameError: name 'n_samples' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 160, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 39, in main
+    get_uhsas_spectra_and_times(uhsasvars)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 115, in get_uhsas_spectra_and_times
+    size_distb = nconc/samp_vol/uhsas_dlogDp
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 4157, in __truediv__
+    return true_divide(self, other)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 1169, in __call__
+    result = self.f(da, db, *args, **kwargs)
+ValueError: operands could not be broadcast together with shapes (8639,99) (8639,) 
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 161, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 39, in main
+    get_uhsas_spectra_and_times(uhsasvars)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 116, in get_uhsas_spectra_and_times
+    size_distb = nconc/samp_vol/dlogDp
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 4157, in __truediv__
+    return true_divide(self, other)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 1169, in __call__
+    result = self.f(da, db, *args, **kwargs)
+ValueError: operands could not be broadcast together with shapes (8639,99) (8639,) 
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 161, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 39, in main
+    get_uhsas_spectra_and_times(uhsasvars)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 116, in get_uhsas_spectra_and_times
+    size_distb = nconc/samp_vol/dlogDp
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 4157, in __truediv__
+    return true_divide(self, other)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 1169, in __call__
+    result = self.f(da, db, *args, **kwargs)
+ValueError: operands could not be broadcast together with shapes (8639,99) (99,8639) 
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 161, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 39, in main
+    get_uhsas_spectra_and_times(uhsasvars)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 116, in get_uhsas_spectra_and_times
+    size_distb = nconc/samp_vol.T/dlogDp.T
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 4157, in __truediv__
+    return true_divide(self, other)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 1169, in __call__
+    result = self.f(da, db, *args, **kwargs)
+ValueError: operands could not be broadcast together with shapes (8639,99) (99,99) 

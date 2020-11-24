@@ -1,0 +1,50 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 11, in <module>
+    from goama import DATA_DIR, FIG_DIR, SMPS_bins, UHSAS_bins
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/__init__.py", line 8, in <module>
+    SMPS_bins = {'lower': np.array([55.0, 56.64, 58.32, 60.05, 61.84, 63.68, \
+NameError: name 'np' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 222, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 32, in main
+    fan_aero_size_distb = get_fan_aero_size_distb()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 61, in get_fan_aero_size_distb
+    with open(DATA_DIR + 'fan_aero_size_distb.csv', 'r') as readFile:
+FileNotFoundError: [Errno 2] No such file or directory: '/global/home/users/kalatimer/proj/20supersat/data/goama/fan_aero_size_distb.csv'
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 222, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 32, in main
+    fan_aero_size_distb = get_fan_aero_size_distb()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 61, in get_fan_aero_size_distb
+    with open(DATA_DIR + 'fan_aero_size_distb.csv', 'r') as readFile:
+FileNotFoundError: [Errno 2] No such file or directory: '/global/home/users/kalatimer/proj/20supersat/data/goama/fan_aero_size_distb.csv'
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 222, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 47, in main
+    get_uhsas_spectra_and_times(uhsasvars)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 165, in get_uhsas_spectra_and_times
+    size_distb = nconc/samp_vol.T/dlogDp
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 4157, in __truediv__
+    return true_divide(self, other)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 1169, in __call__
+    result = self.f(da, db, *args, **kwargs)
+ValueError: operands could not be broadcast together with shapes (8639,99) (8639,104) 
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 222, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 55, in main
+    date)
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 198, in make_and_save_aero_size_distb_plot
+    ax.plot(np.power(10, fan_aero_size_distb[:, 0]), \
+NameError: name 'fan_aero_size_distb' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 223, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 51, in main
+    for n in uap50_nconcs]
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_size_distb_figsrc.py", line 51, in <listcomp>
+    for n in uap50_nconcs]
+TypeError: can only concatenate str (not "numpy.float64") to str

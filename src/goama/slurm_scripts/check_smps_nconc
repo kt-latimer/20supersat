@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/goama/check_smps_nconc_figsrc.py

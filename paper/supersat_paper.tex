@@ -12,400 +12,93 @@
 \usepackage{booktabs}
 \graphicspath{{../figures/}}
 
-\title{paper draft: supersat}
+\title{Declarative proto-paper for supersat project}
 \author{K. Latimer}
-\date{Jan 13, 2020}
+\date{Nov 17, 2020}
 
 \begin{document}
 
 \maketitle
-\setcounter{section}{-1}
 
-\section{Outline}
-	\begin{enumerate}
-		\item Introduction
-		\item Based on WRF simulations, under what conditions is quasi-steady-state (QSS) approximation for supersaturation (SS) valid? [A: need to specify stringent enough LWC and vert wind vel cutoffs, only take points below freezing level, and include rain drops and ventilation corrections]
-		\item Under above determined conditions, how do $SS_{QSS}$ distributions from WRF compare to those from experiments (CAIPEEX, HALO)? [A: statistically significant differences in distributions]
-		\item Which variable contributes the most to the difference in $SS_{QSS}$ distributions? [A: mean radius and number concentration of water drops]
-		\item Do environmental conditions allow for a fair comparison between simulation and experiment in these cases? [A: it seems that aerosol PSDs are quite different in field campaigns than simulations, with higher overall number concentrations in the former cases. This calls into question the validity of directly comparing SS distributions.]
-	\end{enumerate}
-
-\section{Introduction}
-introductory notes / lit review 
-
-\section{Validity of QSS approximation for SS}
+In order to determine experimental supersaturation within a reasonable margin of error, we must use the quasi-steady-state (QSS) supersaturation formula [cite]. Based on our analysis of the WRF data, this approximation is only valid within certain limits, namely:
 \begin{itemize}
-	\item brief statement of quasi steady state formula 
-	\item we see agreement between actual and QSS supersaturation under the conditions (see fig \ref{wrfvsqss}):
-	\begin{itemize}
-		\item T \textgreater  273K (we're not including ice in the theory)
-		\item w \textgreater  2 m/s (reasonably strong updrafts)
-		\item cloud LWC \textgreater  1e-4 g/g (in the convection core)
-		\item including rain droplets and ventillation corrections
-	\end{itemize}
-	\item upon applying above filters, the distribution of $SS_{QSS}$ is shown in fig \ref{wrfssqsshist}.
+	\item T \textgreater  273K (we're not including ice in the theory)
+	\item w \textgreater  2 m/s (reasonably strong updrafts)
+	\item cloud LWC \textgreater  1e-4 g/g (in the convection core)
+	\item including rain droplets and ventillation corrections
 \end{itemize}
+
+Figure \ref{wrfvsqss} shows a scatterplot with the agreement between the actual and QSS-derived SS values in the WRF simulation, for points satisfying the above criteria.
+
+\clearpage
+\newpage
+
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v12_fancy_ss_qss_vs_ss_wrf_Unpolluted_figure.png}
+		\includegraphics[width=\textwidth]{revmywrf/v12_heatmap_ss_qss_vs_ss_wrf_Unpolluted_figure.png}
 		\caption{Unpolluted case.}
 		\label{wrfvsqssunpoll}
 	\end{subfigure}
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v12_fancy_ss_qss_vs_ss_wrf_Polluted_figure.png}
+		\includegraphics[width=\textwidth]{revmywrf/v12_heatmap_ss_qss_vs_ss_wrf_Polluted_figure.png}
 		\caption{Polluted case.}
 		\label{wrfvsqsspoll}
 	\end{subfigure}
 	\caption{Actual ($SS_{WRF}$) vs predicted ($SS_{QSS}$) supersaturation. Histograms show the density of points along each axis.}
 	\label{wrfvsqss}
 \end{figure}
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v12_ss_qss_hist_Unpolluted_figure.png}
-		\caption{Unpolluted case.}
-		\label{wrfssqsshistunpoll}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v12_ss_qss_hist_Polluted_figure.png}
-		\caption{Polluted case.}
-		\label{wrfssqsshistpoll}
-	\end{subfigure}
-	\caption{$SS_{WRF}$ distribution in WRF simulation using filtering criteria described in the text.}
-	\label{wrfssqsshist}
-\end{figure}
+
+In Fan 2018, they claim that the so-called warm phase invigoration mechanism (WPIM) is driven by the presence of ultra-fine aerosol particles with sub-50nm diameters (UAP50) on the order of ~1000/ccm in the boundary layer (BL) where cloud droplets are nucleated. Crucial to this argument is the claim that, without such particles present, the troposphere supports very high supersaturations, as observed in simulations (O(10\%)). We seek to determine whether such high values actually occur in nature.
+
+First we look at data from the ACRIDICON-CHUVA mission (part of the HALO campaign) in the Amazon forest in Brazil. Aerosol concentrations in the BL (ie from ground-based measurements) both upwind and downwind of anthropogenic pollution sources on select flight dates are shown in Figures \ref{attoasd} and \ref{goaasd}, respectively.
 
 \clearpage
 \newpage
 
-\section{$SS_{QSS}$ distributions - simulation vs experiment}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=9cm]{atto/atto_psd_figure.png}
+    \caption{[DON'T HAVE DATA YET] Aerosol particle size distribution for a representative date; ground-based measurement coinciding with ACRIDICON-CHUVA flight dates, compared to initial distribution in boundary layer for WRF simulation. From ATTO site, upwind of Manaus metropolitan area.}
+    \label{attoasd}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=9cm]{goama/v5_aero_size_distb_20140918_figure.png}
+    \caption{Aerosol particle size distribution for a representative date; ground-based measurement coinciding with ACRIDICON-CHUVA flight dates, compared to initial distribution in boundary layer for WRF simulation. From GoAmazon site, downwind of Manaus metropolitan area.}
+    \label{goaasd}
+\end{figure}
 
-\subsection{Distributions from field campaigns}
+Even though UAP50 levels in the BL approach the lower bound of what Fan et al used in their simulations (??? pending ATTO measurements from Mina Pohlker), we do not find any supersaturation values in the troposphere exceeding 1\% using the criteria above (Figure \ref{haloqsshist}).
+
+\clearpage
+\newpage
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=9cm]{revhalo/v24_ss_qss_hist_cas_alldates_figure.png}
-    \caption{Predicted ($SS_{QSS}$) supersaturation distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
+    \caption{Predicted ($SS_{QSS}$) supersaturation distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in the text.}
     \label{haloqsshist}
 \end{figure}
+
+Next we look at data from the CAIPEEX experiment in India. No ground-based aerosol concentration measurements are available (and measurements in the troposphere from instruments on the plane are sketchy...). Supersaturation distribution using the same criteria is shown (for all flight dates combined) in Figure \ref{caipeexqsshist}. We see a relatively small number of supersaturation values exceeding 1\%.
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=9cm]{revcaipeex/v10_ss_qss_hist_alldates_figure.png}
-    \caption{Predicted ($SS_{QSS}$) supersaturation distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
+    \caption{Predicted ($SS_{QSS}$) supersaturation distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in the text, but not including rain drops or ventilation corrections due to lack of data.}
     \label{caipeexqsshist}
 \end{figure}
 
-\subsection{Statistical analysis of supersaturation distributions}
-\subsubsection{Null hypothesis}
-Quasi-steady-state supersaturation values at selected sample of points from field campaigns are drawn from a ``true'' distribution like one of the ones from WRF. 
-\subsubsection{Test}
-Reduced chi-squared
-\subsubsection{Details}
-Since altitude shows non-negligible correlation with $SS_{QSS}$ in WRF data (Figure \ref{wrfssqssvsz}), we actually need to compare the experimental $SS_{QSS}$ distribution to an adjusted simulated distribution, to account for the differences in altitude distributions for sampled points in both datasets. Specifically:
-\begin{equation}
-\tilde\chi^2 = \frac{1}{d}\Big(\sum_{k} \frac{(\mathcal{O}_k - E_k)^2}{E_k}\Big),
-\end{equation}
-where $k$ labels discrete bins into which we group supersaturation values and,
-\begin{align}
-\mathcal{O}_k &= \text{# of measurements observed in bin $k$ (for all flight dates combined)}\nonumber\\
-E_k &= \text{# of measurements observed in bin $k$ (under adjusted $SS_{QSS}$ distribution $P'_{sim}(SS_k)$)}\nonumber
-\end{align}
-The adjusted distribution is given by:
-\begin{equation}
-P'_{sim}(SS_k) = \sum_{j} P'_{sim}(z_j, SS_k),
-\end{equation}
-where,
-\begin{equation}
-P'_{sim}(z_j, SS_k) = \sum_{k''}\frac{P_{exp}(z_j, SS_{k''})P_{sim}(z_j, SS_k)}{\sum_{k'}P_{sim}(z_j, SS_{k'})}
-\end{equation}
+Conclusion: We do not believe the simulations described in Fan 2018 provide compelling evidence for the legitimacy of the WPIM given that they report supersaturation values far higher than those observed in nature.
 
-In this analysis, we had to use unequal bin sizes (i.e., group bins in the tail of the $SS_{QSS}$ distributions) in order to ensure $E'_k \geq 5$ and $n_{SS\hspace{0.2em}bins} \geq 4$ (the standard criteria for this statistical test). We set $d = n_{SS\hspace{0.2em}bins} - 2$ to account for the two choices of number of bins in the bivariate probability distributions $P(z_j, SS_k)$. \\
+One possible counterargument is that the flight campaigns simply didn't fly through strong enough updrafts. However the vertical velocity distributions from the campaigns are quite similar to that from the simulations [can back this up with statistical analysis]. See Figure \ref{combinedwhist}. 
 
-**NOTE** for now comparing CAIPEEX distributions to those from WRF output excluding rain drops since we don't have that data from CAIPEEX yet. Applies to all statistical analyses following.
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v12_ss_qss_vs_z_Unpolluted_figure.png}
-		\caption{Unpolluted case.}
-		\label{wrfssqssvszunpoll}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v12_ss_qss_vs_z_Polluted_figure.png}
-		\caption{Polluted case.}
-		\label{wrfssqssvszpoll}
-	\end{subfigure}
-	\caption{Scatter plots showing correlation between supersaturation as calculated in the QSS approximation and altitude in WRF simulations.}
-	\label{wrfssqssvsz}
-\end{figure}
-
-\clearpage
-\newpage
-
-\subsubsection{Results}
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}llllll@{}}
-\toprule
-\textbf{WRF case} & \textbf{Num SS bins} & \textbf{Num z bins} & \textbf{$\tilde\chi^2_{HALO}$} & \textbf{$\tilde\chi^2_{CAIPEEX}$} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
-Polluted & 11 & 10 & 38.31 & 145.97 & 2.41 \\
- & 11 & 20 & 48.39 & 155.30 & 2.41 \\
- & 11 & 30 & 53.60 & 151.63 & 2.41 \\
-Unpolluted & 11 & 10 & 46.03 & 139.21 & 2.41 \\
- & 11 & 20 & 38.71 & 154.42 & 2.41 \\
- & 11 & 30 & 71.07 & 163.77 & 2.41 \\ \bottomrule
-\end{tabular}
-\caption{Reduced chi squared test statistics for comparison of experimental $SS_{QSS}$ distributions to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level.}
-\label{chisqssqss}
-\end{table}
-
-\subsubsection{Comments}
-\begin{itemize}
-	\item For HALO: test statistics do show considerable sensitivity to binning arrangement, but are so far above the critical values that this seems largely irrelevant. We reject the null hypothesis in this case with very high (quantify?) certainty.
-	\item For CAIPEEX: ditto. Chi-squared values are larger for this dataset because the sample size is higher ($\approx$600 points cf $\approx$100 in HALO)
-\end{itemize}
-
-\section{Causes of discrepancies between $SS_{QSS}$ distributions (sim vs exp)}
-
-Up to temperature-dependent prefactors we have:
-\begin{equation}
-SS_{QSS} \sim \frac{w}{\langle f(r)\cdot r \rangle n},
-\end{equation}
-where $w$ is vertical wind velocity, $f(r)$ is ventilation factor, $r$ is water drop radius, $n$ is water drop number concentration, and $\langle y(r) \rangle$ denotes the average of function $y$ over the radial domain of the given drop size distribution. We compare the distributions of these three quantities in simulation vs experiment below in the same manner as for supersaturation in the previous section.
-
-Overall, we find higher-valued test statistics for mean radius and number concentration distributions than for vertical wind velocity, suggesting that the drop size distributions rather than strength of vertical convection leads to the observed discrepancies in supersaturation distributions.
-
-\clearpage
-\newpage
-
-\subsection{Mean radius (with ventilation correction)}
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v9_meanr_hist_Unpolluted_figure.png}
-		\caption{Unpolluted case.}
-		\label{wrfmeanrhistunpoll}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v9_meanr_hist_Polluted_figure.png}
-		\caption{Polluted case.}
-		\label{wrfmeanrhistpoll}
-	\end{subfigure}
-	\caption{Mean radius (ventilation corrected) distribution in WRF simulation using filtering criteria described in the text.}
-	\label{wrfmeanrhist}
-\end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=8cm]{revhalo/v24_meanr_hist_cas_alldates_figure.png}
-    \caption{Mean radius (with ventilation corrections) distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
-    \label{haloqsshist}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=8cm]{revcaipeex/v10_meanr_hist_alldates_figure.png}
-    \caption{Mean radius distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
-    \label{caipeexqsshist}
-\end{figure}
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}llllll@{}}
-\toprule
-\textbf{WRF case} & \textbf{Num mean r bins} & \textbf{Num z bins} & \textbf{$\tilde\chi^2_{HALO}$} & \textbf{$\tilde\chi^2_{CAIPEEX}$} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
-Polluted & 11 & 10 & 160.67 & 807.45 & 2.41 \\
- & 11 & 20 & 216.59 & 808.90 & 2.41 \\
- & 11 & 30 & 183.73 & 961.21 & 2.41 \\
-Unpolluted & 11 & 10 & 118.23 & 908.96 & 2.41 \\
- & 11 & 20 & 178.23 & 995.21 & 2.41 \\
- & 11 & 30 & 128.76 & 803.49 & 2.41 \\ \bottomrule
-\end{tabular}
-\caption{Reduced chi squared test statistics for comparison of experimental mean drop radius distributions to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level.}
-\label{chisqmeanr}
-\end{table}
-
-\clearpage
-\newpage
-
-\subsection{Number concentration}
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v9_nconc_hist_Unpolluted_figure.png}
-		\caption{Unpolluted case.}
-		\label{wrfnconchistunpoll}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v9_nconc_hist_Polluted_figure.png}
-		\caption{Polluted case.}
-		\label{wrfnconchistpoll}
-	\end{subfigure}
-	\caption{Number concentration distribution in WRF simulation using filtering criteria described in the text.}
-	\label{wrfnconchist}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=8cm]{revhalo/v24_nconc_hist_cas_alldates_figure.png}
-    \caption{Number concentration distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
-    \label{haloqsshist}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=8cm]{revcaipeex/v10_nconc_hist_alldates_figure.png}
-    \caption{Number concentration distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
-    \label{caipeexqsshist}
-\end{figure}
-
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}llllll@{}}
-\toprule
-\textbf{WRF case} & \textbf{Num nconc bins} & \textbf{Num z bins} & \textbf{$\tilde\chi^2_{HALO}$} & \textbf{$\tilde\chi^2_{CAIPEEX}$} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
-Polluted & 11 & 10 & 191.82 & 3446.05 & 2.41 \\
- & 11 & 20 & 229.39 & 3397.21 & 2.41 \\
- & 11 & 30 & 231.60 & 3564.48 & 2.41 \\
-Unpolluted & 11 & 10 & 224.53 & 4344.51 & 2.41 \\
- & 11 & 20 & 200.78 & 4450.17 & 2.41 \\
- & 11 & 30 & 230.98 & 4685.65 & 2.41 \\ \bottomrule
-\end{tabular}
-\caption{Reduced chi squared test statistics for comparison of experimental drop number concentration distributions to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level.}
-\label{chisqnconc}
-\end{table}
-
-\clearpage
-\newpage
-
-\subsection{Vertical wind velocity}
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v9_w_hist_Unpolluted_figure.png}
-		\caption{Unpolluted case.}
-		\label{wrfwhistunpoll}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v9_w_hist_Polluted_figure.png}
-		\caption{Polluted case.}
-		\label{wrfwhistpoll}
-	\end{subfigure}
-	\caption{Vertical wind velocity distribution in WRF simulation using filtering criteria described in the text.}
-	\label{wrfwhist}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=8cm]{revhalo/v24_w_hist_cas_alldates_figure.png}
-    \caption{Vertical wind velocity distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
+    \includegraphics[width=8cm]{revmywrf/v9_combined_w_hist_figure.png}
+    \caption{Vertical wind velocity distribution from simulations and field campaigns. Using filtering criteria outlined in the text.}
     \label{halowhist}
 \end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=8cm]{revcaipeex/v10_w_hist_alldates_figure.png}
-    \caption{Vertical wind velocity distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
-    \label{caipeexwhist}
-\end{figure}
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}llllll@{}}
-\toprule
-\textbf{WRF case} & \textbf{Num w bins} & \textbf{Num z bins} & \textbf{$\tilde\chi^2_{HALO}$} & \textbf{$\tilde\chi^2_{CAIPEEX}$} & \textbf{$\tilde\chi^2_{0.990}$} \\ \midrule
-Polluted & 11 & 10 & 0.88 & 2.06 & 2.41 \\
- & 11 & 20 & 0.96 & 4.19 & 2.41 \\
- & 11 & 30 & 1.04 & 8.46 & 2.41 \\
-Unpolluted & 11 & 10 & 1.68 & 51.34 & 2.41 \\
- & 11 & 20 & 1.51 & 89.78 & 2.41 \\
- & 11 & 30 & 1.16 & 87.23 & 2.41 \\ \bottomrule
-\end{tabular}
-\caption{Reduced chi squared test statistics for comparison of experimental vertical wind velocity distributions to those in polluted and unpolluted cases of WRF simulation. Final column shows the critical value of $\tilde\chi^2$, above which we reject the null hypothesis at the 99\% confidence level.}
-\label{chisqw}
-\end{table}
 
-\clearpage
-\newpage
-
-\section{Environmental conditions - simulation vs experiment}
-
-\subsection{LWC}
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v9_lwc_hist_Unpolluted_figure.png}
-		\caption{Unpolluted case.}
-		\label{wrflwchistunpoll}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v9_lwc_hist_Polluted_figure.png}
-		\caption{Polluted case.}
-		\label{wrflwchistpoll}
-	\end{subfigure}
-	\caption{Cloud LWC distribution in WRF simulation using filtering criteria described in the text.}
-	\label{wrflwchist}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{revhalo/v24_lwc_hist_cas_alldates_figure.png}
-    \caption{Cloud LWC distribution from HALO field campaign (all flight dates). Using filtering criteria outlined in section 2.}
-    \label{halolwchist}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{revcaipeex/v10_lwc_hist_alldates_figure.png}
-    \caption{Cloud LWC distribution from CAIPEEX field campaign (all flight dates). Using filtering criteria outlined in section 2, but not including rain drops or ventilation corrections due to lack of data.}
-    \label{caipeexlwchist}
-\end{figure}
-
-\clearpage
-\newpage
-
-\subsection{Aerosol PSD}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{revhalo/v1_aero_size_distb_alldates_figure.png}
-    \caption{Aerosol particle size distribution from HALO field campaign (all flight dates), compared to initial distribution in boundary layer for WRF simulation. Using clear sky points (LWC $\lt$ 1e-5) below the freezing level.}
-    \label{haloasdhist}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{revcaipeex/v1_aero_size_distb_alldates_figure.png}
-    \caption{Aerosol particle size distribution from CAIPEEX field campaign (all flight dates), compared to initial distribution in boundary layer for WRF simulation. Using clear sky points (LWC $\lt$ 1e-5) below the freezing level.}
-    \label{caipeexasdhist}
-\end{figure}
-
-\section{Further discussion / conclusions}
-
-\section{Figures to include in supplementary info}
-\begin{itemize}
-	\item all figures without lower bin cutoffs
-	\item all figures without corrections from including raindrops / ventilation factors
-	\item correlations between altitude and mean r, nconc, and w
-\end{itemize}
-\section{TODO / remaining questions}
-\begin{itemize}
-	\item look at caipeex case study from 2011 w rain drop data available
-	\item ditto for aerosol spectra at lower size ranges
-	\item in code: optimize HALO instrument time offsets
-	\item error analysis for experimental data
-	\item look into commensurate binning in simulation / experiment comparisons?
-	\item analytical justification for why actual and QSS supersaturation is still in linear relation
-	\item expt vs model cloud/rain droplet size boundary
-\end{itemize}
-This is a reference \cite{Fan2018}.
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=9cm]{halo/v3_ss_with_cip_from_cas_alldates_figure.png}
-%    \caption{}
-%    \label{fig:fig_label}
-%\end{figure}
-
-\bibliography{refs}
-\bibliographystyle{ieeetr}
 \end{document}
-
-
-

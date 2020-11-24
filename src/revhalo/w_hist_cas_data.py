@@ -60,11 +60,11 @@ def main():
 
         w_alldates = add_to_alldates_array(w, w_alldates)
 
-        make_and_save_w_hist(w, date, versionstr, change_cas_corr, \
-                                    cutoff_bins, full_ss, incl_rain, incl_vent)
+        #make_and_save_w_data(w, date, versionstr, change_cas_corr, \
+        #                            cutoff_bins, full_ss, incl_rain, incl_vent)
 
     print(w_alldates)
-    make_and_save_w_hist(w_alldates, 'alldates', versionstr, \
+    make_and_save_w_data(w_alldates, 'alldates', versionstr, \
             change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent)
 
 def add_to_alldates_array(w, w_alldates):
@@ -74,23 +74,15 @@ def add_to_alldates_array(w, w_alldates):
     else:
         return np.concatenate((w_alldates, w))
 
-def make_and_save_w_hist(w, label, versionstr, change_cas_corr, \
+def make_and_save_w_data(w, label, versionstr, change_cas_corr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent):
     
     fig, ax = plt.subplots()
     fig.set_size_inches(21, 12)
-    ax.hist(w, bins=30, density=False)
-    ax.set_xlabel('w (m/s)')
-    ax.set_ylabel('Count')
-    ax.set_title(label + ' ver wind vel distb' \
-                    + ', change_cas_corr=' + str(change_cas_corr) \
-                    + ', cutoff_bins=' + str(cutoff_bins) \
-                    + ', incl_rain=' + str(incl_rain) \
-                    + ', incl_vent=' + str(incl_vent) \
-                    + ', full_ss=' + str(full_ss))
-    outfile = FIG_DIR + versionstr + 'w_hist_cas_' \
-            + label + '_figure.png'
-    plt.savefig(outfile)
+    n, bins, patches = ax.hist(w, bins=30, density=False)
+    w_data_dict = {'w': w, 'n': n, 'bins': bins}
+    filename = versionstr + 'w_hist_cas_data_alldates.npy'
+    np.save(DATA_DIR + filename, w_data_dict)
     plt.close(fig=fig)    
 
 def get_boolean_params(versionnum):

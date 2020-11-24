@@ -1,0 +1,72 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/check_smps_nconc_figsrc.py", line 4, in <module>
+    import matplotlib
+ImportError: No module named matplotlib
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/check_smps_nconc_figsrc.py", line 82, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/check_smps_nconc_figsrc.py", line 25, in main
+    smpsfile = Dataset(DATA_DIR + data_date_tuple[0], 'r')
+NameError: name 'Dataset' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/check_smps_nconc_figsrc.py", line 83, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/check_smps_nconc_figsrc.py", line 31, in main
+    file_smps_nconc = smpsvars['total_number_concentration'][...]
+KeyError: 'total_number_concentration'
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
+No handles with labels found to put in legend.
