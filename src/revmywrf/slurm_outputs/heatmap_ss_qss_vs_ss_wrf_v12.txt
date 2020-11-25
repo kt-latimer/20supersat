@@ -1,0 +1,560 @@
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 197, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 57, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 114, in make_and_save_ss_qss_vs_ss_wrf
+    ax.set_xlim((-1*lim, lim))
+AttributeError: 'NoneType' object has no attribute 'set_xlim'
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 195, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 52, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 109, in make_and_save_ss_qss_vs_ss_wrf
+    ax = using_mpl_scatter_density(fig, ss_qss, ss_wrf)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 105, in using_mpl_scatter_density
+    fig.colorbar(density, label='Number of points per pixel')
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/figure.py", line 2215, in colorbar
+    cb = cbar.colorbar_factory(cax, mappable, **cb_kw)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 1640, in colorbar_factory
+    cb = Colorbar(cax, mappable, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 1183, in __init__
+    ColorbarBase.__init__(self, ax, **kw)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 460, in __init__
+    self.draw_all()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 483, in draw_all
+    self._process_values()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 932, in _process_values
+    b = self.norm.inverse(self._uniform_y(self.cmap.N + 1))
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py", line 1127, in inverse
+    return vmin * np.ma.power((vmax / vmin), val)
+ZeroDivisionError: float division by zero
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py:105: UserWarning: Attempted to set non-positive left xlim on a log-scaled axis.
+Invalid limit will be ignored.
+  fig.colorbar(density, label='Number of points per pixel')
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py:105: UserWarning: Attempted to set non-positive bottom ylim on a log-scaled axis.
+Invalid limit will be ignored.
+  fig.colorbar(density, label='Number of points per pixel')
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:87: UserWarning: Attempted to set non-positive left xlim on a log-scaled axis.
+Invalid limit will be ignored.
+  super(GenericDensityArtist, self).set_clim(vmin, vmax)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:87: UserWarning: Attempted to set non-positive bottom ylim on a log-scaled axis.
+Invalid limit will be ignored.
+  super(GenericDensityArtist, self).set_clim(vmin, vmax)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 195, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 52, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 128, in make_and_save_ss_qss_vs_ss_wrf
+    plt.savefig(outfile)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/pyplot.py", line 729, in savefig
+    res = fig.savefig(*args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/figure.py", line 2180, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2091, in print_figure
+    **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 527, in print_png
+    FigureCanvasAgg.draw(self)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 388, in draw
+    self.figure.draw(self.renderer)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/artist.py", line 38, in draw_wrapper
+    return draw(artist, renderer, *args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/figure.py", line 1709, in draw
+    renderer, self, artists, self.suppressComposite)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/image.py", line 135, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/artist.py", line 38, in draw_wrapper
+    return draw(artist, renderer, *args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 2647, in draw
+    mimage._draw_list_compositing_images(renderer, self, artists)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/image.py", line 135, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/artist.py", line 38, in draw_wrapper
+    return draw(artist, renderer, *args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/image.py", line 619, in draw
+    renderer, renderer.get_image_magnification())
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/base_image_artist.py", line 194, in make_image
+    return super(BaseImageArtist, self).make_image(*args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/image.py", line 881, in make_image
+    unsampled=unsampled)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/image.py", line 482, in _make_image
+    output = self.norm(np.ma.masked_array(A_resampled, out_mask))
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py", line 1096, in __call__
+    raise ValueError("values must all be positive")
+ValueError: values must all be positive
+/var/spool/slurmd/job27951458/slurm_script: line 2: 73650 Killed                  python $HOME/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py
+slurmstepd: error: Detected 1 oom-kill event(s) in step 27951458.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:77: RuntimeWarning: All-NaN slice encountered
+  vmin = self._density_vmin(array)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/mpl_scatter_density/generic_density_artist.py:82: RuntimeWarning: All-NaN slice encountered
+  vmax = self._density_vmax(array)
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 194, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 56, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 119, in make_and_save_ss_qss_vs_ss_wrf
+    cb = fig.colorbar(h)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/figure.py", line 2215, in colorbar
+    cb = cbar.colorbar_factory(cax, mappable, **cb_kw)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 1640, in colorbar_factory
+    cb = Colorbar(cax, mappable, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 1158, in __init__
+    if mappable.get_array() is not None:
+AttributeError: 'tuple' object has no attribute 'get_array'
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 194, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 56, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 119, in make_and_save_ss_qss_vs_ss_wrf
+    cb = fig.colorbar()
+TypeError: colorbar() missing 1 required positional argument: 'mappable'
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+0.2920898791328141 0.838942858941894 0.1945954310120779
+Polluted
+# pts total: 3733271
+max: 122.05202201994123
+# pts ss > 2%: 914740
+Number of points in Q1: 3713016
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 19662
+
+Domain: 0.18117489443775012 122.05202201994123
+Range: -32.853558 20.070312
+0.7087497288380543 0.19886273636620144 0.7961320330867913
+Unpolluted
+# pts total: 3140958
+max: 140.31993429302335
+# pts ss > 2%: 966737
+Number of points in Q1: 3130806
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 9668
+
+Domain: 0.19436614179356138 140.31993429302335
+Range: -30.028872 45.29778
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388

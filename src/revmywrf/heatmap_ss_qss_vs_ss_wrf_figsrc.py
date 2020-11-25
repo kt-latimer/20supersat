@@ -18,18 +18,17 @@ from revmywrf.ss_qss_calculations import get_lwc, get_nconc, get_ss, linregress
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
-white_viridis = LinearSegmentedColormap.from_list('white_viridis', [ \
-    (0, '#ffffff'), \
-    (1e-20, '#440053'), \
-    (0.2, '#404388'), \
-    (0.4, '#2a788e'), \
-    (0.6, '#21a784'), \
-    (0.8, '#78d151'), \
-    (1, '#fde624'), \
-], N=256)
+yellow_to_purple = LinearSegmentedColormap.from_list('white_to_purple', [ \
+    (0, '#fde624'), \
+    (1, '#440053'), \
+    ], N=256)
+#white_to_purple = LinearSegmentedColormap.from_list('white_to_purple', [ \
+#   (0, '#ffffff'), \
+#   (1, '#440053'), \
+#], N=256)
                             
 
-lwc_filter_val = 1.e-4
+lwc_filter_val = 1.e-5
 w_cutoff = 2
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
@@ -101,40 +100,45 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     print('# pts ss > 2%: ' + str(np.sum(ss_qss > 2)))
    
     print_point_count_per_quadrant(ss_qss, ss_wrf)
-    fig = plt.figure()
-    ax = using_mpl_scatter_density(fig, ss_qss, ss_wrf)
 
-    lim = 100
+    #def using_mpl_scatter_density(fig, x, y):
+    #    ax = fig.add_subplot(1, 1, 1, projection='scatter_density')
+    #    density = ax.scatter_density(x, y, \
+    #        norm=matplotlib.colors.LogNorm(vmin=1.e-100, vmax=6.e5), \
+    #        cmap=white_to_purple)
+    #    fig.colorbar(density, label='Number of points per pixel')
+    #    return ax
+
+    #fig = plt.figure(figsize=(21, 12))
+    #ax = using_mpl_scatter_density(fig, ss_qss, ss_wrf)
+
+    fig, ax = plt.subplots()
+    fig.set_size_inches(21, 12)
+
+    h = ax.hist2d(ss_qss, ss_wrf, bins=400, cmin=1, \
+            norm=matplotlib.colors.LogNorm(), cmap=yellow_to_purple)
+    cb = fig.colorbar(h[3], ax=ax)
+    cb.set_label('Number of points per pixel')
+
+    lim = 100 
     ax.set_xlim((-1*lim, lim))
     ax.set_ylim((-1*lim, lim))
 
-    # the scatter plot:
     ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
             c=colors['line'], \
             linestyle='dashed', \
             linewidth=3, \
             label=('m = ' + str(np.round(m, decimals=2)) + \
                     ', R^2 = ' + str(np.round(R**2, decimals=2))))
+
     ax.set_xlabel(r'$SS_{QSS}$ (%)')
     ax.set_ylabel(r'$SS_{WRF}$ (%)')
     plt.legend(loc=2)
 
     outfile = FIG_DIR + versionstr + 'heatmap_ss_qss_vs_ss_wrf_' \
-            + case_label + '_figure.png'
+            + case_label + '_figure_5.png'
     plt.savefig(outfile)
     plt.close()    
-
-def using_mpl_scatter_density(fig, x, y):
-    """
-    adapted from
-    https://stackoverflow.com/questions/20105364/how-can-i-make-a-scatter-plot-colored-by-density-in-matplotlib
-    """
-
-    ax = fig.add_subplot(1, 1, 1, projection='scatter_density')
-    density = ax.scatter_density(x, y, cmap=white_viridis)
-    fig.colorbar(density, label='Number of points per pixel')
-
-    return ax
 
 def get_boolean_params(versionnum):
 

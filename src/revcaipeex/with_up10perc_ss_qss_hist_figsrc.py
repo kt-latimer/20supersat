@@ -34,6 +34,7 @@ def main():
         good_dates = [line.strip() for line in readFile.readlines()]
 
     ss_qss_alldates = None
+    up10perc_ss_qss_alldates = None
 
     for date in good_dates:
         metfile = DATA_DIR + 'npy_proc/MET_' + date + '.npy'
@@ -54,29 +55,32 @@ def main():
                         (ss_qss < 100), \
                         (temp > 273)))
 
+        if np.sum(filter_inds) > 0:
+            w_filt = w[filter_inds]
+            up10perc_cutoff = np.percentile(w_filt, 90)
+            up10perc_inds = np.logical_and.reduce((
+                            (filter_inds), \
+                            (w > up10perc_cutoff)))
+            up10perc_ss_qss = ss_qss[up10perc_inds]
+        else:
+            up10perc_ss_qss = np.array([]) 
+            
+
         print(date)
         ss_qss = ss_qss[filter_inds]
 
         ss_qss_alldates = add_to_alldates_array(ss_qss, ss_qss_alldates)
+        up10perc_ss_qss_alldates = \
+            add_to_alldates_array(up10perc_ss_qss, up10perc_ss_qss_alldates)
 
-        make_and_save_ss_qss_hist(ss_qss, date, versionstr, \
-            change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent)
-
-    print(ss_qss_alldates)
-    make_and_save_ss_qss_hist(ss_qss_alldates, 'alldates', versionstr, \
-            change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent)
-
-        print(date)
-        ss_qss = ss_qss[filter_inds]
-
-        ss_qss_alldates = add_to_alldates_array(ss_qss, ss_qss_alldates)
-
-        make_and_save_ss_qss_hist(ss_qss, date, versionstr, \
+        make_and_save_ss_qss_hist(ss_qss, up10perc_ss_qss, date, versionstr, \
                                     cutoff_bins, full_ss, incl_rain, incl_vent)
 
+
     print(ss_qss_alldates)
-    make_and_save_ss_qss_hist(ss_qss_alldates, 'alldates', versionstr, \
-            cutoff_bins, full_ss, incl_rain, incl_vent)
+    print(up10perc_ss_qss_alldates)
+    make_and_save_ss_qss_hist(ss_qss_alldates, up10perc_ss_qss_alldates, \
+            'alldates', versionstr, cutoff_bins, full_ss, incl_rain, incl_vent)
 
 def add_to_alldates_array(ss_qss, ss_qss_alldates):
 
@@ -85,7 +89,7 @@ def add_to_alldates_array(ss_qss, ss_qss_alldates):
     else:
         return np.concatenate((ss_qss_alldates, ss_qss))
 
-def make_and_save_ss_qss_hist(ss_qss, label, versionstr, \
+def make_and_save_ss_qss_hist(ss_qss, up10perc_ss_qss, label, versionstr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent):
     
     print('# pts total: ' + str(np.sum(ss_qss < 200)))
@@ -96,7 +100,12 @@ def make_and_save_ss_qss_hist(ss_qss, label, versionstr, \
     fig.set_size_inches(21, 12)
     #bins = [0+0.7*i for i in range(30)]
     #ax.hist(ss_qss, bins=bins, density=False)
-    ax.hist(ss_qss, bins=30, density=False)
+    n, bins, patches = ax.hist(ss_qss, bins=30, density=False, \
+            label='All data satisfying filter criteria')
+    ax.hist(up10perc_ss_qss, bins=bins, density=False, \
+            histtype='stepfilled', linewidth=3, \
+            edgecolor='r', facecolor=(0, 0, 0, 0), \
+            label='Upper 10th percentile updrafts out of filtered data')
     ax.set_xlabel('SS (%)')
     ax.set_ylabel('Count')
     ax.set_title(label + ' SS_QSS distb' \
@@ -104,7 +113,8 @@ def make_and_save_ss_qss_hist(ss_qss, label, versionstr, \
                     + ', incl_rain=' + str(incl_rain) \
                     + ', incl_vent=' + str(incl_vent) \
                     + ', full_ss=' + str(full_ss))
-    outfile = FIG_DIR + versionstr + 'ss_qss_hist_' \
+    plt.legend()
+    outfile = FIG_DIR + versionstr + 'with_up10perc_ss_qss_hist_' \
             + label + '_figure.png'
     plt.savefig(outfile)
     plt.close(fig=fig)    
