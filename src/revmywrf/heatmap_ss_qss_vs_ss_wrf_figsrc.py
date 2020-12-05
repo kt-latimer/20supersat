@@ -27,13 +27,16 @@ yellow_to_purple = LinearSegmentedColormap.from_list('white_to_purple', [ \
 #   (1, '#440053'), \
 #], N=256)
                             
-
-lwc_filter_val = 1.e-5
+lwc_filter_val = 1.e-4
 w_cutoff = 2
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
 ss_distb_data_dir = BASE_DIR + 'data/revmywrf/ss_distb/'
+
+ss_min = -20
+d_ss = 0.25
+ss_max = 50+d_ss
 
 #change_dsd_corr = False
 #cutoff_bins = False 
@@ -95,7 +98,8 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     m, b, R, sig = linregress(ss_qss, ss_wrf)
     print(m, b, R**2)
     print(case_label)
-    print('# pts total: ' + str(np.sum(ss_qss < 200)))
+    N_points = np.sum(ss_qss < 200)
+    print('# pts total: ' + str(N_points))
     print('max: ' + str(np.nanmax(ss_qss)))
     print('# pts ss > 2%: ' + str(np.sum(ss_qss > 2)))
    
@@ -114,15 +118,17 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
 
     fig, ax = plt.subplots()
     fig.set_size_inches(21, 12)
+    
+    ss_bins = get_ss_bins(ss_min, ss_max, d_ss)
 
-    h = ax.hist2d(ss_qss, ss_wrf, bins=400, cmin=1, \
-            norm=matplotlib.colors.LogNorm(), cmap=yellow_to_purple)
+    h = ax.hist2d(ss_qss, ss_wrf, bins=ss_bins, cmin=1./(N_points*d_ss**2.), \
+        density=True, norm=matplotlib.colors.LogNorm(), cmap=plt.cm.plasma)
     cb = fig.colorbar(h[3], ax=ax)
-    cb.set_label('Number of points per pixel')
+    cb.set_label(r'$\frac{d^2n_{points}}{dSS_{QSS}dSS_{WRF}}$')
 
-    lim = 100 
-    ax.set_xlim((-1*lim, lim))
-    ax.set_ylim((-1*lim, lim))
+    ax.set_xlim((ss_min, ss_max))
+    ax.set_ylim((ss_min, ss_max))
+    ax.set_aspect('equal', 'box')
 
     ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
             c=colors['line'], \
@@ -136,9 +142,15 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     plt.legend(loc=2)
 
     outfile = FIG_DIR + versionstr + 'heatmap_ss_qss_vs_ss_wrf_' \
-            + case_label + '_figure_5.png'
+            + case_label + '_figure_6.png'
     plt.savefig(outfile)
     plt.close()    
+
+def get_ss_bins(ss_min, ss_max, d_ss):
+
+    ss_bins = np.arange(ss_min, ss_max, d_ss)
+
+    return ss_bins
 
 def get_boolean_params(versionnum):
 

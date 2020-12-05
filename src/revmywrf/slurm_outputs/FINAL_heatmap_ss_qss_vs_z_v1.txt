@@ -1,0 +1,181 @@
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 103
+    extent=[ss_min, ss_max, z_bins[0], z_bins[-1])
+                                                 ^
+SyntaxError: invalid syntax
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 121
+    cbar2 = fig.colorbar(im2, ax=ax2)
+    ^
+IndentationError: unexpected indent
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 19, in <module>
+    cmap = LinearSegmentedColormap.from_list('grey', colors, N=250)
+NameError: name 'LinearSegmentedColormap' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 21, in <module>
+    colors_arr = cm.get_cmap('magma', 10).colors
+NameError: name 'cm' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 31, in <module>
+    ss_max = 50+d_ss
+NameError: name 'd_ss' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 192, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 105, in make_and_save_ss_qss_vs_z
+    extent=[ss_min, ss_max, z_bins[0], z_bins[-1]])
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/__init__.py", line 1599, in inner
+    return func(ax, *map(sanitize_sequence, args), **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/cbook/deprecation.py", line 369, in wrapper
+    return func(*args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/cbook/deprecation.py", line 369, in wrapper
+    return func(*args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_axes.py", line 5679, in imshow
+    im.set_data(X)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/image.py", line 690, in set_data
+    .format(self._A.shape))
+TypeError: Invalid shape (73140,) for image data
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 194, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 107, in make_and_save_ss_qss_vs_z
+    avg_ss_qss, avg_z = get_avg_ss_qss_and_z(ss_qss, z, z_bins)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 168, in get_avg_ss_qss_and_z
+    avg_ss_z[i] = np.nan
+NameError: name 'avg_ss_z' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 194, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 111, in make_and_save_ss_qss_vs_z
+    cbar1 = fig.colorbar(im1, ax=ax1)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/figure.py", line 2215, in colorbar
+    cb = cbar.colorbar_factory(cax, mappable, **cb_kw)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 1640, in colorbar_factory
+    cb = Colorbar(cax, mappable, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 1183, in __init__
+    ColorbarBase.__init__(self, ax, **kw)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 460, in __init__
+    self.draw_all()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 483, in draw_all
+    self._process_values()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colorbar.py", line 932, in _process_values
+    b = self.norm.inverse(self._uniform_y(self.cmap.N + 1))
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py", line 1127, in inverse
+    return vmin * np.ma.power((vmax / vmin), val)
+ZeroDivisionError: float division by zero
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 105
+    norm=LogNorm(), \#vmin=np.min(hist), vmax=np.max(hist), \
+                                                            ^
+SyntaxError: unexpected character after line continuation character
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 196, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 122, in make_and_save_ss_qss_vs_z
+    up10perc_avg_ss_qss, up10perc_avg_z = get_avg_ss_qss(up10perc_ss_qss, \
+NameError: name 'get_avg_ss_qss' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 196, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 133, in make_and_save_ss_qss_vs_z
+    cbar.set_label(r'$\frac{dn_{points}}{d_z}$ (m$^-1$)')
+NameError: name 'cbar' is not defined
+slurmstepd: error: *** JOB 28044465 ON n0273.lr6 CANCELLED AT 2020-12-02T12:42:27 ***
+slurmstepd: error: *** JOB 28046898 ON n0145.lr6 CANCELLED AT 2020-12-02T12:53:54 ***
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 198, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 45, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 74, in make_and_save_ss_qss_vs_z
+    z_bins = get_z_bins(z)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py", line 151, in get_z_bins
+    z_bins.append = avg_z[-1]*np.sqrt(avg_z[-1]/avg_z[-2])
+AttributeError: 'list' object attribute 'append' is read-only
+/var/spool/slurmd/job28048864/slurm_script: line 2: 169925 Killed                  python $HOME/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_z_figsrc.py
+slurmstepd: error: Detected 1 oom-kill event(s) in step 28048864.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+[   54.181225    82.26269    117.42699    152.42995    189.40044
+   228.85385    268.38275    308.01038    345.64822    383.16428
+   423.12415    463.20767    505.57007    550.41534    595.42175
+   640.59094    685.9261     731.42883    779.32654    829.77563
+   878.1805     924.4048     973.0825    1026.6302    1080.5194
+  1132.245     1186.5225    1243.4778    1300.7139    1360.5972
+  1423.255     1483.8676    1542.3269    1603.5168    1667.5527
+  1734.419     1801.7682    1866.991     1937.6176    2013.8827
+  2095.7864    2186.1516    2372.9216    2762.3423    3295.2668
+  3885.3005    4528.8       5224.1157    5964.621    20592.826   ]
+[   54.185863    82.28268    117.46871    152.49203    189.48224
+   228.955      268.5018     308.14563    345.79852    383.32816
+   423.3018     463.39835    505.7733     550.6309     595.6489
+   640.8295     686.1746     731.6867     779.5944     830.0533
+   878.46594    924.6975     973.3833    1026.938     1080.8353
+  1132.5685    1186.8525    1243.8147    1301.0562    1360.9454
+  1423.609     1484.2264    1542.6915    1603.8889    1667.9344
+  1734.808     1802.1638    1867.395     1938.0323    2014.311
+  2096.23      2186.6106    2373.4038    2762.859     3295.8184
+  3885.877     4529.355     5224.59      5964.997    20592.826   ]
+slurmstepd: error: *** JOB 28051568 ON n0126.lr6 CANCELLED AT 2020-12-02T16:08:14 ***
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+[  54.181225   82.26269   117.42699   152.42995   189.40044   228.85385
+  268.38275   308.01038   345.64822   383.16428   423.12415   463.20767
+  505.57007   550.41534   595.42175   640.59094   685.9261    731.42883
+  779.32654   829.77563   878.1805    924.4048    973.0825   1026.6302
+ 1080.5194   1132.245    1186.5225   1243.4778   1300.7139   1360.5972
+ 1423.255    1483.8676   1542.3269   1603.5168   1667.5527   1734.419
+ 1801.7682   1866.991    1937.6176   2013.8827   2095.7864   2186.1516
+ 2372.9216   2762.3423   3295.2668   3885.3005   4528.8      5224.1157
+ 5964.621   ]
+[  54.185863   82.28268   117.46871   152.49203   189.48224   228.955
+  268.5018    308.14563   345.79852   383.32816   423.3018    463.39835
+  505.7733    550.6309    595.6489    640.8295    686.1746    731.6867
+  779.5944    830.0533    878.46594   924.6975    973.3833   1026.938
+ 1080.8353   1132.5685   1186.8525   1243.8147   1301.0562   1360.9454
+ 1423.609    1484.2264   1542.6915   1603.8889   1667.9344   1734.808
+ 1802.1638   1867.395    1938.0323   2014.311    2096.23     2186.6106
+ 2373.4038   2762.859    3295.8184   3885.877    4529.355    5224.59
+ 5964.997   ]
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+[  54.181225   82.26269   117.42699   152.42995   189.40044   228.85385
+  268.38275   308.01038   345.64822   383.16428   423.12415   463.20767
+  505.57007   550.41534   595.42175   640.59094   685.9261    731.42883
+  779.32654   829.77563   878.1805    924.4048    973.0825   1026.6302
+ 1080.5194   1132.245    1186.5225   1243.4778   1300.7139   1360.5972
+ 1423.255    1483.8676   1542.3269   1603.5168   1667.5527   1734.419
+ 1801.7682   1866.991    1937.6176   2013.8827   2095.7864   2186.1516
+ 2372.9216   2762.3423   3295.2668   3885.3005   4528.8      5224.1157  ]
+[  54.185863   82.28268   117.46871   152.49203   189.48224   228.955
+  268.5018    308.14563   345.79852   383.32816   423.3018    463.39835
+  505.7733    550.6309    595.6489    640.8295    686.1746    731.6867
+  779.5944    830.0533    878.46594   924.6975    973.3833   1026.938
+ 1080.8353   1132.5685   1186.8525   1243.8147   1301.0562   1360.9454
+ 1423.609    1484.2264   1542.6915   1603.8889   1667.9344   1734.808
+ 1802.1638   1867.395    1938.0323   2014.311    2096.23     2186.6106
+ 2373.4038   2762.859    3295.8184   3885.877    4529.355    5224.59    ]

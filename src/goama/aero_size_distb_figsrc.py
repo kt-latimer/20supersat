@@ -11,7 +11,7 @@ import os
 from goama import DATA_DIR, FIG_DIR, SMPS_bins, UHSAS_bins
 
 #for plotting
-versionstr = 'v5_'
+versionstr = 'v6_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', \
@@ -211,6 +211,7 @@ def make_and_save_aero_size_distb_plot(smps_spectra, smps_labels, uhsas_spectra,
     ax.set_xlabel('Diameter (nm)')
     ax.set_xscale('log')
     ax.set_ylabel('dN/dlogDp (cm^-3)')
+    ax.set_ylim(bottom=0)
     ax.set_title(date + ' aerosol size distributions')
     ax.legend()
     outfile = FIG_DIR + versionstr + 'aero_size_distb_' \

@@ -1,0 +1,113 @@
+slurmstepd: error: *** JOB 28021248 ON n0272.lr6 CANCELLED AT 2020-12-01T05:42:43 ***
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+mean all:  1.5703262237163
+median all:  0.9973803595698071
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/with_up10perc_ss_qss_hist_figsrc.py", line 156, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/with_up10perc_ss_qss_hist_figsrc.py", line 40, in main
+    incl_vent, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/with_up10perc_ss_qss_hist_figsrc.py", line 85, in make_and_save_ss_qss_hist
+    print('stdev all: ', np.nanstdev(ss_qss))
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/__init__.py", line 220, in __getattr__
+    "{!r}".format(__name__, attr))
+AttributeError: module 'numpy' has no attribute 'nanstdev'
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+mean all:  1.5703262237163
+median all:  0.9973803595698071
+stdev all:  1.5746312436333518
+max all: 25.50090081897629
+# pts ss > 2% all: 820444
+mean up10perc:  3.157899894465438
+median up10perc:  2.3360034948940247
+stdev up10perc:  2.6301230435481373
+max up10perc: 25.50090081897629
+# pts ss > 2% up10perc: 199836
+Polluted
+# pts total: 3514347
+mean all:  2.3520804686809726
+median all:  0.8916946240696949
+stdev all:  3.3354231682276527
+max all: 45.558524915137916
+# pts ss > 2% all: 817084
+mean up10perc:  4.1070587290337235
+median up10perc:  1.754776850872268
+stdev up10perc:  5.194999756938255
+max up10perc: 45.558524915137916
+# pts ss > 2% up10perc: 131195
+Unpolluted
+# pts total: 2869937
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+mean all:  1.5703262237163
+median all:  0.9973803595698071
+stdev all:  1.5746312436333518
+max all: 25.50090081897629
+# pts ss > 2% all: 820444
+mean up10perc:  3.157899894465438
+median up10perc:  2.3360034948940247
+stdev up10perc:  2.6301230435481373
+max up10perc: 25.50090081897629
+# pts ss > 2% up10perc: 199836
+Polluted
+# pts total: 3514347
+mean all:  2.3520804686809726
+median all:  0.8916946240696949
+stdev all:  3.3354231682276527
+max all: 45.558524915137916
+# pts ss > 2% all: 817084
+mean up10perc:  4.1070587290337235
+median up10perc:  1.754776850872268
+stdev up10perc:  5.194999756938255
+max up10perc: 45.558524915137916
+# pts ss > 2% up10perc: 131195
+Unpolluted
+# pts total: 2869937
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+mean all:  1.5703262237163
+median all:  0.9973803595698071
+stdev all:  1.5746312436333518
+max all: 25.50090081897629
+# pts ss > 2% all: 820444
+mean up10perc:  3.157899894465438
+median up10perc:  2.3360034948940247
+stdev up10perc:  2.6301230435481373
+max up10perc: 25.50090081897629
+# pts ss > 2% up10perc: 199836
+Polluted
+# pts total: 3514347
+mean all:  2.3520804686809726
+median all:  0.8916946240696949
+stdev all:  3.3354231682276527
+max all: 45.558524915137916
+# pts ss > 2% all: 817084
+mean up10perc:  4.1070587290337235
+median up10perc:  1.754776850872268
+stdev up10perc:  5.194999756938255
+max up10perc: 45.558524915137916
+# pts ss > 2% up10perc: 131195
+Unpolluted
+# pts total: 2869937

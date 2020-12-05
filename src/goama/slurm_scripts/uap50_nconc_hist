@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/goama/uap50_nconc_hist_figsrc.py

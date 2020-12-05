@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/revmywrf/with_up10perc_ss_qss_hist_figsrc.py

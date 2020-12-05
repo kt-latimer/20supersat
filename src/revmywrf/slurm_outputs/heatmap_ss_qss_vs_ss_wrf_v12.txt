@@ -558,3 +558,75 @@ Number of points in Q4: 3471
 
 Domain: 0.19436614179356138 45.558524915137916
 Range: -10.896954 29.956388
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 125
+    norm=matplotlib.colors.LogNorm(), cmap=plt.cm.plasma)
+       ^
+SyntaxError: invalid syntax
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+0.2920898791328141 0.838942858941894 0.1945954310120779
+Polluted
+# pts total: 3733271
+max: 122.05202201994123
+# pts ss > 2%: 914740
+Number of points in Q1: 3713016
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 19662
+
+Domain: 0.18117489443775012 122.05202201994123
+Range: -32.853558 20.070312
+0.7087497288380543 0.19886273636620144 0.7961320330867913
+Unpolluted
+# pts total: 3140958
+max: 140.31993429302335
+# pts ss > 2%: 966737
+Number of points in Q1: 3130806
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 9668
+
+Domain: 0.19436614179356138 140.31993429302335
+Range: -30.028872 45.29778
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 101
+    N_points = np.sum(ss_qss < 200))
+                                   ^
+SyntaxError: invalid syntax
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388
