@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_fan_size_distb_figsrc.py", line 218, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/goama/aero_fan_size_distb_figsrc.py", line 54, in main
+    fan_aero_size_distb, date)
+TypeError: make_and_save_aero_size_distb_plot() missing 2 required positional arguments: 'fan_aero_size_distb' and 'date'

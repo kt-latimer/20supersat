@@ -8,27 +8,26 @@ from matplotlib import ticker
 from matplotlib.lines import Line2D
 import numpy as np
 
-from revcaipeex import DATA_DIR, FIG_DIR
-from revcaipeex.ss_qss_calculations import get_ss_vs_t, get_lwc
+from revhalo import DATA_DIR, FIG_DIR
+from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
 
 #for plotting
-versionstr = 'v2_'
+versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
-magma_pink =  colors_arr[3]
+colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
 
 lwc_filter_val = 1.e-4
 w_cutoff = 2
 
-ss_min = -10
-ss_max = 10 
 z_min = -100
 z_max = 6500
 
+change_cas_corr = True
 cutoff_bins = True
-incl_rain = False 
-incl_vent = False
+incl_rain = True 
+incl_vent = True
 full_ss = True
 
 def main():
@@ -54,10 +53,9 @@ def main():
             z_dict['up10perc'] = add_to_alldates_array(up10perc_z, \
                                             z_dict['up10perc'])
 
-    make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['allpts'], \
-            z_dict['allpts'], 'allpts')
-    make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['up10perc'], \
-            z_dict['up10perc'], 'up10perc')
+    h_z, z_bins = np.histogram(z_dict['allpts'], bins=30, density=True)
+
+    make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins)
 
 def add_to_alldates_array(ss_qss, ss_qss_alldates):
 
@@ -68,23 +66,24 @@ def add_to_alldates_array(ss_qss, ss_qss_alldates):
 
 def get_ss_qss_and_z_data(date):
 
-    metfile = DATA_DIR + 'npy_proc/MET_' + date + '.npy'
-    met_dict = np.load(metfile, allow_pickle=True).item()
-    cpdfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
-    cpd_dict = np.load(cpdfile, allow_pickle=True).item()
+    adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
+    adlr_dict = np.load(adlrfile, allow_pickle=True).item()
+    casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
+    cas_dict = np.load(casfile, allow_pickle=True).item()
+    cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
+    cip_dict = np.load(cipfile, allow_pickle=True).item()
 
-    lwc = get_lwc(cpd_dict,cutoff_bins)
-    temp = met_dict['data']['temp']
-    w = met_dict['data']['w']
-    z = met_dict['data']['alt']
-    ss_qss = get_ss_vs_t(met_dict, cpd_dict, cutoff_bins, \
-                        full_ss, incl_rain, incl_vent)
+    lwc = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
+    temp = adlr_dict['data']['temp']
+    w = adlr_dict['data']['w']
+    z = adlr_dict['data']['alt']
+    ss_qss = get_ss_vs_t_cas(adlr_dict, cas_dict, cip_dict, \
+                change_cas_corr, cutoff_bins, full_ss, \
+                incl_rain, incl_vent)
 
-    #there's a weird outlier which the third line removes
     filter_inds = np.logical_and.reduce((
                     (lwc > lwc_filter_val), \
                     (w > w_cutoff), \
-                    (ss_qss < 100), \
                     (temp > 273)))
 
     if np.sum(filter_inds) != 0:
@@ -111,45 +110,53 @@ def get_ss_qss_and_z_data(date):
 
     return ss_qss, up10perc_ss_qss, z, up10perc_z
 
-def make_and_save_bipanel_ss_qss_vs_z(ss_qss, z, label):
+def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
     fig.set_size_inches(18, 12)
 
-    h_z, z_bins = np.histogram(z, bins=30, density=True)
+    for key in ss_qss_dict.keys():
+        color = colors_dict[key]
+        ss_qss = ss_qss_dict[key]
+        z = z_dict[key]
 
-    avg_ss_qss, avg_z, se = get_avg_ss_qss_and_z(ss_qss, z, z_bins)
-    #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
-    #                                color=magma_pink, alpha=0.4)
-    ax1.plot(avg_ss_qss, avg_z, linestyle='', marker='o', \
-            color=magma_pink, linewidth=6)
-    ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
-            facecolor=(0, 0, 0, 0.0), edgecolor=magma_pink, \
-            histtype='stepfilled', linewidth=6, linestyle='-')
+        avg_ss_qss, avg_z, se = get_avg_ss_qss_and_z(ss_qss, z, z_bins)
+        print(key)
+        print(np.nanmax(avg_ss_qss))
+        print(np.nanmean(avg_ss_qss))
+        print(np.nanmedian(avg_ss_qss))
+        continue
+        #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
+        #                                color=magma_pink, alpha=0.4)
+        ax1.plot(avg_ss_qss, avg_z, linestyle='', marker='o', \
+                color=color, linewidth=6)
+        ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
+                facecolor=(0, 0, 0, 0.0), edgecolor=color, \
+                histtype='stepfilled', linewidth=6, linestyle='-')
 
     #formatting
-    ax1.set_xlim((ss_min, ss_max))
     ax1.set_ylim((z_min, z_max))
     ax1.yaxis.grid()
     ax2.set_ylim((z_min, z_max))
     ax2.yaxis.grid()
     ax1.set_xlabel(r'$SS_{QSS}$ (%)')
-    ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m/s$^{-1}$)')
+    ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m$^{-1}$)')
     ax1.set_ylabel(r'z (m)')
     formatter = ticker.ScalarFormatter(useMathText=True)
     formatter.set_scientific(True) 
     formatter.set_powerlimits((-1,1)) 
     ax2.xaxis.set_major_formatter(formatter)
 
-    ##custom legend
-    #poll_line = Line2D([0], [0], color=magma_pink, \
-    #                    linewidth=6, linestyle='-')
-    #unpoll_line = Line2D([0], [0], color=magma_pink, \
-    #                    linewidth=6, linestyle='--')
-    #ax2.legend([poll_line, unpoll_line], ['Polluted', 'Unpolluted'])
+    #custom legend
+    allpts_line = Line2D([0], [0], color=colors_dict['allpts'], \
+                        linewidth=6, linestyle='-')
+    up10perc_line = Line2D([0], [0], color=colors_dict['up10perc'], \
+                        linewidth=6, linestyle='-')
+    ax2.legend([allpts_line, up10perc_line], ['All cloudy updrafts', \
+                                    'Top 10% cloudy updrafts (by w)'])
 
-    outfile = FIG_DIR + versionstr + 'FINAL_bipanel_ss_qss_vs_z_' \
-            + label + '_figure.png'
+    outfile = FIG_DIR + versionstr + \
+        'FINAL_combined_bipanel_ss_qss_vs_z_figure.png'
     plt.savefig(outfile)
     plt.close(fig=fig)    
 

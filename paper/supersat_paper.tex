@@ -34,7 +34,7 @@ In order to determine experimental supersaturation within a reasonable margin of
 	\item including rain droplets and ventillation corrections
 \end{itemize}
 
-Figure \ref{wrfvsqss} shows a scatterplot with the agreement between the actual and QSS-derived SS values in the WRF simulation, for points satisfying the above criteria.
+Figure \ref{wrfvsqss} shows a scatterplot with the agreement between the actual and QSS-derived SS values in the WRF simulation, for points satisfying the above criteria. For brevity we will henceforth refer to such points as `cloudy updrafts.'
 
 \clearpage
 \newpage
@@ -42,12 +42,12 @@ Figure \ref{wrfvsqss} shows a scatterplot with the agreement between the actual 
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v12_heatmap_ss_qss_vs_ss_wrf_Unpolluted_figure_6.png}
+		\includegraphics[width=\textwidth]{revmywrf/v1_FINAL_heatmap_ss_qss_vs_ss_wrf_Unpolluted_figure_6.png}
 		\caption{Unpolluted case.}
 		\label{wrfvsqssunpoll}
 	\end{subfigure}
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v12_heatmap_ss_qss_vs_ss_wrf_Polluted_figure_6.png}
+		\includegraphics[width=\textwidth]{revmywrf/v1_FINAL_heatmap_ss_qss_vs_ss_wrf_Polluted_figure_6.png}
 		\caption{Polluted case.}
 		\label{wrfvsqsspoll}
 	\end{subfigure}
@@ -92,12 +92,12 @@ We now seek to determine whether such high values actually occur in nature. Firs
 \clearpage
 \newpage
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{atto/atto_psd_figure.png}
-    \caption{[DON'T HAVE DATA YET] Aerosol particle size distribution for a representative date; ground-based measurement coinciding with ACRIDICON-CHUVA flight dates, compared to initial distribution in boundary layer for WRF simulation. From ATTO site, upwind of Manaus metropolitan area.}
-    \label{attoasd}
-\end{figure}
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=9cm]{atto/atto_psd_figure.png}
+%    \caption{[DON'T HAVE DATA YET] Aerosol particle size distribution for a representative date; ground-based measurement coinciding with ACRIDICON-CHUVA flight dates, compared to initial distribution in boundary layer for WRF simulation. From ATTO site, upwind of Manaus metropolitan area.}
+%    \label{attoasd}
+%\end{figure}
 \begin{figure}[ht]
     \centering
     \includegraphics[width=12cm]{goama/v6_aero_size_distb_20140918_figure.png}
@@ -126,13 +126,13 @@ Next we look at data from the CAIPEEX experiment in India. No ground-based aeros
     \label{caipeexqsshist}
 \end{figure}
 
-Conclusion: Fan gets a difference in supersaturation (between polluted and clean) of 5\% (11\%) for the warm (deep) cloud phase (averaged over the top tenth percentile of convective updrafts), which supports 100 J/kg (200 J/kg) of invigoration in the polluted case. Here, we find average supersaturations in the top tenth percentile of convective updrafts to be 0.9\% and 0.3\% in CAIPEEX and HALO, respectively, which would support only $\approx$ 10 J/kg [\klcomm{managed to lose track of a factor of ten somewhere!}] invigoration relative to a storm with zero supersaturation [Note this argument is still somewhat contingent on better aerosol data esp. from the ATTO experiment...could just be we are only looking at polluted environments in these field campaigns]. 
+Conclusion: Fan gets a difference in supersaturation (between polluted and clean) of 5\% (11\%) for the warm (deep) cloud phase (averaged over the top tenth percentile of convective updrafts), which supports 100 J/kg (200 J/kg) of invigoration in the polluted case. Here, we find average supersaturations in the top tenth percentile of convective updrafts to be 0.9\% and 0.3\% in CAIPEEX and HALO, respectively, which would support only $\approx$ 10 J/kg invigoration relative to a storm with zero supersaturation [Note this argument is still somewhat contingent on better aerosol data esp. from the ATTO experiment...could just be we are only looking at polluted environments in these field campaigns]. 
 
 One possible counterargument is that the flight campaigns simply didn't fly through strong enough updrafts. However the vertical velocity distributions from the campaigns are quite similar to that from the simulations. See Figure \ref{combinedwhist}. 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=12cm]{revmywrf/v9_combined_w_hist_figure.png}
+    \includegraphics[width=12cm]{revmywrf/v1_FINAL_combined_w_hist_figure.png}
     \caption{Vertical wind velocity distribution from simulations and field campaigns. Using filtering criteria outlined in the text.}
     \label{combinedwhist}
 \end{figure}

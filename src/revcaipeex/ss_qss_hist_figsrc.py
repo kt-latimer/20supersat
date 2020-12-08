@@ -59,20 +59,8 @@ def main():
 
         ss_qss_alldates = add_to_alldates_array(ss_qss, ss_qss_alldates)
 
-        make_and_save_ss_qss_hist(ss_qss, date, versionstr, \
-            change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent)
-
-    print(ss_qss_alldates)
-    make_and_save_ss_qss_hist(ss_qss_alldates, 'alldates', versionstr, \
-            change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent)
-
-        print(date)
-        ss_qss = ss_qss[filter_inds]
-
-        ss_qss_alldates = add_to_alldates_array(ss_qss, ss_qss_alldates)
-
-        make_and_save_ss_qss_hist(ss_qss, date, versionstr, \
-                                    cutoff_bins, full_ss, incl_rain, incl_vent)
+        #make_and_save_ss_qss_hist(ss_qss, date, versionstr, \
+        #                            cutoff_bins, full_ss, incl_rain, incl_vent)
 
     print(ss_qss_alldates)
     make_and_save_ss_qss_hist(ss_qss_alldates, 'alldates', versionstr, \
@@ -105,7 +93,7 @@ def make_and_save_ss_qss_hist(ss_qss, label, versionstr, \
                     + ', incl_vent=' + str(incl_vent) \
                     + ', full_ss=' + str(full_ss))
     outfile = FIG_DIR + versionstr + 'ss_qss_hist_' \
-            + label + '_figure.png'
+            + label + '_figure2.png'
     plt.savefig(outfile)
     plt.close(fig=fig)    
 

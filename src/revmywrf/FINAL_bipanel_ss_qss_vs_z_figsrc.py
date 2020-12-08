@@ -15,11 +15,10 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
-versionstr = 'v3_'
+versionstr = 'v4_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
-magma_pink =  colors_arr[3]
 
 lwc_filter_val = 1.e-4
 w_cutoff = 2
@@ -55,9 +54,9 @@ def main():
         z_bins_dict[case_label] = z_bins
 
     make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['allpts'], \
-            z_dict['allpts'], z_bins_dict, 'allpts')
+            z_dict['allpts'], z_bins_dict, colors_arr[3], 'allpts')
     make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['up10perc'], \
-            z_dict['up10perc'], z_bins_dict, 'up10perc')
+            z_dict['up10perc'], z_bins_dict, colors_arr[7], 'up10perc')
 
 def get_ss_qss_and_z_data(case_label):
 
@@ -111,7 +110,7 @@ def get_ss_qss_and_z_data(case_label):
 
     return ss_qss, up10perc_ss_qss, z, up10perc_z, z_bins
 
-def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, label):
+def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, label):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
     fig.set_size_inches(18, 12)
@@ -125,23 +124,28 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, label):
         z_bins = z_bins_dict[case_label]
 
         avg_ss_qss, avg_z, se = get_avg_ss_qss_and_z(ss_qss, z, z_bins)
+        print(label, case_label)
+        print(np.nanmax(avg_ss_qss))
+        print(np.nanmean(avg_ss_qss))
+        print(np.nanmedian(avg_ss_qss))
+        continue
         #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
         #                                color=magma_pink, alpha=0.4)
         ax1.plot(avg_ss_qss, avg_z, linestyle=linestyle_str, \
-                color=magma_pink, linewidth=6, label=case_label)
+                color=color, linewidth=6, label=case_label) 
         ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
-                facecolor=(0, 0, 0, 0.0), edgecolor=magma_pink, \
+                facecolor=(0, 0, 0, 0.0), edgecolor=color, \
                 histtype='stepfilled', linewidth=6, linestyle=linestyle_str, \
                 label=case_label)
 
+    return
     #formatting
-    ax1.set_xlim((ss_min, ss_max))
     ax1.set_ylim((z_min, z_max))
     ax1.yaxis.grid()
     ax2.set_ylim((z_min, z_max))
     ax2.yaxis.grid()
     ax1.set_xlabel(r'$SS_{QSS}$ (%)')
-    ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m/s$^{-1}$)')
+    ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m$^{-1}$)')
     ax1.set_ylabel(r'z (m)')
     formatter = ticker.ScalarFormatter(useMathText=True)
     formatter.set_scientific(True) 
@@ -149,9 +153,9 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, label):
     ax2.xaxis.set_major_formatter(formatter)
 
     #custom legend
-    poll_line = Line2D([0], [0], color=magma_pink, \
+    poll_line = Line2D([0], [0], color=color, \
                         linewidth=6, linestyle='-')
-    unpoll_line = Line2D([0], [0], color=magma_pink, \
+    unpoll_line = Line2D([0], [0], color=color, \
                         linewidth=6, linestyle='--')
     ax2.legend([poll_line, unpoll_line], ['Polluted', 'Unpolluted'])
 
