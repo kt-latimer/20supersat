@@ -14,7 +14,7 @@ from revmywrf import BASE_DIR, DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_nconc, get_ss, linregress
 
 #for plotting
-versionstr = 'v1_'
+versionstr = 'v5_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
@@ -28,10 +28,10 @@ ss_min = -20
 d_ss = 0.25
 ss_max = 50+d_ss
 
-cutoff_bins = True
-incl_rain = True
-incl_vent = True
-full_ss = True
+cutoff_bins = True 
+incl_rain = False
+incl_vent = False 
+full_ss = True 
 
 def main():
     

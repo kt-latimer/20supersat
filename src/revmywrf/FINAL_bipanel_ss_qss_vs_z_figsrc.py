@@ -122,12 +122,12 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
         ss_qss = ss_qss_dict[case_label]
         z = z_dict[case_label]
         z_bins = z_bins_dict[case_label]
+        print(label, case_label)
+        print(np.nanmax(ss_qss))
+        print(np.nanmean(ss_qss))
+        print(np.nanmedian(ss_qss))
 
         avg_ss_qss, avg_z, se = get_avg_ss_qss_and_z(ss_qss, z, z_bins)
-        print(label, case_label)
-        print(np.nanmax(avg_ss_qss))
-        print(np.nanmean(avg_ss_qss))
-        print(np.nanmedian(avg_ss_qss))
         continue
         #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
         #                                color=magma_pink, alpha=0.4)

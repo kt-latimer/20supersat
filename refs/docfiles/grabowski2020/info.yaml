@@ -1,0 +1,50 @@
+abstract: "<jats:title>Abstract</jats:title>\n               <jats:p>Numerical simulations\
+  \ of the impact of ultrafine cloud condensation nuclei (CCN) on deep convection\
+  \ are analyzed to investigate the idea proposed by Fan et al. that addition of ultrafine\
+  \ CCN to an otherwise pristine environment leads to convective invigoration. The\
+  \ piggybacking methodology is applied, allowing rigorous separation of the impact\
+  \ of aerosols from different flow realizations that typically occur when even a\
+  \ small element of the model physics or modeling setup is changed. The setup follows\
+  \ the case of daytime convective development over land based on observations during\
+  \ the Large-Scale Biosphere–Atmosphere (LBA) experiment in Amazonia. Overall, the\
+  \ simulated impacts of ultrafine CCN are similar to the previous study by the authors\
+  \ on the impact of pollution on deep convection. There is no convective invigoration\
+  \ above the freezing level, but there is a small invigoration (increase in vertical\
+  \ velocities) below due to the supersaturation and buoyancy differences in conditions\
+  \ with additional ultrafine CCN compared to unperturbed pristine conditions. As\
+  \ in the previous study, the most significant impact is on the upper-tropospheric\
+  \ convective anvils that feature higher cloud fractions in conditions with ultrafine\
+  \ CCN. The increase comes from purely microphysical considerations as the increased\
+  \ cloud droplet concentrations from ultrafine CCN lead to increased ice crystal\
+  \ concentrations and, consequently, smaller sizes and fall velocities, and longer\
+  \ residence times. Mesoscale organization due to low-level shear has a small effect\
+  \ on the simulated ultrafine CCN impacts. Finally, an alternative explanation of\
+  \ increased lightning above oceanic shipping lines seen in satellite observations\
+  \ and argued to result from convective invigoration is provided.</jats:p>"
+author: Grabowski, Wojciech W. and Morrison, Hugh
+author_list:
+- affiliation:
+  - name: Mesoscale and Microscale Meteorology Laboratory, National Center for Atmospheric
+      Research, Boulder, Colorado
+  family: Grabowski
+  given: Wojciech W.
+- affiliation:
+  - name: Mesoscale and Microscale Meteorology Laboratory, National Center for Atmospheric
+      Research, Boulder, Colorado
+  family: Morrison
+  given: Hugh
+doc_url: http://journals.ametsoc.org/jas/article-pdf/77/7/2567/4964821/jasd200012.pdf
+doi: 10.1175/jas-d-20-0012.1
+files:
+- tmpe816d25s.data
+issue: '7'
+journal: Journal of the Atmospheric Sciences
+language: en
+month: 7
+pages: 2567--2583
+publisher: American Meteorological Society
+title: Do Ultrafine Cloud Condensation Nuclei Invigorate Deep Convection?
+type: article
+url: http://dx.doi.org/10.1175/jas-d-20-0012.1
+volume: '77'
+year: 2020

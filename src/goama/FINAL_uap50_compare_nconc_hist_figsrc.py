@@ -117,10 +117,10 @@ def make_and_save_uap50_nconc_hist(uap50_nconc, uap50_fan_nconc, date):
     ylim = ax.get_ylim()
     ax.plot([0, 0], ylim, linestyle='--', \
             color=colors_dict['fan_model'], linewidth=4, \
-            label='C_PI model, Fan et al')
+            label='Unpolluted model scenario')
     ax.plot([820, 820], ylim, linestyle=':', \
             color=colors_dict['fan_model'], linewidth=4, \
-            label='C_BG model, Fan et al')
+            label='Polluted model scenario')
 
     ax.set_xlabel(r'SMPS UAP$_{<50}$ number concentration (cm$^{-3}$)')
     ax.set_ylabel(r'$\frac{dn_{points}}{dN}$ (cm$^3$)')

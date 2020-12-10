@@ -1,0 +1,448 @@
+abstract: "<jats:p>Abstract. The objective of this study is to validate parameterizations\
+  \ that were recently developed for satellite retrievals of cloud condensation nuclei\
+  \ supersaturation spectra, NCCN(S), at cloud base alongside more traditional parameterizations\
+  \ connecting NCCN(S) with cloud base updrafts and drop concentrations. This was\
+  \ based on the HALO aircraft measurements during the ACRIDICON–CHUVA campaign over\
+  \ the Amazon region, which took place in September 2014. The properties of convective\
+  \ clouds were measured with a cloud combination probe (CCP), a cloud and aerosol\
+  \ spectrometer (CAS-DPOL), and a CCN counter onboard the HALO aircraft. An intercomparison\
+  \ of the cloud drop size distributions (DSDs) and the cloud water content (CWC)\
+  \ derived from the different instruments generally shows good agreement within the\
+  \ instrumental uncertainties. To this end, the directly measured cloud drop concentrations (Nd)\
+  \ near cloud base were compared with inferred values based on the measured cloud\
+  \ base updraft velocity (Wb) and NCCN(S) spectra. The measurements of Nd at cloud\
+  \ base were also compared with drop concentrations (Na) derived on the basis of\
+  \ an adiabatic assumption and obtained from the vertical evolution of cloud drop\
+  \ effective radius (re) above cloud base. The measurements of NCCN(S) and Wb reproduced\
+  \ the observed Nd within the measurements uncertainties when the old (1959) Twomey's\
+  \ parameterization was used. The agreement between the measured and calculated Nd\
+  \ was only within a factor of 2 with attempts to use cloud base S, as obtained from\
+  \ the measured Wb, Nd, and NCCN(S). This underscores the yet unresolved challenge\
+  \ of aircraft measurements of S in clouds. Importantly, the vertical evolution of\
+  \ re with height reproduced the observation-based nearly adiabatic cloud base drop\
+  \ concentrations, Na. The combination of these results provides aircraft observational\
+  \ support for the various components of the satellite-retrieved methodology that\
+  \ was recently developed to retrieve NCCN(S) under the base of convective clouds.\
+  \ This parameterization can now be applied with the proper qualifications to cloud\
+  \ simulations and satellite retrievals.\n                    </jats:p>"
+author: Braga, Ramon Campos and Rosenfeld, Daniel and Weigel, Ralf and Jurkat, Tina
+  and Andreae, Meinrat O. and Wendisch, Manfred and Pöhlker, Mira L. and Klimach,
+  Thomas and Pöschl, Ulrich and Pöhlker, Christopher and Voigt, Christiane and Mahnke,
+  Christoph and Borrmann, Stephan and Albrecht, Rachel I. and Molleker, Sergej and
+  Vila, Daniel A. and Machado, Luiz A. T. and Artaxo, Paulo
+author_list:
+- affiliation: []
+  family: Braga
+  given: Ramon Campos
+- affiliation: []
+  family: Rosenfeld
+  given: Daniel
+- affiliation: []
+  family: Weigel
+  given: Ralf
+- affiliation: []
+  family: Jurkat
+  given: Tina
+- affiliation: []
+  family: Andreae
+  given: Meinrat O.
+- affiliation: []
+  family: Wendisch
+  given: Manfred
+- affiliation: []
+  family: Pöhlker
+  given: Mira L.
+- affiliation: []
+  family: Klimach
+  given: Thomas
+- affiliation: []
+  family: Pöschl
+  given: Ulrich
+- affiliation: []
+  family: Pöhlker
+  given: Christopher
+- affiliation: []
+  family: Voigt
+  given: Christiane
+- affiliation: []
+  family: Mahnke
+  given: Christoph
+- affiliation: []
+  family: Borrmann
+  given: Stephan
+- affiliation: []
+  family: Albrecht
+  given: Rachel I.
+- affiliation: []
+  family: Molleker
+  given: Sergej
+- affiliation: []
+  family: Vila
+  given: Daniel A.
+- affiliation: []
+  family: Machado
+  given: Luiz A. T.
+- affiliation: []
+  family: Artaxo
+  given: Paulo
+citations:
+- doi: 10.5194/acp-9-543-2009
+  unstructured: 'Andreae, M. O.: Correlation between cloud condensation nuclei concentration
+    and aerosol optical thickness in remote and polluted regions, Atmos. Chem. Phys.,
+    9, 543–556, https://doi.org/10.5194/acp-9-543-2009, 2009.'
+- doi: 10.1126/science.1092779
+  unstructured: 'Andreae, M. O., Rosenfeld, D., Artaxo, P., Costa, A. A., Frank, G.
+    P., Longo, K. M., and Silva-Dias, M. A. F.: Smoking rain clouds over the Amazon,
+    Science, 303, 1337–1342, https://doi.org/10.1126/science.1092779, 2004.'
+- doi: 10.1029/2001JD000666
+  unstructured: 'Artaxo, P., Martins, J. V., Yamasoe, M. A., Procópio, A. S., Pauliquevis,
+    T. M., Andreae, M. O., Guyon, P., Gatti, L. V., and Leal, A. M. C.: Physical and
+    chemical properties of aerosols in the wet and dry seasons in Rondônia, Amazonia,
+    J. Geophys. Res.-Atmos., 107, 1–14, https://doi.org/10.1029/2001JD000666, 2002.'
+- unstructured: 'Baumgardner, D., Strapp, W., and Dye, J. E.: Evaluation of the forward
+    scattering spectrometer probe. Part II: corrections for coincidence and dead-time
+    losses, J. Atmos. Ocean. Tech., 2, 626–632, https://doi.org/10.1175/1520-0426(1985)002&amp;lt;0626:EOTFSS&amp;gt;2.0.CO;2,
+    1985.'
+- doi: 10.1016/S0169-8095(01)00119-3
+  unstructured: 'Baumgardner, D., Jonsson, H., Dawson, W., O''Connor, D., and Newton,
+    R.: The cloud, aerosol and precipitation spectrometer: a new instrument for cloud
+    investigations, Atmos. Res., 59–60, 251–264, https://doi.org/10.1016/S0169-8095(01)00119-3,
+    2001.'
+- doi: 10.1029/2004GL021300
+  unstructured: 'Baumgardner, D., Chepfer, H., Raga, G. B., and Kok, G. L.: The shapes
+    of very small cirrus particles derived from in situ measurements, Geophys. Res.
+    Lett., 32, 1–4, https://doi.org/10.1029/2004GL021300, 2005.'
+- doi: 10.1126/science.aab0751
+  unstructured: 'Beals, M. J., Fugal, J. P., Shaw, R. A., Lu, J., Spuler, S. M., and
+    Stith, J. L.: Holographic measurements of inhomogeneous cloud mixing at the centimeter
+    scale, Science, 350, 87–90, https://doi.org/10.1126/science.aab0751, 2015.'
+- doi: 10.1126/science.1092779
+  unstructured: 'Brenguier, J. L., Bachalo, W. D., Chuang, P. Y., Esposito, B. M.,
+    Fugal, J., Garrett, T., Gayet, J. F., Gerber, H., Heymsfield, A., Kokhanovsky,
+    A., Korolev, A., Lawson, R. P., Rogers, D. C., Shaw, R. A., Strapp, W., and Wendisch,
+    M.: In situ measurements of cloud and precipitation particles in airborne measurements
+    for environmental research: methods and instruments, Science, 303, 1337–1342,
+    https://doi.org/10.1126/science.1092779, 2013.'
+- doi: 10.1175/JAS3928.1
+  unstructured: 'Burnet, F. and Brenguier, J. L.: Observational study of the entrainment-mixing
+    process in warm convective clouds, J. Atmos. Sci., 64, 1995–2011, https://doi.org/10.1175/JAS3928.1,
+    2007.'
+- unstructured: 'Dye, J. E. and Baumgardner, D.: Evaluation of the forward scattering
+    spectrometer probe. Part I: electronic and optical studies, J. Atmos. Ocean. Tech.,
+    1, 329–344, https://doi.org/10.1175/1520-0426(1984)001&amp;lt;0329:EOTFSS&amp;gt;2.0.CO;2,
+    1984.'
+- doi: 10.5194/acp-14-81-2014
+  unstructured: 'Fan, J., Leung, L. R., DeMott, P. J., Comstock, J. M., Singh, B.,
+    Rosenfeld, D., Tomlinson, J. M., White, A., Prather, K. A., Minnis, P., Ayers,
+    J. K., and Min, Q.: Aerosol impacts on California winter clouds and precipitation
+    during CalWater 2011: local pollution versus long-range transported dust, Atmos.
+    Chem. Phys., 14, 81–101, https://doi.org/10.5194/acp-14-81-2014, 2014.'
+- doi: 10.1029/2011JD016457
+  unstructured: 'Freud, E. and Rosenfeld, D.: Linear relation between convective cloud
+    drop number concentration and depth for rain initiation, J. Geophys. Res.-Atmos.,
+    117, 1–13, https://doi.org/10.1029/2011JD016457, 2012.'
+- doi: 10.5194/acp-8-1661-2008
+  unstructured: 'Freud, E., Rosenfeld, D., Andreae, M. O., Costa, A. A., and Artaxo,
+    P.: Robust relations between CCN and the vertical evolution of cloud drop size
+    distribution in deep convective clouds, Atmos. Chem. Phys., 8, 1661–1675, https://doi.org/10.5194/acp-8-1661-2008,
+    2008.'
+- doi: 10.5194/acp-11-12887-2011
+  unstructured: 'Freud, E., Rosenfeld, D. and Kulkarni, J. R.: Resolving both entrainment-mixing
+    and number of activated CCN in deep convective clouds, Atmos. Chem. Phys., 11,
+    12887–12900, https://doi.org/10.5194/acp-11-12887-2011, 2011.'
+- doi: 10.5194/acp-11-5569-2011
+  unstructured: 'Frey, W., Borrmann, S., Kunkel, D., Weigel, R., De Reus, M., Schlager,
+    H., Roiger, A., Voigt, C., Hoor, P., Curtius, J., Krämer, M., Schiller, C., Volk,
+    C. M., Homan, C. D., Fierli, F., Di Donfrancesco, G., Ulanovsky, A., Ravegnani,
+    F., Sitnikov, N. M., Viciani, S., D''Amato, F., Shur, G. N., Belyaev, G. V., Law,
+    K. S., and Cairo, F.: In situ measurements of tropical cloud properties in the
+    West African Monsoon: upper tropospheric ice clouds, mesoscale convective system
+    outflow, and subvisual cirrus, Atmos. Chem. Phys., 11, 5569–5590, https://doi.org/10.5194/acp-11-5569-2011,
+    2011.'
+- doi: 10.5194/acp-12-6629-2012
+  unstructured: 'Gayet, J.-F., Shcherbakov, V., Voigt, C., Schumann, U., Schäuble,
+    D., Jeßberger, P., Petzold, A., Minikin, A., Schlager, H., Dubovik, O., and Lapyonok,
+    T.: The evolution of microphysical and optical properties of an A380 contrail
+    in the vortex phase, Atmos. Chem. Phys., 12, 6629–6643, https://doi.org/10.5194/acp-12-6629-2012,
+    2012.'
+- doi: 10.1002/qj.49712354107
+  unstructured: 'Haddad, Z. S. and Rosenfeld, D.: Optimality of Empirical Z–R Relations,
+    Q. J. Roy. Meteorol. Soc., 123, 1283–1293, 1997.'
+- doi: 10.1175/JAS-D-15-0365.1
+  unstructured: 'Järvinen, E., Schnaiter, M., Mioche, G., Jourdan, O., Shcherbakov,
+    V., Costa, A., Afchine, A., Krämer, M., Heidelberg, F., Jurkat, T., Voigt, C.,
+    Schlager, H., Nichman, L., Gallagher, M., Hirst, E., Schmitt, C., Bansemer, A.,
+    Heymsfield, A., Lawson, P., U.Tricoli, Pfeilsticker, K., Vochezer, P., Möhler,
+    O., and Leisner, T.: Quasi-spherical ice in convective clouds, J. Atmos. Sci.,
+    https://doi.org/10.1175/JAS-D-15-0365.1, in press, 2016.'
+- doi: 10.5194/acp-13-11965-2013
+  unstructured: 'Jeßberger, P., Voigt, C., Schumann, U., Sölch, I., Schlager, H.,
+    Kaufmann, S., Petzold, A., Schäuble, D., and Gayet, J. F.: Aircraft type influence
+    on contrail properties, Atmos. Chem. Phys., 13, 11965–11984, https://doi.org/10.5194/acp-13-11965-2013,
+    2013.'
+- doi: 10.1029/2005JD006138
+  unstructured: 'Jiang, H. and Feingold, G.: Effect of aerosol on warm convective
+    clouds: aerosol-cloud-surface flux feedbacks in a new coupled large eddy model,
+    J. Geophys. Res., 111, D01202, https://doi.org/10.1029/2005JD006138, 2006.'
+- unstructured: 'King, W. D., Parkin, D. A., and Handsworth, R. J.: A hot-wire liquid
+    water device having fully calculable response characteristics, J. Appl. Meteorol.,
+    17, 1809–1813, https://doi.org/10.1175/1520-0450(1978)017&amp;lt;1809:AHWLWD&amp;gt;2.0.CO;2,
+    1978.'
+- doi: 10.5194/acp-15-617-2015
+  unstructured: 'Klingebiel, M., De Lozar, A., Molleker, S., Weigel, R., Roth, A.,
+    Schmidt, L., Meyer, J., Ehrlich, A., Neuber, R., Wendisch, M., and Borrmann, S.:
+    Arctic low-level boundary layer clouds: In situ measurements and simulations of
+    mono- and bimodal supercooled droplet size distributions at the top layer of liquid
+    phase clouds, Atmos. Chem. Phys., 15, 617–631, https://doi.org/10.5194/acp-15-617-2015,
+    2015.'
+- doi: 10.1175/BAMS-D-14-00108.1
+  unstructured: 'Knippertz, P., Coe, H., Chiu, C., Evans, M. J., Fink, A. H., Kalthoff,
+    N., Liousse, C., Mari, C., Allan, R., Brooks, B., Danour, S., Flamant, C., Jegede,
+    O. O., Lohou, F., and Marsham, J. H.: The DACCIWA project: Dynamics–aerosol–chemistry–cloud
+    interactions in West Africa, B. Am. Meteorol. Soc., 96, 1451–1460, 2015.'
+- unstructured: 'Kohler, M.: Explicit prediction of ice clouds in general circulation
+    models, in: ProQuest Dissertations And Theses, PhD Thesis, University of California,
+    Los Angeles, p. 6157, 1999.'
+- unstructured: 'Korolev, A. V., Makarov, Y. E., and Novikov, V. S.: On the calibration
+    of cloud particle counter FSSP−, Trans. Cent. Aerol. Obs., 158, 43–49, 1985.'
+- doi: 10.5194/amt-7-2615-2014
+  unstructured: 'Krüger, M. L., Mertes, S., Klimach, T., Cheng, Y. F., Su, H., Schneider,
+    J., Andreae, M. O., Pöschl, U., and Rose, D.: Assessment of cloud supersaturation
+    by size-resolved aerosol particle and cloud condensation nuclei (CCN) measurements,
+    Atmos. Meas. Tech., 7, 2615–2629, https://doi.org/10.5194/amt-7-2615-2014, 2014.'
+- doi: 10.5194/acp-10-9251-2010
+  unstructured: 'Kuhn, U., Ganzeveld, L., Thielmann, A., Dindorf, T., Schebeske, G.,
+    Welling, M., Sciare, J., Roberts, G., Meixner, F. X., Kesselmeier, J., Lelieveld,
+    J., Kolle, O., Ciccioli, P., Lloyd, J., Trentmann, J., Artaxo, P., and Andreae,
+    M. O.: Impact of Manaus city on the Amazon Green Ocean atmosphere: ozone production,
+    precursor sensitivity and aerosol load, Atmos. Chem. Phys., 10, 9251–9282, https://doi.org/10.5194/acp-10-9251-2010,
+    2010.'
+- doi: 10.1175/JTECH-D-11-00208.1
+  unstructured: 'Lance, S.: Coincidence errors in a cloud droplet probe (CDP) and
+    a cloud and aerosol spectrometer (CAS), and the improved performance of a modified
+    CDP, J. Atmos. Ocean. Tech., 29, 1532–1541, https://doi.org/10.1175/JTECH-D-11-00208.1,
+    2012.'
+- doi: 10.5194/amt-3-1683-2010
+  unstructured: 'Lance, S., Brock, C. A., Rogers, D., and Gordon, J. A.: Water droplet
+    calibration of the cloud droplet probe (CDP) and in-flight performance in liquid,
+    ice and mixed-phase clouds during ARCPAC, Atmos. Meas. Tech., 3, 1683–1706, https://doi.org/10.5194/amt-3-1683-2010,
+    2010.'
+- doi: 10.1175/BAMS-D-13-00084.1
+  unstructured: 'Machado, L. A. T., Silva Dias, M. A. F., Morales, C., Fisch, G.,
+    Vila, D., Albrecht, R., Goodman, S. J., Calheiros, A. J. P., Biscaro, T., Kummerow,
+    C., Cohen, J., Fitzjarrald, D., Nascimento, E. L., Sakamoto, M. S., Cunningham,
+    C., Chaboureau, J. P., Petersen, W. A., Adams, D. K., Baldini, L., Angelis, C.
+    F., Sapucci, L. F., Salio, P., Barbosa, H. M. J., Landulfo, E., Souza, R. A. F.,
+    Blakeslee, R. J., Bailey, J., Freitas, S., Lima, W. F. A., and Tokay, A.: The
+    CHUVA project: how does convection vary across Brazil?, B. Am. Meteorol. Soc.,
+    95, 1365–1380, https://doi.org/10.1175/BAMS-D-13-00084.1, 2014.'
+- doi: 10.5194/amt-8-3177-2015
+  unstructured: 'Mallaun, C., Giez, A., and Baumann, R.: Calibration of 3-D wind measurements
+    on a single-engine research aircraft, Atmos. Meas. Tech., 8, 3177–3196, https://doi.org/10.5194/amt-8-3177-2015,
+    2015.'
+- doi: 10.5194/acp-16-4785-2016
+  unstructured: 'Martin, S. T., Artaxo, P., Machado, L. A. T., Manzi, A. O., Souza,
+    R. A. F., Schumacher, C., Wang, J., Andreae, M. O., Barbosa, H. M. J., Fan, J.,
+    Fisch, G., Goldstein, A. H., Guenther, A., Jimenez, J. L., Pöschl, U., Silva Dias,
+    M. A., Smith, J. N., and Wendisch, M.: Introduction: Observations and modeling
+    of the Green Ocean Amazon (GoAmazon2014/5), Atmos. Chem. Phys., 16, 4785–4797,
+    https://doi.org/10.5194/acp-16-4785-2016, 2016.'
+- doi: 10.5194/acp-13-717-2013
+  unstructured: 'Mikhailov, E., Vlasenko, S., Rose, D., and Pöschl, U.: Mass-based
+    hygroscopicity parameter interaction model and measurement of atmospheric aerosol
+    water uptake, Atmos. Chem. Phys., 13, 717–740, https://doi.org/10.5194/acp-13-717-2013,
+    2013.'
+- doi: 10.5194/acp-14-10785-2014
+  unstructured: 'Molleker, S., Borrmann, S., Schlager, H., Luo, B., Frey, W., Klingebiel,
+    M., Weigel, R., Ebert, M., Mitev, V., Matthey, R., Woiwode, W., Oelhaf, H., Dörnbrack,
+    A., Stratmann, G., Groo&lt;i&gt;β&lt;/i&gt;, J. U., Günther, G., Vogel, B., Müller,
+    R., Krämer, M., Meyer, J., and Cairo, F.: Microphysical properties of synoptic-scale
+    polar stratospheric clouds: in situ measurements of unexpectedly large HNO3-containing
+    particles in the arctic vortex, Atmos. Chem. Phys., 14, 10785–10801, https://doi.org/10.5194/acp-14-10785-2014,
+    2014.'
+- doi: 10.1038/nature21420
+  unstructured: 'Moore, R. H., Thornhill, K. L., Weinzierl, B., Sauer, D.l, D''Ascoli,
+    E., Kim, J., Lichtenstern, M., Scheibe, M., Beaton, B., Beyersdorf, A. J., Barrick,
+    J., Bulzan, D., Corr, C. A., Crosbie, E., Jurkat, T., Martin, R., Riddick, D.,
+    Shook, M., Slover, G., Voigt, C., White, R., Winstead, E., Yasky, R., Ziemba,
+    L. D., Brown, A., Schlager, H., and Anderson, B. E.: Biofuel blending reduces
+    particle emissions from aircraft engines at cruise conditions, Nature, 543, 411–415,
+    https://doi.org/10.1038/nature21420, 2017.'
+- doi: 10.5194/acp-7-1961-2007
+  unstructured: 'Petters, M. D. and Kreidenweis, S. M.: A single parameter representation
+    of hygroscopic growth and cloud condensation nucleus activity, Atmos. Chem. Phys.,
+    7, 1961–1971, https://doi.org/10.5194/acp-7-1961-2007, 2007.'
+- doi: 10.1029/2012JD017753
+  unstructured: 'Pinsky, M., Khain, A., Mazin, I., and Korolev, A.: Analytical estimation
+    of droplet concentration at cloud base, J. Geophys. Res.-Atmos., 117, 1–14, https://doi.org/10.1029/2012JD017753,
+    2012.'
+- doi: 10.5194/acp-16-15709-2016
+  unstructured: 'Pöhlker, M. L., Pöhlker, C., Ditas, F., Klimach, T., Hrabe de Angelis,
+    I., Araújo, A., Brito, J., Carbone, S., Cheng, Y., Chi, X., Ditz, R., Gunthe,
+    S. S., Kesselmeier, J., Kónemann, T., Lavric, J. V., Martin, S. T., Mikhailov,
+    E., Moran-Zuloaga, D., Rose, D., Saturno, J., Su, H., Thalman, R., Walter, D.,
+    Wang, J., Wolff, S., Barbosa, H. M. J., Artaxo, P., Andreae, M. O., and Pöschl,
+    U.: Long-term observations of cloud condensation nuclei in the Amazon rain forest
+    – Part 1: Aerosol size distribution, hygroscopicity, and new model parametrizations
+    for CCN prediction, Atmos. Chem. Phys., 16, 15709–15740, https://doi.org/10.5194/acp-16-15709-2016,
+    2016.'
+- doi: 10.1080/02786829808965531
+  unstructured: 'Pruppacher, H. R., Klett, J. D., and Wang, P. K.: Microphysics of
+    clouds and precipitation, Aerosol Sci. Tech., 28, 381–382, https://doi.org/10.1080/02786829808965531,
+    1998.'
+- doi: 10.5194/acp-9-7067-2009
+  unstructured: 'Reutter, P., Su, H., Trentmann, J., Simmel, M., Rose, D., Gunthe,
+    S. S., Wernli, H., Andreae, M. O., and Pöschl, U.: Aerosol- and updraft-limited
+    regimes of cloud droplet formation: influence of particle number, size and hygroscopicity
+    on the activation of cloud condensation nuclei (CCN), Atmos. Chem. Phys., 9, 7067–7080,
+    https://doi.org/10.5194/acp-9-7067-2009, 2009.'
+- doi: 10.1080/027868290913988
+  unstructured: 'Roberts, G. C. and Nenes, A.: A continuous-flow streamwise thermal-gradient
+    CCN chamber for atmospheric measurements, Aerosol Sci. Tech., 39, 206–221, https://doi.org/10.1080/027868290913988,
+    2005.'
+- doi: 10.5194/acp-8-1153-2008
+  unstructured: 'Rose, D., Gunthe, S. S., Mikhailov, E., Frank, G. P., Dusek, U.,
+    Andreae, M. O., and Pöschl, U.: Calibration and measurement uncertainties of a
+    continuous-flow cloud condensation nuclei counter (DMT-CCNC): CCN activation of
+    ammonium sulfate and sodium chloride aerosol particles in theory and experiment,
+    Atmos. Chem. Phys., 8, 1153–1179, https://doi.org/10.5194/acp-8-1153-2008, 2008.'
+- doi: 10.5194/amt-5-1147-2012
+  unstructured: 'Rosenberg, P. D., Dean, A. R., Williams, P. I., Dorsey, J. R., Minikin,
+    A., Pickering, M. A., and Petzold, A.: Particle sizing calibration with refractive
+    index correction for light scattering optical particle counters and impacts upon
+    PCASP and CDP data collected during the Fennec campaign, Atmos. Meas. Tech., 5,
+    1147–1163, https://doi.org/10.5194/amt-5-1147-2012, 2012.'
+- doi: 10.1016/0169-8095(94)90096-5
+  unstructured: 'Rosenfeld, D. and Gutman, G.: Retrieving microphysical properties
+    near the tops of potential rain clouds by multispectral analysis of AVHRR data,
+    Atmos. Res., 34, 259–283, https://doi.org/10.1016/0169-8095(94)90096-5, 1994.'
+- doi: 10.1175/JAM2403.1
+  unstructured: 'Rosenfeld, D., Woodley, W. L., Krauss, T. W., and Makitov, V.: Aircraft
+    microphysical documentation from cloud base to anvils of hailstorm feeder clouds
+    in Argentina, J. Appl. Meteorol. Clim., 45, 1261–1281, https://doi.org/10.1175/JAM2403.1,
+    2006.'
+- doi: 10.1126/science.1160606
+  unstructured: 'Rosenfeld, D., Lohmann, U., and Raga, G.: Flood or drought: how do
+    aerosols affect precipitation?, Science, 321, 1309–1313, 2008.'
+- doi: 10.1002/2014GL059453
+  unstructured: 'Rosenfeld, D., Fischman, B., Zheng, Y., Goren, T., and Giguzin, D.:
+    Combined satellite and radar retrievals of drop concentration and CCN at convective
+    cloud base, Geophys. Res. Lett., 41, 3259–3265, https://doi.org/10.1002/2014GL059453,
+    2014a.'
+- doi: 10.1016/j.atmosres.2013.09.006
+  unstructured: 'Rosenfeld, D., Chemke, R., Prather, K., Suski, K., Comstock, J. M.,
+    Schmid, B., Tomlinson, J., and Jonsson, H.: Polluting of winter convective clouds
+    upon transition from ocean inland over central California: contrasting case studies,
+    Atmos. Res., 135–136, 112–127, https://doi.org/10.1016/j.atmosres.2013.09.006,
+    2014b.'
+- doi: 10.1073/pnas.1514044113
+  unstructured: 'Rosenfeld, D., Zheng, Y., Hashimshoni, E., Pöhlker, M. L., Jefferson,
+    A., Pöhlker, C., Yu, X., Zhu, Y., Liu, G., Yue, Z., Fischman, B., Li, Z., Giguzin,
+    D., Goren, T., Artaxoi, P., Barbosai, H. M. J., Pöschl, U., and Andreae, M. O.:
+    Satellite retrieval of cloud condensation nuclei concentrations by using clouds
+    as CCN chambers, P. Natl. Acad. Sci. USA, https://doi.org/10.1073/pnas.1514044113,
+    in press, 2016.'
+- doi: 10.1175/2010JAS3562.1
+  unstructured: 'Schumann, U., Mayer, B., Gierens, K., Unterstrasser, S., Jessberger,
+    P., Petzold, A., Voigt, C., and Gayet, J.-F.: Effective radius of ice particles
+    in cirrus and contrails, J. Atmos. Sci., 68, 300–321, https://doi.org/10.1175/2010JAS3562.1,
+    2011.'
+- doi: 10.1029/2001JD000375
+  unstructured: 'Silva Dias, M. A. F., Petersen, W., Silva Dias, P. L., Cifelli, R.,
+    Betts, A. K., Longo, M., Gomes, A. M., Fisch, G. F., Lima, M. A., Antonio, M.
+    A., and Albrecht, R. I.: A case study of convective organization into precipitating
+    lines in the southwest Amazon during the WETAMC and TRMM-LBA, J. Geophys. Res.-Atmos.,
+    107, 8078, https://doi.org/10.1029/2001JD000375, 2002.'
+- doi: 10.1175/1520-0493(1984)112<0826:TPORFN>2.0.CO;2
+  unstructured: 'Stephens, G.: The parameterization of radiation for numerical weather
+    prediction and climate models, Mon. Weather Rev., 112, 826–867, 1984.'
+- unstructured: 'Strapp, J. W., Oldenburg, J., Ide, R., Lilie, L., Bacic, S., Vukovic,
+    Z., Oleskiw, M., Miller, D., Emery, E., and Leone, G.: Wind tunnel measurements
+    of the response of hot-wire liquid water content instruments to large droplets,
+    J. Atmos. Ocean. Tech., 20, 791–806, https://doi.org/10.1175/1520-0426(2003)020&amp;lt;0791:WTMOTR&amp;gt;2.0.CO;2,
+    2003.'
+- doi: 10.5194/acp-11-3021-2011
+  unstructured: 'Ten Hoeve, J. E., Remer, L. A., and Jacobson, M. Z.: Microphysical
+    and radiative effects of aerosols on warm clouds during the Amazon biomass burning
+    season as observed by MODIS: Impacts of water vapor and land cover, Atmos. Chem.
+    Phys., 11, 3021–3036, https://doi.org/10.5194/acp-11-3021-2011, 2011.'
+- doi: 10.1007/BF01993560
+  unstructured: 'Twomey, S.: The nuclei of natural cloud formation part II: the supersaturation
+    in natural clouds and the variation of cloud droplet concentration, Geofis. Pura
+    Appl., 43, 243–249, https://doi.org/10.1007/BF01993560, 1959.'
+- doi: 10.5194/acp-10-9039-2010
+  unstructured: 'Voigt, C., Schumann, U., Jurkat, T., Schäuble, D., Schlager, H.,
+    Petzold, A., Gayet, J. F., Krämer, M., Schneider, J., Borrmann, S., Schmale, J.,
+    Jessberger, P., Hamburger, T., Lichtenstern, M., Scheibe, M., Gourbeyre, C., Meyer,
+    J., Kübbeler, M., Frey, W., Kalesse, H., Butler, T., Lawrence, M. G., Holzäpfel,
+    F., Arnold, F., Wendisch, M., Döpelheuer, A., Gottschaldt, K., Baumann, R., Zöger,
+    M., Sölch, I., Rautenhaus, M., and Dörnbrack, A.: In-situ observations of young
+    contrails – overview and selected results from the CONCERT campaign, Atmos. Chem.
+    Phys., 10, 9039–9056, https://doi.org/10.5194/acp-10-9039-2010, 2010.'
+- doi: 10.1029/2011GL047189
+  unstructured: 'Voigt, C., Schumann, U., Jessberger, P., Jurkat, T., Petzold, A.,
+    Gayet, J. F., Krmer, M., Thornberry, T., and Fahey, D. W.: Extinction and optical
+    depth of contrails, Geophys. Res. Lett., 38, L11806, https://doi.org/10.1029/2011GL047189,
+    2011.'
+- doi: 10.1175/BAMS-D-15-00213.1
+  unstructured: 'Voigt, C., Schumann, U., Minikin, A., Abdelmonem, A., Afchine, A.,
+    Borrmann, S., Boettcher, M., Buchholz, B., Bugliaro, L., Costa, A., Curtius, J.,
+    Dollner, M., Dörnbrack, A., Dreiling, V., Ebert, V., Ehrlich, A., Fix, A., Forster,
+    L., Frank, F., Fütterer, D., Giez, A., Graf, K., Grooß, J., Groß, S., Heimerl,
+    K., Heinold, B., Hüneke, T., Järvinen, E., Jurkat, T., Kaufmann, S., Kenntner,
+    M., Klingebiel, M., Klimach, T., Kohl, R., Krämer, M., Krisna, T., Luebke, A.,
+    Mayer, B., Mertes, S., Molleker, S., Petzold, A., Pfeilsticker, K., Port, M.,
+    Rapp, M., Reutter, P., Rolf, C., Rose, D., Sauer, D., Schäfler, A., Schlage, R.,
+    Schnaiter, M., Schneider, J., Spelten, N., Spichtinger, P., Stock, P., Walser,
+    A., Weigel, R., Weinzierl, B., Wendisch, M., Werner, F., Wernli, H., Wirth, M.,
+    Zahn, A., Ziereis, H., and Zöger, M.: ML-CIRRUS - the airborne experiment on natural
+    cirrus and contrail cirrus with the high-altitude long-range research aircraft
+    HALO, B. Am. Meteorol. Soc., 98, 271–288, https://doi.org/10.1175/BAMS-D-15-00213.1,
+    2017.'
+- doi: 10.5194/amt-9-5135-2016
+  unstructured: 'Weigel, R., Spichtinger, P., Mahnke, C., Klingebiel, M., Afchine,
+    A., Petzold, A., Krämer, M., Costa, A., Molleker, S., Jurkat, T., Minikin, A.,
+    and Borrmann, S.: Thermodynamic correction of particle concentrations measured
+    by underwing probes on fast flying aircraft, Atmos. Meas. Tech., 9, 5135–5162,
+    https://doi.org/10.5194/amt-9-5135-2016, 2016.'
+- doi: 10.1002/9783527653218
+  unstructured: 'Wendisch, M. and Brenguier, J.-L. (Eds.): Airborne measurements for
+    environmental research: methods and instruments, Wiley-VCH Verlag GmbH &amp;amp; Co. KGaA,
+    Weinheim, Germany, 655 pp., https://doi.org/10.1002/9783527653218, 2013.'
+- unstructured: 'Wendisch, M., Keil, A., and Korolev, A. V.: FSSP characterization
+    with monodisperse water droplets, J. Atmos. Ocean. Tech., 13, 1152–1165, https://doi.org/10.1175/1520-0426(1996)013&amp;lt;1152:FCWMWD&amp;gt;2.0.CO;2,
+    1996.'
+- doi: 10.1175/BAMS-D-14-00255.1
+  unstructured: 'Wendisch, M., Pöschl, U., Andreae, M. O., Machado, L. A. T., Albrecht,
+    R., Schlager, H., Rosenfeld, D., Martin, S. T., Abdelmonem, A., Afchine, A., Araùjo,
+    A., Artaxo, P., Aufmhoff, H., Barbosa, H. M. J., Borrmann, S., Braga, R., Buchholz,
+    B., Cecchini, M. A., Costa, A., Curtius, J., Dollner, M., Dorf, M., Dreiling,
+    V., Ebert, V., Ehrlich, A., Ewald, F., Fisch, G., Fix, A., Frank, F., Fütterer,
+    D., Heckl, C., Heidelberg, F., Hüneke, T., Jäkel, E., Järvinen, E., Jurkat, T.,
+    Kanter, S., Kästner, U., Kenntner, M., Kesselmeier, J., Klimach, T., Knecht, M.,
+    Kohl, R., Kölling, T., Krämer, M., Krüger, M., Krisna, T. C., Lavric, J. V., Longo,
+    K., Mahnke, C., Manzi, A. O., Mayer, B., Mertes, S., Minikin, A., Molleker, S.,
+    Münch, S., Nillius, B., Pfeilsticker, K., Pöhlker, C., Roiger, A., Rose, D., Rosenow,
+    D., Sauer, D., Schnaiter, M., Schneider, J., Schulz, C., de Souza, R. A. F., Spanu,
+    A., Stock, P., Vila, D., Voigt, C., Walser, A., Walter, D., Weigel, R., Weinzierl,
+    B., Werner, F., Yamasoe, M. A., Ziereis, H., Zinner, T., and Zöger, M.: The ACRIDICON-CHUVA
+    campaign: studying tropical deep convective clouds and precipitation over Amazonia
+    using the new german research aircraft HALO, B. Am. Meteorol. Soc., 97, 1885–1908,
+    https://doi.org/10.1175/BAMS-D-14-00255.1, 2016.'
+- doi: 10.1175/JAS-D-14-0283.1
+  unstructured: 'Zheng, Y., Rosenfeld, D., and Li, Z.: Satellite Inference of Thermals
+    and Cloud-Base Updraft Speeds Based on Retrieved Surface and Cloud-Base Temperatures,
+    J. Atmos. Sci., 72, 2411–2428, https://doi.org/10.1175/JAS-D-14-0283.1, 2015.'
+doi: 10.5194/acp-17-7365-2017
+issue: '12'
+journal: Atmospheric Chemistry and Physics
+language: en
+month: 6
+pages: 7365--7386
+publisher: Copernicus GmbH
+title: Comparing parameterized versus measured microphysical properties of tropical
+  convective cloud bases during  the ACRIDICON–CHUVA campaign
+type: article
+url: http://dx.doi.org/10.5194/acp-17-7365-2017
+volume: '17'
+year: 2017

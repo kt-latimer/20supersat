@@ -116,10 +116,10 @@ def make_and_save_tot_nconc_hist(tot_nconc, tot_fan_nconc, date):
     ylim = ax.get_ylim()
     ax.plot([130, 130], ylim, linestyle='--', \
             color=colors_dict['fan_model'], linewidth=4, \
-            label='C_PI model, Fan et al')
+            label='Unpolluted model scenario')
     ax.plot([950, 950], ylim, linestyle=':', \
             color=colors_dict['fan_model'], linewidth=4, \
-            label='C_BG model, Fan et al')
+            label='Polluted model scenario')
 
     ax.set_xlabel(r'Total SMPS number concentration (cm$^{-3}$)')
     ax.set_ylabel(r'$\frac{dn_{points}}{dN}$ (cm$^3$)')

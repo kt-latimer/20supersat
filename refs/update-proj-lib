@@ -49,8 +49,8 @@ function add_ref_manually {
 		read url
 		
 		#dummy journal setting is for papis compatibility
-		papis -l $projlibname add --batch --link ~/papers/$key
-			 --folder-name $key \
+		papis -l $projlibname add --batch --link ~/papers/$key \
+			--folder-name $key \
 			--set abbrev_journal_title $abbrev_journal_title \
 			--set author $author \
 			--set full_journal_title $full_journal_title \

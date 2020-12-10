@@ -1,0 +1,66 @@
+abstract: "<jats:title>Abstract</jats:title>\n               <jats:p>Analysis of the\
+  \ microphysical structure of deep convective clouds using in situ measurements during\
+  \ the Cloud Aerosol Interaction and Precipitation Enhancement Experiment (CAIPEEX)\
+  \ over the Indian peninsular region is presented. It is shown that droplet size\
+  \ distributions (DSDs) in highly polluted premonsoon clouds are substantially narrower\
+  \ than DSDs in less polluted monsoon clouds. High values of DSD dispersion (0.3–0.6)\
+  \ and its vertical variation in the transient and monsoon clouds are related largely\
+  \ to the existence of small cloud droplets with diameters less than 10 μm, which\
+  \ were found at nearly all levels. This finding indicates the existence of a continuous\
+  \ generation of the smallest droplets at different heights. In some cases this generation\
+  \ of small droplets leads to the formation of bimodal and even multimodal DSDs.\
+  \ The formation of bimodal DSDs is especially pronounced in monsoon clouds. Observational\
+  \ evidence is presented to suggest that in-cloud nucleation at elevated layers is\
+  \ a fundamental mechanism for producing multimodal drop size distribution in monsoon\
+  \ clouds as well as in most deep convective clouds. These findings indicate that\
+  \ inclusion of continued nucleation away from the cloud base into numerical models\
+  \ should be considered to predict microphysics and precipitation of clouds in monsoons\
+  \ and other cloud-related phenomena.</jats:p>"
+author: Prabha, Thara V. and Khain, A. and Maheshkumar, R. S. and Pandithurai, G.
+  and Kulkarni, J. R. and Konwar, M. and Goswami, B. N.
+author_list:
+- affiliation:
+  - name: Indian Institute of Tropical Meteorology, Pune, India
+  family: Prabha
+  given: Thara V.
+- affiliation:
+  - name: Department of Atmospheric Sciences, The Hebrew University of Jerusalem,
+      Jerusalem, Israel
+  family: Khain
+  given: A.
+- affiliation:
+  - name: Indian Institute of Tropical Meteorology, Pune, India
+  family: Maheshkumar
+  given: R. S.
+- affiliation:
+  - name: Indian Institute of Tropical Meteorology, Pune, India
+  family: Pandithurai
+  given: G.
+- affiliation:
+  - name: Indian Institute of Tropical Meteorology, Pune, India
+  family: Kulkarni
+  given: J. R.
+- affiliation:
+  - name: Indian Institute of Tropical Meteorology, Pune, India
+  family: Konwar
+  given: M.
+- affiliation:
+  - name: Indian Institute of Tropical Meteorology, Pune, India
+  family: Goswami
+  given: B. N.
+doc_url: http://journals.ametsoc.org/jas/article-pdf/68/9/1882/3623859/2011jas3707_1.pdf
+doi: 10.1175/2011jas3707.1
+files:
+- tmp7-6q2btz.data
+issue: '9'
+journal: Journal of the Atmospheric Sciences
+language: en
+month: 9
+pages: 1882--1901
+publisher: American Meteorological Society
+title: Microphysics of Premonsoon and Monsoon Clouds as Seen from In Situ Measurements
+  during the Cloud Aerosol Interaction and Precipitation Enhancement Experiment (CAIPEEX)
+type: article
+url: http://dx.doi.org/10.1175/2011jas3707.1
+volume: '68'
+year: 2011

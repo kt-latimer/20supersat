@@ -1,0 +1,288 @@
+abstract: "<jats:p>Abstract. Particle concentration measurements with underwing probes\
+  \ on aircraft are impacted by air compression upstream of the instrument body as\
+  \ a function of flight velocity. In particular, for fast-flying aircraft the necessity\
+  \ arises to account for compression of the air sample volume. Hence, a correction\
+  \ procedure is needed to invert measured particle number concentrations to ambient\
+  \ conditions that is commonly applicable to different instruments to gain comparable\
+  \ results. In the compression region where the detection of particles occurs (i.e.\
+  \ under factual measurement conditions), pressure and temperature of the air sample\
+  \ are increased compared to ambient (undisturbed) conditions in certain distance\
+  \ away from the aircraft. Conventional procedures for scaling the measured number\
+  \ densities to ambient conditions presume that the air volume probed per time interval\
+  \ is determined by the aircraft speed (true air speed, TAS). However, particle imaging\
+  \ instruments equipped with pitot tubes measuring the probe air speed (PAS) of each\
+  \ underwing probe reveal PAS values systematically below those of the TAS. We conclude\
+  \ that the deviation between PAS and TAS is mainly caused by the compression of\
+  \ the probed air sample. From measurements during two missions in 2014 with the\
+  \ German Gulfstream G-550 (HALO – High Altitude LOng range) research aircraft we\
+  \ develop a procedure to correct the measured particle concentration to ambient\
+  \ conditions using a thermodynamic approach. With the provided equation, the corresponding\
+  \ concentration correction factor ξ is applicable to the high-frequency measurements\
+  \ of the underwing probes, each of which is equipped with its own air speed sensor\
+  \ (e.g. a pitot tube). ξ values of 1 to 0.85 are calculated for air speeds (i.e.\
+  \ TAS) between 60 and 250 m s−1. For different instruments at individual wing position\
+  \ the calculated ξ values exhibit strong consistency, which allows for a parameterisation\
+  \ of ξ as a function of TAS for the current HALO underwing probe configuration.\
+  \ The ability of cloud particles to adopt changes of air speed between ambient and\
+  \ measurement conditions depends on the cloud particles' inertia as a function of\
+  \ particle size (diameter Dp). The suggested inertia correction factor μ (Dp) for\
+  \ liquid cloud drops ranges between 1 (for Dp &lt; 70 µm) and 0.8 (for 100 µm &lt; Dp &lt; 225 µm)\
+  \ but it needs to be applied carefully with respect to the particles' phase and\
+  \ nature. The correction of measured concentration by both factors, ξ and μ (Dp),\
+  \ yields higher ambient particle concentration by about 10–25 % compared to conventional\
+  \ procedures – an improvement which can be considered as significant for many research\
+  \ applications. The calculated ξ values are specifically related to the considered\
+  \ HALO underwing probe arrangement and may differ for other aircraft. Moreover,\
+  \ suggested corrections may not cover all impacts originating from high flight velocities\
+  \ and from interferences between the instruments and e.g. the aircraft wings and/or\
+  \ fuselage. Consequently, it is important that PAS (as a function of TAS) is individually\
+  \ measured by each probe deployed underneath the wings of a fast-flying aircraft.\n\
+  \                    </jats:p>"
+author: Weigel, Ralf and Spichtinger, Peter and Mahnke, Christoph and Klingebiel,
+  Marcus and Afchine, Armin and Petzold, Andreas and Krämer, Martina and Costa, Anja
+  and Molleker, Sergej and Reutter, Philipp and Szakáll, Miklós and Port, Max and
+  Grulich, Lucas and Jurkat, Tina and Minikin, Andreas and Borrmann, Stephan
+author_list:
+- affiliation: []
+  family: Weigel
+  given: Ralf
+- affiliation: []
+  family: Spichtinger
+  given: Peter
+- affiliation: []
+  family: Mahnke
+  given: Christoph
+- affiliation: []
+  family: Klingebiel
+  given: Marcus
+- affiliation: []
+  family: Afchine
+  given: Armin
+- affiliation: []
+  family: Petzold
+  given: Andreas
+- affiliation: []
+  family: Krämer
+  given: Martina
+- affiliation: []
+  family: Costa
+  given: Anja
+- affiliation: []
+  family: Molleker
+  given: Sergej
+- affiliation: []
+  family: Reutter
+  given: Philipp
+- affiliation: []
+  family: Szakáll
+  given: Miklós
+- affiliation: []
+  family: Port
+  given: Max
+- affiliation: []
+  family: Grulich
+  given: Lucas
+- affiliation: []
+  family: Jurkat
+  given: Tina
+- affiliation: []
+  family: Minikin
+  given: Andreas
+- affiliation: []
+  family: Borrmann
+  given: Stephan
+citations:
+- doi: 10.5194/amt-9-3131-2016
+  unstructured: 'Abdelmonem, A., Järvinen, E., Duft, D., Hirst, E., Vogt, S., Leisner,
+    T., and Schnaiter, M.: PHIPS-HALO: the airborne Particle Habit Imaging and Polar
+    Scattering probe &amp;ndash; Part 1: Design and operation, Atmos. Meas. Tech.,
+    9, 3131–3144, https://doi.org/10.5194/amt-9-3131-2016, 2016.'
+- doi: 10.1016/j.atmosres.2011.06.021
+  unstructured: 'Baumgardner, D., Brenguier, J. L., Bucholtz, A., Coe, H., DeMott,
+    P., Garrett, T. J., Gayet, J. F., Hermann, M., Heymsfield, A., Korolev, A., Krämer,
+    M., Petzold, A., Strapp, W., Pilewskie, P., Taylor, J., Twohy, C., Wendisch, M.,
+    Bachalo, W., and Chuang, P.: Airborne instruments to measure atmospheric aerosol
+    particles, clouds and radiation: A cook''s tour of mature and emerging technology,
+    Atmos. Res., 102, 10–29, 2011.'
+- doi: 10.1016/S0169-8095(01)00119-3
+  unstructured: 'Baumgardner, D., Jonsson, H., Dawson, W., O''Connor, D., and Newton,
+    R.: The cloud, aerosol and precipitation spectrometer: a new instrument for cloud
+    investigations, Atmos. Res., 59–60, 251–264, 2001.'
+- doi: 10.1016/j.atmosres.2013.12.010
+  unstructured: 'Baumgardner, D., Newton, R., Krämer, M., Meyer, J., Beyer, A., Wendisch,
+    M., and Vochezer, P.: The Cloud Particle Spectrometer with Polarization Detection
+    (CPSPD): A next generation open-path cloud probe for distinguishing liquid cloud
+    droplets from ice crystals, Atmos. Res., 142, 2–14, 2014.'
+- unstructured: 'Baumgardner, D., Strapp, W., and Dye, J. E.: Evaluation of the Forward
+    Scattering Spectrometer Probe. Part II: Corrections for Coincidence and Dead-Time
+    Losses, J. Atmos. Ocean. Tech., 2, 626–632, 1985.'
+- doi: 10.1147/sj.41.0025
+  unstructured: 'Bresenham, J. E.: Algorithm for computer control of a digital plotter,
+    IBM Syst. J., 4, 25–30, 1965.'
+- unstructured: 'Dixon, J. C.: Appendix B: Properties of Air, in: The Shock Absorber
+    Handbook, 361–374, John Wiley &amp;amp; Sons Ltd, The Atrium, Southern Gate, Chichester,
+    West Sussex, England, 2007.'
+- unstructured: 'DMT: Droplet Measurement Technologies Inc., Data Analysis User''s
+    Guide, Chapter II: Single Particle Imaging, DOC-0223, 2009.'
+- doi: 10.1175/1520-0426(1985)002<0633:AFEOCD>2.0.CO;2
+  unstructured: 'Drummond, A. M. and MacPherson, J. I.: Aircraft Flow Effects on Cloud
+    Drop Images and Concentrations Measured by the NAE Twin Otter, J. Atmos. Ocean.
+    Tech., 2, 633–643, 1985.'
+- unstructured: 'Dye, J. E. and Baumgardner, D.: Evaluation of the Forward Scattering
+    Spectrometer Probe. Part I: Electronic and Optical Studies, J. Atmos. Ocean. Tech.,
+    1, 329–344, 1984.'
+- doi: 10.5194/acp-16-7681-2016
+  unstructured: 'Finger, F., Werner, F., Klingebiel, M., Ehrlich, A., Jäkel, E., Voigt,
+    M., Borrmann, S., Spichtinger, P., and Wendisch, M.: Spectral optical layer properties
+    of cirrus from collocated airborne measurements and simulations, Atmos. Chem.
+    Phys., 16, 7681–7693, https://doi.org/10.5194/acp-16-7681-2016, 2016.'
+- doi: 10.5194/amt-2-147-2009
+  unstructured: 'Frey, W., Eichler, H., de Reus, M., Maser, R., Wendisch, M., and
+    Borrmann, S.: A new airborne tandem platform for collocated measurements of microphysical
+    cloud and radiation properties, Atmos. Meas. Tech., 2, 147–158, https://doi.org/10.5194/amt-2-147-2009,
+    2009.'
+- doi: 10.5194/acp-11-5569-2011
+  unstructured: 'Frey, W., Borrmann, S., Kunkel, D., Weigel, R., de Reus, M., Schlager,
+    H., Roiger, A., Voigt, C., Hoor, P., Curtius, J., Krämer, M., Schiller, C., Volk,
+    C. M., Homan, C. D., Fierli, F., Di Donfrancesco, G., Ulanovsky, A., Ravegnani,
+    F., Sitnikov, N. M., Viciani, S., D''Amato, F., Shur, G. N., Belyaev, G. V., Law,
+    K. S., and Cairo, F.: In situ measurements of tropical cloud properties in the
+    West African Monsoon: upper tropospheric ice clouds, Mesoscale Convective System
+    outflow, and subvisual cirrus, Atmos. Chem. Phys., 11, 5569–5590, https://doi.org/10.5194/acp-11-5569-2011,
+    2011.'
+- unstructured: 'Hinds, W. C.: Aerosol Technology: Properties, Behavior, and Measurement
+    of airborne Particles, 2nd edition, 5–21, John Wiley &amp;amp; Sons Inc., Hoboken,
+    New Jersey, 1999.'
+- doi: 10.1029/2001JD000470
+  unstructured: 'Kärcher, B. and Lohmann, U.: A parameterization of cirrus cloud formation:
+    Homogeneous freezing of supercooled aerosols, J. Geophys. Res.-Atmos., 107, 4010,
+    https://doi.org/10.1029/2001JD000470, 2002.'
+- unstructured: 'King, W. D.: Air Flow and Particle Trajectories around Aircraft Fuselages.
+    I: Theory, J. Atmos. Ocean. Tech., 1, 5–13, 1984.'
+- unstructured: 'King, W. D.: Air Flow and Particle Trajectories around Aircraft Fuselages.
+    IV: Orientation of Ice Crystals, J. Atmos. Ocean. Tech., 3, 433–439, 1986a.'
+- doi: 10.1175/1520-0426(1986)003<0197:AFAPC>2.0.CO;2
+  unstructured: 'King, W. D.: Air Flow around PMS Canisters, J. Atmos. Ocean. Tech.,
+    3, 197–198, 1986b.'
+- doi: 10.5194/acp-15-617-2015
+  unstructured: 'Klingebiel, M., de Lozar, A., Molleker, S., Weigel, R., Roth, A.,
+    Schmidt, L., Meyer, J., Ehrlich, A., Neuber, R., Wendisch, M., and Borrmann, S.:
+    Arctic low-level boundary layer clouds: in situ measurements and simulations of
+    mono- and bimodal supercooled droplet size distributions at the top layer of liquid
+    phase clouds, Atmos. Chem. Phys., 15, 617–631, https://doi.org/10.5194/acp-15-617-2015,
+    2015.'
+- doi: 10.1175/1520-0450(1970)009<0086:TOAAAT>2.0.CO;2
+  unstructured: 'Knollenberg, R. G.: The Optical Array: An Alternative to Scattering
+    or Extinction for Airborne Particle Size Determination, J. Appl. Meteorol., 9,
+    86–103, 1970.'
+- doi: 10.1175/JTECH1980.1
+  unstructured: 'Korolev, A.: Reconstruction of the Sizes of Spherical Particles from
+    Their Shadow Images. Part I: Theoretical Considerations, J. Atmos. Ocean. Tech.,
+    24, 376–389, 2007.'
+- doi: 10.1175/JTECH-D-12-00142.1
+  unstructured: 'Korolev, A., Emery, E., and Creelman, K.: Modification and tests
+    of particle probe tips to mitigate effects of ice shattering, J. Atmos. Ocean.
+    Tech., 30, 690–708, 2013.'
+- unstructured: 'Korolev, A., Makarov, Y. E., and Novikov, V.: On the calibration
+    of photoelectric cloud droplet spectrometer FSSP-100, TCAO, 158, 43–49, 1985.'
+- doi: 10.1175/1520-0426(1991)008<0514:EOMOPS>2.0.CO;2
+  unstructured: 'Korolev, A. V., Kuznetsov, S. V., Makarov, Y. E., and Novikov, V.
+    S.: Evaluation of Measurements of Particle Size and Sample Area from Optical Array
+    Probes, J. Atmos. Ocean. Tech., 8, 514–522, 1991.'
+- doi: 10.1175/1520-0426(1998)015<0708:EOTAOP>2.0.CO;2
+  unstructured: 'Korolev, A. V., Strapp, J. W., and Isaac, G. A.: Evaluation of the
+    Accuracy of PMS Optical Array Probes, J. Atmos. Ocean. Tech., 15, 708–720, 1998.'
+- doi: 10.5194/acp-9-3505-2009
+  unstructured: 'Krämer, M., Schiller, C., Afchine, A., Bauer, R., Gensch, I., Mangold,
+    A., Schlicht, S., Spelten, N., Sitnikov, N., Borrmann, S., de Reus, M., and Spichtinger,
+    P.: Ice supersaturations and cirrus cloud crystal numbers, Atmos. Chem. Phys.,
+    9, 3505–3522, https://doi.org/10.5194/acp-9-3505-2009, 2009.'
+- doi: 10.1002/9781118001684
+  unstructured: 'Kulkarni, P., Baron, P. A., and Willeke, K.: Aerosol measurement:
+    principles, techniques, and applications, John Wiley &amp;amp; Sons, 25–71, 2011.'
+- doi: 10.5194/amt-3-1683-2010
+  unstructured: 'Lance, S., Brock, C. A., Rogers, D., and Gordon, J. A.: Water droplet
+    calibration of the Cloud Droplet Probe (CDP) and in-flight performance in liquid,
+    ice and mixed-phase clouds during ARCPAC, Atmos. Meas. Tech., 3, 1683–1706, https://doi.org/10.5194/amt-3-1683-2010,
+    2010.'
+- doi: 10.1175/BAMS-87-7-896
+  unstructured: 'Laursen, K. K., Jorgensen, D. P., Brasseur, G. P., Ustin, S. L.,
+    and Huning, J. R.: HIAPER: The Next Generation NSF/NCAR Research Aircraft, B.
+    Am. Meteor. Soc., 87, 896–909, 2006.'
+- doi: 10.1175/JTECH1927.1
+  unstructured: 'Lawson, R. P., O''Connor, D., Zmarzly, P., Weaver, K., Baker, B.,
+    Mo, Q., and Jonsson, H.: The 2D-S (Stereo) Probe: Design and Preliminary Tests
+    of a New Airborne, High-Speed, High-Resolution Particle Imaging Probe, J. Atmos.
+    Ocean. Tech., 23, 1462–1477, 2006.'
+- doi: 10.1175/1520-0426(1988)005<0259:AAKAWM>2.0.CO;2
+  unstructured: 'MacPherson, J. I. and Baumgardner, D.: Airflow about King Air Wingtip-Mounted
+    Cloud Particle Measurement Probes, J. Atmos. Ocean. Tech., 5, 259–273, 1988.'
+- unstructured: 'Menter, F., Kuntz, M., and Langtry, R.: Ten years of industrial experience
+    with the SST turbulence model, Turbul., Heat Mass Transfer, 4, 625–632, 2003.'
+- unstructured: 'Meyer, J.: Ice Crystal Measurements with the New Particle Spectrometer
+    NIXE-CAPS, Schriften des Forschungszentrum Jülich, Energy &amp;amp; Environment,
+    160, ISBN:978-3-89336-840-2, Forschungszentrum Jülich GmbH, 2012.'
+- doi: 10.5194/acp-14-10785-2014
+  unstructured: 'Molleker, S., Borrmann, S., Schlager, H., Luo, B., Frey, W., Klingebiel,
+    M., Weigel, R., Ebert, M., Mitev, V., Matthey, R., Woiwode, W., Oelhaf, H., Dörnbrack,
+    A., Stratmann, G., Grooß, J. U., Günther, G., Vogel, B., Müller, R., Krämer, M.,
+    Meyer, J., and Cairo, F.: Microphysical properties of synoptic-scale polar stratospheric
+    clouds: in situ measurements of unexpectedly large HNO3-containing particles in
+    the Arctic vortex, Atmos. Chem. Phys., 14, 10785–10801, https://doi.org/10.5194/acp-14-10785-2014,
+    2014.'
+- unstructured: 'Naumann, Z. and Schiller, L.: A drag coefficient correlation, Z.
+    Ver. Deutsch Ing., 77, 318–323, 1935.'
+- doi: 10.2514/6.1987-180
+  unstructured: 'Norment, H. and Quealy, A.: Three-dimensional trajectory analyses
+    of two drop sizing instruments: PMS OAP and PMS FSSP, AIAA 25th Aerospace Sciences
+    Meeting, 12&amp;ndash;15 January 1887, Reno, Nevada, 1988.'
+- doi: 10.1175/1520-0426(1988)005<0743:TDTAOT>2.0.CO;2
+  unstructured: 'Norment, H. G.: Three-Dimensional Trajectory Analysis of Two Drop
+    Sizing instruments: PMS* OAP and PMS* FSSP, J. Atmos. Ocean. Tech., 5, 743–756,
+    1988.'
+- doi: 10.1007/978-0-306-48100-0
+  unstructured: 'Pruppacher, H. R. and Klett, J. D.: Microphysics of Clouds and Precipitation,
+    p. 397 and p. 551, https://doi.org/10.1007/978-0-306-48100-0, Springer Netherlands,
+    2012.'
+- doi: 10.5194/acp-9-685-2009
+  unstructured: 'Spichtinger, P. and Gierens, K. M.: Modelling of cirrus clouds –
+    Part 1a: Model description and validation, Atmos. Chem. Phys., 9, 685–706, https://doi.org/10.5194/acp-9-685-2009,
+    2009.'
+- doi: 10.1175/2009JTECHA1244.1
+  unstructured: 'Thurai, M., Bringi, V. N., Szakáll, M., Mitra, S. K., Beard, K. V.,
+    and Borrmann, S.: Drop Shapes and Axis Ratio Distributions: Comparison between
+    2D Video Disdrometer and Wind-Tunnel Measurements, J. Atmos. Ocean. Tech., 26,
+    1427–1432, 2009.'
+- doi: 10.1175/BAMS-D-15-00213.1
+  unstructured: 'Voigt, C., Schumann, U., Minikin, A., Abdelmonem, A., Afchine, A.,
+    Borrmann, S., Boettcher, M., Buchholz, B., Bugliaro, L., Costa, A., Curtius, J.,
+    Dollner, M., Dörnbrack, A., Dreiling, V., Ebert, V., Ehrlich, A., Fix, A., Forster,
+    L., Frank, F., Fütterer, D., Giez, A., Graf, K., Grooß, J.-U., Groß, S., Heimerl,
+    K., Heinold, B., Hüneke, T., Järvinen, E., Jurkat, T., Kaufmann, S., Kenntner,
+    M., Klingebiel, M., Klimach, T., Kohl, R., Krämer, M., Krisna, T. C., Luebke,
+    A., Mayer, B., Mertes, S., Molleker, S., Petzold, A., Pfeilsticker, K., Port,
+    M., Rapp, M., Reutter, P., Rolf, C., Rose, D., Sauer, D., Schäfler, A., Schlage,
+    R., Schnaiter, M., Schneider, J., Spelten, N., Spichtinger, P., Stock, P., Walser,
+    A., Weigel, R., Weinzierl, B., Wendisch, M., Werner, F., Wernli, H., Wirth, M.,
+    Zahn, A., Ziereis, H., and Zöger, M.: ML-CIRRUS – The airborne experiment on natural
+    cirrus and contrail cirrus with the high-altitude long-range research aircraft
+    HALO, B. Am. Meteor. Soc., https://doi.org/10.1175/BAMS-D-15-00213.1, 2016.'
+- doi: 10.1002/9783527653218
+  unstructured: 'Wendisch, M. and Brenguier, J.-L.: Airborne measurements for environmental
+    research: methods and instruments, John Wiley &amp;amp; Sons, 2013.'
+- unstructured: 'Willeke, K. and Baron, P. A.: Aerosol measurement, Principles, techniques
+    and applications, 3–36, Van Nostrand Reinhold: New York, NY, 1993.'
+doi: 10.5194/amt-9-5135-2016
+issue: '10'
+journal: Atmospheric Measurement Techniques
+language: en
+month: 10
+pages: 5135--5162
+publisher: Copernicus GmbH
+title: 'Thermodynamic correction of particle concentrations measured by underwing
+
+  probes on fast-flying aircraft'
+type: article
+url: http://dx.doi.org/10.5194/amt-9-5135-2016
+volume: '9'
+year: 2016

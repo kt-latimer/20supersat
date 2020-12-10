@@ -119,15 +119,14 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
         z = z_dict[key]
 
         avg_ss_qss, avg_z, se = get_avg_ss_qss_and_z(ss_qss, z, z_bins)
-        print(key)
-        print(np.nanmax(avg_ss_qss))
-        print(np.nanmean(avg_ss_qss))
-        print(np.nanmedian(avg_ss_qss))
-        continue
         #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
         #                                color=magma_pink, alpha=0.4)
-        ax1.plot(avg_ss_qss, avg_z, linestyle='', marker='o', \
-                color=color, linewidth=6)
+        avg_ss_qss = avg_ss_qss[np.logical_not(np.isnan(avg_ss_qss))]
+        avg_z = avg_z[np.logical_not(np.isnan(avg_z))]
+        print(avg_ss_qss)
+        print(avg_z)
+        ax1.plot(avg_ss_qss, avg_z, linestyle='-', marker='o', \
+                color=color, linewidth=6, markersize=17)
         ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
                 facecolor=(0, 0, 0, 0.0), edgecolor=color, \
                 histtype='stepfilled', linewidth=6, linestyle='-')
