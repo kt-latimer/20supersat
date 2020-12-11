@@ -119,14 +119,19 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
         color = colors_dict[key]
         ss_qss = ss_qss_dict[key]
         z = z_dict[key]
+        dz = np.array([z_bins[i+1] - z_bins[i] for i in \
+                        range(np.shape(z_bins)[0] - 1)])
+        print(key)
 
         avg_ss_qss, avg_z, se = get_avg_ss_qss_and_z(ss_qss, z, z_bins)
-        #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
-        #                                color=magma_pink, alpha=0.4)
-        avg_ss_qss = avg_ss_qss[np.logical_not(np.isnan(avg_ss_qss))]
-        avg_z = avg_z[np.logical_not(np.isnan(avg_z))]
-        print(avg_ss_qss)
-        print(avg_z)
+        notnan_inds = np.logical_not(np.isnan(avg_ss_qss))
+        avg_ss_qss = avg_ss_qss[notnan_inds]
+        avg_z = avg_z[notnan_inds]
+        dz = dz[notnan_inds]
+
+        #print(np.sum(avg_ss_qss*dz)/np.sum(dz))
+        #continue
+
         ax1.plot(avg_ss_qss, avg_z, linestyle='-', marker='o', \
                 color=color, linewidth=6, markersize=17)
         ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \

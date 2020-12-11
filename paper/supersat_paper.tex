@@ -58,11 +58,11 @@ Taking the differential of Equation \ref{qveqn} and rearranging terms in Equatio
 \begin{equation}
 dT = \frac{-L_vq_v^*}{C_{pa} + q_v\frac{L_v^2}{R_vT^2}}dRH
 \end{equation}
-Plugging in typical values for $RH$ and $T$ gives $dT\approx 0.5K$. We suppose for the sake of this order-of-magnitude estimate that the difference in buoyancy between the two parcels is constant over a length scale of the troposphere's scale height (Is this a correct statement of the reasoning?? I am not sure if I understand why that is valid). Therefore the difference in CAPE is:
+Plugging in typical values for $RH$ ($\approx$ 1.1) and $T$ ($\approx$ 250 K) gives $dT\approx 0.3K$. We suppose for the sake of this order-of-magnitude estimate that the difference in buoyancy between the two parcels is constant over a length scale of the troposphere's scale height (Is this a correct statement of the reasoning?? I am not sure if I understand why that is valid). Therefore the difference in CAPE is:
 \begin{align}
 dCAPE &\approx Hg \frac{dT}{T}\nonumber\\
 &=Hg\frac{-L_vq_v^*}{T(C_{pa} + q_v\frac{L_v^2}{R_vT^2})}dRH\nonumber\\
-&\approx 200 J/kg
+&\approx 140 J/kg
 \end{align}
 
 In order to determine experimental supersaturation within a reasonable margin of error, we must use the quasi-steady-state (QSS) supersaturation formula \cite{Rogers1989}. Based on our analysis of the WRF data, this approximation is only valid within certain limits, namely:
@@ -96,13 +96,6 @@ Figure \ref{wrfvsqss} shows a scatterplot with the agreement between the actual 
 
 Because we use slightly different filtering criteria than that employed in Fan et al to examine updrafts, we first verify that our selected cloudy updraft points yield similar SS profiles in the WRF simulation as those found in the latter work. In Figure \ref{wrfbipanel} we plot vertical SS profiles for all cloudy updraft points as well as the upper 10th percentile with respect to vertical wind velocity. We do indeed find the high SS values reported by Fan et al (maximum values of 13\% in both polluted and unpolluted cases from the upper 10th percentile dataset), confirming that our filtering criteria establish a fair basis for comparison here. Note however that, in the righthand panels of Figure \ref{wrfbipanel}, the vast majority of cloudy updraft points are found at altitudes with relatively low average SS.
 
-Here and henceforth, we compute the average over the vertical profile $SS(z)$ in the lefthand panels of Figure \ref{wrfbipanel} as:
-\begin{equation}
-\label{avgss}
-\overline{SS} = \frac{\int dz SS(z)}{\int dz}
-\end{equation}
-For all cloudy updraft points in the WRF simulation (Figure \ref{wrfbipanel}(a)), $\overline{SS}$ equals ???\% and ???\% in the polluted and unpolluted cases, respectively; in the top 10\% of updrafts the average values are ???\% and ???\%. We do not show data for altitudes above the freezing line since the QSS approximation is invalid below the freezing temperature. However, let us take these average values as an approximation for the relative humidity difference between a hypothetical parcel and its environment over the scale height of the troposphere. Using our back-of-the-envelope derivation above, we calculate enhancements in CAPE for all cloudy points of ??? J/kg (polluted case) and ??? J/kg (unpolluted case), which (assuming no diffusive, frictional, or radiative losses) give upper bounds on increases in vertical wind velocity of ??? m/s and ??? m/s, respectively.
-
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
@@ -119,7 +112,20 @@ For all cloudy updraft points in the WRF simulation (Figure \ref{wrfbipanel}(a))
 	\label{wrfbipanel}
 \end{figure}
 
-We now seek to determine whether such high values actually occur in nature. First we look at data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in Manaus, Brazil) [ \klcomm{how to cite?} ]. Figure \ref{halobipanel} shows the analogue of Figure \ref{wrfbipanel} using data from all HALO flight dates combined (see Methods/SI). Using the given vertical profiles we obtain $\overline{SS}$ of ???\% and ???\% for all cloudy updraft points and the upper 10\% of updrafts, respectively (note however that the average for the latter set is taken over a smaller vertical interval). Using the same methodology as above, this translates to upper bounds on increases in vertical velocity of ??? m/s for all the cloudy updraft points. 
+\clearpage
+\newpage
+
+Here and henceforth, we compute the average over the vertical profile $SS(z)$ in the lefthand panels of Figure \ref{wrfbipanel} as:
+\begin{equation}
+\label{avgss}
+\overline{SS} = \frac{\int dz SS(z)}{\int dz}
+\end{equation}
+For all cloudy updraft points in the WRF simulation (Figure \ref{wrfbipanel}(a)), $\overline{SS}$ equals 4.6\% and 5.7\% in the polluted and unpolluted cases, respectively; in the top 10\% of updrafts the average values are 5.8\% and 8.0\%. We do not show data for altitudes above the freezing line since the QSS approximation is invalid below the freezing temperature. However, let us take these average values as an approximation for the relative humidity difference between a hypothetical parcel and its environment over the scale height of the troposphere. Using our back-of-the-envelope derivation above, we calculate enhancements in CAPE relative to a temperature profile set by totally unsaturated storms of about 100 J/kg (top 10\% of updrafts), which (assuming no diffusive, frictional, or radiative losses) give an upper bound on increase in vertical wind velocity of $\approx$ 14 m/s.
+
+We now seek to determine whether such high values actually occur in nature. First we look at data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in Manaus, Brazil) [ \klcomm{how to cite?} ]. Figure \ref{halobipanel} shows the analogue of Figure \ref{wrfbipanel} using data from all HALO flight dates combined (see Methods/SI). Using the given vertical profiles we obtain $\overline{SS}$ of 0.26\% and 0.32\% for all cloudy updraft points and the upper 10\% of updrafts, respectively (note however that the average for the latter set is taken over a smaller vertical interval). Using the same methodology as above, this translates to an upper bound on increases in vertical velocity of roughly 3 m/s. 
+
+\clearpage
+\newpage
 
 %\begin{figure}[ht]
 %    \centering
@@ -139,10 +145,10 @@ We now seek to determine whether such high values actually occur in nature. Firs
     \centering
     \includegraphics[width=9cm]{revhalo/v1_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
     \caption{SS profiles (left) and number density of sampled points (right) from HALO flight campaign (all dates combined). Each point in the vertical profile represents an average over all times and horizontal coordinates for a given vertical interval (equally-spaced). SS profile is plotted with markers so as not to obscure intervals with missing data.}
-    \label{haloqsshist}
+    \label{halobipanel}
 \end{figure}
 
-Finally, we examine a second experimental dataset from the first phase of the Cloud Aerosol Interaction and Precipitation Enhancement Experiment (CAIPEEX) in India (taken in June [around Hyderabad] and August [around Bareilly] 2009) \cite{Kulkarni2012}. Although no UAP$_{<50}$ concentration measurements are available during this phase of the experiment, measurements of aerosols with diameters in the range of 0.1-3 $\mu$m showed total aerosol concentrations ranging from 700/ccm to 2500/ccm in the BL (see Figure 3(b) in \cite{Prabha2011} and Figure 4(a) in \cite{Kulkarni2012}). Reliable rain drop particle size distributions are unavailable from the flight dates in this analysis phase of the experiment, but we observe that exclusion of raindrops from the calculation of QSS SS leads to a systematic overestimation of the true SS (see Methods/SI). Therefore we take the SS profiles in Figure \ref{caipeexbipanel} as an upper bound; they yield $\overline{SS}$ of ???\% and ???\% for all cloudy updraft points and the upper 10\% of updrafts. This translates to maximal enhancements in vertical wind velocity of ??? m/s and ??? m/s.
+Finally, we examine a second experimental dataset from the first phase of the Cloud Aerosol Interaction and Precipitation Enhancement Experiment (CAIPEEX) in India (taken in June [around Hyderabad] and August [around Bareilly] 2009) \cite{Kulkarni2012}. Although no UAP$_{<50}$ concentration measurements are available during this phase of the experiment, measurements of aerosols with diameters in the range of 0.1-3 $\mu$m showed total aerosol concentrations ranging from 700/ccm to 2500/ccm in the BL (see Figure 3(b) in \cite{Prabha2011} and Figure 4(a) in \cite{Kulkarni2012}). Reliable rain drop particle size distributions are unavailable from the flight dates in this analysis phase of the experiment, but we observe that exclusion of raindrops from the calculation of QSS SS leads to a systematic overestimation of the true SS (see Methods/SI). Therefore we take the SS profiles in Figure \ref{caipeexbipanel} as an upper bound; they yield $\overline{SS}$ of 0.52\% and 1.1\% for all cloudy updraft points and the upper 10\% of updrafts. This translates to maximal enhancements in vertical wind velocity of about 5 m/s for the upper 10th percentile.
 
 %\begin{figure}[ht]
 %    \centering
@@ -155,10 +161,10 @@ Finally, we examine a second experimental dataset from the first phase of the Cl
     \centering
     \includegraphics[width=9cm]{revcaipeex/v1_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
     \caption{SS profiles (left) and number density of sampled points (right) from CAIPEEX flight campaign (all dates combined). Each point in the vertical profile represents an average over all times and horizontal coordinates for a given vertical interval (equally-spaced). SS profile is plotted with markers so as not to obscure intervals with missing data. See text for comments on the dataset.}
-    \label{caipeexqsshist}
+    \label{caipeexbipanel}
 \end{figure}
 
-Conclusion: [ \klcomm{Trying my best to get the wording to be accurate and precise here but still not 100\% confident...} ] The WPIM as proposed by Fan et al requires the average temperature profile of the troposphere to be set by relatively clean (high-SS) convection, in order for more polluted (low-SS) convection to experience an enhancement in buoyancy. However, we find no evidence that the high SS values reported by Fan's model actually occur in nature, which would seem to preclude any measureable invigoration effects - in particular, we estimate an upper bound on vertical velocity enhancement of ??? and ??? from the HALO and CAIPEEX flight campaigns, respectively, compared to ??? and ??? from Fan's polluted and unpolluted control simulations in WRF, respectively. The relatively low aerosol concentrations used to initialize the simulations, in combination with possible irregularities in microphysical parameterizations, may be to blame for the anomalously high SS values in the WRF output.
+Conclusion: [ \klcomm{Trying my best to get the wording to be accurate and precise here but still not 100\% confident...} ] The WPIM as proposed by Fan et al requires the average temperature profile of the troposphere to be set by relatively clean (high-SS) convection, in order for more polluted (low-SS) convection to experience an enhancement in buoyancy. However, we find no evidence that the high SS values reported by Fan's model actually occur in nature, which weakens the possibility of measureable invigoration effects - in particular, we estimate an upper bound on vertical velocity enhancement of 3-5 m/s from the HALO and CAIPEEX flight campaigns, compared to roughly 14 m/s from Fan's control simulations in WRF. The relatively low aerosol concentrations used to initialize the simulations, in combination with possible irregularities in microphysical parameterizations, may be to blame for the anomalously high SS values in the WRF output.
 
 One possible counterargument is that the aerosol concentrations in the BL during the dates of the HALO flights might have been significantly higher than those during the dates considered in Fan's paper, thus precluding the occurence of high SS values in the troposphere. In order to investigate this, we use the aerosol particle size distribution measured by the scanning mobility particle sizer (SMPS) in Manacapuru, located southwest of Manaus (PI: Chongai Kuang). This intrument measures particle concentrations in the diameter range 11.1-469.8nm. In Figure \ref{goamahist}, we show that, while we do indeed see higher total aerosol concentrations on average during the HALO flight date range (3500/ccm vs 2400/ccm), the UAP50 concentration is on average lower (1600/ccm vs 670/ccm). We note additionally that the aerosol concentrations used in the WRF simulations are much lower than those observed during the day the simulation takes place, which is not justified quantitatively in that study.
 \begin{figure}[ht]
@@ -185,6 +191,9 @@ Another possible counterargument is that the flight campaigns simply didn't fly 
     \caption{Vertical wind velocity distribution from simulations and field campaigns. Using filtering criteria outlined in the text.}
     \label{combinedwhist}
 \end{figure}
+
+\clearpage
+\newpage
 
 \section{Methods/SI}
 
@@ -271,15 +280,18 @@ We use the expressions given in \cite{Pruppacher2010} and \cite{Rogers1989} for 
 
 Finally, we note that we have excluded contributions to mean radius and number concentraiton from cloud droplets of diameter less than 5 $\mu$m, for consistency with our analysis of HALO data (see proceeding subsection). In the end this yields values for $SS_{QSS}$ which are indistinguishable to a reasonable number of significant figures.
 
+\clearpage
+\newpage
+
 \subsection{HALO}
 
 The HALO aircraft supported two instruments for measuring cloud droplet spectra: a cloud and aerosol spectrometer (CAS-DPOL) and a cloud droplet probe (one element of a cloud combination probe) (CCP-CDP) \cite{Braga2017}. We found that the CCP-CDP consistently reported unphysical bimodal size distributions, and therefore used only data from the CAS-DPOL for all calculations involving cloud droplets. Number concentrations from the CAS-DPOL were corrected using the $\xi$ factor derived in \cite{Weigel2016}.
 
 The rain drop spectra came from data collected by greyscale cloud imaging probe (second element of the cloud combination probe) (CCP-CIP). The drop diameter detection ranges for CAS-DPOL and CCP-CIP were 0.89-50 $\mu$m and 25-2000 $\mu$m, respectively. Per guidance from the principal investigators for the CAS-DPOL, we only included data for droplets from size bins with a lower diameter bound greater than 3 $\mu$m in the analysis \cite{Jurkat2020}. Effectively (given size bins for this instrument), this meant that the lower bound on diameter for water drops was 5 $\mu$m. Because the CAS-DPOL and CCP-CIP have overlapping diameter detection ranges, we use concentrations for particles between 5 and 25 $\mu$m from CAS-DPOL and from 25 to 2000 $\mu$m from CCP-CIP. 
 
-All measurements of environmental variables were taken from the Basic Halo Measurement and Sensor System (BAHAMAS). [??? details on time syncing]
+All measurements of environmental variables were taken from the Basic Halo Measurement and Sensor System (BAHAMAS). [TODO: details on time syncing]
 
-[??? details on date selection]
+[TODO: details on date selection]
 
 We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factors as described above.
 
@@ -321,6 +333,9 @@ $z$ & Altitude & - &  \\ \bottomrule
 \caption{Explanation of constants and variables used in the paper.}
 \label{vartable}
 \end{sidewaystable}
+
+\clearpage
+\newpage
 
 \bibliography{refs}
 \bibliographystyle{ieeetr}
