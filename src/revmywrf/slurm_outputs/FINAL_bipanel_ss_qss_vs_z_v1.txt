@@ -238,3 +238,14 @@ up10perc Unpolluted
 13.1652416731347
 4.0274698472813615
 2.236962267471993
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+allpts Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_bipanel_ss_qss_vs_z_figsrc.py", line 228, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_bipanel_ss_qss_vs_z_figsrc.py", line 57, in main
+    z_dict['allpts'], z_bins_dict, colors_arr[3], 'allpts')
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_bipanel_ss_qss_vs_z_figsrc.py", line 134, in make_and_save_bipanel_ss_qss_vs_z
+    area = xxx
+NameError: name 'xxx' is not defined

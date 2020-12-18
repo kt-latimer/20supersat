@@ -15,13 +15,18 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
-versionstr = 'v5_'
+versionstr = 'v2_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 
 lwc_filter_val = 1.e-4
 w_cutoff = 2
+lon_min = -60.79
+lat_min = -3.28
+lon_max = -60.47
+lat_max = -2.86
+R_e = 6.3781e6 #radius of Earth (m)
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
@@ -74,14 +79,22 @@ def get_ss_qss_and_z_data(case_label):
 
     #get relevant physical qtys
     lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
-    pres = met_vars['pres'][...]
     temp = met_vars['temp'][...]
     w = met_vars['w'][...]
+    x = met_vars['x'][...]
+    lon = x*180./np.pi*1./R_e
+    lon = np.transpose(np.tile(lon, [66, 1, 1, 1]), [1, 0, 2, 3])
+    print(lon.shape)
+    y = met_vars['y'][...]
+    lat = y*180./np.pi*1./R_e
+    lat = np.transpose(np.tile(lat, [66, 1, 1, 1]), [1, 0, 2, 3])
+    print(lat.shape)
     z = met_vars['z'][...]
     ss_qss = get_ss(met_vars, dsdsum_vars, cutoff_bins, \
                         full_ss, incl_rain, incl_vent)
 
-    #close files for memory
+    #close files / delete vars for memory
+    del x, y
     met_file.close()
     dsdsum_file.close()
 
@@ -92,9 +105,13 @@ def get_ss_qss_and_z_data(case_label):
     filter_inds = np.logical_and.reduce((
                     (lwc > lwc_filter_val), \
                     (w > w_cutoff), \
+                    (lon > lon_min), \
+                    (lat > lat_min), \
+                    (lon < lon_max), \
+                    (lat < lat_max), \
                     (temp > 273)))
 
-    del lwc, temp #for memory
+    del lat, lon, lwc, temp #for memory
 
     w_filt = w[filter_inds]
     up10perc_cutoff = np.percentile(w_filt, 90)
@@ -131,11 +148,6 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
         avg_ss_qss = avg_ss_qss[notnan_inds]
         avg_z = avg_z[notnan_inds]
         dz = dz[notnan_inds]
-        area = xxx
-        qvstar = xxx
-
-        print(np.sum(avg_ss_qss*area*qvstar*dz)/np.sum(area*qvstar*dz))
-        continue
 
         #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
         #                                color=magma_pink, alpha=0.4)
@@ -146,7 +158,6 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
                 histtype='stepfilled', linewidth=6, linestyle=linestyle_str, \
                 label=case_label)
 
-    return
     #formatting
     ax1.set_ylim((z_min, z_max))
     ax1.yaxis.grid()
@@ -167,7 +178,7 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
                         linewidth=6, linestyle='--')
     ax2.legend([poll_line, unpoll_line], ['Polluted', 'Unpolluted'])
 
-    outfile = FIG_DIR + versionstr + 'FINAL_bipanel_ss_qss_vs_z_' \
+    outfile = FIG_DIR + versionstr + 'FINAL_subdom_bipanel_ss_qss_vs_z_' \
             + label + '_figure.png'
     plt.savefig(outfile)
     plt.close(fig=fig)    

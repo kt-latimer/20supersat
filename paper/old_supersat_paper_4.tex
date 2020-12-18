@@ -13,7 +13,7 @@
 \usepackage[counterclockwise]{rotating}
 \graphicspath{{../figures/}}
 
-\title{Cleaned up first paper draft for supersat project}
+\title{Tentative first paper draft for supersat project}
 \author{K. Latimer}
 \date{Dec ???, 2020}
 
@@ -27,11 +27,15 @@
 \noindent\drcomm{Questions/comments from DR in blue} \\
 \noindent\klcomm{Responses from KL in red}\\
 
-\section{Intro}
+\section{Main text}
 
-In a recent paper, Fan et al introduce a novel ``warm phase invigoration mechanism" (WPIM) in which increased concentrations of ultrafine aerosol particles (UAP$_{<50}$, with 50 signifying an upper bound on particle diameter of 50nm) in the boundary layer (BL) result in enhanced convective updraft speeds and precipitation rates \cite{Fan2018}. As pointed out by Grabowski and Morrison, the precise explanation for this physical effect is that, in allowing for lower equilibrium water vapor supersaturation (SS) values in rising convective parcels, these excess aerosol particles lead to an increase in the buoyancy of the parcel over the course of its ascent, thus enhancing convective speeds \cite{Grabowski2020}.
+In a recent paper, Fan et al use a combination of experimental and simulation data to argue that increased concentrations of ultrafine aerosol particles (UAP$_{<50}$, with 50 signifying an upper bound on particle diameter of 50nm) in the boundary layer (BL) result in enhanced convective updraft speeds and precipitation rates - the so-called warm phase invigoration mechanism (WPIM) \cite{Fan2018}. 
 
-In order to get a quantitative intuition for how this works, we offer a simplified version of the calculation in \cite{Grabowski2015}, which still conveys the same essential idea. We consider a polluted (non-supersaturated; i.e. $RH=1$) storm ascending in an environment whose temperature profile has been set by clean storms. The parcel condenses water vapor as it rises, and for simplicity we assume no latent heat is lost to the environment. We then have (see Table \ref{vartable} for explanation of constants and variables used in the text):
+In particular, across the range of aerosol concentrations measured by the GoAmazon campaign at a field station in the Amazon Rainforest about 70 km southwest (downwind) of the Manaus metropolitan area on 17 dates from March to May of 2014 ($\approx$500-4000/ccm total, of which $\approx$60-2000/ccm UAP$_{<50}$), they report vertical wind velocities increasing (from $\approx$4 to 12 m/s) concomitantly with UAP$_{<50}$ concentration (but not with total aerosol concentration); and similarly a positive correlation with radar reflectivity. 
+
+In control simulations of ``polluted" (aerosol concentrations 950/ccm total, of which 820/ccm UAP$_{<50}$) and ``unpolluted" (aerosol concentrations 130/ccm total, of which 0/ccm UAP$_{<50}$) scenarios, the authors report increases in vertical wind velocity from $\approx$4 to 6 m/s for the top 10$^{th}$ percentile of updrafts in the same region as the field station where experimental data were taken; as well as increased peak rain rate of $\approx$ 30\%, for the polluted relative to the unpolluted case. [ \klcomm{These are my own estimates from their figures. Most of their analysis in the text of the article is qualitative which makes it hard to discern what quantitative results to emphasize.} ] Crucial to the connection between these results and their explanation via the WPIM is the simultaneous presence of high supersaturation (SS) values throughout the troposphere. In the unpolluted model scenario in the horizontal subdomain and time interval considered by Fan et al, the average SS for the top 10\% of updrafts reaches up to 15\%; see Figure 4(b) of that paper.
+
+In order to get a feel for the degree of invigoration for a polluted (non-supersaturated; i.e. $RH=1$ [ \klcomm{Taking SS=0 as the polluted value because the SS vertical profile from HALO never gets above 1\%...so otherwise it's kind of hard to see how to make a quantitative comparison.} ]) storm ascending in an environment whose temperature profile has been set by clean storms (based on the results from Fan et al, we take SS of O(10\%)), we estimate the resulting additional convective available potential energy (CAPE) due to condensation of water vapor over the course of ascent. As pointed out in \cite{Grabowski2020}, the WPIM arises from higher buoyancy for low-SS parcels relative to high-SS ones. The calculation below is a slightly rougher version of the one in \cite{Grabowski2015}, but still conveys the same essential idea. Assuming no heat of condensation is lost to the environment we have (see Table \ref{vartable} for explanation of constants and variables used in the text):
 \begin{equation}
 \label{energyconsv}
 C_{ap}dT + L_vdq_v = 0,
@@ -54,15 +58,12 @@ Taking the differential of Equation \ref{qveqn} and rearranging terms in Equatio
 \begin{equation}
 dT = \frac{-L_vq_v^*}{C_{pa} + q_v\frac{L_v^2}{R_vT^2}}dRH
 \end{equation}
-Plugging in typical values for $RH$ ($\approx 1.1$) and $T$ ($\approx 300$ K) gives $dT\approx 1$ K.
-
-In their paper (see for example Figure 2(b) of that work), Fan et al provide anecdotal evidence that the WPIM is capable of producing enhancements in vertical wind velocity on the order of 10 m/s for polluted relative to unpolluted storms\footnote{blah}. Even neglecting diffusive, frictional, or radiative losses, this requires $dCAPE\approx 100$ J/kg, or a $RH$ difference between the dirty storm and clean environment of $\approx 0.1$, i.e., the environment must support SS on the order of 10\% throughout the troposphere.
-
-While Fan et al do not offer any proof based on experimental data that such high SS exist in the convection setting the environmental lapse rate, they do observe comparable values in numerical simulations. In particular, using the Weather Research and Forcasting (WRF) model to simulate pristine (no UAP$_{<50}$) conditions in the Amazon Rainforest, they find (horizontally- and time-averaged) SS in convective cores of up to 15\%.
-
-Since this is well above what is typically reported or assumed in the literature [ \klcomm{TODO - find some citations} ], we seek in this paper to determine if we can find experimental evidence for O(10\%) SS in nature. We use data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in Manaus, Brazil), as well as from the first phase of the Cloud Aerosol Interaction and Precipitation Enhancement Experiment (CAIPEEX) in India (taken in June [around Hyderabad] and August [around Bareilly] 2009) \cite{???, Kulkarni2012} as a dataset of opportunity.
-
-\section{Data Analysis and Results}
+Plugging in typical values for $RH$ ($\approx$ 1.1) and $T$ ($\approx$ 300 K) gives $dT\approx 1K$. We suppose for the sake of this order-of-magnitude estimate that the difference in buoyancy between the two parcels is constant over a length scale of the troposphere's scale height for water vapor:
+\begin{align}
+dCAPE &\approx Hg \frac{dT}{T}\nonumber\\
+&=Hg\frac{-L_vq_v^*}{T(C_{pa} + q_v\frac{L_v^2}{R_vT^2})}dRH\nonumber\\
+&\approx 100 J/kg
+\end{align}
 
 In order to determine experimental supersaturation within a reasonable margin of error, we must use the quasi-steady-state (QSS) supersaturation formula \cite{Rogers1989}. Based on our analysis of the WRF data, this approximation is only valid within certain limits, namely:
 \begin{itemize}
@@ -98,12 +99,12 @@ Because we use slightly different filtering criteria than that employed in Fan e
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v5_FINAL_bipanel_ss_qss_vs_z_allpts_figure.png}
+		\includegraphics[width=\textwidth]{revmywrf/v4_FINAL_bipanel_ss_qss_vs_z_allpts_figure.png}
 		\caption{}
 		\label{wrfbipanelallpts}
 	\end{subfigure}
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v5_FINAL_bipanel_ss_qss_vs_z_up10perc_figure.png}
+		\includegraphics[width=\textwidth]{revmywrf/v4_FINAL_bipanel_ss_qss_vs_z_up10perc_figure.png}
 		\caption{}
 		\label{wrfbipanelup50perc}
 	\end{subfigure}
@@ -119,11 +120,6 @@ Here and henceforth, we compute the average over the vertical profile $SS(z)$ in
 \label{avgss}
 \overline{SS} = \frac{\int dz SS(z)}{\int dz}
 \end{equation}
-
-In particular, across the range of aerosol concentrations measured by the GoAmazon campaign at a field station in the Amazon Rainforest about 70 km southwest (downwind) of the Manaus metropolitan area on 17 dates from March to May of 2014 ($\approx$500-4000/ccm total, of which $\approx$60-2000/ccm UAP$_{<50}$), they report vertical wind velocities increasing (from $\approx$4 to 12 m/s) concomitantly with UAP$_{<50}$ concentration (but not with total aerosol concentration); and similarly a positive correlation with radar reflectivity. 
-
-In control simulations of ``polluted" (aerosol concentrations 950/ccm total, of which 820/ccm UAP$_{<50}$) and ``unpolluted" (aerosol concentrations 130/ccm total, of which 0/ccm UAP$_{<50}$) scenarios, the authors report increases in vertical wind velocity from $\approx$4 to 6 m/s for the top 10$^{th}$ percentile of updrafts in the same region as the field station where experimental data were taken; as well as increased peak rain rate of $\approx$ 30\%, for the polluted relative to the unpolluted case. [ \klcomm{These are my own estimates from their figures. Most of their analysis in the text of the article is qualitative which makes it hard to discern what quantitative results to emphasize.} ] Crucial to the connection between these results and their explanation via the WPIM is the simultaneous presence of high supersaturation (SS) values throughout the troposphere. In the unpolluted model scenario in the horizontal subdomain and time interval considered by Fan et al, the average SS for the top 10\% of updrafts reaches up to 15\%; see Figure 4(b) of that paper.
-
 For all cloudy updraft points in the WRF simulation (Figure \ref{wrfbipanel}(a)), $\overline{SS}$ equals 2.6\% and 4.7\% in the polluted and unpolluted cases, respectively; in the top 10\% of updrafts the average values are 3.7\% and 6.4\%. We do not show data for altitudes above the freezing line since the QSS approximation is invalid below the freezing temperature. However, let us take these average values as an approximation for the relative humidity difference between a hypothetical parcel and its environment over the scale height of the troposphere. Using our back-of-the-envelope derivation above, we calculate enhancements in CAPE relative to a temperature profile set by totally unsaturated storms of about 100 J/kg (top 10\% of updrafts), which (assuming no diffusive, frictional, or radiative losses) give an upper bound on increase in vertical wind velocity of $\approx$ 14 m/s.
 
 We now seek to determine whether such high values actually occur in nature. First we look at data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in Manaus, Brazil) [ \klcomm{how to cite?} ]. Figure \ref{halobipanel} shows the analogue of Figure \ref{wrfbipanel} using data from all HALO flight dates combined (see Methods/SI). Using the given vertical profiles we obtain $\overline{SS}$ of 0.26\% and 0.32\% for all cloudy updraft points and the upper 10\% of updrafts, respectively (note however that the average for the latter set is taken over a smaller vertical interval). Using the same methodology as above, this translates to an upper bound on increases in vertical velocity of roughly 3 m/s. 
@@ -147,7 +143,7 @@ We now seek to determine whether such high values actually occur in nature. Firs
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revhalo/v3_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
+    \includegraphics[width=9cm]{revhalo/v2_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
     \caption{SS profiles (left) and number density of sampled points (right) from HALO flight campaign (all dates combined). Each point in the vertical profile represents an average over all times and horizontal coordinates for a given vertical interval (equally-spaced). SS profile is plotted with markers so as not to obscure intervals with missing data.}
     \label{halobipanel}
 \end{figure}
@@ -163,7 +159,7 @@ Finally, we examine a second experimental dataset from the first phase of the Cl
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revcaipeex/v3_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
+    \includegraphics[width=9cm]{revcaipeex/v2_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
     \caption{SS profiles (left) and number density of sampled points (right) from CAIPEEX flight campaign (all dates combined). Each point in the vertical profile represents an average over all times and horizontal coordinates for a given vertical interval (equally-spaced). SS profile is plotted with markers so as not to obscure intervals with missing data. See text for comments on the dataset.}
     \label{caipeexbipanel}
 \end{figure}
@@ -308,12 +304,12 @@ We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factor
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v2_FINAL_subdom_bipanel_ss_qss_vs_z_allpts_figure.png}
+		\includegraphics[width=\textwidth]{revmywrf/v1_FINAL_subdom_bipanel_ss_qss_vs_z_allpts_figure.png}
 		\caption{}
 		\label{wrfsubdombipanelallpts}
 	\end{subfigure}
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v2_FINAL_subdom_bipanel_ss_qss_vs_z_up10perc_figure.png}
+		\includegraphics[width=\textwidth]{revmywrf/v1_FINAL_subdom_bipanel_ss_qss_vs_z_up10perc_figure.png}
 		\caption{}
 		\label{wrfsubdombipanelup50perc}
 	\end{subfigure}

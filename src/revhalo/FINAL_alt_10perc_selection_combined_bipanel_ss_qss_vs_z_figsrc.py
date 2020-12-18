@@ -12,7 +12,7 @@ from revhalo import DATA_DIR, FIG_DIR
 from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
 
 #for plotting
-versionstr = 'v3_'
+versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
@@ -157,7 +157,7 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
                                     'Top 10% cloudy updrafts (by w)'])
 
     outfile = FIG_DIR + versionstr + \
-        'FINAL_combined_bipanel_ss_qss_vs_z_figure.png'
+        'FINAL_alt_10perc_selection_combined_bipanel_ss_qss_vs_z_figure.png'
     plt.savefig(outfile)
     plt.close(fig=fig)    
 

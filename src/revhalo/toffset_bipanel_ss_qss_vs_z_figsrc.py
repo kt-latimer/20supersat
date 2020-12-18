@@ -12,7 +12,7 @@ from revhalo import DATA_DIR, FIG_DIR
 from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
 
 #for plotting
-versionstr = 'v3_'
+versionstr = 'v2_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
@@ -36,24 +36,24 @@ def main():
         good_dates = [line.strip() for line in readFile.readlines()]
 
     ss_qss_dict = {'allpts': None, 'up10perc': None}
-    w_dict = {'allpts': None, 'up10perc': None}
     z_dict = {'allpts': None, 'up10perc': None}
+    z_bins_dict = {'Polluted': None, 'Unpolluted': None}
 
     for date in good_dates:
-        ss_qss, w, z = get_ss_qss_and_w_and_z_data(date)
+        ss_qss, up10perc_ss_qss, z, up10perc_z = get_ss_qss_and_z_data(date)
 
         if np.shape(ss_qss)[0] != 0:
             ss_qss_dict['allpts'] = add_to_alldates_array(ss_qss, \
                                             ss_qss_dict['allpts'])
-            w_dict['allpts'] = add_to_alldates_array(w, \
-                                            w_dict['allpts'])
+            ss_qss_dict['up10perc'] = add_to_alldates_array(up10perc_ss_qss, \
+                                            ss_qss_dict['up10perc'])
+
             z_dict['allpts'] = add_to_alldates_array(z, \
                                             z_dict['allpts'])
-
-    ss_qss_dict, w_dict, z_dict = get_up10perc_data(ss_qss_dict, w_dict, z_dict)
+            z_dict['up10perc'] = add_to_alldates_array(up10perc_z, \
+                                            z_dict['up10perc'])
 
     h_z, z_bins = np.histogram(z_dict['allpts'], bins=30, density=True)
-    print(z_bins)
 
     make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins)
 
@@ -64,20 +64,7 @@ def add_to_alldates_array(ss_qss, ss_qss_alldates):
     else:
         return np.concatenate((ss_qss_alldates, ss_qss))
 
-def get_up10perc_data(ss_qss_dict, w_dict, z_dict):
-
-    w_cutoff = np.percentile(w_dict['allpts'], 90)
-    up10perc_inds = w_dict['allpts'] > w_cutoff
-
-    ss_qss_dict['up10perc'] = ss_qss_dict['allpts'][up10perc_inds]
-    w_dict['up10perc'] = w_dict['allpts'][up10perc_inds]
-    z_dict['up10perc'] = z_dict['allpts'][up10perc_inds]
-    print(z_dict['allpts'])
-    print(z_dict['up10perc'])
-
-    return ss_qss_dict, w_dict, z_dict
-
-def get_ss_qss_and_w_and_z_data(date):
+def get_ss_qss_and_z_data(date):
 
     adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
     adlr_dict = np.load(adlrfile, allow_pickle=True).item()
@@ -85,6 +72,9 @@ def get_ss_qss_and_w_and_z_data(date):
     cas_dict = np.load(casfile, allow_pickle=True).item()
     cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
     cip_dict = np.load(cipfile, allow_pickle=True).item()
+
+    adlr_dict, cas_dict, cip_dict = \
+                sync_instrument_times(adlr_dict, cas_dict, cip_dict)
 
     lwc = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
     temp = adlr_dict['data']['temp']
@@ -100,15 +90,52 @@ def get_ss_qss_and_w_and_z_data(date):
                     (temp > 273)))
 
     if np.sum(filter_inds) != 0:
+        w_filt = w[filter_inds]
+        up10perc_cutoff = np.percentile(w_filt, 90)
+        up10perc_inds = np.logical_and.reduce((
+                                (filter_inds), \
+                                (w > up10perc_cutoff)))
+
+        up10perc_ss_qss = ss_qss[up10perc_inds]
         ss_qss = ss_qss[filter_inds]
-        w = w[filter_inds]
+        print(date)
+        #print(up10perc_ss_qss)
+        #print(ss_qss)
+        print()
+
+        up10perc_z = z[up10perc_inds]
         z = z[filter_inds]
     else:
         ss_qss = np.array([])
-        w = np.array([])
+        up10perc_ss_qss = np.array([])
         z = np.array([])
+        up10perc_z = np.array([])
 
-    return ss_qss, w, z
+    return ss_qss, up10perc_ss_qss, z, up10perc_z
+
+def sync_instrument_times(adlr_dict, cas_dict, cip_dict):
+
+    delta_t_cas = get_cas_adlr_t_offset(adlr_dict, cas_dict) 
+
+    adlr_dict, cas_dict, cip_dict = \
+                align_all_vars(adlr_dict, cas_dict, cip_dict, \
+                                adlr_inds, cas_inds, cip_inds)
+
+    return adlr_dict, cas_dict, cip_dict
+
+def align_all_vars(adlr_dict, cas_dict, cip_dict, \
+                    adlr_inds, cas_inds, cip_inds):
+
+    for key in adlr_dict.keys():
+        adlr_dict[key] = adlr_dict[key][adlr_inds]
+
+    for key in cas_dict.keys():
+        cas_dict[key] = cas_dict[key][cas_inds]
+
+    for key in cip_dict.keys():
+        cip_dict[key] = cip_dict[key][cip_inds]
+
+    return adlr_dict, cas_dict, cip_dict
 
 def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
 
@@ -124,16 +151,20 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
         print(key)
 
         avg_ss_qss, avg_z, se = get_avg_ss_qss_and_z(ss_qss, z, z_bins)
-        print(avg_z)
         notnan_inds = np.logical_not(np.isnan(avg_ss_qss))
         avg_ss_qss = avg_ss_qss[notnan_inds]
         avg_z = avg_z[notnan_inds]
         dz = dz[notnan_inds]
 
+        #print(np.sum(avg_ss_qss*dz)/np.sum(dz))
+        #continue
+
         ax1.plot(avg_ss_qss, avg_z, linestyle='-', marker='o', \
                 color=color, linewidth=6, markersize=17)
         ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
                 facecolor=color, alpha=0.5)
+                #facecolor=(0, 0, 0, 0.0), edgecolor=color, \
+                #histtype='stepfilled', linewidth=6, linestyle='-')
 
     #formatting
     ax1.set_ylim((z_min, z_max))
@@ -163,23 +194,17 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
 
 def get_avg_ss_qss_and_z(ss_qss, z, z_bins):
 
-    n_bins = np.shape(z_bins)[0] - 1
-    avg_ss_qss = np.zeros(n_bins)
-    avg_z = np.zeros(n_bins)
-    se = np.zeros(n_bins) #standard error
+    avg_ss_qss = np.zeros(np.shape(z_bins)[0] - 1)
+    avg_z = np.zeros(np.shape(z_bins)[0] - 1)
+    se = np.zeros(np.shape(z_bins)[0] - 1) #standard error
 
     for i, val in enumerate(z_bins[:-1]):
         lower_bin_edge = val
         upper_bin_edge = z_bins[i+1]
 
-        if i == n_bins-1: #last upper bin edge is inclusive
-            bin_filter = np.logical_and.reduce((
-                            (z >= lower_bin_edge), \
-                            (z <= upper_bin_edge)))
-        else: 
-            bin_filter = np.logical_and.reduce((
-                            (z >= lower_bin_edge), \
-                            (z < upper_bin_edge)))
+        bin_filter = np.logical_and.reduce((
+                        (z > lower_bin_edge), \
+                        (z < upper_bin_edge)))
 
         n_in_bin = np.sum(bin_filter)
         if n_in_bin == 0:

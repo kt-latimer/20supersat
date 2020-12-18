@@ -1,0 +1,2 @@
+/var/spool/slurmd/job28237640/slurm_script: line 2: 156395 Killed                  python $HOME/proj/20supersat/src/revmywrf/calc_weighted_ss_qss_avg.py
+slurmstepd: error: Detected 1 oom-kill event(s) in step 28237640.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
