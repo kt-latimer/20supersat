@@ -131,11 +131,9 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
         avg_ss_qss = avg_ss_qss[notnan_inds]
         avg_z = avg_z[notnan_inds]
         dz = dz[notnan_inds]
-        area = xxx
-        qvstar = xxx
 
-        print(np.sum(avg_ss_qss*area*qvstar*dz)/np.sum(area*qvstar*dz))
-        continue
+        #print(np.sum(avg_ss_qss*area*qvstar*dz)/np.sum(area*qvstar*dz))
+        #continue
 
         #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
         #                                color=magma_pink, alpha=0.4)
@@ -146,7 +144,7 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
                 histtype='stepfilled', linewidth=6, linestyle=linestyle_str, \
                 label=case_label)
 
-    return
+    #return
     #formatting
     ax1.set_ylim((z_min, z_max))
     ax1.yaxis.grid()

@@ -1,9 +1,10 @@
 fan2018 10.1126/science.aan8461
 grabowski2015 10.1175/JAS-D-15-0091.1
 grabowski2020 10.1175/JAS-D-20-0012.1
-kulkarni2012 
 prabha2011 10.1175/2011JAS3707.1
 pruppacherklett2010 10.1007/978-0-306-48100-0
 braga2017 10.5194/acp-17-7365-2017
 weigel2016 10.5194/amt-9-5135-2016
 jurkat2020
+kulkarni2012
+rogersyau1989

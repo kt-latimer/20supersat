@@ -13,7 +13,7 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc
 
 #for plotting
-versionstr = 'v1_'
+versionstr = 'v2_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors

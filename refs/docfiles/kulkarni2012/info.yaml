@@ -1,10 +1,16 @@
-abbrev_journal_title: Curr.
-author: Kulkarni,
-full_journal_title: Current
-number: '3'
-pages: 413-425
-ref: Kulkarni2012
-title: The
+author: Kulkarni, J. R. and Maheskumar, R. S. and Morwal, S. B. and Kumari, B. Padma
+  and Konwar, M. and Deshpande, C. G. and Joshi, R. R. and Bhalwankar, R. V. and Pandithurai,
+  G. and Safai, P. D. and Narkhedkar, S. G. and Dani, K. K. and Nath, A. and Nair,
+  Sathy and Sapre, V. V. and Puranik, P. V. and Kandalgaonkar, S. S. and Mujumdar,
+  V. R. and Khaladkar, R. M. and Vijayakumar, R. and Prabha T. V. and Goswami B. N.
+files:
+- kulkarni2012.pdf
+issue: '3'
+journal: Current Science
+pages: 413--425
+title: 'The Cloud Aerosol Interaction and Precipitation Enhancement Experiment (CAIPEEX):
+  overview and preliminary results'
 type: article
-url: --set
+url: https://www.jstor.org/stable/24083888
+volume: '102'
 year: '2012'

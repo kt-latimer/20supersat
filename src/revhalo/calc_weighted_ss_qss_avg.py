@@ -25,8 +25,6 @@ incl_vent = True
 full_ss = True
 
 def main():
-
-    print(R_a, R_v)
     
     with open('good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]

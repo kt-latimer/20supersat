@@ -1,2 +1,36 @@
 /var/spool/slurmd/job28237640/slurm_script: line 2: 156395 Killed                  python $HOME/proj/20supersat/src/revmywrf/calc_weighted_ss_qss_avg.py
 slurmstepd: error: Detected 1 oom-kill event(s) in step 28237640.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/calc_weighted_ss_qss_avg.py:74: RuntimeWarning: Mean of empty slice
+  ss_qss_tz = np.nanmean(ss_qss, axis=(2,3))
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/calc_weighted_ss_qss_avg.py:76: RuntimeWarning: Mean of empty slice
+  pres_tz = np.nanmean(pres, axis=(2,3))
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/calc_weighted_ss_qss_avg.py:77: RuntimeWarning: Mean of empty slice
+  temp_tz = np.nanmean(temp, axis=(2,3))
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/calc_weighted_ss_qss_avg.py:113: RuntimeWarning: Mean of empty slice
+  ss_qss_tz = np.nanmean(ss_qss, axis=(2,3))
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/calc_weighted_ss_qss_avg.py:115: RuntimeWarning: Mean of empty slice
+  pres_tz = np.nanmean(pres, axis=(2,3))
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/calc_weighted_ss_qss_avg.py:116: RuntimeWarning: Mean of empty slice
+  temp_tz = np.nanmean(temp, axis=(2,3))
+ss (84, 66)
+ss cutoff (84, 48)
+dz (84, 48)
+A_tz (84, 66)
+qvstar_tz (84, 66)
+dt (84, 66)
+Polluted allpts
+3.126124134320668
+Polluted up10perc
+4.370798637589866
+ss (84, 66)
+ss cutoff (84, 48)
+dz (84, 48)
+A_tz (84, 66)
+qvstar_tz (84, 66)
+dt (84, 66)
+Unpolluted allpts
+4.97572977173034
+Unpolluted up10perc
+7.629084819512686

@@ -249,3 +249,9 @@ Traceback (most recent call last):
   File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_bipanel_ss_qss_vs_z_figsrc.py", line 134, in make_and_save_bipanel_ss_qss_vs_z
     area = xxx
 NameError: name 'xxx' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+allpts Polluted
+allpts Unpolluted
+up10perc Polluted
+up10perc Unpolluted

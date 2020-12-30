@@ -1,22 +1,11 @@
 """
 make and save histograms showing SS_QSS distribution from HALO CAS measurements
 """
-import matplotlib
-import matplotlib.pyplot as plt
-from matplotlib import cm
-from matplotlib import ticker
-from matplotlib.lines import Line2D
 import numpy as np
+import sys
 
 from revhalo import DATA_DIR, FIG_DIR
 from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
-
-#for plotting
-versionstr = 'v2_'
-matplotlib.rcParams.update({'font.size': 23})
-matplotlib.rcParams.update({'font.family': 'serif'})
-colors_arr = cm.get_cmap('magma', 10).colors
-colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
 
 lwc_filter_val = 1.e-4
 w_cutoff = 2
@@ -34,15 +23,14 @@ R = 8.317 #universal gas constant (J/(mol K))
 R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
 R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 
-change_cas_corr = True
-cutoff_bins = True
-incl_rain = True 
-incl_vent = True
-full_ss = True
-
 def main():
     
-    
+    if len(sys.argv) > 1:
+        versionnum = int(sys.argv[1])
+        (change_cas_corr, cutoff_bins, full_ss, \
+            incl_rain, incl_vent) = get_boolean_params(versionnum)
+        versionstr = 'v' + str(versionnum) + '_'
+
     with open('good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]
 
@@ -53,7 +41,9 @@ def main():
     z_alldates = None
 
     for date in good_dates:
-        pres, temp, ss_qss, w, z = get_one_day_data(date)
+        pres, temp, ss_qss, w, z = get_one_day_data(date, change_cas_corr, \
+                                            cutoff_bins, full_ss, incl_rain, \
+                                            incl_vent)
         pres_alldates = add_to_alldates_array(pres, pres_alldates)
         ss_qss_alldates = add_to_alldates_array(ss_qss, ss_qss_alldates)
         temp_alldates = add_to_alldates_array(temp, temp_alldates)
@@ -63,8 +53,8 @@ def main():
     h_z, z_bins = np.histogram(z_alldates, bins=30, density=True)
     print(z_bins)
 
-    make_and_save_dT_profile(pres_alldates, temp_alldates, \
-            ss_qss_alldates, w_alldates, z_alldates, z_bins)
+    save_dT_profile_data(pres_alldates, temp_alldates, ss_qss_alldates, \
+                            w_alldates, z_alldates, z_bins, versionstr)
 
 def add_to_alldates_array(ss_qss, ss_qss_alldates):
 
@@ -73,7 +63,8 @@ def add_to_alldates_array(ss_qss, ss_qss_alldates):
     else:
         return np.concatenate((ss_qss_alldates, ss_qss))
 
-def get_one_day_data(date):
+def get_one_day_data(date, change_cas_corr, cutoff_bins, full_ss, \
+                                            incl_rain, incl_vent):
 
     adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
     adlr_dict = np.load(adlrfile, allow_pickle=True).item()
@@ -104,57 +95,23 @@ def get_one_day_data(date):
 
     return pres, temp, ss_qss, w, z
 
-def make_and_save_dT_profile(pres, temp, ss_qss, w, z, z_bins):
-
-    fig, ax = plt.subplots()
-    fig.set_size_inches(10, 12)
+def save_dT_profile_data(pres, temp, ss_qss, w, z, z_bins, versionstr):
 
     dz = np.array([z_bins[i+1] - z_bins[i] for i in \
                     range(np.shape(z_bins)[0] - 1)])
     qvstar = get_qvstar(pres, temp)
 
-    inds_dict = {'allpts': np.array([True for i in range(np.shape(z)[0])]), \
-                    'up10perc': get_up10perc_inds(w)}
+    dT = get_dT(qvstar, ss_qss, temp)
+    avg_dT, avg_temp, avg_z = get_avg_dT_and_temp_and_z(dT, temp, z, z_bins)
+    notnan_inds = np.logical_not(np.isnan(avg_dT))
+    avg_dT = avg_dT[notnan_inds]
+    avg_temp = avg_temp[notnan_inds]
+    avg_z = avg_z[notnan_inds]
+    z_bins = get_adjusted_z_bins(notnan_inds, z_bins)
+    dT_profile_data_dict = {'dT': avg_dT, 'temp': avg_temp, 'z': avg_z, 'z_bins': z_bins}
 
-    for key in inds_dict.keys():
-        color = colors_dict[key]
-        inds = inds_dict[key]
-
-        dT = get_dT(qvstar[inds], ss_qss[inds], temp[inds])
-        avg_dT, avg_temp, avg_z = get_avg_dT_and_temp_and_z(dT, temp[inds], z[inds], z_bins)
-        notnan_inds = np.logical_not(np.isnan(avg_dT))
-        avg_dT = avg_dT[notnan_inds]
-        avg_temp = avg_temp[notnan_inds]
-        avg_z = avg_z[notnan_inds]
-
-        dCAPE = np.nansum(dz[notnan_inds]*g*avg_dT/avg_temp)
-        print(key)
-        print(dCAPE)
-
-        ax.plot(avg_dT, avg_z, linestyle='-', marker='o', \
-                color=color, linewidth=6, markersize=17)
-
-    #formatting
-    ax.set_ylim((z_min, z_max))
-    ax.yaxis.grid()
-    ax.set_xlabel(r'dT (K)')
-    ax.set_ylabel(r'z (m)')
-    #formatter = ticker.ScalarFormatter(useMathText=True)
-    #formatter.set_scientific(True) 
-    #formatter.set_powerlimits((-1,1)) 
-    #ax.xaxis.set_major_formatter(formatter)
-
-    #custom legend
-    allpts_line = Line2D([0], [0], color=colors_dict['allpts'], \
-                        linewidth=6, linestyle='-')
-    up10perc_line = Line2D([0], [0], color=colors_dict['up10perc'], \
-                        linewidth=6, linestyle='-')
-    ax.legend([allpts_line, up10perc_line], ['All cloudy updrafts', \
-                                    'Top 10% cloudy updrafts (by w)'])
-
-    outfile = FIG_DIR + versionstr + 'FINAL_dT_profile_figure.png'
-    plt.savefig(outfile)
-    plt.close(fig=fig)    
+    filename = versionstr + 'dT_profile_data_alldates.npy'
+    np.save(DATA_DIR + filename, dT_profile_data_dict)
 
 def get_qvstar(pres, temp):
     
@@ -216,6 +173,69 @@ def get_avg_dT_and_temp_and_z(dT, temp, z, z_bins):
             avg_z[i] = np.nanmean(z_slice)
 
     return avg_dT, avg_temp, avg_z
+
+def get_adjusted_z_bins(notnan_inds, z_bins):
+
+    z_bin_tuples = [(z_bins[i], z_bins[i+1]) \
+                        for i in range(np.shape(z_bins)[0] - 1)]
+    new_z_bin_tuples = []
+    n_bins = len(z_bin_tuples)
+    i = 0
+
+    while i < n_bins:
+        if notnan_inds[i]:
+            new_z_bin_tuples.append(z_bin_tuples[i])
+            i += 1
+        else:
+            lower_bin = z_bin_tuples[i-1]
+            while not notnan_inds[i]:
+                i += 1
+            upper_bin = z_bin_tuples[i]
+            midpoint = 0.5*(lower_bin[1] + upper_bin[0])
+            new_z_bin_tuples[-1] = (lower_bin[0], midpoint)
+            new_z_bin_tuples.append((midpoint, upper_bin[1]))
+            i += 1
+    
+    new_z_bins = np.array([new_z_bin_tup[0] for new_z_bin_tup in \
+                new_z_bin_tuples] + [new_z_bin_tuples[-1][1]])
+    print(np.shape(new_z_bins))
+    print(np.sum(notnan_inds))
+
+    return new_z_bins
+    
+def get_boolean_params(versionnum):
+
+    versionnum = versionnum - 1 #for modular arithmetic
+    
+    if versionnum > 23:
+        return versionnum
+
+    if versionnum < 12:
+        change_cas_corr = False
+    else:
+        change_cas_corr = True
+
+    if versionnum % 12 < 6:
+        cutoff_bins = False
+    else:
+        cutoff_bins = True
+
+    if versionnum % 6 < 3:
+        full_ss = False
+    else:
+        full_ss = True
+
+    if versionnum % 3 == 0:
+        incl_rain = False
+    else:
+        incl_rain = True
+
+    if versionnum % 3 == 2:
+        incl_vent = True
+    else:
+        incl_vent = False
+
+    return (change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent)
 
 if __name__ == "__main__":
     main()

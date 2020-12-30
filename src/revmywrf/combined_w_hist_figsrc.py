@@ -130,7 +130,7 @@ def make_and_save_w_hist(w_polluted, w_unpolluted, w_halo, \
                     + ', full_ss=' + str(full_ss))
     plt.legend()
 
-    outfile = FIG_DIR + versionstr + 'combined_w_hist_figure.png'
+    outfile = FIG_DIR + versionstr + 'combined_w_hist_figure_2.png'
     plt.savefig(outfile)
     plt.close(fig=fig)    
 

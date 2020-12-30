@@ -8,11 +8,11 @@ from matplotlib import ticker
 from matplotlib.lines import Line2D
 import numpy as np
 
-from revhalo import DATA_DIR, FIG_DIR
-from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
+from revcaipeex import DATA_DIR, FIG_DIR
+from revcaipeex.ss_qss_calculations import get_ss_vs_t, get_lwc
 
 #for plotting
-versionstr = 'v2_'
+versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
@@ -34,10 +34,9 @@ R = 8.317 #universal gas constant (J/(mol K))
 R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
 R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 
-change_cas_corr = True
 cutoff_bins = True
-incl_rain = True 
-incl_vent = True
+incl_rain = False 
+incl_vent = False
 full_ss = True
 
 def main():
@@ -75,25 +74,24 @@ def add_to_alldates_array(ss_qss, ss_qss_alldates):
 
 def get_one_day_data(date):
 
-    adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
-    adlr_dict = np.load(adlrfile, allow_pickle=True).item()
-    casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
-    cas_dict = np.load(casfile, allow_pickle=True).item()
-    cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
-    cip_dict = np.load(cipfile, allow_pickle=True).item()
+    metfile = DATA_DIR + 'npy_proc/MET_' + date + '.npy'
+    met_dict = np.load(metfile, allow_pickle=True).item()
+    cpdfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
+    cpd_dict = np.load(cpdfile, allow_pickle=True).item()
 
-    lwc = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
-    pres = adlr_dict['data']['pres']
-    temp = adlr_dict['data']['temp']
-    w = adlr_dict['data']['w']
-    z = adlr_dict['data']['alt']
-    ss_qss = get_ss_vs_t_cas(adlr_dict, cas_dict, cip_dict, \
-                change_cas_corr, cutoff_bins, full_ss, \
-                incl_rain, incl_vent)
+    lwc = get_lwc(cpd_dict,cutoff_bins)
+    pres = met_dict['data']['pres']
+    temp = met_dict['data']['temp']
+    w = met_dict['data']['w']
+    z = met_dict['data']['alt']
+    ss_qss = get_ss_vs_t(met_dict, cpd_dict, cutoff_bins, \
+                        full_ss, incl_rain, incl_vent)
 
+    #there's a weird outlier which the third line removes
     filter_inds = np.logical_and.reduce((
                     (lwc > lwc_filter_val), \
                     (w > w_cutoff), \
+                    (ss_qss < 100), \
                     (temp > 273)))
 
     pres = pres[filter_inds]
