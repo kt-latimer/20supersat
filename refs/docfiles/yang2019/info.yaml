@@ -1,0 +1,321 @@
+abstract: "<jats:p>Abstract. Supersaturation, crucial for cloud droplet activation\
+  \ and condensational growth, varies in clouds at different spatial and temporal\
+  \ scales. In-cloud supersaturation is poorly known and rarely measured directly.\
+  \ On the scale of a few tens of meters, supersaturation in clouds has been estimated\
+  \ from in situ measurements assuming quasi-steady-state supersaturation. Here, we\
+  \ provide a new method to estimate supersaturation using ground-based remote-sensing\
+  \ measurements, and results are compared with those estimated from aircraft in situ\
+  \ measurements in a marine stratocumulus cloud during the Aerosol and Cloud Experiment\
+  \ (ACE-ENA) field campaign. Our method agrees reasonably well with in situ estimations,\
+  \ and it has three advantages: (1) it does not rely on the quasi-steady-state assumption,\
+  \ which is questionable in clean or turbulent clouds, (2) it can provide a supersaturation\
+  \ profile, rather than just point values from in situ measurements, and (3) it enables\
+  \ building statistics of supersaturation in stratocumulus clouds for various meteorological\
+  \ conditions from multi-year ground-based measurements. The uncertainties, limitations,\
+  \ and possible applications of our method are discussed.\n                    </jats:p>"
+author: Yang, Fan and McGraw, Robert and Luke, Edward P. and Zhang, Damao and Kollias,
+  Pavlos and Vogelmann, Andrew M.
+author_list:
+- affiliation: []
+  family: Yang
+  given: Fan
+- affiliation: []
+  family: McGraw
+  given: Robert
+- affiliation: []
+  family: Luke
+  given: Edward P.
+- affiliation: []
+  family: Zhang
+  given: Damao
+- affiliation: []
+  family: Kollias
+  given: Pavlos
+- affiliation: []
+  family: Vogelmann
+  given: Andrew M.
+citations:
+- doi: 10.1002/2015JD024543
+  unstructured: 'Borque, P., Luke, E., and Kollias, P.: On the unified estimation
+    of turbulence
+
+    eddy dissipation rate using Doppler cloud radars and lidars, J.
+
+    Geophys. Res.-Atmos., 121, 5972–5989,
+
+    https://doi.org/10.1002/2015JD024543, 2016. a'
+- doi: 10.1175/JAS-D-18-0060.1
+  unstructured: 'Borque, P., Luke, E. P., Kollias, P., and Yang, F.: Relationship
+    between
+
+    turbulence and drizzle in continental and marine low stratiform clouds,
+
+    J. Atmos. Sci., 75, 4139–4148,
+
+    https://doi.org/10.1175/JAS-D-18-0060.1, 2018. a, b'
+- doi: 10.1073/pnas.1612686113
+  unstructured: 'Chandrakar, K. K., Cantrell, W., Chang, K., Ciochetto, D., Niedermeier,
+    D.,
+
+    Ovchinnikov, M., Shaw, R. A., and Yang, F.: Aerosol indirect effect from
+
+    turbulence-induced broadening of cloud-droplet size distributions,
+
+    P. Natl. Acad. Sci. USA, 113, 14243–14248,
+
+    https://doi.org/10.1073/pnas.1612686113, 2016. a, b, c'
+- doi: 10.1002/qj.3692
+  unstructured: 'Chandrakar, K. K., Saito, I., Yang, F., Cantrell, W., Gotoh, T.,
+    and Shaw,
+
+    R. A.: Droplet size distributions in turbulent clouds: experimental
+
+    evaluation of theoretical distributions, Q. J. Roy.
+
+    Meteorol. Soc., accepted, 2019. a'
+- doi: 10.1016/S0169-8095(00)00045-4
+  unstructured: 'Costa, A. A., de Oliveira, C. J., de Oliveira, J. C. P., and da Costa Sampaio,
+
+    A. J.: Microphysical observations of warm cumulus clouds in Ceara,
+
+    Brazil, Atmos. Res., 54, 167–199,
+
+    https://doi.org/10.1016/S0169-8095(00)00045-4, 2000. a, b'
+- doi: 10.1364/AO.23.000652
+  unstructured: 'Fernald, F. G.: Analysis of atmospheric lidar observations: some
+    comments,
+
+    Appl.Opt., 23, 652–653, https://doi.org/10.1364/AO.23.000652, 1984. a'
+- doi: 10.1029/98JD01827
+  unstructured: 'Frisch, A., Feingold, G., Fairall, C., Uttal, T., and Snider, J.:
+    On cloud
+
+    radar and microwave radiometer measurements of stratus cloud liquid water
+
+    profiles, J. Geophys. Res.-Atmos., 103,
+
+    23195–23197, https://doi.org/10.1029/98JD01827, 1998. a, b'
+- doi: 10.1146/annurev-fluid-011212-140750
+  unstructured: 'Grabowski, W. W. and Wang, L.-P.: Growth of cloud droplets in a turbulent
+
+    environment, Ann. Review Fluid Mech., 45, 293–324,
+
+    https://doi.org/10.1146/annurev-fluid-011212-140750, 2013. a'
+- doi: 10.1029/2017RG000593
+  unstructured: 'Grosvenor, D. P., Sourdeval, O., Zuidema, P., Ackerman, A., Alexandrov,
+    M. D.,
+
+    Bennartz, R., Boers, R., Cairns, B., Chiu, J. C., Christensen, M., Deneke, H.,
+    Diamond, M., Feingold, G., Fridlind, A., Hunerbein, A., Knist, C., Kollias, P.,
+    Marshak, A., McCoy, D., Merk, D., Painemal, D., Rausch, J., Rosenfeld, D., Russchenberg,
+    H., Seifert, P., Sinclair, K., Stier, P., van Diedenhoven, B., Wendisch, M., Werner,
+    F., Wood, R., Zhang, Z., and Quaas, J.:
+
+    Remote sensing of droplet number concentration in warm clouds: A review of
+
+    the current state of knowledge and perspectives, Rev. Geophys., 56,
+
+    409–453, https://doi.org/10.1029/2017RG000593, 2018. a, b'
+- doi: 10.1175/JCLI-D-12-00695.1
+  unstructured: 'Kalesse, H. and Kollias, P.: Climatology of high cloud dynamics using
+    profiling
+
+    ARM Doppler radar observations, J. Climate, 26, 6340–6359,
+
+    https://doi.org/10.1175/JCLI-D-12-00695.1, 2013. a'
+- doi: 10.1017/CBO9780511976377
+  unstructured: 'Lamb, D. and Verlinde, J.: Physics and chemistry of clouds, Cambridge
+
+    University Press, Cambridge, UK, https://doi.org/10.1017/CBO9780511976377, 2011. a,
+    b, c'
+- doi: 10.5194/acp-19-639-2019
+  unstructured: 'Li, X.-Y., Svensson, G., Brandenburg, A., and Haugen, N. E. L.: Cloud-droplet
+    growth due to supersaturation fluctuations in stratiform clouds, Atmos. Chem.
+    Phys., 19, 639–648, https://doi.org/10.5194/acp-19-639-2019, 2019. a'
+- unstructured: 'Liu, Y. and Hallett, J.: On size distributions of cloud droplets
+    growing by
+
+    condensation: A new conceptual model, J. Atmos. Sci.,
+
+    55, 527–536, https://doi.org/10.1175/1520-0469(1998)055&amp;lt;0527:OSDOCD&amp;gt;2.0.CO;2,
+    1998. a'
+- doi: 10.1175/JTECH-D-11-00195.1
+  unstructured: 'Luke, E. P. and Kollias, P.: Separating cloud and drizzle radar moments
+    during
+
+    precipitation onset using Doppler spectra, J. Atmos. Ocean.
+
+    Tech., 30, 1656–1671, https://doi.org/10.1175/JTECH-D-11-00195.1, 2013. a'
+- doi: 10.1080/02786829708965471
+  unstructured: 'McGraw, R.: Description of aerosol dynamics by the quadrature method
+    of
+
+    moments, Aerosol Sci. Technol., 27, 255–265,
+
+    https://doi.org/10.1080/02786829708965471, 1997. a, b'
+- doi: 10.1103/PhysRevLett.90.018501
+  unstructured: 'McGraw, R. and Liu, Y.: Kinetic potential and barrier crossing: A
+    model for
+
+    warm cloud drizzle formation, Phys. Rev. Lett., 90, 018501,
+
+    https://doi.org/10.1103/PhysRevLett.90.018501, 2003. a'
+- doi: 10.1103/PhysRevE.70.031606
+  unstructured: 'McGraw, R. and Liu, Y.: Analytic formulation and parametrization
+    of the kinetic
+
+    potential theory for drizzle formation, Phys. Rev. E, 70, 031606,
+
+    https://doi.org/10.1103/PhysRevE.70.031606, 2004. a'
+- doi: 10.1029/2005GL023545
+  unstructured: 'McGraw, R. and Liu, Y.: Brownian drift-diffusion model for evolution
+    of droplet
+
+    size distributions in turbulent clouds, Geophys. Res. Lett., 33, L03802,
+
+    https://doi.org/10.1029/2005GL023545, 2006. a, b'
+- doi: 10.1016/S0021-8502(02)00157-X
+  unstructured: 'McGraw, R. and Wright, D. L.: Chemically resolved aerosol dynamics
+    for internal
+
+    mixtures by the quadrature method of moments, J. Aerosol Sci., 34,
+
+    189–209, https://doi.org/10.1016/S0021-8502(02)00157-X, 2003. a'
+- doi: 10.1146/annurev-fluid-010816-060231
+  unstructured: 'Mellado, J. P.: Cloud-top entrainment in stratocumulus clouds, Ann.
+    Rev.
+
+    Fluid Mech., 49, 145–169, https://doi.org/10.1146/annurev-fluid-010816-060231,
+
+    2017. a'
+- unstructured: 'O''Connor, E. J., Illingworth, A. J., and Hogan, R. J.: A technique
+    for
+
+    autocalibration of cloud lidar, J. Atmos. Ocean.
+
+    Tech., 21, 777–786,
+
+    https://doi.org/10.1175/1520-0426(2004)021&amp;lt;0777:ATFAOC&amp;gt;2.0.CO;2,
+    2004. a'
+- unstructured: 'Politovich, M. K. and Cooper, W. A.: Variability of the supersaturation
+    in
+
+    cumulus clouds, J. Atmos. Sci., 45, 1651–1664,
+
+    https://doi.org/10.1175/1520-0469(1988)045&amp;lt;1651:VOTSIC&amp;gt;2.0.CO;2,
+    1988. a'
+- doi: 10.2151/jmsj.2019-049
+  unstructured: 'Saito, I., Gotoh, T., and Watanabe, T.: Broadening of Cloud Droplet
+    Size
+
+    Distributions by Condensation in Turbulence, J. Meteorol.
+
+    Soc. Jpn. Ser. II, 97, 867–891, https://doi.org/10.2151/jmsj.2019-049, 2019. a'
+- doi: 10.1103/PhysRevLett.115.184501
+  unstructured: 'Sardina, G., Picano, F., Brandt, L., and Caballero, R.: Continuous
+    growth of
+
+    droplet size variance due to condensation in turbulent clouds, Phys.
+
+    Rev. Lett., 115, 184501, https://doi.org/10.1103/PhysRevLett.115.184501, 2015. a,
+    b'
+- doi: 10.1175/JAS-D-16-0115.1
+  unstructured: 'Siebert, H. and Shaw, R. A.: Supersaturation fluctuations during
+    the early
+
+    stage of cumulus formation, J. Atmos. Sci., 74,
+
+    975–988, https://doi.org/10.1175/JAS-D-16-0115.1, 2017. a, b'
+- doi: 10.1175/JAS-D-16-0043.1
+  unstructured: 'Snider, J. R., Leon, D., and Wang, Z.: Droplet concentration and
+    spectral
+
+    broadening in southeast Pacific stratocumulus clouds, J.
+
+    Atmos. Sci., 74, 719–749, https://doi.org/10.1175/JAS-D-16-0043.1, 2017. a, b,
+    c, d'
+- doi: 10.1109/TGRS.2007.903703
+  unstructured: 'Turner, D. D., Clough, S. A., Liljegren, J. C., Clothiaux, E. E.,
+    Cady-Pereira,
+
+    K. E., and Gaustad, K. L.: Retrieving Liquid Water Path and Precipitable
+
+    Water Vapor From the Atmospheric Radiation Measurement (ARM) Microwave
+
+    Radiometers, IEEE T. Geosci. Remote, 45,
+
+    3680–3690, https://doi.org/10.1109/TGRS.2007.903703, 2007. a'
+- doi: 10.2172/1253912
+  unstructured: 'Wang, J., Dong, X., and Wood, R.: Aerosol and Cloud Experiments in
+    Eastern
+
+    North Atlantic (ACE-ENA) Science Plan, Tech. rep., DOE Office of Science
+
+    Atmospheric Radiation Measurement (ARM) Program, https://doi.org/10.2172/1253912,
+    2016. a'
+- doi: 10.1002/9783527653218
+  unstructured: 'Wendisch, M. and Brenguier, J.-L.: Airborne measurements for environmental
+
+    research: methods and instruments, John Wiley &amp;amp; Sons, Weinheim, Germany,
+
+    https://doi.org/10.1002/9783527653218, 2013.
+
+     a'
+- doi: 10.1175/MWR-D-11-00121.1
+  unstructured: 'Wood, R.: Stratocumulus clouds, Mon. Weather Rev., 140, 2373–2423,
+
+    https://doi.org/10.1175/MWR-D-11-00121.1, 2012. a'
+- doi: 10.1175/JAS-D-17-0164.1
+  unstructured: 'Wu, W. and McFarquhar, G. M.: Statistical theory on the functional
+    form of
+
+    cloud particle size distributions, J. Atmos. Sci., 75,
+
+    2801–2814, https://doi.org/10.1175/JAS-D-17-0164.1, 2018. a'
+- doi: 10.5194/acp-18-7313-2018
+  unstructured: 'Yang, F., Kollias, P., Shaw, R. A., and Vogelmann, A. M.: Cloud droplet
+    size
+
+    distribution broadening during diffusional growth: ripening amplified by
+
+    deactivation and reactivation, Atmos. Chem. Phys., 18,
+
+    7313–7328, https://doi.org/10.5194/acp-18-7313-2018, 2018a. a'
+- doi: 10.1029/2018GL077145
+  unstructured: 'Yang, F., Luke, E. P., Kollias, P., Kostinski, A. B., and Vogelmann,
+    A. M.:
+
+    Scaling of drizzle virga depth with cloud thickness for marine stratocumulus
+
+    clouds, Geophys. Res. Lett., 45, 3746–3753,
+
+    https://doi.org/10.1029/2018GL077145, 2018b. a, b'
+- doi: 10.1029/98JD01513
+  unstructured: 'Yum, S. S., Hudson, J. G., and Xie, Y.: Comparisons of cloud microphysics
+    with
+
+    cloud condensation nuclei spectra over the summertime Southern Ocean, J. Geophys.
+    Res.-Atmos., 103, 16625–16636,
+
+    https://doi.org/10.1029/98JD01513, 1998. a'
+- doi: 10.1016/0169-8095(94)90059-0
+  unstructured: 'Zhang, X. and Zheng, G.: A simple droplet spectrum derived from entropy
+    theory,
+
+    Atmos. Res., 32, 189–193, https://doi.org/10.1016/0169-8095(94)90059-0, 1994. a'
+- unstructured: 'Zhang, D., Yang, F., Vogelmann, A., Luke, E., Kollias, P., Wang,
+    Z.: Evaluation of Ground-based Retrieval of Cloud Droplet Number Concentration
+    in Marine Stratocumulus with In Situ Aircraft Measurements, in preparation, 2019.'
+doi: 10.5194/amt-12-5817-2019
+issue: '11'
+journal: Atmospheric Measurement Techniques
+language: en
+month: 11
+pages: 5817--5828
+publisher: Copernicus GmbH
+title: A new approach to estimate supersaturation fluctuations in stratocumulus cloud
+  using ground-based remote-sensing measurements
+type: article
+url: http://dx.doi.org/10.5194/amt-12-5817-2019
+volume: '12'
+year: 2019

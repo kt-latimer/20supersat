@@ -1,0 +1,308 @@
+author: Hoppel, W. A. and Frick, G. M. and Fitzgerald, J. W.
+author_list:
+- affiliation: []
+  family: Hoppel
+  given: W. A.
+- affiliation: []
+  family: Frick
+  given: G. M.
+- affiliation: []
+  family: Fitzgerald
+  given: J. W.
+citations:
+- article-title: Nucleation experiments with monodisperse NaCl aerosol
+  author: Alofs
+  doi: 10.1175/1520-0450(1979)018<1106:NEWMNA>2.0.CO;2
+  first-page: '1106'
+  journal-title: J. Applied Meteorol.
+  volume: '18'
+  year: '1979'
+- article-title: Atmospheric sulfur chemistry and cloud condensation nuclei (CCN)
+    concentrations over the northeast Pacific coast
+  author: Berresheim
+  doi: 10.1029/93JD00815
+  first-page: '12701'
+  journal-title: J. Geophys. Res.
+  volume: '98'
+  year: '1993'
+- article-title: Pacific marine aerosol, 2, Equatorial gradients in chlorophyll, ammonium,
+    and excess sulfate during SAGA 3
+  author: Clark
+  doi: 10.1029/92JD02481
+  first-page: '16997'
+  journal-title: J. Geophys. Res.
+  volume: '98'
+  year: '1993'
+- article-title: 'The Pacific marine aerosol: Evidence for natural sulfates'
+  author: Clark
+  doi: 10.1029/JD092iD04p04179
+  first-page: '4179'
+  journal-title: J. Geophys. Res.
+  volume: '92'
+  year: '1987'
+- article-title: A generalized multicomponent thermodynamic model applied to the (NH4)2SO4-H2SO4-H2O
+    system to high supersaturations and low relative humidities at 298.15K
+  author: Clegg
+  doi: 10.1016/0021-8502(94)E0061-2
+  first-page: '19'
+  journal-title: J. Aerosol Sci.
+  volume: '26'
+  year: '1995'
+- article-title: Thermodynamic properties of 0-6 mol kg-1 aqueous sulfuric acid from
+    273.15 to 328.15 K
+  author: Clegg
+  doi: 10.1039/FT9949001875
+  first-page: '1875'
+  journal-title: J. Chem. Soc. Faraday Trans.
+  volume: '90'
+  year: '1994'
+- author: Denbigh
+  doi: 10.1017/CBO9781139167604
+  volume-title: The Principles of Chemical Equilibrium
+  year: '1981'
+- article-title: On the source and composition of cloud nuclei in a subsident air
+    mass over the North Atlantic
+  author: Dinger
+  doi: 10.1175/1520-0469(1970)027<0791:OTSACO>2.0.CO;2
+  first-page: '791'
+  journal-title: J. Atmos. Sci.
+  volume: '27'
+  year: '1970'
+- article-title: Parameterization of condensational growth of droplets for use in
+    general circulation models
+  author: Feingold
+  doi: 10.1175/1520-0469(1992)049<2325:POCGOD>2.0.CO;2
+  first-page: '2325'
+  journal-title: J. Atmos. Sci.
+  volume: '49'
+  year: '1992'
+- article-title: A numerical model of the formation of droplet spectra in advection
+    fogs at sea and its applicability to fogs off Nova Scotia
+  author: Fitzgerald
+  doi: 10.1175/1520-0469(1978)035<1522:ANMOTF>2.0.CO;2
+  first-page: '1522'
+  journal-title: J. Atmos. Sci.
+  volume: '35'
+  year: '1978'
+- article-title: 'Marine aerosols: A review'
+  author: Fitzgerald
+  doi: 10.1016/0960-1686(91)90050-H
+  first-page: '533'
+  journal-title: Atmos. Environ., Part A
+  volume: '25'
+  year: '1991'
+- article-title: Measurements of the relationship between the dry size and critical
+    supersaturation of natural aerosol particles
+  author: Fitzgerald
+  first-page: '242'
+  journal-title: Idojaras
+  volume: '86'
+  year: '1982'
+- author: Fitzgerald
+  first-page: '21'
+  volume-title: Hygroscopic Aerosols
+  year: '1984'
+- author: Fletcher
+  volume-title: The Physics of Rain Clouds
+  year: '1962'
+- article-title: Experimental verification of the theoretical relationship between
+    size and critical supersaturation of salt nuclei
+  author: Gerber
+  doi: 10.1175/1520-0469(1977)034<1836:EVOTTR>2.0.CO;2
+  first-page: '1836'
+  journal-title: J. Atmos. Sci.
+  volume: '34'
+  year: '1977'
+- article-title: The thermodynamic properties of aqueous sulfuric acid solutions and
+    hydrates from 15 to 300 deg K
+  author: Giauque
+  doi: 10.1021/ja01486a014
+  first-page: '62'
+  journal-title: J. Am. Chem. Soc.
+  volume: '82'
+  year: '1960'
+- article-title: Measurement of the size distribution and CCN super-saturation spectrum
+    of submicron aerosols over the ocean
+  author: Hoppel
+  doi: 10.1175/1520-0469(1979)036<2006:MOTSDA>2.0.CO;2
+  first-page: '2006'
+  journal-title: J. Atmos. Sci.
+  volume: '36'
+  year: '1979'
+- article-title: Ion-aerosol attachment coefficients and the steady-state charge distribution
+    on aerosols in a bipolar ion environment
+  author: Hoppel
+  doi: 10.1080/02786828608959073
+  first-page: '1'
+  journal-title: Aerosol Sci. Technol.
+  volume: '5'
+  year: '1986'
+- article-title: The nonequilibrium character of the aerosol charge distribution produced
+    by neutralizers
+  author: Hoppel
+  doi: 10.1080/02786829008959363
+  first-page: '471'
+  journal-title: Aerosol Sci. Technol.
+  volume: '12'
+  year: '1990'
+- article-title: Submicron aerosol size distributions measured over the tropical and
+    south Pacific
+  author: Hoppel
+  doi: 10.1016/0960-1686(90)90020-N
+  first-page: '645'
+  journal-title: Atmos. Environ., Part A
+  volume: '24'
+  year: '1990'
+- article-title: Aerosol size distributions in air masses advecting off the east coast
+    of the United States
+  author: Hoppel
+  doi: 10.1029/JD090iD01p02365
+  first-page: '2365'
+  journal-title: J. Geophys. Res.
+  volume: '90'
+  year: '1985'
+- article-title: Effect of nonprecipitating clouds on the aerosol size distribution
+    in the marine boundary layer
+  author: Hoppel
+  doi: 10.1029/GL013i002p00125
+  first-page: '125'
+  journal-title: Geophys. Res. Lett.
+  volume: '13'
+  year: '1986'
+- article-title: Aerosol size distributions and optical properties found in the marine
+    boundary layer over the Atlantic Ocean
+  author: Hoppel
+  doi: 10.1029/JD095iD04p03659
+  first-page: '3659'
+  journal-title: J. Geophys. Res.
+  volume: '95'
+  year: '1990'
+- article-title: Marine boundary layer measurements of new particle formation and
+    the effects nonprecipitating clouds have on the aerosol size distribution
+  author: Hoppel
+  doi: 10.1029/94JD00797
+  first-page: '14443'
+  journal-title: J. Geophys. Res.
+  volume: '99'
+  year: '1994'
+- article-title: A cloud chamber study of the effect which nonprecipitating water
+    clouds have on the aerosol size distribution
+  author: Hoppel
+  doi: 10.1080/02786829408959660
+  first-page: '1'
+  journal-title: Aerosol Sci. Technol.
+  volume: '20'
+  year: '1994'
+- article-title: Relationship between fog condensation nuclei and fog microstructure
+  author: Hudson
+  doi: 10.1175/1520-0469(1980)037<1854:RBFCNA>2.0.CO;2
+  first-page: '1854'
+  journal-title: J. Atmos. Sci.
+  volume: '37'
+  year: '1980'
+- article-title: Effects of CCN concentrations on stratus clouds
+  author: Hudson
+  doi: 10.1175/1520-0469(1983)040<0480:EOCCOS>2.0.CO;2
+  first-page: '480'
+  journal-title: J. Atmos. Sci.
+  volume: '40'
+  year: '1983'
+- article-title: Microphysical contrast in Atlantic stratus
+  author: Hudson
+  doi: 10.1175/1520-0469(1995)052<3031:MCIAS>2.0.CO;2
+  first-page: '3031'
+  journal-title: J. Atmos. Sci.
+  volume: '52'
+  year: '1995'
+- article-title: Analytical solutions for cloud-drop concentration
+  author: Johnson
+  doi: 10.1175/1520-0469(1981)038<0215:ASFCDC>2.0.CO;2
+  first-page: '215'
+  journal-title: J. Atmos. Sci.
+  volume: '38'
+  year: '1981'
+- volume-title: CRC Handbook of Chemistry and Physics
+  year: '1990'
+- unstructured: Low , D. H. A comprehensive report on nineteen condensation nuclei
+    1969
+- article-title: Large contribution of organic aerosols to cloud-condensation-nuclei
+    concentrations
+  author: Navakov
+  doi: 10.1038/365823a0
+  first-page: '823'
+  journal-title: Nature
+  volume: '365'
+  year: '1993'
+- author: Pruppacher
+  doi: 10.1007/978-94-009-9905-3
+  volume-title: Microphysics of Clouds and Precipitation
+  year: '1978'
+- author: Robinson
+  volume-title: Electrolytic Solutions
+  year: '1970'
+- article-title: Comparison of measured and calculated aerosol properties relevant
+    to the direct radiative forcing of tropospheric sulfate aerosol on climate
+  author: Quinn
+  doi: 10.1029/95JD00387
+  first-page: '8977'
+  journal-title: J. Geophys. Res.
+  volume: '100'
+  year: '1995'
+- article-title: The growth of cloud droplets by condensation, I, General characteristics
+  author: Squires
+  first-page: '59'
+  journal-title: Aust. J. Sci. Res., Ser. A
+  volume: '5'
+  year: '1952'
+- article-title: The microstructure and colloidal stability of warm clouds, II, The
+    causes of the variations in microstructure
+  author: Squires
+  doi: 10.1111/j.2153-3490.1958.tb02012.x
+  first-page: '262'
+  journal-title: Tellus
+  volume: '10'
+  year: '1958'
+- article-title: Water activities, densities, and refractive indices of aqueous sulfates
+    and sodium nitrate droplets of atmospheric importance
+  author: Tang
+  doi: 10.1029/94JD01345
+  first-page: '18801'
+  journal-title: J. Geophys. Res.
+  volume: '99'
+  year: '1994'
+- article-title: The nuclei of natural cloud formation, II, The supersaturation in
+    natural clouds and the variation of cloud droplet concentration
+  author: Twomey
+  doi: 10.1007/BF01993560
+  first-page: '243'
+  journal-title: Geofis. Pura Appl.
+  volume: '43'
+  year: '1959'
+- article-title: On the composition of cloud nuclei in the northeastern United States
+  author: Twomey
+  first-page: '281'
+  journal-title: J. Rech. Atmos.
+  volume: '3'
+  year: '1968'
+- article-title: The supersaturation in natural clouds
+  author: Warner
+  first-page: '234'
+  journal-title: J. Rech. Atmos.
+  volume: '3'
+  year: '1968'
+doc_url: http://www.agu.org/journals/jd/v101/iD21/96JD02243/96JD02243.pdf
+doi: 10.1029/96jd02243
+files:
+- tmpz1cbhajm.data
+issue: D21
+journal: 'Journal of Geophysical Research: Atmospheres'
+language: en
+month: 11
+pages: 26553--26565
+publisher: American Geophysical Union (AGU)
+title: Deducing droplet concentration and supersaturation in marine boundary layer
+  clouds from surface aerosol measurements
+type: article
+url: http://dx.doi.org/10.1029/96jd02243
+volume: '101'
+year: 1996

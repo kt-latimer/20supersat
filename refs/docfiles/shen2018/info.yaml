@@ -1,0 +1,118 @@
+author: Shen, Chuanyang and Zhao, Chunsheng and Ma, Nan and Tao, Jiangchuan and Zhao,
+  Gang and Yu, Yingli and Kuang, Ye
+author_list:
+- affiliation:
+  - name: Department of Atmospheric and Oceanic Sciences, School of PhysicsPeking
+      University Beijing China
+  family: Shen
+  given: Chuanyang
+- affiliation:
+  - name: Department of Atmospheric and Oceanic Sciences, School of PhysicsPeking
+      University Beijing China
+  family: Zhao
+  given: Chunsheng
+- affiliation:
+  - name: Institute for Environmental and Climate ResearchJinan University Guangzhou
+      China
+  family: Ma
+  given: Nan
+- affiliation:
+  - name: Institute for Environmental and Climate ResearchJinan University Guangzhou
+      China
+  family: Tao
+  given: Jiangchuan
+- affiliation:
+  - name: Department of Atmospheric and Oceanic Sciences, School of PhysicsPeking
+      University Beijing China
+  family: Zhao
+  given: Gang
+- affiliation:
+  - name: Department of Atmospheric and Oceanic Sciences, School of PhysicsPeking
+      University Beijing China
+  family: Yu
+  given: Yingli
+- affiliation:
+  - name: Institute for Environmental and Climate ResearchJinan University Guangzhou
+      China
+  family: Kuang
+  given: Ye
+citations:
+- doi: 10.1038/nature03174
+- doi: 10.1175/1520-0469(1990)047<2153:ARFMWA>2.0.CO;2
+- doi: 10.5194/acp-12-4935-2012
+- doi: 10.1002/qj.25
+- doi: 10.5194/acp-11-3835-2011
+- doi: 10.5194/acp-13-6227-2013
+- doi: 10.1021/es0503478
+- doi: 10.1016/j.atmosres.2009.01.006
+- doi: 10.5194/acp-10-4795-2010
+- article-title: Droplet formation and growth in polluted fogs
+  author: Frank G.
+  first-page: '65'
+  issue: '1'
+  journal-title: Contributions to Atmospheric Physics
+  volume: '71'
+  year: '1998'
+- doi: 10.1175/1520-0469(1991)048<2569:SADSEI>2.0.CO;2
+- doi: 10.1175/1520-0450(1980)019<1196:ASHFTM>2.0.CO;2
+- doi: 10.1175/1520-0469(1981)038<0454:MOARF>2.0.CO;2
+- doi: 10.1002/2017GL073533
+- doi: 10.5194/acp-14-10517-2014
+- doi: 10.6028/jres.081A.010
+- doi: 10.1039/b901585j
+- doi: 10.1175/1520-0469(1980)037<1854:RBFCNA>2.0.CO;2
+- article-title: 'The third Pallas cloud experiment: Consistency between the aerosol
+    hygroscopic growth and CCN activity'
+  author: Jaatinen A.
+  first-page: '368'
+  journal-title: Boreal Environment Research
+  volume: '19'
+  year: '2014'
+- doi: 10.1126/science.260.5106.311
+- doi: 10.1039/TF9363201152
+- doi: 10.1175/JAS3784.1
+- doi: 10.1038/41000
+- doi: 10.1017/CBO9780511976377
+- doi: 10.5194/acp-14-2525-2014
+- doi: 10.5194/acp-11-3479-2011
+- doi: 10.5194/acp-11-5959-2011
+- doi: 10.5194/acp-2016-103
+- article-title: A modified method for calibrating the supersaturations in DMT cloud
+    condensation nuclei counter
+  author: Nan M. A.
+  first-page: '805'
+  issue: '5'
+  journal-title: Acta Scientiarum Naturalium Universitatis Pekinensis
+  volume: '50'
+  year: '2014'
+- doi: 10.5194/acp-7-1961-2007
+- doi: 10.5194/acp-9-3999-2009
+- doi: 10.1029/2006JD007963
+- author: Pruppacher H. R.
+  volume-title: Microphysics of clouds and precipitation
+  year: '2004'
+- doi: 10.5194/acp-11-4657-2011
+- doi: 10.5194/acp-18-6907-2018
+- doi: 10.1002/qj.49710243207
+- doi: 10.1016/j.atmosenv.2015.09.011
+- doi: 10.5194/amt-5-2237-2012
+- doi: 10.5194/acp-2018-279
+- doi: 10.1109/JSTARS.2017.2653811
+- doi: 10.1088/1748-9326/3/4/045002
+- doi: 10.1175/1520-0469(1966)023<0405:CORFBC>2.0.CO;2
+- doi: 10.1002/2017JD027058
+doc_url: https://onlinelibrary.wiley.com/doi/pdf/10.1029/2018JD028315
+doi: 10.1029/2018jd028315
+files:
+- tmpze8-hx4w.data
+issue: '18'
+journal: 'Journal of Geophysical Research: Atmospheres'
+language: en
+month: 9
+publisher: American Geophysical Union (AGU)
+title: Method to Estimate Water Vapor Supersaturation in the Ambient Activation Process
+  Using Aerosol and Droplet Measurement Data
+type: article
+url: http://dx.doi.org/10.1029/2018jd028315
+volume: '123'
+year: 2018

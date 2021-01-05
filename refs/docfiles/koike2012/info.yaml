@@ -1,0 +1,469 @@
+author: Koike, M. and Takegawa, N. and Moteki, N. and Kondo, Y. and Nakamura, H. and
+  Kita, K. and Matsui, H. and Oshima, N. and Kajino, M. and Nakajima, T. Y.
+author_list:
+- affiliation: []
+  family: Koike
+  given: M.
+- affiliation: []
+  family: Takegawa
+  given: N.
+- affiliation: []
+  family: Moteki
+  given: N.
+- affiliation: []
+  family: Kondo
+  given: Y.
+- affiliation: []
+  family: Nakamura
+  given: H.
+- affiliation: []
+  family: Kita
+  given: K.
+- affiliation: []
+  family: Matsui
+  given: H.
+- affiliation: []
+  family: Oshima
+  given: N.
+- affiliation: []
+  family: Kajino
+  given: M.
+- affiliation: []
+  family: Nakajima
+  given: T. Y.
+citations:
+- article-title: 'Effect of aerosols on cloud albedo: Evaluation of Twomey''s parameterization
+    of cloud susceptibility using measurements of ship track'
+  author: Ackerman
+  doi: 10.1175/1520-0469(2000)057<2684:EOAOCA>2.0.CO;2
+  first-page: '2684'
+  journal-title: J. Atmos. Sci.
+  volume: '57'
+  year: '2000'
+- article-title: Vertical distribution of cloud condensation nuclei concentrations
+    and their effect on microphysical properties of clouds over the sea near the southwest
+    islands of Japan
+  author: Adhikari
+  doi: 10.1029/2004JD004758
+  journal-title: J. Geophys. Res.
+  volume: '110'
+  year: '2005'
+- article-title: Aerosols, cloud microphysics, and fractional cloudiness
+  author: Albrecht
+  doi: 10.1126/science.245.4923.1227
+  first-page: '1227'
+  journal-title: Science
+  volume: '245'
+  year: '1989'
+- article-title: 'The cloud, aerosol and precipitation spectrometer: A new instrument
+    for cloud investigations'
+  author: Baumgardner
+  doi: 10.1016/S0169-8095(01)00119-3
+  first-page: '251'
+  journal-title: Atmos. Res.
+  volume: 59-60
+  year: '2001'
+- article-title: 'An analysis of cloud drop growth by collection: Part II. Single
+    initial distributions'
+  author: Berry
+  doi: 10.1175/1520-0469(1974)031<1825:AAOCDG>2.0.CO;2
+  first-page: '1825'
+  journal-title: J. Atmos. Sci.
+  volume: '31'
+  year: '1974'
+- author: Bird
+  volume-title: Transport Phenomena
+  year: '2007'
+- article-title: Observation study of the entrainment-mixing process in warm convective
+    clouds
+  author: Burnet
+  doi: 10.1175/JAS3928.1
+  first-page: '1995'
+  journal-title: J. Atmos. Sci.
+  volume: '64'
+  year: '2007'
+- article-title: 'Correlation between model-calculated anthropogenic aerosols and
+    satellite-derived cloud optical depths: Indication of indirect effect?'
+  author: Chameides
+  doi: 10.1029/2000JD000208
+  issue: D10
+  journal-title: J. Geophys. Res.
+  volume: '107'
+  year: '2002'
+- article-title: Influence of low-level wind speed on droplet spectra near cloud base
+    in trade wind cumulus
+  author: Colón-Robles
+  doi: 10.1029/2006GL027487
+  journal-title: Geophys. Res. Lett.
+  volume: '33'
+  year: '2006'
+- article-title: Size matters more than chemistry for cloud-nucleating ability of
+    aerosol particles
+  author: Dusek
+  doi: 10.1126/science.1125261
+  first-page: '1375'
+  issue: '5778'
+  journal-title: Science
+  volume: '312'
+  year: '2006'
+- article-title: 'Modeling of the first indirect effect: Analysis of measurement requirements'
+  author: Feingold
+  doi: 10.1029/2003GL017967
+  issue: '19'
+  journal-title: Geophys. Res. Lett.
+  volume: '30'
+  year: '2003'
+- article-title: Parameterizations of condensational growth of droplets for use in
+    general circulation models
+  author: Feingold
+  doi: 10.1175/1520-0469(1992)049<2325:POCGOD>2.0.CO;2
+  first-page: '2325'
+  journal-title: J. Atmos. Sci.
+  volume: '49'
+  year: '1992'
+- article-title: A modeling study of the effect of drizzle on cloud optical depth
+    and susceptibility
+  author: Feingold
+  doi: 10.1029/97JD00963
+  first-page: 13,527
+  issue: D12
+  journal-title: J. Geophys. Res.
+  volume: '102'
+  year: '1997'
+- author: Forster
+  first-page: '129'
+  volume-title: 'Climate Change 2007: The Physical Science Basis. Contribution of
+    Working Group I to the Fourth Assessment Report of the Intergovernmental Panel
+    on Climate Change'
+  year: '2007'
+- article-title: Aerosol-cloud drop concentration closure for clouds sampled during
+    the International Consortium for Atmospheric Research on Transport and Transformation
+    2004 campaign
+  author: Fountoukis
+  doi: 10.1029/2006JD007272
+  journal-title: J. Geophys. Res.
+  volume: '112'
+  year: '2007'
+- article-title: A simple relationship between cloud drop number concentration and
+    precursor aerosol concentration for the regions of Earth's large marine stratocumulus
+    decks
+  author: Hegg
+  doi: 10.5194/acp-12-1229-2012
+  first-page: '1229'
+  journal-title: Atmos. Chem. Phys.
+  volume: '12'
+  year: '2012'
+- article-title: CCN and cloud droplet concentrations at a remote ocean site
+  author: Hudson
+  doi: 10.1029/2009GL038465
+  journal-title: Geophys. Res. Lett.
+  volume: '36'
+  year: '2009'
+- article-title: 'An overview of ACE-Asia: Strategies for quantifying the relationships
+    between Asian aerosols and their climatic impacts'
+  author: Huebert
+  doi: 10.1029/2003JD003550
+  issue: D23
+  journal-title: J. Geophys. Res.
+  volume: '108'
+  year: '2003'
+- article-title: Simulations of aerosol-cloud-dynamical feedbacks resulting from entrainment
+    of aerosol into the marine boundary layer during the Atlantic Stratocumulus Transition
+    Experiment
+  author: Jiang
+  doi: 10.1029/2001JD001502
+  issue: D24
+  journal-title: J. Geophys. Res.
+  volume: '107'
+  year: '2002'
+- article-title: The seasonal cycle of low stratiform clouds
+  author: Klein
+  doi: 10.1175/1520-0442(1993)006<1587:TSCOLS>2.0.CO;2
+  first-page: '1587'
+  journal-title: J. Clim.
+  volume: '6'
+  year: '1993'
+- article-title: Cloud condensation nuclei activity at Jeju Island, Korea in spring
+    2005
+  author: Kuwata
+  doi: 10.5194/acp-8-2933-2008
+  first-page: '2933'
+  journal-title: Atmos. Chem. Phys.
+  volume: '8'
+  year: '2008'
+- article-title: Chemical and microphysical studies of nonprecipitating summer cloud
+    in Ontario, Canada
+  author: Leaitch
+  doi: 10.1029/JD091iD11p11821
+  first-page: 11,821
+  journal-title: J. Geophys. Res.
+  volume: '91'
+  year: '1986'
+- article-title: 'The relationship between cloud droplet number concentrations and
+    anthropogenic pollution: Observations and climatic implications'
+  author: Leaitch
+  doi: 10.1029/91JD02739
+  first-page: '2463'
+  journal-title: J. Geophys. Res.
+  volume: '97'
+  year: '1992'
+- article-title: 'Physical and chemical observations in marine stratus during the
+    1993 North Atlantic Regional Experiment: Factors controlling cloud droplet number
+    concentrations'
+  author: Leaitch
+  doi: 10.1029/96JD01228
+  first-page: 29,123
+  journal-title: J. Geophys. Res.
+  volume: '101'
+  year: '1996'
+- article-title: Indirect warming effect from dispersion forcing
+  author: Liu
+  doi: 10.1038/419580a
+  first-page: '580'
+  journal-title: Nature
+  volume: '419'
+  year: '2002'
+- article-title: 'Total aerosol effect: Radiative forcing or radiative flux perturbation?'
+  author: Lohmann
+  doi: 10.5194/acp-10-3235-2010
+  first-page: '3235'
+  journal-title: Atmos. Chem. Phys.
+  volume: '10'
+  year: '2010'
+- article-title: 'Effect of aerosol number concentration on cloud droplet dispersion:
+    A large-eddy simulation study and implications for aerosol indirect forcing'
+  author: Lu
+  doi: 10.1029/2005JD006419
+  journal-title: J. Geophys. Res.
+  volume: '111'
+  year: '2006'
+- article-title: 'The Marine Stratus/Stratocumulus Experiment (MASE): Aerosol-cloud
+    relationships in marine stratocumulus'
+  author: Lu
+  doi: 10.1029/2006JD007985
+  journal-title: J. Geophys. Res.
+  volume: '112'
+  year: '2007'
+- article-title: Aerosol-cloud relationships in continental shallow cumulus
+  author: Lu
+  doi: 10.1029/2007JD009354
+  journal-title: J. Geophys. Res.
+  volume: '113'
+  year: '2008'
+- article-title: The measurement and parameterization of effective radius of drops
+    in warm stratocumulus clouds
+  author: Martin
+  doi: 10.1175/1520-0469(1994)051<1823:TMAPOE>2.0.CO;2
+  first-page: '1823'
+  journal-title: J. Atmos. Sci.
+  volume: '51'
+  year: '1994'
+- article-title: 'Spatial and temporal variations of aerosols around Beijing in summer
+    2006: Model evaluation and source apportionment'
+  author: Matsui
+  doi: 10.1029/2008JD010906
+  journal-title: J. Geophys. Res.
+  volume: '114'
+  year: '2009'
+- article-title: Impact of new particle formation on the concentrations of aerosols
+    and cloud condensation nuclei around Beijing
+  author: Matsui
+  doi: 10.1029/2011JD016025
+  journal-title: J. Geophys. Res.
+  volume: '116'
+  year: '2011'
+- article-title: 'Parameterizations of INDOEX microphysical measurements and calculations
+    of cloud susceptibility: Application for climate studies'
+  author: McFarquhar
+  doi: 10.1029/2000JD900777
+  first-page: 28,675
+  journal-title: J. Geophys. Res.
+  volume: '106'
+  year: '2001'
+- article-title: Cloud droplet size distributions in low-level stratiform clouds
+  author: Miles
+  doi: 10.1175/1520-0469(2000)057<0295:CDSDIL>2.0.CO;2
+  first-page: '295'
+  journal-title: J. Atmos. Sci.
+  volume: '57'
+  year: '2000'
+- article-title: 'Dependence of laser-induced incandescence on physical properties
+    of black carbon aerosols: Measurements and theoretical interpretation'
+  author: Moteki
+  doi: 10.1080/02786826.2010.484450
+  first-page: '663'
+  journal-title: Aerosol Sci. Technol.
+  volume: '44'
+  year: '2010'
+- article-title: 'Droplet growth in warm water clouds observed by the A-Train. Part
+    I: Sensitivity analysis of the MODIS-derived cloud droplet size'
+  author: Nakajima
+  doi: 10.1175/2009JAS3280.1
+  first-page: '1884'
+  journal-title: J. Atmos. Sci.
+  volume: '67'
+  year: '2010'
+- article-title: 'Wet removal of black carbon in Asian outflow: Aerosol Radiative
+    Forcing in East Asia (A-FORCE) aircraft campaign'
+  author: Oshima
+  doi: 10.1029/2011JD016552
+  journal-title: J. Geophys. Res.
+  volume: '117'
+  year: '2012'
+- article-title: Microphysical properties of stratocumulus clouds during ACE-2
+  author: Pawlowska
+  doi: 10.1034/j.1600-0889.2000.00076.x
+  first-page: '868'
+  journal-title: Tellus, Ser. B
+  volume: '52'
+  year: '2000'
+- article-title: Importance of vertical velocity variations in the cloud droplet nucleation
+    process of marine stratus clouds
+  author: Peng
+  doi: 10.1029/2004JD004922
+  journal-title: J. Geophys. Res.
+  volume: '110'
+  year: '2005'
+- article-title: A single parameter representation of hygroscopic growth and cloud
+    condensation nucleus activity
+  author: Petters
+  doi: 10.5194/acp-7-1961-2007
+  first-page: '1961'
+  journal-title: Atmos. Chem. Phys.
+  volume: '7'
+  year: '2007'
+- article-title: 'Radiative susceptibility of cloudy atmospheres to droplet number
+    perturbations: 1. Theoretical analysis and examples from MODIS'
+  author: Platnick
+  doi: 10.1029/2007JD009654
+  journal-title: J. Geophys. Res.
+  volume: '113'
+  year: '2008'
+- article-title: Determining the susceptibility of cloud albedo to changes in droplet
+    concentration with the Advanced Very High Resolution Radiometer
+  author: Platnick
+  doi: 10.1175/1520-0450(1994)033<0334:DTSOCA>2.0.CO;2
+  first-page: '334'
+  journal-title: J. Appl. Meteorol.
+  volume: '33'
+  year: '1994'
+- author: Pruppacher
+  volume-title: Microphysics of Clouds and Precipitation
+  year: '1997'
+- article-title: Daily high-resolution blended analyses for sea surface temperature
+  author: Reynolds
+  doi: 10.1175/2007JCLI1824.1
+  first-page: '5473'
+  journal-title: J. Clim.
+  volume: '20'
+  year: '2007'
+- author: Schwartz
+  doi: 10.1007/978-3-642-61051-6_9
+  first-page: '191'
+  series-title: NATO ASI Ser.
+  volume: '135'
+  volume-title: Clouds, Chemistry and Climate-Proceedings of NATO Advanced Research
+    Workshop
+  year: '1996'
+- article-title: Laboratory evaluation of a TSI condensation particle counter (Model
+    3771) under airborne measurement conditions
+  author: Takegawa
+  doi: 10.1080/02786826.2010.532839
+  first-page: '272'
+  issue: '2'
+  journal-title: Aerosol Sci. Technol.
+  volume: '45'
+  year: '2011'
+- article-title: Observations of marine atmospheric boundary layer transitions across
+    the summer Kuroshio Extension
+  author: Tanimoto
+  doi: 10.1175/2008JCLI2420.1
+  first-page: '1360'
+  journal-title: J. Clim.
+  volume: '22'
+  year: '2009'
+- article-title: 'Ocean frontal effects on the vertical development of clouds over
+    the western North Pacific: In situ and satellite observations'
+  author: Tokinaga
+  doi: 10.1175/2009JCLI2763.1
+  first-page: '4241'
+  journal-title: J. Clim.
+  volume: '22'
+  year: '2009'
+- article-title: Design of the NIPR trajectory model
+  author: Tomikawa
+  first-page: '120'
+  journal-title: Polar Meteorol. Glaciol.
+  volume: '19'
+  year: '2005'
+- article-title: Characteristics of cloud-nucleating aerosols in the Indian Ocean
+    region
+  author: Twohy
+  doi: 10.1029/2000JD900779
+  first-page: 28,699
+  journal-title: J. Geophys. Res.
+  volume: '106'
+  year: '2001'
+- article-title: 'Evaluation of the aerosol indirect effect in marine stratocumulus
+    clouds: Droplet number, size, liquid water path, and radiative impact'
+  author: Twohy
+  doi: 10.1029/2004JD005116
+  journal-title: J. Geophys. Res.
+  volume: '110'
+  year: '2005'
+- article-title: The influence of pollution on the shortwave albedo of clouds
+  author: Twomey
+  doi: 10.1175/1520-0469(1977)034<1149:TIOPOT>2.0.CO;2
+  first-page: '1149'
+  journal-title: J. Atmos. Sci.
+  volume: '34'
+  year: '1977'
+- article-title: A simple non-linear analytical relationship between aerosol accumulation
+    number and sub-micron volume, explaining their observed ratio in the clean and
+    polluted marine boundary layer
+  author: Van Dingenen
+  doi: 10.1034/j.1600-0889.2000.00091.x
+  first-page: '439'
+  journal-title: Tellus, Ser. B
+  volume: '52'
+  year: '2000'
+- article-title: Submicron aerosol size distributions and cloud condensation nuclei
+    concentrations measured at Gosan, Korea, during the Atmospheric Brown Clouds-East
+    Asian Regional Experiment 2005
+  author: Yum
+  doi: 10.1029/2006JD008212
+  journal-title: J. Geophys. Res.
+  volume: '112'
+  year: '2007'
+- article-title: Aircraft measurements of cloud droplet spectral dispersion and implications
+    for indirect aerosol radiative forcing
+  author: Zhao
+  doi: 10.1029/2006GL026653
+  journal-title: Geophys. Res. Lett.
+  volume: '33'
+  year: '2006'
+- article-title: Shortwave radiative impacts from aerosol effects on marine shallow
+    cumuli
+  author: Zuidema
+  doi: 10.1175/2007JAS2447.1
+  first-page: '1979'
+  journal-title: J. Atmos. Sci.
+  volume: '65'
+  year: '2008'
+doc_url: http://www.agu.org/journals/jd/jd1217/2011JD017324/2011JD017324.pdf
+doi: 10.1029/2011jd017324
+files:
+- tmpiu8m0zsz.data
+issue: D17
+journal: 'Journal of Geophysical Research: Atmospheres'
+language: en
+month: 9
+pages: n/a--n/a
+publisher: American Geophysical Union (AGU)
+title: 'Measurements of regional-scale aerosol impacts on cloud microphysics over
+  the East China Sea: Possible influences of warm sea surface temperature over the
+  Kuroshio ocean current'
+type: article
+url: http://dx.doi.org/10.1029/2011jd017324
+volume: '117'
+year: 2012

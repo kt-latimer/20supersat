@@ -1,0 +1,47 @@
+abstract: "<jats:title>Abstract</jats:title>\n               <jats:p>On time scales\
+  \ that are long compared to the phase relaxation time, a quasi-steady supersaturation\
+  \ sqs is expected to exist in clouds. On shorter time scales, however, turbulent\
+  \ fluctuations of temperature and water vapor concentration should generate fluctuations\
+  \ in supersaturation. The variability of temperature, water vapor, and supersaturation\
+  \ has been measured in situ with submeter resolution in warm, continental, shallow\
+  \ cumulus clouds. Several cumuli with horizontal extents of order 100 m were sampled\
+  \ during their first appearance and development to depths of ~100 m in a growing\
+  \ boundary layer. Fluctuations of the saturation ratio are observed to be approximately\
+  \ normally distributed with standard deviations on the order of 1%. This variability\
+  \ is almost one order of magnitude larger than sqs calculated using simultaneous\
+  \ measurements of the vertical velocity component and the droplet size distribution.\
+  \ It is argued that, depending on the ratio of the phase relaxation and the turbulent\
+  \ mixing time, substantial fluctuations in the supersaturation field can exist on\
+  \ small spatial scales, centered on sqs for the mean state. The observations also\
+  \ suggest that, on larger scales, fluctuations of the supersaturation field are\
+  \ damped by cloud droplet growth. Droplets with diameters of up to 20 μm were observed\
+  \ in the shallow cumulus clouds, whereas the adiabatic diameter was less than 10\
+  \ μm. Such large droplets may be explained by a few droplets experiencing the highest\
+  \ observed supersaturations for a certain time. Consequences for aerosol activation\
+  \ and droplet size dispersion in a highly fluctuating supersaturation field are\
+  \ briefly discussed.</jats:p>"
+author: Siebert, Holger and Shaw, Raymond A.
+author_list:
+- affiliation:
+  - name: Leibniz Institute for Tropospheric Research, Leipzig, Germany
+  family: Siebert
+  given: Holger
+- affiliation:
+  - name: Michigan Technological University, Houghton, Michigan
+  family: Shaw
+  given: Raymond A.
+doc_url: http://journals.ametsoc.org/jas/article-pdf/74/4/975/4759352/jas-d-16-0115_1.pdf
+doi: 10.1175/jas-d-16-0115.1
+files:
+- tmpqwvj7tti.data
+issue: '4'
+journal: Journal of the Atmospheric Sciences
+language: en
+month: 4
+pages: 975--988
+publisher: American Meteorological Society
+title: Supersaturation Fluctuations during the Early Stage of Cumulus Formation
+type: article
+url: http://dx.doi.org/10.1175/jas-d-16-0115.1
+volume: '74'
+year: 2017

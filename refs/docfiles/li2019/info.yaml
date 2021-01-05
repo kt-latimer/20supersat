@@ -1,0 +1,345 @@
+abstract: "<jats:p>Abstract. Condensational growth of cloud droplets due to supersaturation\
+  \ fluctuations\nis investigated by solving the hydrodynamic and thermodynamic equations\
+  \ using\ndirect numerical simulations (DNS) with droplets being modeled as Lagrangian\n\
+  particles. The supersaturation field is calculated directly by simulating the\n\
+  temperature and water vapor fields instead of being treated as a passive\nscalar.\
+  \ Thermodynamic feedbacks to the fields due to condensation are also\nincluded for\
+  \ completeness. We find that the width of droplet size\ndistributions increases\
+  \ with time, which is contrary to the classical theory\nwithout supersaturation\
+  \ fluctuations, where condensational growth leads to\nprogressively narrower size\
+  \ distributions. Nevertheless, in agreement with\nearlier Lagrangian stochastic\
+  \ models of the condensational growth, the\nstandard deviation of the surface area\
+  \ of droplets increases as t1∕2.\nAlso, for the first time, we explicitly demonstrate\
+  \ that the time evolution\nof the size distribution is sensitive to the Reynolds\
+  \ number, but insensitive\nto the mean energy dissipation rate. This is shown to\
+  \ be due to the fact that\ntemperature fluctuations and water vapor mixing ratio\
+  \ fluctuations increase\nwith increasing Reynolds number; therefore the resulting\
+  \ supersaturation\nfluctuations are enhanced with increasing Reynolds number. Our\
+  \ simulations\nmay explain the broadening of the size distribution in stratiform\
+  \ clouds\nqualitatively, where the mean updraft velocity is almost zero.\n     \
+  \               </jats:p>"
+author: Li, Xiang-Yu and Svensson, Gunilla and Brandenburg, Axel and Haugen, Nils
+  E. L.
+author_list:
+- affiliation: []
+  family: Li
+  given: Xiang-Yu
+- affiliation: []
+  family: Svensson
+  given: Gunilla
+- affiliation: []
+  family: Brandenburg
+  given: Axel
+- affiliation: []
+  family: Haugen
+  given: Nils E. L.
+citations:
+- doi: 10.1175/1520-0469(1974)031<1814:AAOCDG>2.0.CO;2
+  unstructured: 'Berry, E. X. and Reinhardt, R. L.: An analysis of cloud drop growth
+    by
+
+    collection: Part I. Double distributions, J. Atmos.
+
+    Sci., 31, 1814–1824, 1974. a'
+- unstructured: 'Brandenburg, A.: Pencil Code, https://doi.org/10.5281/zenodo.2315093,
+    2018. a, b'
+- doi: 10.1175/1520-0426(1998)015<1077:IODSDM>2.0.CO;2
+  unstructured: 'Brenguier, J.-L., Bourrianne, T., Coelho, A. A., Isbert, J., Peytavi,
+    R.,
+
+    Trevarin, D., and Weschler, P.: Improvements of droplet size distribution
+
+    measurements with the Fast-FSSP (Forward Scattering Spectrometer Probe),
+
+    J. Atmos. Ocean. Tech., 15, 1077–1090, 1998. a, b'
+- doi: 10.1073/pnas.1612686113
+  unstructured: 'Chandrakar, K. K., Cantrell, W., Chang, K., Ciochetto, D., Niedermeier,
+    D.,
+
+    Ovchinnikov, M., Shaw, R. A., and Yang, F.: Aerosol indirect effect from
+
+    turbulence-induced broadening of cloud-droplet size distributions,
+
+    P. Natl. Acad. Sci., 113, 14243–14248, 2016. a'
+- doi: 10.1175/JAS-D-17-0123.1
+  unstructured: 'Chen, S., Yau, M., and Bartello, P.: Turbulence effects of collision
+    efficiency
+
+    and broadening of droplet size distribution in cumulus clouds, J. Atmos.
+
+    Sci., 75, 203–217, 2018. a'
+- unstructured: 'Cooper, W. A.: Effects of variable droplet growth histories on droplet
+    size
+
+    distributions. Part I: Theory, J. Atmos. Sci., 46,
+
+    1301–1311, 1989. a, b, c'
+- doi: 10.1175/JAS-D-17-0158.1
+  unstructured: 'Desai, N., Chandrakar, K., Chang, K., Cantrell, W., and Shaw, R.:
+    Influence of
+
+    Microphysical Variability on Stochastic Condensation in a Turbulent
+
+    Laboratory Cloud, J. Atmos. Sci., 75, 189–201, 2018. a'
+- doi: 10.1002/qj.1897
+  unstructured: 'Devenish, B., Bartello, P., Brenguier, J.-L., Collins, L., Grabowski,
+    W.,
+
+    IJzermans, R., Malinowski, S., Reeks, M., Vassilicos, J., Wang, L.-P.,
+
+    and Warhaft, Z.: Droplet growth in warm turbulent clouds, Q. J. Roy. Meteor.
+
+    Soc., 138, 1401–1429, 2012. a'
+- doi: 10.1017/jfm.2017.23
+  unstructured: 'Götzfried, P., Kumar, B., Shaw, R. A., and Schumacher, J.: Droplet
+    dynamics
+
+    and fine-scale structure in a shearless turbulent mixing layer with phase
+
+    changes, J. Fluid Mech., 814, 452–483, 2017. a, b, c'
+- doi: 10.1175/JAS-D-17-0043.1
+  unstructured: 'Grabowski, W. W. and Abade, G. C.: Broadening of cloud droplet spectra
+    through
+
+    eddy hopping: Turbulent adiabatic parcel simulations, J.
+
+    Atmos. Sci., 74, 1485–1493, 2017. a, b, c'
+- doi: 10.1146/annurev-fluid-011212-140750
+  unstructured: 'Grabowski, W. W. and Wang, L.-P.: Growth of Cloud Droplets in a Turbulent
+
+    Environment, Annu. Rev. Fluid Mech., 45, 293–324, 2013. a, b, c, d, e'
+- doi: 10.1103/PhysRevE.70.016308
+  unstructured: 'Haugen, N. E. L., Brandenburg, A., and Dobler, W.: Simulations of
+
+    nonhelical hydromagnetic turbulence, Phys. Rev. E, 70, 016308,
+
+    https://doi.org/10.1103/PhysRevE.70.016308, 2004. a'
+- doi: 10.1175/1520-0450(1995)034<2655:CMRICM>2.0.CO;2
+  unstructured: 'Hudson, J. G. and Svensson, G.: Cloud microphysical relationships
+    in California
+
+    marine stratus, J. Appl. Meteorol., 34, 2655–2666, 1995. a, b, c, d, e'
+- doi: 10.1051/0004-6361/201117701
+  unstructured: 'Johansen, A., Youdin, A. N., and Lithwick, Y.: Adding particle collisions
+
+    to the formation of asteroids and Kuiper belt objects via streaming
+
+    instabilities, Astron. Astrophys., 537, A125, https://doi.org/10.1051/0004-6361/201117701,
+    2012. a'
+- unstructured: 'Kabanov, A. and Mazin, I.: The effect of turbulence on phase transition
+    in
+
+    clouds, Tr. TsAO, 98, 113–121, 1970. a'
+- doi: 10.1175/JAS-D-13-0222.1
+  unstructured: 'Katzwinkel, J., Siebert, H., Heus, T., and Shaw, R. A.: Measurements
+    of
+
+    turbulent mixing and subsiding shells in trade wind cumuli, J.
+
+    Atmos. Sci., 71, 2810–2822, 2014. a'
+- unstructured: 'Khvorostyanov, V. I. and Curry, J. A.: Toward the Theory of Stochastic
+
+    Condensation in Clouds. Part I: A General Kinetic Equation, J.
+
+    Atmos. Sci., 56, 3985–3996,
+
+    https://doi.org/10.1175/1520-0469(1999)056&amp;lt;3985:TTTOSC&amp;gt;2.0.CO;2,
+
+    1999. a'
+- doi: 10.1175/1520-0469(1995)052<3620:TIOSFO>2.0.CO;2
+  unstructured: 'Korolev, A. V.: The influence of supersaturation fluctuations on
+    droplet size
+
+    spectra formation, J. Atmos. Sci., 52, 3620–3634, 1995. a, b, c'
+- doi: 10.1016/j.combustflame.2017.07.008
+  unstructured: 'Krüger, J., Haugen, N. E. L., and Løvås, T.: Correlation effects
+
+    between turbulence and the conversion rate of pulverized char particles,
+
+    Combust. Flame, 185, 160–172, 2017. a'
+- doi: 10.1175/JAS-D-13-0294.1
+  unstructured: 'Kumar, B., Schumacher, J., and Shaw, R. A.: Lagrangian Mixing Dynamics
+    at the
+
+    Cloudy–Clear Air Interface, J. Atmos. Sci., 71,
+
+    2564–2580, https://doi.org/10.1175/JAS-D-13-0294.1, 2014. a, b, c, d'
+- unstructured: 'Lamb, D. and Verlinde, J.: Physics and Chemistry of Clouds, Cambridge,
+
+    England, Cambridge Univ. Press, 2011. a, b, c, d, e'
+- doi: 10.1175/2008JAS2864.1
+  unstructured: 'Lanotte, A. S., Seminara, A., and Toschi, F.: Cloud Droplet Growth
+    by
+
+    Condensation in Homogeneous Isotropic Turbulence, J. Atmos.
+
+    Sci., 66, 1685–1697, https://doi.org/10.1175/2008JAS2864.1, 2009. a, b, c'
+- doi: 10.1002/2017MS000930
+  unstructured: 'Li, X.-Y., Brandenburg, A., Haugen, N. E. L., and Svensson, G.: Eulerian
+    and L
+
+    agrangian approaches to multidimensional condensation and collection, J. Adv.
+
+    Model. Earth Sy., 9, 1116–1137, 2017. a, b, c, d'
+- doi: 10.1175/JAS-D-18-0081.1
+  unstructured: 'Li, X.-Y., Brandenburg, A., Svensson, G., Haugen, N. E. L., Mehlig,
+    B., and
+
+    Rogachevskii, I.: Effect of Turbulence on Collisional Growth of Cloud
+
+    Droplets, J. Atmos. Sci., 75, 3469–3487,
+
+    https://doi.org/10.1175/JAS-D-18-0081.1, 2018. a, b'
+- unstructured: 'Li, X.-Y., Svensson, G., Brandenburg, A., and Haugen, N. E. L.: Cloud
+    droplet
+
+    growth due to supersaturation fluctuations in stratiform clouds,
+
+    https://doi.org/10.5281/zenodo.2538027, 2019. a, b'
+- doi: 10.1016/j.ijmultiphaseflow.2008.01.009
+  unstructured: 'Marchioli, C., Soldati, A., Kuerten, J., Arcen, B., Taniere, A.,
+    Goldensoph,
+
+    G., Squires, K., Cargnelutti, M., and Portela, L.: Statistics of particle
+
+    dispersion in direct numerical simulations of wall-bounded turbulence:
+
+    Results of an international collaborative benchmark test, Intern. J.
+
+    Multiphase Flow, 34, 879–893, 2008. a'
+- doi: 10.1175/1520-0469(2000)057<0295:CDSDIL>2.0.CO;2
+  unstructured: 'Miles, N. L., Verlinde, J., and Clothiaux, E. E.: Cloud droplet size
+
+    distributions in low-level stratiform clouds, J. Atmos.
+
+    Sci., 57, 295–311, 2000. a, b'
+- doi: 10.1175/2008JAS2734.1
+  unstructured: 'Paoli, R. and Shariff, K.: Turbulent condensation of droplets: direct
+
+    simulation and a stochastic model, J. Atmos. Sci., 66,
+
+    723–740, 2009. a, b'
+- doi: 10.1029/2006GL026841
+  unstructured: 'Pawlowska, H., Grabowski, W. W., and Brenguier, J.-L.: Observations
+    of the
+
+    width of cloud droplet spectra in stratocumulus, Geophys. Res.
+
+    Lett., 33, L19810, https://doi.org/10.1029/2006GL026841, 2006. a, b, c'
+- doi: 10.1017/CBO9780511840531
+  unstructured: 'Pope, S.: Turbulent Flows, Cambridge University Press, Cambridge,
+    UK, 2000. a'
+- unstructured: 'Pruppacher, H. R. and Klett, J. D.: Microphysics of Clouds and Precipitation:
+
+    Reprinted 1980, Springer Science &amp;amp; Business Media, Berlin, Germany, 2012. a,
+    b, c, d'
+- doi: 10.1017/S0022112056000020
+  unstructured: 'Saffman, P. G. and Turner, J. S.: On the collision of drops in turbulent
+
+    clouds, J. Fluid Mech., 1, 16–30, https://doi.org/10.1017/S0022112056000020,
+
+    1956. a'
+- doi: 10.1088/1367-2630/aaa229
+  unstructured: 'Saito, I. and Gotoh, T.: Turbulence and cloud droplets in cumulus
+    clouds, New
+
+    J. Phys., 20, 023 001, 2017. a'
+- doi: 10.1103/PhysRevLett.115.184501
+  unstructured: 'Sardina, G., Picano, F., Brandt, L., and Caballero, R.: Continuous
+
+    Growth of Droplet Size Variance due to Condensation in Turbulent Clouds,
+
+    Phys. Rev. Lett., 115, 184501, https://doi.org/10.1103/PhysRevLett.115.184501,
+    2015. a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r'
+- doi: 10.1175/JAS-D-17-0241.1
+  unstructured: 'Sardina, G., Poulain, S., Brandt, L., and Caballero, R.: Broadening
+    of Cloud
+
+    Droplet Size Spectra by Stochastic Condensation: Effects of Mean Updraft
+
+    Velocity and CCN Activation, J. Atmos. Sci., 75,
+
+    451–467, 2018. a'
+- unstructured: 'Schiller, L. and Naumann, A.: Fundamental calculations in gravitational
+
+    processing, Z. Ver. Dtsch. Ing., 77, 318–320,
+
+    1933. a'
+- unstructured: 'Sedunov, Y. S.: Fine cloud structure and its role in the formation
+    of the cloud
+
+    spectrum, Atmos. Oceanic Phys., 1, 416–421, 1965. a'
+- unstructured: 'Seinfeld, J. H. and Pandis, S. N.: Atmospheric chemistry and physics:
+    from air
+
+    pollution to climate change, John Wiley &amp;amp; Sons, New Jersey, US, 2016. a'
+- doi: 10.1146/annurev.fluid.35.101101.161125
+  unstructured: 'Shaw, R. A.: Particle-turbulence interactions in atmospheric clouds,
+    Annu. Rev.
+
+    Fluid Mech., 35, 183–227, 2003. a'
+- doi: 10.1002/qj.441
+  unstructured: 'Shima, S., Kusano, K., Kawano, A., Sugiyama, T., and Kawahara, S.:
+
+    The super-droplet method for the numerical simulation of clouds and
+
+    precipitation: a particle-based and probabilistic microphysics model coupled
+
+    with a non-hydrostatic model, Q. J. Roy. Meteor. Soc., 135, 1307–1320,
+
+    2009. a'
+- doi: 10.1175/JAS-D-16-0115.1
+  unstructured: 'Siebert, H. and Shaw, R. A.: Supersaturation fluctuations during
+    the early
+
+    stage of cumulus formation, J. Atmos. Sci., 74,
+
+    975–988, 2017. a, b, c, d'
+- doi: 10.1017/jfm.2016.712
+  unstructured: 'Siewert, C., Bec, J., and Krstulovic, G.: Statistical steady state
+    in turbulent
+
+    droplet condensation, J. Fluid Mech., 810, 254–280, 2017. a, b, c, d, e, f, g'
+- doi: 10.1175/1520-0469(1989)046<0869:GOCDBC>2.0.CO;2
+  unstructured: 'Srivastava, R.: Growth of cloud drops by condensation: A criticism
+    of currently
+
+    accepted theory and a new approach, J. Atmos. Sci., 46,
+
+    869–887, 1989. a, b'
+- unstructured: 'Vaillancourt, P., Yau, M., and Grabowski, W. W.: Microscopic approach
+    to cloud
+
+    droplet growth by condensation. Part I: Model description and results without
+
+    turbulence, J. Atmos. Sci., 58, 1945–1964, 2001. a'
+- unstructured: 'Vaillancourt, P., Yau, M., Bartello, P., and Grabowski, W. W.: Microscopic
+
+    approach to cloud droplet growth by condensation. Part II: Turbulence,
+
+    clustering, and condensational growth, J. Atmos. Sci.,
+
+    59, 3421–3435, 2002. a, b, c, d'
+- doi: 10.1103/RevModPhys.79.883
+  unstructured: 'Veysey II, J. and Goldenfeld, N.: Simple viscous flows: From boundary
+    layers
+
+    to the renormalization group, Rev. Modern Phys., 79, 883–927, 2007. a'
+- unstructured: 'Yau, M. K. and Rogers, R.: A short course in cloud physics, Elsevier,
+    Amsterdam, the
+
+    Netherlands,
+
+    1996. a, b, c'
+doi: 10.5194/acp-19-639-2019
+issue: '1'
+journal: Atmospheric Chemistry and Physics
+language: en
+month: 1
+pages: 639--648
+publisher: Copernicus GmbH
+title: Cloud-droplet growth due to supersaturation fluctuations in stratiform clouds
+type: article
+url: http://dx.doi.org/10.5194/acp-19-639-2019
+volume: '19'
+year: 2019

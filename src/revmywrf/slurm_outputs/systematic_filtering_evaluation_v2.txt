@@ -1,0 +1,116 @@
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py", line 238, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py", line 58, in main
+    make_and_save_ss_distb_charts(ss_qss_distbs, ss_wrf_distbs, case_label)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py", line 202, in make_and_save_ss_distb_charts
+    str(np.round(np.log10(lwc_filter_val, 2))) + ', w > ' + \
+TypeError: return arrays must be of ArrayType
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:199: RuntimeWarning: divide by zero encountered in log10
+  ax1.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/systematic_filtering_evaluation.py:215: RuntimeWarning: divide by zero encountered in log10
+  ax2.hist(bins[:-1], bins=bins, weights=np.log10(counts), \
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:1269: RuntimeWarning: invalid value encountered in subtract
+  a = op(a[slice1], a[slice2])

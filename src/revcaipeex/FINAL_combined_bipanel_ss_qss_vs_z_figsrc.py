@@ -12,7 +12,7 @@ from revcaipeex import DATA_DIR, FIG_DIR
 from revcaipeex.ss_qss_calculations import get_ss_vs_t, get_lwc
 
 #for plotting
-versionstr = 'v3_'
+versionstr = 'v4_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
@@ -113,11 +113,13 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
     fig.set_size_inches(18, 12)
+    n_pts = {'allpts': 0, 'up10perc': 0}
 
     for key in ss_qss_dict.keys():
         color = colors_dict[key]
         ss_qss = ss_qss_dict[key]
         z = z_dict[key]
+        n_pts[key] = np.shape(ss_qss)[0]
         dz = np.array([z_bins[i+1] - z_bins[i] for i in \
                         range(np.shape(z_bins)[0] - 1)])
         print(key)
@@ -147,12 +149,15 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
     ax2.xaxis.set_major_formatter(formatter)
 
     #custom legend
+    n_allpts = n_pts['allpts']
+    n_up10perc = n_pts['up10perc']
     allpts_line = Line2D([0], [0], color=colors_dict['allpts'], \
                         linewidth=6, linestyle='-')
     up10perc_line = Line2D([0], [0], color=colors_dict['up10perc'], \
                         linewidth=6, linestyle='-')
-    ax2.legend([allpts_line, up10perc_line], ['All cloudy updrafts', \
-                                    'Top 10% cloudy updrafts (by w)'])
+    ax2.legend([allpts_line, up10perc_line], ['All cloudy updrafts (N=' +
+                str(n_allpts) + ')', 'Top 10% cloudy updrafts (N=' + \
+                str(n_up10perc) + ')'])
 
     outfile = FIG_DIR + versionstr + \
         'FINAL_combined_bipanel_ss_qss_vs_z_figure.png'

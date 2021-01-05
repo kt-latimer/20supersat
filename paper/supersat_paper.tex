@@ -13,9 +13,9 @@
 \usepackage[counterclockwise]{rotating}
 \graphicspath{{../figures/}}
 
-\title{Cleaned up first paper draft for supersat project}
+\title{Paper draft v1.2 for supersat project}
 \author{K. Latimer}
-\date{Dec 30, 2020}
+\date{Jan ??, 2020}
 
 \newcommand{\drcomm}[1]{\textcolor{blue}{\textit{#1}}}
 \newcommand{\klcomm}[1]{\textcolor{red}{\textit{#1}}}
@@ -61,17 +61,63 @@ In their paper (see for example Figure 2(b) of that work), Fan et al provide ane
 
 While Fan et al do not offer any proof based on experimental data that such high SS exist in the convection setting the environmental lapse rate, they do observe comparable values in numerical simulations. In particular, using the Weather Research and Forcasting (WRF) model to simulate pristine (no UAP$_{<50}$) conditions in the Amazon Rainforest, they find (horizontally- and time-averaged) SS in convective cores of up to 15\%.
 
-Since this is well above what is typically reported or assumed in the literature [ \klcomm{TODO - find some citations} ], we seek in this paper to determine if we can find experimental evidence for O(10\%) SS in nature. We use data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in and around Manaus, Brazil in 2014-15), as well as from the first phase of the Cloud Aerosol Interaction and Precipitation Enhancement EXperiment (CAIPEEX) in India (taken in June [around Hyderabad] and August [around Bareilly] 2009) \cite{???, Kulkarni2012} as a dataset of opportunity.
+Since this is well above what is typically reported or assumed in the literature \cite{Hoppel1996, Yang2019, Koike2012, Politovich1988, Moteki2019, Siebert2017, Shen2018, Hammer2014, Li2019}, we seek in this paper to determine if we can find experimental evidence for O(10\%) SS in nature. We use data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in and around Manaus, Brazil in 2014-15), as well as from the first phase of the Cloud Aerosol Interaction and Precipitation Enhancement EXperiment (CAIPEEX) in India (taken in June [around Hyderabad] and August [around Bareilly] 2009) \cite{???, Kulkarni2012} as a dataset of opportunity.
 
 \section{Data Analysis and Results}
 
-In order to determine experimental supersaturation within a reasonable margin of error, we must use the quasi-steady-state (QSS) supersaturation formula \cite{Rogers1989}. Based on our analysis of the WRF data, this approximation is only valid within certain limits, namely:
+In order to determine experimental supersaturation within a reasonable margin of error, we must use the quasi-steady-state (QSS) supersaturation formula \cite{Rogers1989}. We seek to limit our analysis to a regime where: 1) Agreement between this theoretical approximation is ``good" (i.e. the least-squares regression slope parameter and the correlation coefficient are both close to 1) and 2) The filtering criteria for the regime of interest impose a minimal distortion on the distribution (in both shape and unnormalized magnitude) of SS values. In Figures \ref{regresheatmap}-\ref{ssdistbs} we show the variation of these features across a two-dimensional space of liquid water content (LWC) and vertical wind velocity (w) cutoffs. Based on those results we employ the following criteria in all subsequent analyses:
 \begin{itemize}
 	\item T \textgreater  273K (we're not including ice in the theory; note that Fan et al do evaluate SS wrt water above the freezing line though)
 	\item w \textgreater  2 m/s (reasonably strong updrafts)
-	\item cloud LWC \textgreater  1e-4 g/g (in the convection core)
+	\item cloud LWC \textgreater  1e-4 g/g (in the convection core) [\drcomm{I assume this 1e-4 LWC threshold is causing the sharp decrease in the number of qualifying points as you move up through 2 km.  Can you reformulate this threshold to avoid the bias while retaining good agreement between SS and SSQSS?  E.g., LWC $>$ 0.01 x qv*?} \klcomm{I realized I did not think through very carefully how I was graphing those distributions...the histograms in the righthand panels of Figure \ref{wrfbipanel} show $\frac{dn_{points}}{dz}$, but the WRF grid is based on pressure coordinates, so this artificially skews the point number density low as you ascend in altitude. I've included a couple of figures at the end just graphing the absolute number of points vs z, which is less biased and also insensitive to the LWC cutoff (i.e. cutoff of 1e-4 vs 1e-5 kg/kg doesn't make a difference). Would it make sense to plot the histogram as $\frac{dn_{points}}{d\log z}$?}]
 	\item including rain droplets and ventillation corrections
 \end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{1.5\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v3_regres_param_heatmaps_Unpolluted_figure.png}
+		\caption{Unpolluted case.}
+		\label{regresheatmapunpoll}
+	\end{subfigure}
+	\begin{subfigure}{1.5\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v3_regres_param_heatmaps_Polluted_figure.png}
+		\caption{Polluted case.}
+		\label{regresheatmappoll}
+	\end{subfigure}
+	\caption{Variation of (left) least-squares slope parameter and (center) correlation coefficient for $SS_{QSS}$ vs $SS_{WRF}$ with respect to cutoff values for LWC and w (in addition to imposing temperature cutoff, and inclusion of raindrops and ventilation corrections). Right panel shows Euclidean distance from the ideal point (1, 1) in the $m-R^2$ plane. [\klcomm{Somewhat arbitrary but was looking for a way to visually combine the information in the left and center panels...}]}
+	\label{regresheatmap}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v3_npts_heatmap_Unpolluted_figure.png}
+		\caption{Unpolluted case.}
+		\label{nptsheatmapunpoll}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v3_npts_heatmap_Polluted_figure.png}
+		\caption{Polluted case.}
+		\label{nptsheatmappoll}
+	\end{subfigure}
+	\caption{Number of points remaining after imposing filtering criteria on LWC and w (in addition to temperature cutoff, and inclusion of raindrops and ventilation corrections).}
+	\label{nptsheatmap}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{1\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v4_ss_distb_charts_Unpolluted_figure.png}
+		\caption{Unpolluted case.}
+		\label{ssdistbsunpoll}
+	\end{subfigure}
+	\begin{subfigure}{1\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v4_ss_distb_charts_Polluted_figure.png}
+		\caption{Polluted case.}
+		\label{ssdistbspoll}
+	\end{subfigure}
+	\caption{Normalized SS distributions after imposing filtering criteria on LWC and w (in addition to temperature cutoff, and inclusion of raindrops and ventilation corrections).}
+	\label{ssdistbs}
+\end{figure}
 
 Figure \ref{wrfvsqss} shows a scatterplot with the agreement between the actual and QSS-derived SS values in the WRF simulation, for points satisfying the above criteria. For brevity we will henceforth refer to such points as `cloudy updrafts.'
 
@@ -94,7 +140,13 @@ Figure \ref{wrfvsqss} shows a scatterplot with the agreement between the actual 
 	\label{wrfvsqss}
 \end{figure}
 
-Because we use slightly different filtering criteria than that employed in Fan et al to examine updrafts, we first verify that our selected cloudy updraft points yield similar SS profiles in the WRF simulation as those found in the latter work. In Figure \ref{wrfbipanel} we plot vertical SS profiles for all cloudy updraft points as well as the upper 10th percentile with respect to vertical wind velocity. In \cite{Fan2018} they consider a restricted subdomain around the T3 field station, indicated in Figure S8 of the supplementary information for that paper; we do not see a major qualitative difference when including this additional criterion; see Figure \ref{wrfsubdombipanel}. We do indeed find the high SS values reported by Fan et al (maximum values of 13\% in both polluted and unpolluted cases from the upper 10th percentile dataset), confirming that our filtering criteria establish a fair basis for comparison here. Note however that, in the righthand panels of Figure \ref{wrfbipanel}, the vast majority of cloudy updraft points are found at altitudes with relatively low average SS.
+[\drcomm{What were Fan's criteria?}] In their analysis, Fan et al use the following filtering criteria:
+\begin{itemize}
+	\item For experimental data: They examine the upper 10th percentile of updrafts in ``convective events" which 1) Fall between 11h00 and 19h00 local time 2) Have no other convective events occuring at any point in time 3 hours prior, and 3) Have max echo height at $>$0dBz above 10km. [\klcomm{unfortunately there does not seem to be any definition of what actually qualifies as a convective event in the first place...}]. For aerosol measurements they take the average of measurements in the 30-min interval prior to the convective event.
+	\item For model data: They limit analysis to a subset of the horizontal domain (red box in Fig S8) that encompasses a single convective event during the day of the simulation. They again take the top 10th percentile of updrafts with $w>2$. 
+\end{itemize}
+
+Because we use slightly different filtering criteria than that described above, we first verify that our selected cloudy updraft points yield similar SS profiles in the WRF simulation as those found in the latter work. In Figure \ref{wrfbipanel} we plot vertical SS profiles for all cloudy updraft points, as well as for the upper 10 percentiles of all cloudy updraft points. We define the points in the ``upper 10 percentiles" as those with $w$ greater than the 90th-percentile (out of all altitudes and times) vertical wind velocity. [\drcomm{Please define precisely. Upper 10th percentile of all grid points, or of all grid points at the same height? Within cloudy points? (The text here does not say anything about cloudiness, but the caption for Figure 2 does.)} \klcomm{I have clarified how I am implementing this but neither the main text nor the SI of Fan's paper provide any more precise language than ``top 10 percentiles of updrafts"...Qindan I have been working under the assumption that this refers to $w$}]. In \cite{Fan2018} they consider a restricted subdomain around the T3 field station, indicated in Figure S8 of the supplementary information for that paper; we do not see a major qualitative difference when including this additional criterion; see Figure \ref{wrfsubdombipanel}. We do indeed find the high SS values reported by Fan et al (maximum values of 13\% in both polluted and unpolluted cases from the upper 10th percentile dataset), confirming that our filtering criteria establish a fair basis for comparison here. Note however that, in the righthand panels of Figure \ref{wrfbipanel}, the vast majority of cloudy updraft points are found at altitudes with relatively low average SS.
 
 \begin{figure}[ht]
 	\centering
@@ -119,8 +171,8 @@ We now seek to determine whether such high values actually occur in nature. Firs
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revhalo/v3_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
-    \caption{SS profiles (left) and number density of sampled points (right) from HALO flight campaign (all dates combined). Each point in the vertical profile represents an average over all times and horizontal coordinates for a given vertical interval (equally-spaced). SS profile is plotted with markers so as not to obscure intervals with missing data.}
+    \includegraphics[width=9cm]{revhalo/v4_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
+    \caption{SS profiles (left) and number density of sampled points (right) from HALO flight campaign (all dates combined). Each point in the vertical profile represents an average over all times and horizontal coordinates for a given vertical interval (equally-spaced) [\drcomm{It does not look like the vertical intervals are equally spaced, nor would you want them to be, but I cannot tell what is actually going on.  Why not pick a modest number N (e.g., 10) and group the samples by whether they fall in the quantile from 0 to 1/N, from 1/N to 2/N, etc.  Then plot each of the N points in the left panel by the average of the height in that bin and the average SS in that bin.} \klcomm{That is what I did here. N=17.} \drcomm{Why do the top 10\% w values occur at only four heights?} \klcomm{Because I compare to 90th-percentile $w$ out of all data points. Most altitude bins have less than ten points so it doesn't make sense to take upper 10 percentiles from each altitude bin.} \drcomm{If n is the number density, then why are there more points at those heights in the upper 10\% of w than there are with any w?} \klcomm{Because both of the distributions are normalized separately...if this is not conventional I can rescale}]. SS profile is plotted with markers so as not to obscure intervals with missing data.}
     \label{halobipanel}
 \end{figure}
 
@@ -129,12 +181,12 @@ Finally, we examine a second experimental dataset from the first phase of the CA
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{revcaipeex/v3_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
+    \includegraphics[width=9cm]{revcaipeex/v4_FINAL_combined_bipanel_ss_qss_vs_z_figure.png}
     \caption{SS profiles (left) and number density of sampled points (right) from CAIPEEX flight campaign (all dates combined). Each point in the vertical profile represents an average over all times and horizontal coordinates for a given vertical interval (equally-spaced). SS profile is plotted with markers so as not to obscure intervals with missing data. See text for comments on the dataset.}
     \label{caipeexbipanel}
 \end{figure}
 
-We can use Equation \ref{dT} and the SS profiles in Figures \ref{wrfbipanel}-\ref{caipeexbipanel} to infer a buoyancy profile for a hypothetical non-supersaturated parcel. For this analysis we take the temperature of the parcel equal to that of the environment (i.e., what has been measured). The resulting error in the value of $\delta T$ in Equation \ref{} is quadratic in $\delta RH$, which is acceptable for our purposes. In Figure \ref{dTprofiles} we plot $\delta T$ profiles from both WRF simulations and field campaigns side-by-side. We use these profiles to derive enhancements in $CAPE$ for the non-supersaturated parcel as:
+We can use Equation \ref{dT} and the SS profiles in Figures \ref{wrfbipanel}-\ref{caipeexbipanel} to infer a buoyancy profile for a hypothetical non-supersaturated parcel. For this analysis we take the temperature of the parcel equal to that of the environment (i.e., what has been measured). The resulting error in the value of $\delta T$ in Equation \ref{dCAPE} is quadratic in $\delta RH$, which is acceptable for our purposes. In Figure \ref{dTprofiles} we plot $\delta T$ profiles from both WRF simulations and field campaigns side-by-side. We use these profiles to derive enhancements in $CAPE$ for the non-supersaturated parcel as:
 \begin{equation}
 \label{dCAPE}
 \delta CAPE = g \int dz \frac{\delta T}{T}
@@ -150,7 +202,7 @@ where we again approximate $T$ as the environmental temperature and integrate fr
 
 One possible counterargument is that the aerosol concentrations in the BL during the dates of the HALO flights might have been significantly higher than those during the dates considered in Fan's paper, thus precluding the occurence of high SS values in the troposphere. In order to investigate this, we use the aerosol particle size distribution measured by the scanning mobility particle sizer (SMPS) in Manacapuru, located southwest of Manaus (PI: Chongai Kuang). This intrument measures particle concentrations in the diameter range 11.1-469.8nm. In Figure \ref{goamahist}, we show that, while we do indeed see higher total aerosol concentrations on average during the HALO flight date range (3500/ccm vs 2400/ccm), the UAP50 concentration is on average lower (670/ccm vs 1600/ccm). In fact, the aerosol concentrations used in the WRF simulations are much lower than those observed during the day the simulation takes place, which is not justified quantitatively in that study.
 
-We note additionally that the positive experimental correlation between concentration of UAP50 and maximum vertical velocity during the dates studied by Fan et al is not significant even at the 90\% confidence level - the least-squares slope parameter for their data set (the plot of which we reproduce in Figure \ref{fans2a}) has a p-value of 0.11.
+We note additionally that the positive experimental correlation between concentration of UAP50 and maximum vertical velocity during the dates studied by Fan et al is not significant at the 95\% confidence level - the least-squares slope parameter for their data set (the plot of which we reproduce in Figure \ref{fans2a}, with additional 95\% confidence bands) has a p-value of 0.11.
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
@@ -163,12 +215,12 @@ We note additionally that the positive experimental correlation between concentr
 		\label{goamauap50hist}
 		\caption{}
 	\end{subfigure}
-	\caption{Distribution of aerosol concentration measurements by the ground-based SMPS at Manacapuru, Brazil; a) entire size range, b) only particles with diameter greater less than 50nm. HALO flight dates are the same as those represented in Figure \ref{halobipanel} (see Methods/SI for details). Dashed (dotted) lines show initial concentrations in the BL of the WRF simulation of polluted (unpolluted) conditions.}
+	\caption{Distribution of aerosol concentration measurements by the ground-based SMPS at Manacapuru, Brazil; a) entire size range, b) only particles with diameter greater than 50nm. HALO flight dates are the same as those represented in Figure \ref{halobipanel} (see Methods/SI for details). Dashed (dotted) lines show initial concentrations in the BL of the WRF simulation of polluted (unpolluted) conditions.}
 	\label{goamahist}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=12cm]{revhalo/v1_FINAL_fan_fig_s2a.png}
+    \includegraphics[width=12cm]{revhalo/v2_FINAL_fan_fig_s2a.png}
     \caption{Ground-based total (including UAP50) aerosol concentration measurements versus maximum vertical wind velocity in convective cores; reproduced from Figure S2(a) of \cite{Fan2018}.}
     \label{fans2a}
 \end{figure}
@@ -272,6 +324,38 @@ We use the expressions given in \cite{Pruppacher2010} and \cite{Rogers1989} for 
 
 Finally, we note that we have excluded contributions to mean radius and number concentraiton from cloud droplets of diameter less than 5 $\mu$m, for consistency with our analysis of HALO data (see proceeding subsection). In the end this yields values for $SS_{QSS}$ which are indistinguishable to a reasonable number of significant figures.
 
+Figures \ref{wrfbipanelv14} and \ref{wrfbipanelv15} show point distributions as absolute count rather than density with respect to $z$ (since the WRF grid is spaced linearly in pressure rather than real-space coordinates). We see that the distribution is not very sensitive to $LWC$ cutoff (which is lower by an order of magnitude in Figure \ref{wrfbipanelv15}).
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v14_FINAL_bipanel_ss_qss_vs_z_allpts_figure.png}
+		\caption{}
+		\label{wrfbipanelallptsv14}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v14_FINAL_bipanel_ss_qss_vs_z_up10perc_figure.png}
+		\caption{}
+		\label{wrfbipanelup50percv14}
+	\end{subfigure}
+	\caption{Identical to Figure \ref{wrfbipanel} but righthand panel just shows absolute number of points per $z$-interval.}
+	\label{wrfbipanelv14}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v15_FINAL_bipanel_ss_qss_vs_z_allpts_figure.png}
+		\caption{}
+		\label{wrfbipanelallptsv15}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{revmywrf/v15_FINAL_bipanel_ss_qss_vs_z_up10perc_figure.png}
+		\caption{}
+		\label{wrfbipanelup50percv15}
+	\end{subfigure}
+	\caption{Identical to Figure \ref{wrfbipanel14} but with minimum $LWC$ of 1.e-5 rather than 1.e-4 kg/kg.}
+	\label{wrfbipanelv15}
+\end{figure}
 \clearpage
 \newpage
 

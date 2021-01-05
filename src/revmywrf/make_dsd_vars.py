@@ -41,7 +41,7 @@ def main():
 def make_dsd_file(case_label, case_dir_name):
 
     #get input file variables (naming a bit confusing here but trying
-    #to maintain consistency with make_net_vars code...)
+    #to maintain consistency with make_met_vars code...)
     input_file = MFDataset(DATA_DIR + case_dir_name + 'wrfout_d01_2014*', 'r')
     input_vars = input_file.variables
     met_input_file = Dataset(DATA_DIR + case_dir_name + \

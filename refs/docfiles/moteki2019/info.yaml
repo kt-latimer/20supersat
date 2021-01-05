@@ -1,0 +1,501 @@
+author: Moteki, Nobuhiro and Mori, Tatsuhiro and Matsui, Hitoshi and Ohata, Sho
+author_list:
+- affiliation: []
+  family: Moteki
+  given: Nobuhiro
+- affiliation: []
+  family: Mori
+  given: Tatsuhiro
+- affiliation: []
+  family: Matsui
+  given: Hitoshi
+- affiliation: []
+  family: Ohata
+  given: Sho
+citations:
+- author: G Myhre
+  doi: 10.5194/acp-13-1853-2013
+  first-page: '1853'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Myhre, G. et al. Radiative forcing of the direct aerosol effect from
+    AeroCom Phase II simulations. Atmos. Chem. Phys. 13, 1853–1877 (2013).
+  volume: '13'
+  year: '2013'
+- author: D Rosenfeld
+  doi: 10.1126/science.1247490
+  first-page: '379'
+  journal-title: Science
+  unstructured: Rosenfeld, D., Sherwood, S., Wood, R. & Donner, L. Climate effects
+    of aerosol-cloud interactions. Science 343, 379–380 (2014).
+  volume: '343'
+  year: '2014'
+- unstructured: 'Seinfeld, J. H. & Pandis, S. N. Atmospheric Chemistry and Physics:
+    From Air Pollution to Climate Change. (John Wiley & Sons, Hoboken, New Jersey,
+    2016).'
+- author: M Schulz
+  doi: 10.5194/acp-6-5225-2006
+  first-page: '5225'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Schulz, M. et al. Radiative forcing by aerosols as derived from the
+    AeroCom present-day and pre-industrial simulations. Atmos. Chem. Phys. 6, 5225–5246
+    (2006).
+  volume: '6'
+  year: '2006'
+- author: Z Kipling
+  doi: 10.5194/acp-16-2221-2016
+  first-page: '2221'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Kipling, Z. et al. What controls the vertical distribution of aerosol?
+    Relationships between process sensitivity in HadGEM3-UKCA and inter-model variation
+    from AeroCom Phase II. Atmos. Chem. Phys. 16, 2221–2241 (2016).
+  volume: '16'
+  year: '2016'
+- author: AI Flossmann
+  doi: 10.1175/1520-0469(1985)042<0583:ATSOTW>2.0.CO;2
+  first-page: '583'
+  journal-title: J. Atmos. Sci.
+  unstructured: Flossmann, A. I., Hall, W. D. & Pruppacher, H. R. A Theoretical-study
+    of the wet removal of atmospheric pollutants. 1. The redistribution of aerosol-particles
+    captured through nucleation and impaction scavenging by growing cloud drops. J.
+    Atmos. Sci. 42, 583–606 (1985).
+  volume: '42'
+  year: '1985'
+- author: AI Flossmann
+  doi: 10.1016/j.atmosres.2010.05.008
+  first-page: '478'
+  journal-title: Atmos. Res.
+  unstructured: Flossmann, A. I. & Wobrock, W. A review of our understanding of the
+    aerosol-cloud interaction from the perspective of a bin resolved cloud scale modelling.
+    Atmos. Res. 97, 478–497 (2010).
+  volume: '97'
+  year: '2010'
+- author: S Ohata
+  doi: 10.1038/srep34113
+  journal-title: Sci. Rep.
+  unstructured: 'Ohata, S., Moteki, N., Mori, T., Koike, M. & Kondo, Y. A key process
+    controlling the wet removal of aerosols: new observational evidence. Sci. Rep.
+    6, 34113 (2016).'
+  volume: '6'
+  year: '2016'
+- author: C Planche
+  doi: 10.1016/j.atmosres.2010.05.003
+  first-page: '40'
+  journal-title: Atmos. Res.
+  unstructured: 'Planche, C. et al. The influence of aerosol particle number and hygroscopicity
+    on the evolution of convective cloud systems and their precipitation: a numerical
+    study based on the COPS observations on 12 August 2007. Atmos. Res. 98, 40–56
+    (2010).'
+  volume: '98'
+  year: '2010'
+- author: E Hammer
+  doi: 10.5194/acp-15-10309-2015
+  first-page: '10309'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Hammer, E. et al. Sensitivity estimations for cloud droplet formation
+    in the vicinity of the high-alpine research station Jungfraujoch (3580 m a.s.l.).
+    Atmos. Chem. Phys. 15, 10309–10323 (2015).
+  volume: '15'
+  year: '2015'
+- author: A Nenes
+  doi: 10.1029/2002JD002911
+  first-page: '4415'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: Nenes, A. & Seinfeld, J. H. Parameterization of cloud droplet formation
+    in global climate models. J. Geophys. Res. Atmos. 108, 4415 (2003).
+  volume: '108'
+  year: '2003'
+- author: SJ Ghan
+  first-page: M10001
+  journal-title: J. Adv. Model. Earth Syst.
+  unstructured: 'Ghan, S. J. et al. Droplet nucleation: Physically-based parameterizations
+    and comparative evaluation. J. Adv. Model. Earth Syst. 3, M10001 (2011).'
+  volume: '3'
+  year: '2011'
+- author: H Abdul-Razzak
+  doi: 10.1029/1999JD901161
+  first-page: '6837'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: Abdul-Razzak, H. & Ghan, S. J. A parameterization of aerosol activation
+    2. Multiple aerosol types. J. Geophys. Res. Atmos. 105, 6837–6844 (2000).
+  volume: '105'
+  year: '2000'
+- author: H Matsui
+  doi: 10.1002/2017MS000936
+  first-page: '1921'
+  journal-title: J. Adv. Model. Earth Syst.
+  unstructured: 'Matsui, H. Development of a global aerosol model using a two-dimensional
+    sectional method: 1. Model design. J. Adv. Model. Earth Syst. 9, 1921–1947 (2017).'
+  volume: '9'
+  year: '2017'
+- author: MT Lund
+  doi: 10.5194/acp-17-6003-2017
+  first-page: '6003'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Lund, M. T., Berntsen, T. K. & Samset, B. H. Sensitivity of black
+    carbon concentrations and climate impact to aging and scavenging in OsloCTM2-M7.
+    Atmos. Chem. Phys. 17, 6003–6022 (2017).
+  volume: '17'
+  year: '2017'
+- author: CL He
+  doi: 10.5194/acp-16-3077-2016
+  first-page: '3077'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: 'He, C. L. et al. Microphysics-based black carbon aging in a global
+    CTM: constraints from HIPPO observations and implications for global black carbon
+    budget. Atmos. Chem. Phys. 16, 3077–3098 (2016).'
+  volume: '16'
+  year: '2016'
+- author: N Riemer
+  doi: 10.1016/j.jaerosci.2009.08.009
+  first-page: '143'
+  journal-title: J. Aerosol Sci.
+  unstructured: Riemer, N., West, M., Zaveri, R. & Easter, R. Estimating black carbon
+    aging time-scales with a particle-resolved aerosol model. J. Aerosol Sci. 41,
+    143–158 (2010).
+  volume: '41'
+  year: '2010'
+- author: N Oshima
+  doi: 10.5194/gmd-6-263-2013
+  first-page: '263'
+  journal-title: Geosci. Model Dev.
+  unstructured: Oshima, N. & Koike, M. Development of a parameterization of black
+    carbon aging for use in general circulation models. Geosci. Model Dev. 6, 263–282
+    (2013).
+  volume: '6'
+  year: '2013'
+- author: L Fierce
+  doi: 10.5194/acp-15-3173-2015
+  first-page: '3173'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Fierce, L., Riemer, N. & Bond, T. C. Explaining variance in black
+    carbon’s aging timescale. Atmos. Chem. Phys. 15, 3173–3191 (2015).
+  volume: '15'
+  year: '2015'
+- author: H Matsui
+  doi: 10.1002/2015JD023999
+  first-page: '1808'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: 'Matsui, H. Black carbon simulations using a size- and mixing-state-resolved
+    three-dimensional model: 2. Aging timescale and its impact over East Asia. J.
+    Geophys. Res. Atmos. 121, 1808–1821 (2016).'
+  volume: '121'
+  year: '2016'
+- author: GM Martin
+  doi: 10.1175/1520-0469(1994)051<1823:TMAPOE>2.0.CO;2
+  first-page: '1823'
+  journal-title: J. Atmos. Sci.
+  unstructured: Martin, G. M., Johnson, D. W. & Spice, A. The measurement and parameterization
+    of effective radius of droplets in warm stratocumulus clouds. J. Atmos. Sci. 51,
+    1823–1842 (1994).
+  volume: '51'
+  year: '1994'
+- author: MK Politovich
+  doi: 10.1175/1520-0469(1988)045<1651:VOTSIC>2.0.CO;2
+  first-page: '1651'
+  journal-title: J. Atmos. Sci.
+  unstructured: Politovich, M. K. & Cooper, W. A. Variability of the supersaturation
+    in cumulus clouds. J. Atmos. Sci. 45, 1651–1664 (1988).
+  volume: '45'
+  year: '1988'
+- author: M Koike
+  doi: 10.1029/2011JD017324
+  first-page: D17205
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: 'Koike, M. et al. Measurements of regional-scale aerosol impacts on
+    cloud microphysics over the East China Sea: possible influences of warm sea surface
+    temperature over the Kuroshio ocean current. J. Geophys. Res. Atmos. 117, D17205
+    (2012).'
+  volume: '117'
+  year: '2012'
+- author: JG Hudson
+  doi: 10.1002/2014JD022669
+  first-page: '3436'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: Hudson, J. G., Noble, S. & Tabor, S. Cloud supersaturations from CCN
+    spectra Hoppel minima. J. Geophys. Res. Atmos. 120, 3436–3452 (2015).
+  volume: '120'
+  year: '2015'
+- author: S Ohata
+  doi: 10.1002/2015JD024153
+  first-page: '362'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: Ohata, S. et al. Hygroscopicity of materials internally mixed with
+    black carbon measured in Tokyo. J. Geophys. Res. Atmos. 121, 362–381 (2016).
+  volume: '121'
+  year: '2016'
+- author: S Ueda
+  doi: 10.1029/2010JD015565
+  first-page: D17207
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: Ueda, S., Osada, K. & Takami, A. Morphological features of soot-containing
+    particles internally mixed with water-soluble materials in continental outflow
+    observed at Cape Hedo, Okinawa, Japan. J. Geophys. Res. Atmos. 116, D17207 (2011).
+  volume: '116'
+  year: '2011'
+- author: RA Houze
+  doi: 10.1175/1520-0477(1997)078<2179:SPIROC>2.0.CO;2
+  first-page: '2179'
+  journal-title: Bull. Am. Meteorol. Soc.
+  unstructured: 'Houze, R. A. Stratiform precipitation in regions of convection: a
+    meteorological paradox? Bull. Am. Meteorol. Soc. 78, 2179–2196 (1997).'
+  volume: '78'
+  year: '1997'
+- author: MD Petters
+  doi: 10.5194/acp-7-1961-2007
+  first-page: '1961'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Petters, M. D. & Kreidenweis, S. M. A single parameter representation
+    of hygroscopic growth and cloud condensation nucleus activity. Atmos. Chem. Phys.
+    7, 1961–1971 (2007).
+  volume: '7'
+  year: '2007'
+- author: KJ Pringle
+  doi: 10.5194/acp-9-4131-2009
+  first-page: '4131'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Pringle, K. J., Carslaw, K. S., Spracklen, D. V., Mann, G. M. & Chipperfield,
+    M. P. The relationship between aerosol and cloud drop number concentrations in
+    a global aerosol microphysics model. Atmos. Chem. Phys. 9, 4131–4144 (2009).
+  volume: '9'
+  year: '2009'
+- author: B Croft
+  doi: 10.5194/acp-10-1511-2010
+  first-page: '1511'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Croft, B. et al. Influences of in-cloud aerosol scavenging parameterizations
+    on aerosol concentrations and wet deposition in ECHAM5-HAM. Atmos. Chem. Phys.
+    10, 1511–1543 (2010).
+  volume: '10'
+  year: '2010'
+- author: PR Sinha
+  doi: 10.1002/2016JD025843
+  first-page: '3544'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: Sinha, P. R. et al. Evaluation of ground-based black carbon measurements
+    by filter-based photometers at two Arctic sites. J. Geophys. Res. Atmos. 122,
+    3544–3572 (2017).
+  volume: '122'
+  year: '2017'
+- author: BH Samset
+  doi: 10.5194/acp-14-12465-2014
+  first-page: '12465'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Samset, B. H. et al. Modelled black carbon radiative forcing and atmospheric
+    lifetime in AeroCom Phase II constrained by aircraft observations. Atmos. Chem.
+    Phys. 14, 12465–12477 (2014).
+  volume: '14'
+  year: '2014'
+- author: MT Lund
+  doi: 10.1038/s41612-018-0040-x
+  journal-title: npj Clim. Atmos. Sci.
+  unstructured: Lund, M. T. et al. Short Black Carbon lifetime inferred from a global
+    set of aircraft observations. npj Clim. Atmos. Sci. 1, 31 (2018).
+  volume: '1'
+  year: '2018'
+- author: Y Sato
+  doi: 10.1038/s41467-018-03379-6
+  journal-title: Nat. Commun.
+  unstructured: Sato, Y. et al. Aerosol effects on cloud water amounts were successfully
+    simulated by a global cloud-system resolving model. Nat. Commun. 9, 985 (2018).
+  volume: '9'
+  year: '2018'
+- author: M Wang
+  doi: 10.5194/gmd-4-137-2011
+  first-page: '137'
+  journal-title: Geosci. Model Dev.
+  unstructured: 'Wang, M. et al. The multi-scale aerosol-climate model PNNL-MMF: model
+    description and evaluation. Geosci. Model Dev. 4, 137–168 (2011).'
+  volume: '4'
+  year: '2011'
+- author: A Yoshida
+  doi: 10.1080/02786826.2016.1146402
+  first-page: '242'
+  journal-title: Aerosol Sci. Technol.
+  unstructured: Yoshida, A. et al. Abundance and emission flux of the anthropogenic
+    iron oxide aerosols from the East Asian continental outflow. Aerosol Sci. Technol.
+    50, 242–254 (2016).
+  volume: '50'
+  year: '2016'
+- author: T Mori
+  doi: 10.1080/02786826.2016.1147644
+  first-page: '242'
+  journal-title: Aerosol Sci. Technol.
+  unstructured: Mori, T. et al. Improved technique for measuring the size distribution
+    of black carbon particles in liquid water. Aerosol Sci. Technol. 50, 242–254 (2016).
+  volume: '50'
+  year: '2016'
+- author: N Moteki
+  doi: 10.1080/02786826.2010.484450
+  first-page: '663'
+  journal-title: Aerosol Sci. Technol.
+  unstructured: 'Moteki, N. & Kondo, Y. Dependence of laser-induced incandescence
+    on physical properties of black carbon aerosols: Measurements and theoretical
+    interpretation. Aerosol Sci. Technol. 44, 663–675 (2010).'
+  volume: '44'
+  year: '2010'
+- author: N Moteki
+  doi: 10.1002/2013JD020655
+  first-page: '1031'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: 'Moteki, N., Kondo, Y. & Adachi, K. Identification by single-particle
+    soot photometer of black carbon particles attached to other particles: Laboratory
+    experiments and ground observations in Tokyo. J. Geophys. Res. Atmos. 119, 1031–1043
+    (2014).'
+  volume: '119'
+  year: '2014'
+- author: N Moteki
+  doi: 10.1016/j.jqsrt.2016.01.025
+  first-page: '306'
+  journal-title: J. Quant. Spectrosc. Radiat. Transf.
+  unstructured: 'Moteki, N. Discrete dipole approximation for black carbon-containing
+    aerosols in arbitrary mixing state: A hybrid discretization scheme. J. Quant.
+    Spectrosc. Radiat. Transf. 178, 306–314 (2016).'
+  volume: '178'
+  year: '2016'
+- author: N Moteki
+  doi: 10.1038/ncomms15329
+  journal-title: Nat. Commun.
+  unstructured: Moteki, N. et al. Anthropogenic iron oxide aerosols enhance atmospheric
+    heating. Nat. Commun. 8, 15329 (2017).
+  volume: '8'
+  year: '2017'
+- author: N Moteki
+  doi: 10.1016/j.jaerosci.2010.02.013
+  first-page: '513'
+  journal-title: J. Aerosol Sci.
+  unstructured: 'Moteki, N., Kondo, Y. & Nakamura, S. Method to measure refractive
+    indices of small nonspherical particles: application to black carbon particles.
+    J. Aerosol Sci. 41, 513–521 (2010).'
+  volume: '41'
+  year: '2010'
+- author: JT Jayne
+  doi: 10.1080/027868200410840
+  first-page: '49'
+  journal-title: Aerosol Sci. Technol.
+  unstructured: Jayne, J. T. et al. Development of an aerosol mass spectrometer for
+    size and composition analysis of submicron particles. Aerosol Sci. Technol. 33,
+    49–70 (2000).
+  volume: '33'
+  year: '2000'
+- author: G Feingold
+  doi: 10.1175/1520-0469(1992)049<2325:POCGOD>2.0.CO;2
+  first-page: '2325'
+  journal-title: J. Atmos. Sci.
+  unstructured: Feingold, G. & Heymsfield, A. J. Parameterizations of condensational
+    growth of droplets for use in general-circulation models. J. Atmos. Sci. 49, 2325–2342
+    (1992).
+  volume: '49'
+  year: '1992'
+- author: X Wang
+  doi: 10.5194/acp-10-5685-2010
+  first-page: '5685'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Wang, X., Zhang, L. & Moran, M. D. Uncertainty assessment of current
+    size-resolved parameterizations for below-cloud particle scavenging by rain. Atmos.
+    Chem. Phys. 10, 5685–5705 (2010).
+  volume: '10'
+  year: '2010'
+- author: PF DeCarlo
+  doi: 10.1080/027868290903907
+  first-page: '1185'
+  journal-title: Aerosol Sci. Technol.
+  unstructured: 'DeCarlo, P. F., Slowik, J. G., Worsnop, D. R., Davidovits, P. & Jimenez,
+    J. L. Particle morphology and density characterization by combined mobility and
+    aerodynamic diameter measurements. Part 1: Theory. Aerosol Sci. Technol. 38, 1185–1205
+    (2004).'
+  volume: '38'
+  year: '2004'
+- author: JF Lamarque
+  doi: 10.5194/gmd-5-369-2012
+  first-page: '369'
+  journal-title: Geosci. Model Dev.
+  unstructured: 'Lamarque, J. F. et al. CAM-chem: description and evaluation of interactive
+    atmospheric chemistry in the Community Earth System Model. Geosci. Model Dev.
+    5, 369–411 (2012).'
+  volume: '5'
+  year: '2012'
+- author: H Matsui
+  doi: 10.1002/2017MS000937
+  first-page: '1887'
+  journal-title: J. Adv. Model. Earth Syst.
+  unstructured: 'Matsui, H. & Mahowald, N. Development of a global aerosol model using
+    a two-dimensional sectional method: 2. Evaluation and sensitivity simulations.
+    J. Adv. Model. Earth Syst. 9, 1887–1920 (2017).'
+  volume: '9'
+  year: '2017'
+- author: JF Lamarque
+  doi: 10.5194/acp-10-7017-2010
+  first-page: '7017'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: 'Lamarque, J. F. et al. Historical (1850-2000) gridded anthropogenic
+    and biomass burning emissions of reactive gases and aerosols: methodology and
+    application. Atmos. Chem. Phys. 10, 7017–7039 (2010).'
+  volume: '10'
+  year: '2010'
+- author: LK Emmons
+  doi: 10.5194/acp-10-6195-2010
+  first-page: '6195'
+  journal-title: Atmos. Chem. Phys.
+  unstructured: Emmons, L. K. et al. Impact of Mexico City emissions on regional air
+    quality from MOZART-4 simulations. Atmos. Chem. Phys. 10, 6195–6212 (2010).
+  volume: '10'
+  year: '2010'
+- author: H Matsui
+  doi: 10.1029/2012JD018446
+  first-page: '2304'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: 'Matsui, H. et al. Development and validation of a black carbon mixing
+    state resolved three-dimensional model: aging processes and radiative impact.
+    J. Geophys. Res. Atmos. 118, 2304–2326 (2013).'
+  volume: '118'
+  year: '2013'
+- author: H Matsui
+  doi: 10.1029/2011JD016025
+  first-page: D19208
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: Matsui, H. et al. Impact of new particle formation on the concentrations
+    of aerosols and cloud condensation nuclei around Beijing. J. Geophys. Res. Atmos.
+    116, D19208 (2011).
+  volume: '116'
+  year: '2011'
+- author: H Abdul-Razzak
+  doi: 10.1029/2001JD000483
+  first-page: '4026'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: Abdul-Razzak, H. & Ghan, S. J. A parameterization of aerosol activation
+    - 3. Sectional representation. J. Geophys. Res. Atmos. 107, 4026 (2002).
+  volume: '107'
+  year: '2002'
+- author: X Tie
+  doi: 10.1029/2001JD900206
+  first-page: '22931'
+  journal-title: J. Geophys. Res. Atmos.
+  unstructured: 'Tie, X., Brasseur, G., Emmons, L., Horowitz, L. & Kinnison, D. Effects
+    of aerosols on tropospheric oxidants: a global model study. J. Geophys. Res. Atmos.
+    106, 22931–22964 (2001).'
+  volume: '106'
+  year: '2001'
+- author: X Liu
+  doi: 10.5194/gmd-5-709-2012
+  first-page: '709'
+  journal-title: Geosci. Model Dev.
+  unstructured: 'Liu, X. et al. Toward a minimal representation of aerosols in climate
+    models: description and evaluation in the Community Atmosphere Model CAM5. Geosci.
+    Model Dev. 5, 709–739 (2012).'
+  volume: '5'
+  year: '2012'
+doc_url: http://www.nature.com/articles/s41612-019-0063-y
+doi: 10.1038/s41612-019-0063-y
+files:
+- tmpsznj0dk3.data
+issue: '1'
+journal: npj Climate and Atmospheric Science
+language: en
+month: 12
+publisher: Springer Science and Business Media LLC
+title: Observational constraint of in-cloud supersaturation for simulations of aerosol
+  rainout in atmospheric models
+type: article
+url: http://dx.doi.org/10.1038/s41612-019-0063-y
+volume: '2'
+year: 2019

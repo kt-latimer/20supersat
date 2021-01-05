@@ -14,7 +14,7 @@ from revhalo.ss_qss_calculations import get_lwc_from_cas
 from revhalo.utils import linregress
 
 #for plotting
-versionstr = 'v1_'
+versionstr = 'v2_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
@@ -51,13 +51,18 @@ def make_and_save_fan_s2a_fig(nconc, wmax, m, b, R):
 
         ax.scatter(nconc, wmax, color=magma_pink)
 
-        ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
+        regline = b + m*np.array(nconc)
+        ax.plot(ax.get_xlim(), b + m*np.array(ax.get_xlim()), \
                 c='k', \
                 linestyle='dashed', \
                 linewidth=3, \
                 label=('m = ' + str(np.round(m, decimals=4)) + \
                         ', b = ' + str(np.round(b, decimals=4)) + \
                         ', R^2 = ' + str(np.round(R**2, decimals=4))))
+        conf_band = get_conf_band(nconc, wmax, regline) 
+        ax.fill_between(nconc, regline + conf_band, \
+                        regline - conf_band, color=magma_pink, \
+                        alpha=0.4, label='95% confidence band')
 
         ax.set_xlabel(r'Aerosol concentration, D > 15nm (cm$^{-3}$)')
         ax.set_ylabel(r'w$_{max}$ (m/s)')
@@ -65,6 +70,19 @@ def make_and_save_fan_s2a_fig(nconc, wmax, m, b, R):
         outfile = FIG_DIR + versionstr + 'FINAL_fan_fig_s2a.png'
         plt.savefig(outfile)
         plt.close(fig=fig)    
+
+def get_conf_band(xvals, yvals, regline):
+
+    t = 2.131 #two-tailed 95% CI w/ 17 pts, 2 params --> 15 dof
+    n_pts = 17 #lazy :D
+    meanx = np.mean(xvals)
+    x_quad_resid = (xvals - meanx)**2.
+    y_quad_resid = (yvals - regline)**2. 
+    se_pt = np.sqrt(np.sum(y_quad_resid)/(n_pts - 2)) 
+    se_line = se_pt*np.sqrt(1./n_pts + x_quad_resid/np.sum(x_quad_resid))
+    conf_band = t*se_line
+
+    return conf_band
 
 if __name__ == "__main__":
     main()

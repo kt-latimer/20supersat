@@ -1,0 +1,330 @@
+abstract: "<jats:p>Abstract. Aerosols influence the Earth's radiation budget directly\
+  \ through absorption and scattering of solar radiation in the atmosphere but also\
+  \ indirectly by modifying the properties of clouds. However, climate models still\
+  \ suffer from large uncertainties as a result of insufficient understanding of aerosol-cloud\
+  \ interactions. At the high altitude research station Jungfraujoch (JFJ; 3580 m\
+  \ a.s.l., Switzerland) cloud condensation nuclei (CCN) number concentrations at\
+  \ eight different supersaturations (SS) from 0.24% to 1.18% were measured using\
+  \ a CCN counter during Summer 2011. Simultaneously, in-situ aerosol activation properties\
+  \ of the prevailing ambient clouds were investigated by measuring the total and\
+  \ interstitial (non-activated) dry particle number size distributions behind two\
+  \ different inlet systems. Combining all experimental data, a new method was developed\
+  \ to retrieve the so-called effective peak supersaturation SSpeak, as a measure\
+  \ of the SS at which ambient clouds are formed. A 17-month CCN climatology was then\
+  \ used to retrieve the SSpeak values also for four earlier summer campaigns (2000,\
+  \ 2002, 2004 and 2010) where no direct CCN data were available. The SSpeak values\
+  \ varied between 0.01% and 2.0% during all campaigns. An overall median SSpeak of\
+  \ 0.35% and dry activation diameter of 87 nm was observed. It was found that the\
+  \ difference in topography between northwest and southeast plays an important role\
+  \ for the effective peak supersaturation in clouds formed in the vicinity of the\
+  \ JFJ, while differences in the number concentration of potential CCN only play\
+  \ a minor role. Results show that air masses coming from the southeast (with the\
+  \ slowly rising terrain of the Aletsch Glacier) generally experience lower SSpeak\
+  \ values than air masses coming from the northwest (steep slope). The observed overall\
+  \ median values were 0.41% and 0.22% for northwest and southeast wind conditions,\
+  \ respectively, corresponding to literature values for cumulus clouds and shallow-layer\
+  \ clouds. These cloud types are consistent with weather observations routinely performed\
+  \ at the JFJ.\n                    </jats:p>"
+author: Hammer, E. and Bukowiecki, N. and Gysel, M. and Jurányi, Z. and Hoyle, C.
+  R. and Vogt, R. and Baltensperger, U. and Weingartner, E.
+author_list:
+- affiliation: []
+  family: Hammer
+  given: E.
+- affiliation: []
+  family: Bukowiecki
+  given: N.
+- affiliation: []
+  family: Gysel
+  given: M.
+- affiliation: []
+  family: Jurányi
+  given: Z.
+- affiliation: []
+  family: Hoyle
+  given: C. R.
+- affiliation: []
+  family: Vogt
+  given: R.
+- affiliation: []
+  family: Baltensperger
+  given: U.
+- affiliation: []
+  family: Weingartner
+  given: E.
+citations:
+- doi: 10.1126/science.245.4923.1227
+  unstructured: 'Albrecht, B. A.: Aerosols, cloud microphysics, and fractional cloudiness,
+    Science, 245, 1227–1230, https://doi.org/10.1126/science.245.4923.1227, 1989.'
+- doi: 10.5194/acp-8-1293-2008
+  unstructured: 'Allan, J. D., Baumgardner, D., Raga, G. B., Mayol-Bracero, O. L.,
+    Morales-García, F., García-García, F., Montero-Martínez, G., Borrmann, S., Schneider,
+    J., Mertes, S., Walter, S., Gysel, M., Dusek, U., Frank, G. P., and Krämer, M.:
+    Clouds and aerosols in Puerto Rico – a new evaluation, Atmos. Chem. Phys., 8,
+    1293–1309, https://doi.org/10.5194/acp-8-1293-2008, 2008.'
+- doi: 10.1016/j.earscirev.2008.03.001
+  unstructured: 'Andreae, M. O. and Rosenfeld, D.: Aerosol-cloud-precipitation interactions.
+    Part 1. The nature and sources of cloud-active aerosols, Earth-Sci. Rev., 89,
+    13–41, https://doi.org/10.1016/j.earscirev.2008.03.001, 2008.'
+- doi: 10.5194/acp-9-4841-2009
+  unstructured: 'Anttila, T., Vaattovaara, P., Komppula, M., Hyvärinen, A.-P., Lihavainen,
+    H., Kerminen, V.-M., and Laaksonen, A.: Size-dependent activation of aerosols
+    into cloud droplets at a subarctic background site during the second Pallas Cloud
+    Experiment (2nd PaCE): method development and data evaluation, Atmos. Chem. Phys.,
+    9, 4841–4854, https://doi.org/10.5194/acp-9-4841-2009, 2009.'
+- doi: 10.5194/acp-12-11435-2012
+  unstructured: 'Anttila, T., Brus, D., Jaatinen, A., Hyvärinen, A.-P., Kivekäs, N.,
+    Romakkaniemi, S., Komppula, M., and Lihavainen, H.: Relationships between particles,
+    cloud condensation nuclei and cloud droplet activation during the third Pallas
+    Cloud Experiment, Atmos. Chem. Phys., 12, 11435–11450, https://doi.org/10.5194/acp-12-11435-2012,
+    2012.'
+- doi: 10.5194/acp-12-11589-2012
+  unstructured: 'Asmi, E., Freney, E., Hervo, M., Picard, D., Rose, C., Colomb, A.,
+    and Sellegri, K.: Aerosol cloud activation in summer and winter at puy-de-Dôme
+    high altitude site in France, Atmos. Chem. Phys., 12, 11589–11607, https://doi.org/10.5194/acp-12-11589-2012,
+    2012.'
+- doi: 10.1029/97JD00928
+  unstructured: 'Baltensperger, U., Gaggeler, H. W., Jost, D. T., Lugauer, M., Schwikowski,
+    M., Weingartner, E., and Seibert, P.: Aerosol climatology at the high-alpine site
+    Jungfraujoch, Switzerland, J. Geophys. Res.-Atmos., 102, 19707–19715, https://doi.org/10.1029/97jd00928,
+    1997.'
+- doi: 10.1016/S1352-2310(98)00051-X
+  unstructured: 'Baltensperger, U., Schwikowski, M., Jost, D. T., Nyeki, S., Gaggeler,
+    H. W., and Poulida, O.: Scavenging of atmospheric constituents in mixed phase
+    clouds at the high-alpine site Jungfraujoch part I: basic concept and aerosol
+    scavenging by clouds, Atmos. Environ., 32, 3975–3983, https://doi.org/10.1016/S1352-2310(98)00051-X,
+    1998.'
+- doi: 10.1002/j.1477-8696.1971.tb04200.x
+  unstructured: 'Brinkmann, W.: What is a foehn?, Weather, 26, 230–240, 1971.'
+- doi: 10.2307/2529238
+  unstructured: 'Brown, M. B. and Forsythe, A. B.: Anova and multiple comparisons
+    for data with heterogeneous variances, Biometrics, 30, 719–724, https://doi.org/10.2307/2529238,
+    1974.'
+- doi: 10.5194/acp-13-869-2013
+  unstructured: 'Collaud Coen, M., Andrews, E., Asmi, A., Baltensperger, U., Bukowiecki,
+    N., Day, D., Fiebig, M., Fjaeraa, A. M., Flentje, H., Hyvärinen, A., Jefferson,
+    A., Jennings, S. G., Kouvarakis, G., Lihavainen, H., Lund Myhre, C., Malm, W.
+    C., Mihapopoulos, N., Molenar, J. V., O''Dowd, C., Ogren, J. A., Schichtel, B.
+    A., Sheridan, P., Virkkula, A., Weingartner, E., Weller, R., and Laj, P.: Aerosol
+    decadal trends – Part 1: In-situ optical measurements at GAW and IMPROVE stations,
+    Atmos. Chem. Phys., 13, 869–894, https://doi.org/10.5194/acp-13-869-2013, 2013.'
+- doi: 10.5194/acp-7-1797-2007
+  unstructured: 'Cozic, J., Verheggen, B., Mertes, S., Connolly, P., Bower, K., Petzold,
+    A., Baltensperger, U., and Weingartner, E.: Scavenging of black carbon in mixed
+    phase clouds at the high alpine site Jungfraujoch, Atmos. Chem. Phys., 7, 1797–1807,
+    https://doi.org/10.5194/acp-7-1797-2007, 2007.'
+- doi: 10.5194/acp-8-407-2008
+  unstructured: 'Cozic, J., Verheggen, B., Weingartner, E., Crosier, J., Bower, K.
+    N., Flynn, M., Coe, H., Henning, S., Steinbacher, M., Henne, S., Collaud Coen,
+    M., Petzold, A., and Baltensperger, U.: Chemical composition of free tropospheric
+    aerosol for PM1 and coarse mode at the high alpine site Jungfraujoch, Atmos. Chem.
+    Phys., 8, 407–423, https://doi.org/10.5194/acp-8-407-2008, 2008.'
+- doi: 10.5194/acp-13-6227-2013
+  unstructured: 'Deng, Z. Z., Zhao, C. S., Ma, N., Ran, L., Zhou, G. Q., Lu, D. R.,
+    and Zhou, X. J.: An examination of parameterizations for the CCN number concentration
+    based on in situ measurements of aerosol activation properties in the North China
+    Plain, Atmos. Chem. Phys., 13, 6227–6237, https://doi.org/10.5194/acp-13-6227-2013,
+    2013.'
+- doi: 10.5194/acp-12-2459-2012
+  unstructured: 'Ditas, F., Shaw, R. A., Siebert, H., Simmel, M., Wehner, B., and
+    Wiedensohler, A.: Aerosols-cloud microphysics-thermodynamics-turbulence: evaluating
+    supersaturation in a marine stratocumulus cloud, Atmos. Chem. Phys., 12, 2459-2468,
+    https://doi.org/10.5194/acp-12-2459-2012, 2012.'
+- doi: 10.5194/acp-11-8343-2011
+  unstructured: 'Fors, E. O., Swietlicki, E., Svenningsson, B., Kristensson, A., Frank,
+    G. P., and Sporre, M.: Hygroscopic properties of the ambient aerosol in southern
+    Sweden – a two year study, Atmos. Chem. Phys., 11, 8343–8361, https://doi.org/10.5194/acp-11-8343-2011,
+    2011.'
+- unstructured: 'Gerber, H.: Supersaturation and droplet spectral evolution in fog,
+    J. Atmos. Sci., 48, 2569–2588, https://doi.org/10.1175/1520-0469(1991)0482.0.Co;2,
+    1991.'
+- unstructured: 'Ghan, S. J., Guzman, G., and Abdul-Razzak, H.: Competition between
+    sea salt and sulfate particles as cloud condensation nuclei, J. Atmos. Sci., 55,
+    3340–3347, https://doi.org/10.1175/1520-0469(1998)0552.0.Co;2, 1998.'
+- unstructured: 'Goff, J. A. and Gratch, S.: Low-pressure properties of water from
+    −160 to 212 F, Trans. Amer. Soc. Heat. Vent. Eng., 51, 125–164, 1946.'
+- doi: 10.1034/j.1600-0889.2002.00299.x
+  unstructured: 'Henning, S., Weingartner, E., Schmidt, S., Wendisch, M., Gaggeler,
+    H. W., and Baltensperger, U.: Size-dependent aerosol activation at the high-alpine
+    site Jungfraujoch (3580 m a.s.l.), Tellus B, 54, 82–95, https://doi.org/10.1034/j.1600-0889.2002.00299.x,
+    2002.'
+- unstructured: 'Houze Jr., R. A.: Cloud Dynamics, vol. 53 of the International Geophysics
+    Series, Academic Press, San Diego, 1994.'
+- doi: 10.1175/JAS3487.1
+  unstructured: 'Hoyle, C. R., Luo, B. P., and Peter, T.: The origin of high ice crystal
+    number densities in cirrus clouds, J. Atmos. Sci., 62, 2568–2579, https://doi.org/10.1175/Jas3487.1,
+    2005.'
+- unstructured: 'IPCC: Climate Change 2007: the Physical Science Basis, Contribution
+    of Working Group I to the Fourth Assessment Report of the Intergovernmental Panel
+    on Climate Change, Cambridge University Press, Cambridge, UK and New York, NY,
+    USA, 2007.'
+- doi: 10.5194/acp-10-7891-2010
+  unstructured: 'Jurányi, Z., Gysel, M., Weingartner, E., DeCarlo, P. F., Kammermann,
+    L., and Baltensperger, U.: Measured and modelled cloud condensation nuclei number
+    concentration at the high alpine site Jungfraujoch, Atmos. Chem. Phys., 10, 7891–7906,
+    https://doi.org/10.5194/acp-10-7891-2010, 2010.'
+- doi: 10.1029/2010JD015199
+  unstructured: 'Jurányi, Z., Gysel, M., Weingartner, E., Bukowiecki, N., Kammermann,
+    L., and Baltensperger, U.: A 17 month climatology of the cloud condensation nuclei
+    number concentration at the high alpine site Jungfraujoch, J. Geophys. Res.-Atmos.,
+    116, D10204, https://doi.org/10.1029/2010jd015199, 2011.'
+- unstructured: 'Kammermann, L., Gysel, A., Weingartner, E., and Baltensperger, U.:
+    Hygroscopicity of tropospheric aerosols: one year of measurements at Jungfraujoch
+    (3580 m a.s.l.), Geochim. Cosmochim. Acta, 73, A618–A618, 2009.'
+- doi: 10.5194/acp-10-10717-2010
+  unstructured: 'Kammermann, L., Gysel, M., Weingartner, E., and Baltensperger, U.:
+    13-month climatology of the aerosol hygroscopicity at the free tropospheric site
+    Jungfraujoch (3580 m a.s.l.), Atmos. Chem. Phys., 10, 10717–10732, https://doi.org/10.5194/acp-10-10717-2010,
+    2010.'
+- doi: 10.1007/s10546-013-9897-8
+  unstructured: 'Ketterer, C., Zieger, P., Bukowiecki, N., Collaud Coen, M., Maier,
+    O., Ruffieux, D., and Weingartner, E.: Investigation of the planetary boundary
+    layer in the Swiss Alps using remote sensing and in-situ measurements, Bound.-Lay.
+    Meteorol., 1–18, https://doi.org/10.1007/s10546-013-9897-8, 2014.'
+- doi: 10.1039/TF9363201152
+  unstructured: 'Kohler, H.: The nucleus in and the growth of hygroscopic droplets,
+    T. Faraday Soc., 32, 1152–1161, https://doi.org/10.1039/Tf9363201152, 1936.'
+- doi: 10.1029/96JD01228
+  unstructured: 'Leaitch, W. R., Banic, C. M., Isaac, G. A., Couture, M. D., Liu,
+    P. S. K., Gultepe, I., and Li, S.-M.: Physical and chemical observations in marine
+    stratus during the 1993 North Atlantic Regional Experiment: Factors controlling
+    cloud droplet number concentrations, J. Geophys. Res., 101, 29123–29135, https://doi.org/10.1029/96JD01228,
+    1996.'
+- doi: 10.5194/acp-8-6925-2008
+  unstructured: 'Lihavainen, H., Kerminen, V.-M., Komppula, M., Hyvärinen, A.-P.,
+    Laakia, J., Saarikoski, S., Makkonen, U., Kivekäs, N., Hillamo, R., Kulmala, M.,
+    and Viisanen, Y.: Measurements of the relation between aerosol properties and
+    microphysics and chemistry of low level liquid water clouds in Northern Finland,
+    Atmos. Chem. Phys., 8, 6925–6938, https://doi.org/10.5194/acp-8-6925-2008, 2008.'
+- doi: 10.1029/2002GL016737
+  unstructured: 'Luo, B. P., Peter, T., Fueglistaler, S., Wernli, H., Wirth, M., Kiemle,
+    C., Flentje, H., Yushkov, V. A., Khattatov, V., Rudakov, V., Thomas, A., Borrmann,
+    S., Toci, G., Mazzinghi, P., Beuermann, J., Schiller, C., Cairo, F., Di Donfrancesco,
+    G., Adriani, A., Volk, C. M., Strom, J., Noone, K., Mitev, V., MacKenzie, R. A.,
+    Carslaw, K. S., Trautmann, T., Santacesaria, V., and Stefanutti, L.: Dehydration
+    potential of ultrathin clouds at the tropical tropopause, Geophys. Res. Lett.,
+    30, 1557, https://doi.org/10.1029/2002gl016737, 2003.'
+- unstructured: 'Makkonen, L., Lehtonen, P., and Helle, L.: Anemometry in icing conditions,
+    J. Atmos. Ocean. Tech., 18, 1457–1469, https://doi.org/10.1175/1520-0426(2001)0182.0.Co;2,
+    2001.'
+- unstructured: 'Mason, B. J.: The Physics of Clouds, Clarendon Press, Oxford, p.
+    671, 1971.'
+- unstructured: 'MeteoSchweiz: Klimabulletin Jahr 2011, Zürich, 2012.'
+- doi: 10.1029/2003JD004427
+  unstructured: 'Ming, Y. and Russell, L. M.: Organic aerosol effects on fog droplet
+    spectra, J. Geophys. Res.-Atmos., 109, D10206, https://doi.org/10.1029/2003jd004427,
+    2004.'
+- doi: 10.1029/1998JD200029
+  unstructured: 'Nyeki, S., Li, F., Weingartner, E., Streit, N., Colbeck, I., Gaggeler,
+    H. W., and Baltensperger, U.: The background aerosol size distribution in the
+    free troposphere: an analysis of the annual cycle at a high-alpine site, J. Geophys.
+    Res.-Atmos., 103, 31749–31761, https://doi.org/10.1029/1998jd200029, 1998.'
+- doi: 10.5194/acp-12-10239-2012
+  unstructured: 'Padró, L. T., Moore, R. H., Zhang, X., Rastogi, N., Weber, R. J.,
+    and Nenes, A.: Mixing state and compositional effects on CCN activity and droplet
+    growth kinetics of size-resolved CCN in an urban environment, Atmos. Chem. Phys.,
+    12, 10239–10255, https://doi.org/10.5194/acp-12-10239-2012, 2012.'
+- doi: 10.5194/acp-7-1961-2007
+  unstructured: 'Petters, M. D. and Kreidenweis, S. M.: A single parameter representation
+    of hygroscopic growth and cloud condensation nucleus activity, Atmos. Chem. Phys.,
+    7, 1961–1971, https://doi.org/10.5194/acp-7-1961-2007, 2007.'
+- doi: 10.5194/acp-10-5241-2010
+  unstructured: 'Pringle, K. J., Tost, H., Pozzer, A., Pöschl, U., and Lelieveld,
+    J.: Global distribution of the effective aerosol hygroscopicity parameter for
+    CCN activation, Atmos. Chem. Phys., 10, 5241–5255, https://doi.org/10.5194/acp-10-5241-2010,
+    2010.'
+- unstructured: 'Pruppacher, H. R. and Klett, J. D.: Microphysics of clouds and precipitation,
+    Wiley Online Library, Dordrecht, Kluwer Academic Publishers, 2007.'
+- doi: 10.5194/acp-9-7067-2009
+  unstructured: 'Reutter, P., Su, H., Trentmann, J., Simmel, M., Rose, D., Gunthe,
+    S. S., Wernli, H., Andreae, M. O., and Pöschl, U.: Aerosol- and updraft-limited
+    regimes of cloud droplet formation: influence of particle number, size and hygroscopicity
+    on the activation of cloud condensation nuclei (CCN), Atmos. Chem. Phys., 9, 7067–7080,
+    https://doi.org/10.5194/acp-9-7067-2009, 2009.'
+- doi: 10.1080/027868290913988
+  unstructured: 'Roberts, G. C. and Nenes, A.: A continuous-flow streamwise thermal-gradient
+    CCN chamber for atmospheric measurements, Aerosol Sci. Tech., 39, 206–221, https://doi.org/10.1080/027868290913988,
+    2005.'
+- doi: 10.1029/2005JD006661
+  unstructured: 'Roberts, G., Mauger, G., Hadley, O., and Ramanathan, V.: North American
+    and Asian aerosols over the eastern Pacific Ocean and their role in regulating
+    cloud condensation nuclei, J. Geophys. Res.-Atmos., 111, D13205, https://doi.org/10.1029/2005jd006661,
+    2006.'
+- doi: 10.5194/acp-8-1153-2008
+  unstructured: 'Rose, D., Gunthe, S. S., Mikhailov, E., Frank, G. P., Dusek, U.,
+    Andreae, M. O., and Pöschl, U.: Calibration and measurement uncertainties of a
+    continuous-flow cloud condensation nuclei counter (DMT-CCNC): CCN activation of
+    ammonium sulfate and sodium chloride aerosol particles in theory and experiment,
+    Atmos. Chem. Phys., 8, 1153–1179, https://doi.org/10.5194/acp-8-1153-2008, 2008.'
+- unstructured: 'Seinfeld, J. H. and Pandis, S. N.: Atmospheric Chemistry and Physics
+    – From Air Pollution to Climate Change, 2nd Edn., John Wiley and Sons, Inc., New
+    York, 2006.'
+- doi: 10.5194/acp-11-13269-2011
+  unstructured: 'Sihto, S.-L., Mikkilä, J., Vanhanen, J., Ehn, M., Liao, L., Lehtipalo,
+    K., Aalto, P. P., Duplissy, J., Petäjä, T., Kerminen, V.-M., Boy, M., and Kulmala,
+    M.: Seasonal variation of CCN concentrations and aerosol activation properties
+    in boreal forest, Atmos. Chem. Phys., 11, 13269–13285, https://doi.org/10.5194/acp-11-13269-2011,
+    2011.'
+- doi: 10.5194/amt-5-2237-2012
+  unstructured: 'Spiegel, J. K., Zieger, P., Bukowiecki, N., Hammer, E., Weingartner,
+    E., and Eugster, W.: Evaluating the capabilities and uncertainties of droplet
+    measurements for the fog droplet spectrometer (FM-100), Atmos. Meas. Tech., 5,
+    2237–2260, https://doi.org/10.5194/amt-5-2237-2012, 2012.'
+- unstructured: 'Stahel, W.: Statistische Datenanalyse: Eine Einführung für Naturwissenschaftler,
+    Vieweg + Teubner Verlag, Vieweg, Braunschweig, 2007.'
+- unstructured: 'Twomey, S. A.: Pollution and cloud albedo, EOS T. Am. Geophys. Un.,
+    58, 797–797, 1977.'
+- doi: 10.1029/2007JD008714
+  unstructured: 'Verheggen, B., Cozic, J., Weingartner, E., Bower, K., Mertes, S.,
+    Connolly, P., Gallagher, M., Flynn, M., Choularton, T., and Baltensperger, U.:
+    Aerosol partitioning between the interstitial and the condensed phase in mixed-phase
+    clouds, J. Geophys. Res.-Atmos., 112, D23202, https://doi.org/10.1029/2007jd008714,
+    2007.'
+- doi: 10.1175/BAMS-D-11-00189.1
+  unstructured: 'Vogelmann, A. M., McFarquhar, G. M., Ogren, J. A., Turner, D. D.,
+    Comstock, J. M., Feingold, G., Long, C. N., Jonsson, H. H., Bucholtz, A., Collins,
+    D. R., Diskin, G. S., Gerber, H., Lawson, R. P., Woods, R. K., Andrews, E., Yang,
+    H. J., Chiu, J. C., Hartsock, D., Hubbe, J. M., Lo, C. M., Marshak, A., Monroe,
+    J. W., McFarlane, S. A., Schmid, B., Tomlinson, J. M., and Toto, T.: Racoro extended-term
+    aircraft observations of boundary layer clouds, B. Am. Meteorol. Soc., 93, 861–878,
+    https://doi.org/10.1175/Bams-D-11-00189.1, 2012.'
+- unstructured: 'Wallace, J. M. and Hobbs, P. V.: Atmospheric Science: An Introductory
+    Survey, Academic Press, Elsevier, 2006.'
+- unstructured: 'Weingartner, E., Nyeki, S., and Baltensperger, U.: Seasonal and diurnal
+    variation of aerosol size distributions ($10'
+- doi: 10.5194/amt-5-657-2012
+  unstructured: 'Wiedensohler, A., Birmili, W., Nowak, A., Sonntag, A., Weinhold,
+    K., Merkel, M., Wehner, B., Tuch, T., Pfeifer, S., Fiebig, M., Fjäraa, A. M.,
+    Asmi, E., Sellegri, K., Depuy, R., Venzac, H., Villani, P., Laj, P., Aalto, P.,
+    Ogren, J. A., Swietlicki, E., Williams, P., Roldin, P., Quincey, P., Hüglin, C.,
+    Fierz-Schmidhauser, R., Gysel, M., Weingartner, E., Riccobono, F., Santos, S.,
+    Grüning, C., Faloon, K., Beddows, D., Harrison, R., Monahan, C., Jennings, S.
+    G., O''Dowd, C. D., Marinoni, A., Horn, H.-G., Keck, L., Jiang, J., Scheckman,
+    J., McMurry, P. H., Deng, Z., Zhao, C. S., Moerman, M., Henzing, B., de Leeuw,
+    G., Löschau, G., and Bastian, S.: Mobility particle size spectrometers: harmonization
+    of technical standards and data structure to facilitate high quality long-term
+    observations of atmospheric particle number size distributions, Atmos. Meas. Tech.,
+    5, 657–685, https://doi.org/10.5194/amt-5-657-2012, 2012.'
+- doi: 10.1016/j.atmosenv.2004.05.042
+  unstructured: 'Zhang, L. M., Michelangeli, D. V., and Taylor, P. A.: Numerical studies
+    of aerosol scavenging by low-level, warm stratiform clouds and precipitation,
+    Atmos. Environ., 38, 4653–4665, https://doi.org/10.1016/j.atmosenv.2004.05.042,
+    2004.'
+- doi: 10.1029/2012GL051213
+  unstructured: 'Zhao, C. F., Klein, S. A., Xie, S. C., Liu, X. H., Boyle, J. S.,
+    and Zhang, Y. Y.: Aerosol first indirect effects on non-precipitating low-level
+    liquid cloud properties as simulated by CAM5 at ARM sites, Geophys. Res. Lett.,
+    39, L08806, https://doi.org/10.1029/2012gl051213, 2012.'
+doi: 10.5194/acp-14-1123-2014
+issue: '2'
+journal: Atmospheric Chemistry and Physics
+language: en
+month: 1
+pages: 1123--1139
+publisher: Copernicus GmbH
+title: Investigation of the effective peak supersaturation for liquid-phase clouds
+  at the high-alpine site Jungfraujoch, Switzerland (3580 m a.s.l.)
+type: article
+url: http://dx.doi.org/10.5194/acp-14-1123-2014
+volume: '14'
+year: 2014

@@ -61,6 +61,10 @@ def main():
     avg_temp_caipeex = caipeex_dict['temp']
     avg_z_caipeex = caipeex_dict['z']
     z_bins_caipeex = caipeex_dict['z_bins']
+
+    calc_and_print_dCAPE(avg_dT_halo, avg_temp_halo, z_bins_halo, 'halo')
+    calc_and_print_dCAPE(avg_dT_caipeex, avg_temp_caipeex, z_bins_caipeex, 'caipeex')
+    return
     
     #jk THIS is the laziest code of my life!
 
