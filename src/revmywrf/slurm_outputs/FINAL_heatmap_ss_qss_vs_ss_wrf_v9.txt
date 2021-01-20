@@ -1,0 +1,64 @@
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+0.6563903423575796 0.24480067942523398 0.8819584696847286
+Polluted
+# pts total: 3514347
+max: 67.06509388021848
+# pts ss > 2%: 864744
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.1811916539936027 67.06509388021848
+Range: -12.413106 20.070312
+0.42833407415427766 0.6008983843911659 0.8532368470973222
+Unpolluted
+# pts total: 2869937
+max: 140.37502077612453
+# pts ss > 2%: 831329
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.1943797211291566 140.37502077612453
+Range: -10.896954 29.956388
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+0.8228938783272085 0.06176524768702518 0.9067912190052155
+Polluted
+# pts total: 3514347
+max: 25.50090081897629
+# pts ss > 2%: 820444
+Number of points in Q1: 3508487
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 5451
+
+Domain: 0.18117489443775012 25.50090081897629
+Range: -12.413106 20.070312
+0.7438773634044101 0.1276619449380112 0.910016517653176
+Unpolluted
+# pts total: 2869937
+max: 45.558524915137916
+# pts ss > 2%: 817084
+Number of points in Q1: 2866094
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 3471
+
+Domain: 0.19436614179356138 45.558524915137916
+Range: -10.896954 29.956388

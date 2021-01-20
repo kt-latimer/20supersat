@@ -2,7 +2,7 @@
 
 clustername=$1
 
-i=3
+i=9
 
 outputfilename="slurm_outputs/FINAL_heatmap_ss_qss_vs_ss_wrf_v${i}.txt"
 sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/FINAL_heatmap_ss_qss_vs_ss_wrf

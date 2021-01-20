@@ -14,7 +14,7 @@ from revmywrf import BASE_DIR, DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_nconc, get_ss, linregress
 
 #for plotting
-versionstr = 'v8_'
+versionstr = 'v9_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
@@ -29,7 +29,7 @@ d_ss = 0.25
 ss_max = 50+d_ss
 
 cutoff_bins = True 
-incl_rain = False 
+incl_rain = True 
 incl_vent = True 
 full_ss = True 
 
@@ -51,7 +51,7 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
 
     #get dsd sum file variables
     dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_all_dsdsum_vars', 'r')
+                                'wrfout_d01_all_dsdsum_vars_v2', 'r')
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys
@@ -91,7 +91,7 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     ss_bins = get_ss_bins(ss_min, ss_max, d_ss)
 
     h = ax.hist2d(ss_qss, ss_wrf, bins=ss_bins, cmin=1./(N_points*d_ss**2.), \
-        density=True, norm=matplotlib.colors.LogNorm(), cmap=plt.cm.magma)
+        density=True, norm=matplotlib.colors.LogNorm(), cmap=plt.cm.magma_r)
     cb = fig.colorbar(h[3], ax=ax)
     cb.set_label(r'$\frac{d^2n_{points}}{dSS_{QSS}dSS_{WRF}}$')
 

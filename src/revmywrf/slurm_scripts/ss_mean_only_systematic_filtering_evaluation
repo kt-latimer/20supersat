@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/revmywrf/ss_mean_only_systematic_filtering_evaluation.py

@@ -12,14 +12,14 @@ from revhalo import DATA_DIR, FIG_DIR
 from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
 
 #for plotting
-versionstr = 'v4_'
+versionstr = 'v6_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
 
-lwc_filter_val = 1.e-4
-w_cutoff = 2
+lwc_filter_val = 10**(-3.5)
+w_cutoff = 1 
 
 z_min = -100
 z_max = 6500

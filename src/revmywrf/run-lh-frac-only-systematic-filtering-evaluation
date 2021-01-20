@@ -1,0 +1,8 @@
+#!/bin/bash
+
+clustername=$1
+
+i=2
+
+outputfilename="slurm_outputs/lh_frac_only_systematic_filtering_evaluation_v${i}.txt"
+sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/lh_frac_only_systematic_filtering_evaluation

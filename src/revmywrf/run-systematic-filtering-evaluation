@@ -2,7 +2,7 @@
 
 clustername=$1
 
-i=3
+i=8
 
 outputfilename="slurm_outputs/systematic_filtering_evaluation_v${i}.txt"
 sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/systematic_filtering_evaluation

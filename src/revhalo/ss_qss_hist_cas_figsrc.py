@@ -14,7 +14,7 @@ from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
-lwc_filter_val = 1.e-4
+lwc_filter_val = 1.e-4#10**(-3.5)
 w_cutoff = 2
 
 #change_cas_corr = False
@@ -36,6 +36,7 @@ def main():
 
     ss_qss_alldates = None
 
+    n = 0
     for date in good_dates:
         adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
         adlr_dict = np.load(adlrfile, allow_pickle=True).item()
@@ -57,6 +58,10 @@ def main():
                         (temp > 273)))
 
         print(date)
+        print(np.shape(w))
+        print(np.sum(filter_inds))
+        n += np.sum(filter_inds)
+        continue
         ss_qss = ss_qss[filter_inds]
 
         ss_qss_alldates = add_to_alldates_array(ss_qss, ss_qss_alldates)
@@ -64,6 +69,8 @@ def main():
         make_and_save_ss_qss_hist(ss_qss, date, versionstr, change_cas_corr, \
                                     cutoff_bins, full_ss, incl_rain, incl_vent)
 
+    print(n)
+    return
     print(ss_qss_alldates)
     make_and_save_ss_qss_hist(ss_qss_alldates, 'alldates', versionstr, \
             change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent)
