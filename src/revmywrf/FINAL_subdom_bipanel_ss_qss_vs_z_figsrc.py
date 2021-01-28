@@ -15,13 +15,13 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
-versionstr = 'v2_'
+versionstr = 'v3_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 
 lwc_filter_val = 1.e-4
-w_cutoff = 2
+w_cutoff = 1 
 lon_min = -60.79
 lat_min = -3.28
 lon_max = -60.47
@@ -153,10 +153,17 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
         #                                color=magma_pink, alpha=0.4)
         ax1.plot(avg_ss_qss, avg_z, linestyle=linestyle_str, \
                 color=color, linewidth=6, label=case_label) 
-        ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
-                facecolor=(0, 0, 0, 0.0), edgecolor=color, \
-                histtype='stepfilled', linewidth=6, linestyle=linestyle_str, \
-                label=case_label)
+        #make histogram with area fraction
+        n_xyt = 450*450*84 #cheat code for number of points per altitude slice 
+        (counts, bins) = np.histogram(z, bins=z_bins, density=False)
+        ax2.hist(z_bins[:-1], bins=z_bins, weights=counts/n_xyt, \
+                orientation='horizontal', facecolor=(0, 0, 0, 0.0), \
+                edgecolor=color, histtype='stepfilled', linewidth=6, \
+                linestyle=linestyle_str, label=case_label)
+        #ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
+        #        facecolor=(0, 0, 0, 0.0), edgecolor=color, \
+        #        histtype='stepfilled', linewidth=6, linestyle=linestyle_str, \
+        #        label=case_label)
 
     #formatting
     ax1.set_ylim((z_min, z_max))
@@ -164,7 +171,8 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
     ax2.set_ylim((z_min, z_max))
     ax2.yaxis.grid()
     ax1.set_xlabel(r'$SS_{QSS}$ (%)')
-    ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m$^{-1}$)')
+    #ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m$^{-1}$)')
+    ax2.set_xlabel('Avg area fraction')
     ax1.set_ylabel(r'z (m)')
     formatter = ticker.ScalarFormatter(useMathText=True)
     formatter.set_scientific(True) 

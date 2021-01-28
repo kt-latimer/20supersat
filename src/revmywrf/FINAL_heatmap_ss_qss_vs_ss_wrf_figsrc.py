@@ -14,13 +14,13 @@ from revmywrf import BASE_DIR, DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_nconc, get_ss, linregress
 
 #for plotting
-versionstr = 'v9_'
+versionstr = 'v13_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
                             
 lwc_filter_val = 1.e-4
-w_cutoff = 2
+w_cutoff = 1
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
@@ -29,8 +29,8 @@ d_ss = 0.25
 ss_max = 50+d_ss
 
 cutoff_bins = True 
-incl_rain = True 
-incl_vent = True 
+incl_rain = False 
+incl_vent = False 
 full_ss = True 
 
 def main():

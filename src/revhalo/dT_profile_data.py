@@ -8,7 +8,7 @@ from revhalo import DATA_DIR, FIG_DIR
 from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
 
 lwc_filter_val = 1.e-4
-w_cutoff = 2
+w_cutoff = 1
 
 z_min = -100
 z_max = 6500

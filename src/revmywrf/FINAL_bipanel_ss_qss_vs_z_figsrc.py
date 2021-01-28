@@ -15,13 +15,13 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
-versionstr = 'v18_'
+versionstr = 'v20_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 
 lwc_filter_val = 1.e-4
-w_cutoff = 2 
+w_cutoff = 1 
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
@@ -92,8 +92,8 @@ def get_ss_qss_and_z_data(case_label):
     filter_inds = np.logical_and.reduce((
                     (lwc > lwc_filter_val), \
                     (w > w_cutoff), \
-                    (temp > 0)))
-                    #(temp > 273)))
+                    #(temp > 0)))
+                    (temp > 273)))
 
     del lwc, temp #for memory
 
@@ -140,10 +140,13 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
         #                                color=magma_pink, alpha=0.4)
         ax1.plot(avg_ss_qss, avg_z, linestyle=linestyle_str, \
                 color=color, linewidth=6, label=case_label) 
-        ax2.hist(z, bins=z_bins, density=False, orientation='horizontal', \
-                facecolor=(0, 0, 0, 0.0), edgecolor=color, \
-                histtype='stepfilled', linewidth=6, linestyle=linestyle_str, \
-                label=case_label)
+        #make histogram with area fraction
+        n_xyt = 450*450*84 #cheat code for number of points per altitude slice 
+        (counts, bins) = np.histogram(z, bins=z_bins, density=False)
+        ax2.hist(z_bins[:-1], bins=z_bins, weights=counts/n_xyt, \
+                orientation='horizontal', facecolor=(0, 0, 0, 0.0), \
+                edgecolor=color, histtype='stepfilled', linewidth=6, \
+                linestyle=linestyle_str, label=case_label)
 
     #return
     #formatting
@@ -153,7 +156,7 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
     ax2.yaxis.grid()
     ax1.set_xlabel(r'$SS_{QSS}$ (%)')
     #ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m$^{-1}$)')
-    ax2.set_xlabel(r'$N_{points}$')
+    ax2.set_xlabel('Avg area fraction')
     ax1.set_ylabel(r'z (m)')
     formatter = ticker.ScalarFormatter(useMathText=True)
     formatter.set_scientific(True) 

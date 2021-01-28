@@ -13,14 +13,14 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc
 
 #for plotting
-versionstr = 'v2_'
+versionstr = 'v3_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors = [colors_arr[1], colors_arr[3], colors_arr[5], colors_arr[7]]
 
 lwc_filter_val = 1.e-4
-w_cutoff = 2
+w_cutoff = 1 
 
 HALO_DATA_DIR = '/global/home/users/kalatimer/proj/20supersat/data/revhalo/'
 CAIPEEX_DATA_DIR = \

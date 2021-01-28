@@ -12,14 +12,14 @@ from revhalo import DATA_DIR, FIG_DIR
 from revhalo.ss_qss_calculations import get_ss_vs_t_cas, get_lwc_from_cas
 
 #for plotting
-versionstr = 'v6_'
+versionstr = 'v8_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
 
-lwc_filter_val = 10**(-3.5)
-w_cutoff = 1 
+lwc_filter_val = 1.e-4 #10**(-3.5)
+w_cutoff = 1
 
 z_min = -100
 z_max = 6500
@@ -134,8 +134,10 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
 
         ax1.plot(avg_ss_qss, avg_z, linestyle='-', marker='o', \
                 color=color, linewidth=6, markersize=17)
-        ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
-                facecolor=color, alpha=0.5)
+        #ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
+        #        facecolor=color, alpha=0.5)
+        ax2.hist(z, bins=z_bins, density=False, orientation='horizontal', \
+                facecolor=color, alpha=0.8)
 
     #formatting
     ax1.set_ylim((z_min, z_max))
@@ -143,7 +145,8 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
     ax2.set_ylim((z_min, z_max))
     ax2.yaxis.grid()
     ax1.set_xlabel(r'$SS_{QSS}$ (%)')
-    ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m$^{-1}$)')
+    ax2.set_xlabel(r'$N_{points}$')
+    #ax2.set_xlabel(r'$\frac{dn_{points}}{dz}$ (m$^{-1}$)')
     ax1.set_ylabel(r'z (m)')
     formatter = ticker.ScalarFormatter(useMathText=True)
     formatter.set_scientific(True) 

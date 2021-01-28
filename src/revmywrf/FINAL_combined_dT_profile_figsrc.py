@@ -11,7 +11,7 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
-versionstr = 'v1_'
+versionstr = 'v2_'
 matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
@@ -21,7 +21,7 @@ colors_dict = {'poll': colors_arr[1], \
                'caipeex': colors_arr[7]}
 
 lwc_filter_val = 1.e-4
-w_cutoff = 2
+w_cutoff = 1 
 
 HALO_DATA_DIR = '/global/home/users/kalatimer/proj/20supersat/data/revhalo/'
 CAIPEEX_DATA_DIR = \
@@ -61,10 +61,6 @@ def main():
     avg_temp_caipeex = caipeex_dict['temp']
     avg_z_caipeex = caipeex_dict['z']
     z_bins_caipeex = caipeex_dict['z_bins']
-
-    calc_and_print_dCAPE(avg_dT_halo, avg_temp_halo, z_bins_halo, 'halo')
-    calc_and_print_dCAPE(avg_dT_caipeex, avg_temp_caipeex, z_bins_caipeex, 'caipeex')
-    return
     
     #jk THIS is the laziest code of my life!
 

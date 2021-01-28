@@ -8,10 +8,10 @@ from revcaipeex.ss_qss_calculations import get_ss_vs_t, get_lwc
 import sys
 
 #for plotting
-versionstr = 'v1_'
+#versionstr = 'v2_'
 
 lwc_filter_val = 1.e-4
-w_cutoff = 2
+w_cutoff = 1 
 
 z_min = -100
 z_max = 6500

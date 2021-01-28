@@ -20,7 +20,7 @@ colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
 
 lwc_filter_val = 1.e-4
-w_cutoff = 2
+w_cutoff = 2 
 
 z_min = -100
 z_max = 6500
