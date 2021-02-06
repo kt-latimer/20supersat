@@ -14,8 +14,8 @@ from revmywrf import BASE_DIR, DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_nconc, get_ss, linregress
 
 #for plotting
-versionstr = 'v13_'
-matplotlib.rcParams.update({'font.size': 23})
+versionstr = 'v10_'
+#matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
                             
@@ -29,8 +29,8 @@ d_ss = 0.25
 ss_max = 50+d_ss
 
 cutoff_bins = True 
-incl_rain = False 
-incl_vent = False 
+incl_rain = True 
+incl_vent = True 
 full_ss = True 
 
 def main():
@@ -86,7 +86,7 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     print_point_count_per_quadrant(ss_qss, ss_wrf)
 
     fig, ax = plt.subplots()
-    fig.set_size_inches(21, 12)
+    #fig.set_size_inches(21, 12)
     
     ss_bins = get_ss_bins(ss_min, ss_max, d_ss)
 
@@ -102,13 +102,14 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
             c=colors['line'], \
             linestyle='dashed', \
-            linewidth=3, \
+            linewidth=2, \
             label=('m = ' + str(np.round(m, decimals=2)) + \
                     ', R^2 = ' + str(np.round(R**2, decimals=2))))
 
     ax.set_xlabel(r'$SS_{QSS}$ (%)')
     ax.set_ylabel(r'$SS_{WRF}$ (%)')
     plt.legend(loc=2)
+    fig.suptitle('Actual versus approximated supersaturation - WRF ' + case_label)
 
     outfile = FIG_DIR + versionstr + 'FINAL_heatmap_ss_qss_vs_ss_wrf_' \
             + case_label + '_figure.png'

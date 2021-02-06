@@ -51,3 +51,13 @@ Polluted up10perc
 97.89694065064083
 Unpolluted up10perc
 139.9169740170911
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted allpts
+79.1924527409238
+Unpolluted allpts
+101.41726230327727
+Polluted up10perc
+97.89694065064083
+Unpolluted up10perc
+139.9169740170911

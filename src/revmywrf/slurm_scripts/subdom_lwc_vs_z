@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/revmywrf/subdom_lwc_vs_z_figsrc.py

@@ -1,6 +1,7 @@
 """
 make and save histograms showing SS_QSS distribution from HALO CAS measurements
 """
+import csv
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -11,12 +12,13 @@ import numpy as np
 import os
 import sys
 
-from revmywrf import DATA_DIR, FIG_DIR
+from revmywrf import BASE_DIR, DATA_DIR, FIG_DIR
+CSV_DATA_DIR = BASE_DIR + 'data/revmywrf/'
 from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
-versionstr = 'v20_'
-matplotlib.rcParams.update({'font.size': 23})
+versionstr = 'v21_'
+#matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 
@@ -53,8 +55,8 @@ def main():
         z_dict['up10perc'][case_label] = z_up10perc
         z_bins_dict[case_label] = z_bins
 
-    make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['allpts'], \
-            z_dict['allpts'], z_bins_dict, colors_arr[3], 'allpts')
+    #make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['allpts'], \
+    #        z_dict['allpts'], z_bins_dict, colors_arr[3], 'allpts')
     make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['up10perc'], \
             z_dict['up10perc'], z_bins_dict, colors_arr[7], 'up10perc')
 
@@ -114,8 +116,11 @@ def get_ss_qss_and_z_data(case_label):
 def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, label):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
-    fig.set_size_inches(18, 12)
+    #fig.set_size_inches(18, 12)
     linestyle_str_dict = {'Polluted': '-', 'Unpolluted': '--'}
+
+    if label == 'up10perc':
+        ax1 = plot_fan_ss(ax1)
 
     for case_label in case_label_dict.keys():
         
@@ -139,13 +144,15 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
         #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
         #                                color=magma_pink, alpha=0.4)
         ax1.plot(avg_ss_qss, avg_z, linestyle=linestyle_str, \
-                color=color, linewidth=6, label=case_label) 
+                color=color, label=case_label) 
+                #color=color, linewidth=6, label=case_label) 
         #make histogram with area fraction
         n_xyt = 450*450*84 #cheat code for number of points per altitude slice 
         (counts, bins) = np.histogram(z, bins=z_bins, density=False)
         ax2.hist(z_bins[:-1], bins=z_bins, weights=counts/n_xyt, \
                 orientation='horizontal', facecolor=(0, 0, 0, 0.0), \
-                edgecolor=color, histtype='stepfilled', linewidth=6, \
+                edgecolor=color, histtype='stepfilled', \
+                #edgecolor=color, histtype='stepfilled', linewidth=6, \
                 linestyle=linestyle_str, label=case_label)
 
     #return
@@ -163,17 +170,53 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
     formatter.set_powerlimits((-1,1)) 
     ax2.xaxis.set_major_formatter(formatter)
 
+    handles, labels = ax1.get_legend_handles_labels()
+    plt.legend(handles=handles, labels=labels, \
+                bbox_to_anchor=(1.04,1), borderaxespad=0)
+
     #custom legend
-    poll_line = Line2D([0], [0], color=color, \
-                        linewidth=6, linestyle='-')
-    unpoll_line = Line2D([0], [0], color=color, \
-                        linewidth=6, linestyle='--')
-    ax2.legend([poll_line, unpoll_line], ['Polluted', 'Unpolluted'])
+    #poll_line = Line2D([0], [0], color=color, linestyle='-')\
+    #                    #linewidth=6, linestyle='-')
+    #unpoll_line = Line2D([0], [0], color=color, linestyle='--')\
+    #                    #linewidth=6, linestyle='-')
+    #ax2.legend([poll_line, unpoll_line], ['Polluted', 'Unpolluted'])
+
+    fig.suptitle('Supersaturation and area fraction vertical profiles - WRF ' + case_label)
 
     outfile = FIG_DIR + versionstr + 'FINAL_bipanel_ss_qss_vs_z_' \
             + label + '_figure.png'
-    plt.savefig(outfile)
+    plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
+
+def plot_fan_ss(ax):
+
+    #get ss profiles extracted from fig 4 of fan et al 2018
+    #kinda shoddy code
+
+    profile_filenames = ['deep_poll', 'deep_unpoll', 'warm_poll', 'warm_unpoll']
+    profile_linestyles = ['-', '--', '-', '--']
+    profile_colors = [(0.3, 0.3, 0.3), (0.3, 0.3, 0.3), \
+                        (0.7, 0.7, 0.7), (0.7, 0.7, 0.7)] 
+    profile_labels = ['Fan et al: "Deep cloud" Polluted', 'Fan et al: "Deep' \
+                      + 'cloud" Unpolluted', 'Fan et al: "Warm cloud" Polluted',\
+                      'Fan et al: "Warm cloud" Unpolluted']
+
+    for i, profile_filename in enumerate(profile_filenames):
+        fan_ss_profile = []
+        with open(CSV_DATA_DIR + 'ss_fan_' + profile_filename + '.csv', 'r') as readFile:
+            csvreader = csv.reader(readFile, \
+                    quoting=csv.QUOTE_NONNUMERIC, delimiter=',')
+            for row in csvreader:
+                fan_ss_profile.append(row)
+        #fan data in km ours in m
+        fan_ss_profile = np.array(fan_ss_profile) 
+        ax.plot(fan_ss_profile[:, 0], \
+                fan_ss_profile[:, 1]*1000, \
+                linestyle=profile_linestyles[i], \
+                color=profile_colors[i], \
+                label=profile_labels[i])
+
+    return ax
 
 def get_z_bins(z):
 

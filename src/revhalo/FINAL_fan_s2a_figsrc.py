@@ -15,7 +15,7 @@ from revhalo.utils import linregress
 
 #for plotting
 versionstr = 'v2_'
-matplotlib.rcParams.update({'font.size': 21})
+#matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 magma_pink = colors_arr[3]
@@ -47,7 +47,7 @@ def get_fan_s2a_data():
 def make_and_save_fan_s2a_fig(nconc, wmax, m, b, R):
 
         fig, ax = plt.subplots()
-        fig.set_size_inches(12, 12)
+        #fig.set_size_inches(12, 12)
 
         ax.scatter(nconc, wmax, color=magma_pink)
 
@@ -66,9 +66,13 @@ def make_and_save_fan_s2a_fig(nconc, wmax, m, b, R):
 
         ax.set_xlabel(r'Aerosol concentration, D > 15nm (cm$^{-3}$)')
         ax.set_ylabel(r'w$_{max}$ (m/s)')
-        fig.legend()
+        ax.legend()
+
+        fig.suptitle('Max vertical wind velocity versus aerosol number' \
+                        + ' concentration \n (Reconstructed from [1])')
+
         outfile = FIG_DIR + versionstr + 'FINAL_fan_fig_s2a.png'
-        plt.savefig(outfile)
+        plt.savefig(outfile, bbox_inches='tight')
         plt.close(fig=fig)    
 
 def get_conf_band(xvals, yvals, regline):

@@ -16,7 +16,8 @@ from revmywrf.ss_qss_calculations import get_lwc, get_nconc, get_ss, linregress
 
 #for plotting
 figversionstr = 'v1_'
-dataversionstr = 'v7_'
+distdataversionstr = 'v7_'
+lhdataversionstr = 'v2_'
 #matplotlib.rcParams.update({'font.size': 40})
 matplotlib.rcParams.update({'font.family': 'serif'})
 magma = cm.get_cmap('magma')
@@ -56,70 +57,22 @@ data_dict = {'Polluted': {'m_arr': None, 'npts_arr': None, 'rsq_arr': None, \
 
 def main():
     
-    filename = dataversionstr + 'systematic_filtering_evaluation_data.npy'
+    filename = distdataversionstr + 'systematic_filtering_evaluation_data.npy'
     data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
 
-    for case_label in case_label_dict.keys():
-        m_arr, npts_arr, rsq_arr, ss_qss_distbs, ss_wrf_distbs = \
-            get_data_from_dict(case_label, data_dict)
-        make_and_save_regres_param_heatmaps(m_arr, rsq_arr, case_label)
-    
     dist_arr = get_dist_arr(data_dict)
-    make_and_save_dist_heatmap(dist_arr, case_label)
 
-def get_data_from_dict(case_label, data_dict):
+    filename = lhdataversionstr + \
+        'lh_frac_only_systematic_filtering_evaluation_data.npy'
+    data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
 
-    case_dict = data_dict[case_label]
+    for case_label in ['Unpolluted']: #kinda lazy but turns out unpolluted
+                                      #region with lh > 0.5 is a subset of
+                                      #polluted region of the same
+        lh_filt_arr, lh_tot_arr = \
+            get_lh_data(case_label, data_dict)
 
-    m_arr = case_dict['m_arr']
-    npts_arr = case_dict['npts_arr']
-    rsq_arr = case_dict['rsq_arr']
-    ss_qss_distbs = case_dict['ss_qss_distbs']
-    ss_wrf_distbs = case_dict['ss_wrf_distbs']
-
-    return m_arr, npts_arr, rsq_arr, ss_qss_distbs, ss_wrf_distbs
-
-def make_and_save_regres_param_heatmaps(m_arr, rsq_arr, case_label):
-
-    fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
-    #fig.set_size_inches(30, 15)
-
-    #slope plot
-    im1 = ax1.imshow(m_arr.T, cmap=magma, vmin=-0.2, vmax=0.9)
-    cbar1 = ax1.figure.colorbar(im1, ax=ax1, fraction=0.046, pad=0.04)
-    cbar1.ax.set_ylabel(r'$m_{' + subscript_dict[case_label] + '}$')
-
-    ax1.set_xticks(np.arange(n_lwc_vals))
-    ax1.set_yticks(np.arange(n_w_vals))
-    ax1.set_xticklabels(np.around(np.log10(lwc_filter_vals), 2))
-    ax1.set_yticklabels(np.around(w_filter_vals, 2))
-    ax1.set_xbound([-0.5, 6.5])
-    ax1.set_ybound([-0.5, -0.5 + n_w_vals])
-
-    ax1.set_xlabel('Min log(LWC) cutoff (kg/kg)')
-    ax1.set_ylabel('Min w cutoff (m/s)')
-
-    #r squared plot
-    im2 = ax2.imshow(rsq_arr.T, cmap=magma, vmin=0, vmax=0.9)
-    cbar2 = ax2.figure.colorbar(im2, ax=ax2, fraction=0.046, pad=0.04)
-    cbar2.ax.set_ylabel(r'$R_{' + subscript_dict[case_label] + '}^2$')
-
-    ax2.set_xticks(np.arange(n_lwc_vals))
-    ax2.set_yticks(np.arange(n_w_vals))
-    ax2.set_xticklabels(np.around(np.log10(lwc_filter_vals), 2))
-    ax2.set_yticklabels(np.around(w_filter_vals, 2))
-    ax2.set_xbound([-0.5, 6.5])
-    ax2.set_ybound([-0.5, -0.5 + n_w_vals])
-
-    ax2.set_xlabel('Min log(LWC) cutoff (kg/kg)')
-
-    fig.suptitle('Validity of QSS approximation vs data filtering scheme - WRF ' + case_label, y=0.8)
-
-    plt.tight_layout()
-    outfile = FIG_DIR + figversionstr + 'FINAL_from_data_regres_param_heatmaps_' \
-            + case_label + '_figure.png'
-    plt.savefig(outfile)
-    plt.close()    
+    make_and_save_combo_heatmap(dist_arr, lh_filt_arr, lh_tot_arr, case_label)
 
 def get_dist_arr(data_dict):
 
@@ -130,8 +83,17 @@ def get_dist_arr(data_dict):
             dist_arr += (1 - data_dict[key1][key2])**2.
 
     return np.sqrt(dist_arr)
+        
+def get_lh_data(case_label, data_dict):
 
-def make_and_save_dist_heatmap(dist_arr, case_label):
+    case_dict = data_dict[case_label]
+
+    lh_filt_arr = case_dict['lh_filt_arr']
+    lh_tot_arr = case_dict['lh_tot_arr']
+
+    return lh_filt_arr, lh_tot_arr 
+
+def make_and_save_combo_heatmap(dist_arr, lh_filt_arr, lh_tot_arr, case_label):
     """
     adapted from `Creating annotated heatmaps' matplotlib tutorial
     """
@@ -145,6 +107,19 @@ def make_and_save_dist_heatmap(dist_arr, case_label):
                             + '(1-m_{poll})^2 + (1-R_{poll}^2)^2}}}}}}}}}$')
     annotate_heatmap(im)
 
+    resolution = 75 
+
+    lh_frac_arr = lh_filt_arr/lh_tot_arr
+    f = lambda x,y: lh_frac_arr[int(y),int(x)]
+    g = np.vectorize(f)
+
+    x = np.linspace(0,lh_frac_arr.shape[1], lh_frac_arr.shape[1]*resolution)
+    y = np.linspace(0,lh_frac_arr.shape[0], lh_frac_arr.shape[0]*resolution)
+    X2, Y2= np.meshgrid(x[:-1],y[:-1])
+    Z2 = g(X2,Y2)
+
+    plt.contour(Y2-0.5,X2-0.5,Z2, [0.5], colors='w', linewidths=[10])
+
     ax.set_xticks(np.arange(n_lwc_vals))
     ax.set_yticks(np.arange(n_w_vals))
     ax.set_xticklabels(np.around(np.log10(lwc_filter_vals), 2))
@@ -157,7 +132,7 @@ def make_and_save_dist_heatmap(dist_arr, case_label):
 
     fig.suptitle('Validity of QSS approximation vs data \n filtering scheme - Combined', x=0.6, y=1)
 
-    outfile = FIG_DIR + figversionstr + 'FINAL_from_data_dist_heatmap_figure.png'
+    outfile = FIG_DIR + figversionstr + 'FINAL_from_data_combo_heatmap_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close()    
 

@@ -13,7 +13,7 @@ from revcaipeex.ss_qss_calculations import get_ss_vs_t, get_lwc
 
 #for plotting
 versionstr = 'v8_'
-matplotlib.rcParams.update({'font.size': 23})
+matplotlib.rcParams.update({'font.size': 12})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
@@ -112,7 +112,7 @@ def get_ss_qss_and_w_and_z_data(date):
 def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
-    fig.set_size_inches(18, 12)
+    #fig.set_size_inches(18, 12)
     n_pts = {'allpts': 0, 'up10perc': 0}
 
     for key in ss_qss_dict.keys():
@@ -130,8 +130,8 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
         avg_z = avg_z[notnan_inds]
         dz = dz[notnan_inds]
 
-        ax1.plot(avg_ss_qss, avg_z, linestyle='-', marker='o', \
-                color=color, linewidth=6, markersize=17)
+        ax1.plot(avg_ss_qss, avg_z, linestyle='-', marker='o', color=color)\
+                #color=color, linewidth=6, markersize=17)
         #ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
         #        facecolor=color, alpha=0.5)
         ax2.hist(z, bins=z_bins, density=False, orientation='horizontal', \
@@ -162,9 +162,11 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins):
                 str(n_allpts) + ')', 'Top 10% cloudy updrafts (N=' + \
                 str(n_up10perc) + ')'])
 
+    fig.suptitle('Supersaturation and area fraction vertical profiles - CAIPEEX')
+
     outfile = FIG_DIR + versionstr + \
         'FINAL_combined_bipanel_ss_qss_vs_z_figure.png'
-    plt.savefig(outfile)
+    plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
 def get_avg_ss_qss_and_z(ss_qss, z, z_bins):

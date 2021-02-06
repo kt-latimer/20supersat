@@ -17,7 +17,7 @@ from revmywrf.ss_qss_calculations import get_lwc
 #for plotting
 dataversionstr = 'v2_'
 figversionstr = 'v1_'
-matplotlib.rcParams.update({'font.size': 23})
+#matplotlib.rcParams.update({'font.size': 47})
 matplotlib.rcParams.update({'font.family': 'serif'})
 magma = cm.get_cmap('magma')
 rev_magma = cm.get_cmap('magma_r')
@@ -71,12 +71,12 @@ def get_data_from_dict(case_label, data_dict):
 def make_and_save_lh_frac_heatmap(lh_filt_arr, lh_tot_arr, case_label):
 
     fig, ax = plt.subplots()
-    fig.set_size_inches(30, 15)
+    #fig.set_size_inches(24, 18)
 
     lh_frac_arr = lh_filt_arr/lh_tot_arr
 
     im = ax.imshow(lh_frac_arr.T, cmap=rev_magma)
-    cbar = ax.figure.colorbar(im, ax=ax)
+    cbar = ax.figure.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
     cbar.ax.set_ylabel('LH fraction')
     
     resolution = 75 
@@ -101,11 +101,14 @@ def make_and_save_lh_frac_heatmap(lh_filt_arr, lh_tot_arr, case_label):
     ax.set_xlabel('Min log(LWC) cutoff (kg/kg)')
     ax.set_ylabel('Min w cutoff (m/s)')
 
+    fig.suptitle('Contribution to total condensational latent heating \n vs ' \
+                    'data filtering scheme - WRF ' + case_label, x=0.6)
+
     #annotate_heatmap(im)
 
     outfile = FIG_DIR + figversionstr + 'FINAL_from_data_lh_frac_heatmap_' \
             + case_label + '_figure.png'
-    plt.savefig(outfile)
+    plt.savefig(outfile, bbox_inches='tight')
     plt.close()    
 
 def annotate_heatmap(im):

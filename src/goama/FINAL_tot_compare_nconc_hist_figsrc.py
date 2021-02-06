@@ -12,7 +12,7 @@ from goama import DATA_DIR, FIG_DIR, SMPS_bins
 
 #for plotting
 versionstr = 'v1_'
-matplotlib.rcParams.update({'font.size': 23})
+#matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict = {'exp_fan_dates': colors_arr[3], 'exp_halo_dates': colors_arr[7],
@@ -106,7 +106,7 @@ def make_and_save_tot_nconc_hist(tot_nconc, tot_fan_nconc, date):
     print(np.nanmean(tot_fan_nconc))
 
     fig, ax = plt.subplots()
-    fig.set_size_inches(21, 12)
+    #fig.set_size_inches(21, 12)
     n, b, p = ax.hist(tot_nconc, bins=50, density=True, \
         alpha=0.5, label='HALO flight dates', \
         color=colors_dict['exp_halo_dates'])
@@ -115,19 +115,22 @@ def make_and_save_tot_nconc_hist(tot_nconc, tot_fan_nconc, date):
                 color=colors_dict['exp_fan_dates'])
     ylim = ax.get_ylim()
     ax.plot([130, 130], ylim, linestyle='--', \
-            color=colors_dict['fan_model'], linewidth=4, \
-            label='Unpolluted model scenario')
+            color=colors_dict['fan_model'], \
+            #color=colors_dict['fan_model'], linewidth=4, \
+            label='WRF Unpolluted')
     ax.plot([950, 950], ylim, linestyle=':', \
-            color=colors_dict['fan_model'], linewidth=4, \
-            label='Polluted model scenario')
+            color=colors_dict['fan_model'], \
+            #color=colors_dict['fan_model'], linewidth=4, \
+            label='WRF Polluted')
 
     ax.set_xlabel(r'Total SMPS number concentration (cm$^{-3}$)')
     ax.set_ylabel(r'$\frac{dn_{points}}{dN}$ (cm$^3$)')
-    fig.legend()
+    ax.legend()
+    fig.suptitle('Aerosol concentration distributions - 11.1-469.8 nm')
 
     outfile = FIG_DIR + versionstr + 'FINAL_tot_compare_nconc_hist_' \
             + date + '_figure.png'
-    plt.savefig(outfile)
+    plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
 if __name__ == "__main__":

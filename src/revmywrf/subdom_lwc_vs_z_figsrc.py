@@ -18,6 +18,11 @@ colors_arr = cm.get_cmap('magma', 10).colors
 
 lwc_filter_val = 1.e-4
 w_cutoff = 1 
+lon_min = -60.79
+lat_min = -3.28
+lon_max = -60.47
+lat_max = -2.86
+R_e = 6.3781e6 #radius of Earth (m)
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
@@ -63,6 +68,12 @@ def get_case_data(case_label):
     lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
     temp = met_vars['temp'][...]
     w = met_vars['w'][...]
+    x = met_vars['x'][...]
+    lon = x*180./np.pi*1./R_e
+    lon = np.transpose(np.tile(lon, [66, 1, 1, 1]), [1, 0, 2, 3])
+    y = met_vars['y'][...]
+    lat = y*180./np.pi*1./R_e
+    lat = np.transpose(np.tile(lat, [66, 1, 1, 1]), [1, 0, 2, 3])
     z = met_vars['z'][...]
 
     #close files for memory
@@ -74,14 +85,20 @@ def get_case_data(case_label):
     filter_inds = np.logical_and.reduce((
                     #(lwc > lwc_filter_val), \
                     (w > w_cutoff), \
+                    (lon > lon_min), \
+                    (lat > lat_min), \
+                    (lon < lon_max), \
+                    (lat < lat_max), \
                     (temp > 273)))
+
+    del lat, lon, temp, w #for memory
 
     lwc = lwc[filter_inds]
     z = z[filter_inds]
 
     avg_lwc, avg_z = get_avg_lwc_and_z(lwc, z, z_bins)
 
-    del lwc, temp, w, z #for memory
+    del lwc, z #for memory
 
     return avg_lwc, avg_z, z_bins
 
@@ -94,9 +111,10 @@ def make_and_save_lwc_vs_z_plot(avg_lwc, avg_z, z_bins, case_label, versionstr):
     ax.set_xlabel(r'Avg LWC (kg/kg)')
     ax.set_ylabel(r'z (m)')
 
-    fig.suptitle('LWC vertical profile - WRF ' + case_label)
+    fig.suptitle('LWC vertical profile - WRF ' + case_label \
+                    + '\n (Restricted to horizontal subdomain from [1])')
 
-    outfile = FIG_DIR + versionstr + 'lwc_vs_z_' + case_label + '_figure.png'
+    outfile = FIG_DIR + versionstr + 'subdom_lwc_vs_z_' + case_label + '_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 

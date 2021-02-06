@@ -12,7 +12,7 @@ from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
 versionstr = 'v2_'
-matplotlib.rcParams.update({'font.size': 23})
+#matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict = {'poll': colors_arr[1], \
@@ -219,25 +219,28 @@ def make_and_save_dT_prof(dT_polluted, dT_unpolluted, z_polluted, \
                             z_caipeex, versionstr):
 
     fig, ax = plt.subplots()
-    fig.set_size_inches(21, 12)
+    #fig.set_size_inches(21, 12)
 
     ax.plot(dT_polluted, z_polluted, color=colors_dict['poll'], \
-            linewidth=6, label='WRF - polluted')
+            label='WRF Polluted') \
+            #linewidth=6, label='WRF - polluted')
     ax.plot(dT_unpolluted, z_unpolluted, color=colors_dict['unpoll'], \
-            linewidth=6, label='WRF - unpolluted')
+            label='WRF Unpolluted') \
+            #linewidth=6, label='WRF - unpolluted')
     ax.plot(dT_halo, z_halo, color=colors_dict['halo'], \
-            linestyle='-', marker='o', markersize=17, \
-            linewidth=6, label='HALO')
+            linestyle='-', marker='o', label='HALO') \
+            #linewidth=6, markersize=17)
     ax.plot(dT_caipeex, z_caipeex, color=colors_dict['caipeex'], \
-            linestyle='-', marker='o', markersize=17, \
-            linewidth=6, label='CAIPEEX')
+            linestyle='-', marker='o', label='CAIPEEX') \
+            #linewidth=6, markersize=17)
 
     ax.set_xlabel(r'$\delta T$ (K)')
     ax.set_ylabel(r'z (m)')
     plt.legend()
+    fig.suptitle('Buoyancy profiles derived from simple parcel model')
 
     outfile = FIG_DIR + versionstr + 'FINAL_combined_dT_profile_figure.png'
-    plt.savefig(outfile)
+    plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
 def get_z_bins(z):

@@ -14,7 +14,7 @@ from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
 versionstr = 'v1_'
-matplotlib.rcParams.update({'font.size': 23})
+#matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
@@ -141,7 +141,7 @@ def make_and_save_dT_profile(pres_dict, temp_dict, ss_qss_dict, \
                             w_dict, z_dict, z_bins_dict, label):
 
     fig, ax = plt.subplots()
-    fig.set_size_inches(10, 12)
+    #fig.set_size_inches(10, 12)
     linestyle_str_dict = {'Polluted': '-', 'Unpolluted': '--'}
 
     for case_label in case_label_dict.keys():

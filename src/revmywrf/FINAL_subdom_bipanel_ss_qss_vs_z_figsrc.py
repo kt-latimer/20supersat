@@ -15,8 +15,8 @@ from revmywrf import DATA_DIR, FIG_DIR
 from revmywrf.ss_qss_calculations import get_lwc, get_ss, linregress
 
 #for plotting
-versionstr = 'v3_'
-matplotlib.rcParams.update({'font.size': 23})
+versionstr = 'v4_'
+#matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 
@@ -130,7 +130,7 @@ def get_ss_qss_and_z_data(case_label):
 def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, label):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
-    fig.set_size_inches(18, 12)
+    #fig.set_size_inches(18, 12)
     linestyle_str_dict = {'Polluted': '-', 'Unpolluted': '--'}
 
     for case_label in case_label_dict.keys():
@@ -152,13 +152,15 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
         #ax1.fill_betweenx(avg_z, avg_ss_qss + se, avg_ss_qss - se, \
         #                                color=magma_pink, alpha=0.4)
         ax1.plot(avg_ss_qss, avg_z, linestyle=linestyle_str, \
-                color=color, linewidth=6, label=case_label) 
+                color=color, label=case_label) 
+                #color=color, linewidth=6, label=case_label) 
         #make histogram with area fraction
         n_xyt = 450*450*84 #cheat code for number of points per altitude slice 
         (counts, bins) = np.histogram(z, bins=z_bins, density=False)
         ax2.hist(z_bins[:-1], bins=z_bins, weights=counts/n_xyt, \
                 orientation='horizontal', facecolor=(0, 0, 0, 0.0), \
-                edgecolor=color, histtype='stepfilled', linewidth=6, \
+                edgecolor=color, histtype='stepfilled', \
+                #edgecolor=color, histtype='stepfilled', linewidth=6, \
                 linestyle=linestyle_str, label=case_label)
         #ax2.hist(z, bins=z_bins, density=True, orientation='horizontal', \
         #        facecolor=(0, 0, 0, 0.0), edgecolor=color, \
@@ -179,16 +181,23 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
     formatter.set_powerlimits((-1,1)) 
     ax2.xaxis.set_major_formatter(formatter)
 
+    handles, labels = ax1.get_legend_handles_labels()
+    plt.legend(handles=handles, labels=labels, \
+                bbox_to_anchor=(1.04,1), borderaxespad=0)
+
     #custom legend
-    poll_line = Line2D([0], [0], color=color, \
-                        linewidth=6, linestyle='-')
-    unpoll_line = Line2D([0], [0], color=color, \
-                        linewidth=6, linestyle='--')
-    ax2.legend([poll_line, unpoll_line], ['Polluted', 'Unpolluted'])
+    #poll_line = Line2D([0], [0], color=color, linestyle='-')\
+    #                    #linewidth=6, linestyle='-')
+    #unpoll_line = Line2D([0], [0], color=color, linestyle='--')\
+    #                    #linewidth=6, linestyle='-')
+    #ax2.legend([poll_line, unpoll_line], ['Polluted', 'Unpolluted'])
+    
+    fig.suptitle('Supersaturation and area fraction vertical profiles - WRF ' + case_label \
+                    + '\n (Restricted to horizontal subdomain from [1])')
 
     outfile = FIG_DIR + versionstr + 'FINAL_subdom_bipanel_ss_qss_vs_z_' \
             + label + '_figure.png'
-    plt.savefig(outfile)
+    plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
 def get_z_bins(z):

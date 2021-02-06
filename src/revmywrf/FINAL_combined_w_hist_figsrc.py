@@ -14,7 +14,7 @@ from revmywrf.ss_qss_calculations import get_lwc
 
 #for plotting
 versionstr = 'v3_'
-matplotlib.rcParams.update({'font.size': 23})
+#matplotlib.rcParams.update({'font.size': 23})
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors = [colors_arr[1], colors_arr[3], colors_arr[5], colors_arr[7]]
@@ -110,22 +110,23 @@ def make_and_save_w_hist(w_polluted, w_unpolluted, w_halo, \
                             incl_rain, incl_vent, versionstr):
 
     fig, ax = plt.subplots()
-    fig.set_size_inches(21, 12)
+    #fig.set_size_inches(21, 12)
     n_wrf, bins_wrf, patches_wrf = ax.hist(w_polluted, bins=30, \
-            density=True, label='WRF - polluted', \
+            density=True, label='WRF Polluted', \
             facecolor=(0, 0, 0, 0.0), edgecolor=colors[0], \
-            histtype='stepfilled', linewidth=4)
+            histtype='stepfilled', linewidth=3)
     ax.hist(w_unpolluted, bins=bins_wrf, density=True, \
-            label='WRF - unpolluted', facecolor=(0, 0, 0, 0.0), \
-            edgecolor=colors[1], histtype='stepfilled', linewidth=4) 
+            label='WRF Unpolluted', facecolor=(0, 0, 0, 0.0), \
+            edgecolor=colors[1], histtype='stepfilled', linewidth=3) 
     ax.hist(w_halo, bins=bins_wrf, density=True, label='HALO', \
             facecolor=(0, 0, 0, 0.0), edgecolor=colors[2], \
-            histtype='stepfilled', linewidth=4)
+            histtype='stepfilled', linewidth=3)
     ax.hist(w_caipeex, bins=bins_wrf, density=True, label='CAIPEEX', \
             facecolor=(0, 0, 0, 0.0), edgecolor=colors[3], \
-            histtype='stepfilled', linewidth=4)
+            histtype='stepfilled', linewidth=3)
     ax.set_xlabel('w (m/s)')
     ax.set_ylabel(r'$\frac{dn_{points}}{dw}$ (s/m)')
+    fig.suptitle('Vertical wind velocity distributions')
     plt.legend()
 
     outfile = FIG_DIR + versionstr + 'FINAL_combined_w_hist_figure.png'
