@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/revmywrf/FINAL_ss_wrf_distbs_figsrc.py

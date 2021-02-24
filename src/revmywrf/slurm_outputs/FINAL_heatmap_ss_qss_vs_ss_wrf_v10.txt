@@ -62,3 +62,9 @@ Number of points in Q4: 29088
 
 Domain: 0.10539242439413672 45.558524915137916
 Range: -10.896954 29.956388
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 84
+    continue
+    ^
+SyntaxError: 'continue' not properly in loop
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc

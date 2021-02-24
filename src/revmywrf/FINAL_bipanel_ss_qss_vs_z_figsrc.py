@@ -181,7 +181,7 @@ def make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict, z_dict, z_bins_dict, color, l
     #                    #linewidth=6, linestyle='-')
     #ax2.legend([poll_line, unpoll_line], ['Polluted', 'Unpolluted'])
 
-    fig.suptitle('Supersaturation and area fraction vertical profiles - WRF ' + case_label)
+    fig.suptitle('Supersaturation and area fraction vertical profiles - WRF')
 
     outfile = FIG_DIR + versionstr + 'FINAL_bipanel_ss_qss_vs_z_' \
             + label + '_figure.png'

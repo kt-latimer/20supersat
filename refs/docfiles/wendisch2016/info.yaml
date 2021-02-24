@@ -1,0 +1,435 @@
+abstract: "<jats:title>Abstract</jats:title>\n               <jats:p>Between 1 September\
+  \ and 4 October 2014, a combined airborne and ground-based measurement campaign\
+  \ was conducted to study tropical deep convective clouds over the Brazilian Amazon\
+  \ rain forest. The new German research aircraft, High Altitude and Long Range Research\
+  \ Aircraft (HALO), a modified Gulfstream G550, and extensive ground-based instrumentation\
+  \ were deployed in and near Manaus (State of Amazonas). The campaign was part of\
+  \ the German–Brazilian Aerosol, Cloud, Precipitation, and Radiation Interactions\
+  \ and Dynamics of Convective Cloud Systems–Cloud Processes of the Main Precipitation\
+  \ Systems in Brazil: A Contribution to Cloud Resolving Modeling and to the GPM (Global\
+  \ Precipitation Measurement) (ACRIDICON– CHUVA) venture to quantify aerosol–cloud–precipitation\
+  \ interactions and their thermodynamic, dynamic, and radiative effects by in situ\
+  \ and remote sensing measurements over Amazonia. The ACRIDICON–CHUVA field observations\
+  \ were carried out in cooperation with the second intensive operating period of\
+  \ Green Ocean Amazon 2014/15 (GoAmazon2014/5). In this paper we focus on the airborne\
+  \ data measured on HALO, which was equipped with about 30 in situ and remote sensing\
+  \ instruments for meteorological, trace gas, aerosol, cloud, precipitation, and\
+  \ spectral solar radiation measurements. Fourteen research flights with a total\
+  \ duration of 96 flight hours were performed. Five scientific topics were pursued:\
+  \ 1) cloud vertical evolution and life cycle (cloud profiling), 2) cloud processing\
+  \ of aerosol particles and trace gases (inflow and outflow), 3) satellite and radar\
+  \ validation (cloud products), 4) vertical transport and mixing (tracer experiment),\
+  \ and 5) cloud formation over forested/deforested areas. Data were collected in\
+  \ near-pristine atmospheric conditions and in environments polluted by biomass burning\
+  \ and urban emissions. The paper presents a general introduction of the ACRIDICON–\
+  \ CHUVA campaign (motivation and addressed research topics) and of HALO with its\
+  \ extensive instrument package, as well as a presentation of a few selected measurement\
+  \ results acquired during the flights for some selected scientific topics.</jats:p>"
+author: Wendisch, Manfred and Pöschl, Ulrich and Andreae, Meinrat O. and Machado,
+  Luiz A. T. and Albrecht, Rachel and Schlager, Hans and Rosenfeld, Daniel and Martin,
+  Scot T. and Abdelmonem, Ahmed and Afchine, Armin and Araùjo, Alessandro C. and Artaxo,
+  Paulo and Aufmhoff, Heinfried and Barbosa, Henrique M. J. and Borrmann, Stephan
+  and Braga, Ramon and Buchholz, Bernhard and Cecchini, Micael Amore and Costa, Anja
+  and Curtius, Joachim and Dollner, Maximilian and Dorf, Marcel and Dreiling, Volker
+  and Ebert, Volker and Ehrlich, André and Ewald, Florian and Fisch, Gilberto and
+  Fix, Andreas and Frank, Fabian and Fütterer, Daniel and Heckl, Christopher and Heidelberg,
+  Fabian and Hüneke, Tilman and Jäkel, Evelyn and Järvinen, Emma and Jurkat, Tina
+  and Kanter, Sandra and Kästner, Udo and Kenntner, Mareike and Kesselmeier, Jürgen
+  and Klimach, Thomas and Knecht, Matthias and Kohl, Rebecca and Kölling, Tobias and
+  Krämer, Martina and Krüger, Mira and Krisna, Trismono Candra and Lavric, Jost V.
+  and Longo, Karla and Mahnke, Christoph and Manzi, Antonio O. and Mayer, Bernhard
+  and Mertes, Stephan and Minikin, Andreas and Molleker, Sergej and Münch, Steffen
+  and Nillius, Björn and Pfeilsticker, Klaus and Pöhlker, Christopher and Roiger,
+  Anke and Rose, Diana and Rosenow, Dagmar and Sauer, Daniel and Schnaiter, Martin
+  and Schneider, Johannes and Schulz, Christiane and de Souza, Rodrigo A. F. and Spanu,
+  Antonio and Stock, Paul and Vila, Daniel and Voigt, Christiane and Walser, Adrian
+  and Walter, David and Weigel, Ralf and Weinzierl, Bernadett and Werner, Frank and
+  Yamasoe, Marcia A. and Ziereis, Helmut and Zinner, Tobias and Zöger, Martin
+author_list:
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Wendisch
+  given: Manfred
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Pöschl
+  given: Ulrich
+- affiliation:
+  - name: Biogeochemistry Department, Max Planck Institute for Chemistry, Mainz, Germany
+  family: Andreae
+  given: Meinrat O.
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Machado
+  given: Luiz A. T.
+- affiliation:
+  - name: Departamento de Ciências Atmosféricas, Instituto de Astronomia, Geofísica
+      e Ciências Atmosféricas, Universidade de São Paulo, São Paulo, Brazil
+  family: Albrecht
+  given: Rachel
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Schlager
+  given: Hans
+- affiliation:
+  - name: Program of Atmospheric Sciences, Institute of Earth Sciences, The Hebrew
+      University of Jerusalem, Jerusalem, Israel
+  family: Rosenfeld
+  given: Daniel
+- affiliation:
+  - name: School of Engineering and Applied Sciences, Harvard University, Cambridge,
+      Massachusetts
+  family: Martin
+  given: Scot T.
+- affiliation:
+  - name: Institute of Meteorology and Climate Research, Karlsruhe Institute of Technology,
+      Karlsruhe, Germany
+  family: Abdelmonem
+  given: Ahmed
+- affiliation:
+  - name: Forschungszentrum Jülich (FZJ), Jülich, Germany
+  family: Afchine
+  given: Armin
+- affiliation:
+  - name: Empresa Brasileira de Pesquisa Agropecuária (EMBRAPA), Belém, Brazil
+  family: Araùjo
+  given: Alessandro C.
+- affiliation:
+  - name: Instituto de Física, Universidade de São Paulo, São Paulo, Brazil
+  family: Artaxo
+  given: Paulo
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Aufmhoff
+  given: Heinfried
+- affiliation:
+  - name: Instituto de Física, Universidade de São Paulo, São Paulo, Brazil
+  family: Barbosa
+  given: Henrique M. J.
+- affiliation:
+  - name: Particle Chemistry Department, Max Planck Institute for Chemistry, and Institut
+      für Physik der Atmosphäre, Johannes Gutenberg-Universität Mainz, Mainz, Germany
+  family: Borrmann
+  given: Stephan
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Braga
+  given: Ramon
+- affiliation:
+  - name: Physikalisch-Technische Bundesanstalt, Braunschweig, Germany
+  family: Buchholz
+  given: Bernhard
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Cecchini
+  given: Micael Amore
+- affiliation:
+  - name: Forschungszentrum Jülich (FZJ), Jülich, Germany
+  family: Costa
+  given: Anja
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Curtius
+  given: Joachim
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, and Institut
+      für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt (DLR),
+      Oberpfaffenhofen, Germany
+  family: Dollner
+  given: Maximilian
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Dorf
+  given: Marcel
+- affiliation:
+  - name: Flugexperimente, Deutsches Zentrum für Luft- und Raumfahrt (DLR), Oberpfaffenhofen,
+      Germany
+  family: Dreiling
+  given: Volker
+- affiliation:
+  - name: Physikalisch-Technische Bundesanstalt, Braunschweig, Germany
+  family: Ebert
+  given: Volker
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Ehrlich
+  given: André
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, Germany
+  family: Ewald
+  given: Florian
+- affiliation:
+  - name: Departamento de Ciência e Tecnologia Aeroespacial, Instituto de Aeronaútica
+      e Espaço, São José dos Campos, Brazil
+  family: Fisch
+  given: Gilberto
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Fix
+  given: Andreas
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Frank
+  given: Fabian
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Fütterer
+  given: Daniel
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Heckl
+  given: Christopher
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Heidelberg
+  given: Fabian
+- affiliation:
+  - name: Institut für Umweltphysik (IUP), Universität Heidelberg, Heidelberg, Germany
+  family: Hüneke
+  given: Tilman
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Jäkel
+  given: Evelyn
+- affiliation:
+  - name: Institute of Meteorology and Climate Research, Karlsruhe Institute of Technology,
+      Karlsruhe, Germany
+  family: Järvinen
+  given: Emma
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Jurkat
+  given: Tina
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Kanter
+  given: Sandra
+- affiliation:
+  - name: Leibniz-Institut für Troposphärenforschung (TROPOS), Leipzig, Germany
+  family: Kästner
+  given: Udo
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Kenntner
+  given: Mareike
+- affiliation:
+  - name: Biogeochemistry Department, Max Planck Institute for Chemistry, Mainz, Germany
+  family: Kesselmeier
+  given: Jürgen
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Klimach
+  given: Thomas
+- affiliation:
+  - name: Institut für Umweltphysik (IUP), Universität Heidelberg, Heidelberg, Germany
+  family: Knecht
+  given: Matthias
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Kohl
+  given: Rebecca
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, Germany
+  family: Kölling
+  given: Tobias
+- affiliation:
+  - name: Forschungszentrum Jülich (FZJ), Jülich, Germany
+  family: Krämer
+  given: Martina
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Krüger
+  given: Mira
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Krisna
+  given: Trismono Candra
+- affiliation:
+  - name: Max Planck Institute for Biogeochemistry, Jena, Germany
+  family: Lavric
+  given: Jost V.
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Longo
+  given: Karla
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Johannes Gutenberg-Universität Mainz,
+      Mainz, Germany
+  family: Mahnke
+  given: Christoph
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais da Amazônia (INPA), Clima e Ambiente
+      (CLIAMB), Manaus, Brazil
+  family: Manzi
+  given: Antonio O.
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, Germany
+  family: Mayer
+  given: Bernhard
+- affiliation:
+  - name: Leibniz-Institut für Troposphärenforschung (TROPOS), Leipzig, Germany
+  family: Mertes
+  given: Stephan
+- affiliation:
+  - name: Flugexperimente, Deutsches Zentrum für Luft- und Raumfahrt (DLR), Oberpfaffenhofen,
+      Germany
+  family: Minikin
+  given: Andreas
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Johannes Gutenberg-Universität Mainz,
+      Mainz, Germany
+  family: Molleker
+  given: Sergej
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Münch
+  given: Steffen
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Nillius
+  given: Björn
+- affiliation:
+  - name: Institut für Umweltphysik (IUP), Universität Heidelberg, Heidelberg, Germany
+  family: Pfeilsticker
+  given: Klaus
+- affiliation:
+  - name: Biogeochemistry Department, Max Planck Institute for Chemistry, Mainz, Germany
+  family: Pöhlker
+  given: Christopher
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Roiger
+  given: Anke
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Rose
+  given: Diana
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Rosenow
+  given: Dagmar
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, and Institut
+      für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt (DLR),
+      Oberpfaffenhofen, Germany
+  family: Sauer
+  given: Daniel
+- affiliation:
+  - name: Institute of Meteorology and Climate Research, Karlsruhe Institute of Technology,
+      Karlsruhe, Germany
+  family: Schnaiter
+  given: Martin
+- affiliation:
+  - name: Particle Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Schneider
+  given: Johannes
+- affiliation:
+  - name: Particle Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Schulz
+  given: Christiane
+- affiliation:
+  - name: Departamento de Meteorologia, Universidade do Estado do Amazonas, Manaus,
+      Amazonas, Brazil
+  family: de Souza
+  given: Rodrigo A. F.
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Spanu
+  given: Antonio
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Stock
+  given: Paul
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Vila
+  given: Daniel
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, and Institut für Physik der Atmosphäre, Johannes Gutenberg-Universität
+      Mainz, Mainz, Germany
+  family: Voigt
+  given: Christiane
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, and Institut
+      für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt (DLR),
+      Oberpfaffenhofen, Germany
+  family: Walser
+  given: Adrian
+- affiliation:
+  - name: Biogeochemistry Department, Max Planck Institute for Chemistry, Mainz, Germany
+  family: Walter
+  given: David
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Johannes Gutenberg-Universität Mainz,
+      Mainz, Germany
+  family: Weigel
+  given: Ralf
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, and Institut
+      für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt (DLR),
+      Oberpfaffenhofen, Germany
+  family: Weinzierl
+  given: Bernadett
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Werner
+  given: Frank
+- affiliation:
+  - name: Departamento de Ciências Atmosféricas, Instituto de Astronomia, Geofísica
+      e Ciências Atmosféricas, Universidade de São Paulo, São Paulo, Brazil
+  family: Yamasoe
+  given: Marcia A.
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Ziereis
+  given: Helmut
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, Germany
+  family: Zinner
+  given: Tobias
+- affiliation:
+  - name: Flugexperimente, Deutsches Zentrum für Luft- und Raumfahrt (DLR), Oberpfaffenhofen,
+      Germany
+  family: Zöger
+  given: Martin
+doc_url: http://journals.ametsoc.org/bams/article-pdf/97/10/1885/3934821/bams-d-14-00255_1.pdf
+doi: 10.1175/bams-d-14-00255.1
+files:
+- tmpdqbpxqc2.data
+issue: '10'
+journal: Bulletin of the American Meteorological Society
+language: en
+month: 10
+pages: 1885--1908
+publisher: American Meteorological Society
+title: 'ACRIDICON–CHUVA Campaign: Studying Tropical Deep Convective Clouds and Precipitation
+  over Amazonia Using the New German Research Aircraft HALO'
+type: article
+url: http://dx.doi.org/10.1175/bams-d-14-00255.1
+volume: '97'
+year: 2016

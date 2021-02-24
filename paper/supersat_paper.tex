@@ -14,9 +14,9 @@
 \usepackage[counterclockwise]{rotating}
 \graphicspath{{../figures/}}
 
-\title{Paper draft v1.6 for supersat project}
+\title{Paper draft v1.7 for supersat project}
 \author{K. Latimer}
-\date{Feb 5, 2020}
+\date{Feb ???, 2020}
 
 \newcommand{\drcomm}[1]{\textcolor{blue}{\textit{#1}}}
 \newcommand{\klcomm}[1]{\textcolor{red}{\textit{#1}}}
@@ -64,7 +64,7 @@ In their paper (see for example Figure 2(b) of that work), Fan et al provide ane
 
 While Fan et al do not offer any proof based on experimental data that such high SS exist in the convection setting the environmental lapse rate, they do observe comparable values in numerical simulations. In particular, using the Weather Research and Forcasting (WRF) model to simulate pristine (no UAP$_{<50}$) conditions in the Amazon Rainforest, they find (horizontally- and time-averaged) SS in convective cores of up to 15\%.
 
-Since this is well above what is typically reported or assumed in the literature \cite{Hoppel1996, Yang2019, Koike2012, Politovich1988, Moteki2019, Siebert2017, Shen2018, Hammer2014, Li2019}, we seek in this paper to determine if we can find experimental evidence for O(10\%) SS in nature. We use data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in and around Manaus, Brazil in 2014-15), as well as from the first phase of the Cloud Aerosol Interaction and Precipitation Enhancement EXperiment (CAIPEEX) in India (taken in June [around Hyderabad] and August [around Bareilly] 2009) \cite{???, Kulkarni2012} as a dataset of opportunity.
+Since this is well above what is typically reported or assumed in the literature \cite{Hoppel1996, Yang2019, Koike2012, Politovich1988, Moteki2019, Siebert2017, Shen2018, Hammer2014, Li2019}, we seek in this paper to determine if we can find experimental evidence for O(10\%) SS in nature. We use data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in and around Manaus, Brazil in 2014-15), as well as from the first phase of the Cloud Aerosol Interaction and Precipitation Enhancement EXperiment (CAIPEEX) in India (taken in June [around Hyderabad] and August [around Bareilly] 2009) \cite{Wendisch2016, Kulkarni2012} as a dataset of opportunity.
 
 \section{Data Analysis and Results}
 
@@ -89,22 +89,12 @@ In Figure \ref{comboheatmap} we synthesize the data needed to take all three of 
     \label{comboheatmap}
 \end{figure}
 
-Figure \ref{wrfvsqss} shows a scatterplot with the agreement between the actual and QSS-derived SS values in the WRF simulation, for points satisfying the above criteria.
-
+We would like to further quantify the spread of true SS values for a given value predicted by the QSS approximation. In Figure \ref{wrfquantiles}, we plot a range of quantiles for the true SS given the predicted SS, using the polluted and unpolluted data sets combined (see Table \ref{lsrtable} for details on the regression parameters for each case). 
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v10_FINAL_heatmap_ss_qss_vs_ss_wrf_Unpolluted_figure.png}
-		\caption{Unpolluted case.}
-		\label{wrfvsqssunpoll}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{revmywrf/v10_FINAL_heatmap_ss_qss_vs_ss_wrf_Polluted_figure.png}
-		\caption{Polluted case.}
-		\label{wrfvsqsspoll}
-	\end{subfigure}
-	\caption{Plot of $SS_{QSS}$ versus $SS_{WRF}$ using the filtering scheme described in the main text. Dashed line shows the fit from least-squares linear regression. Color denotes the density of data points; note the scale is logarithmic in this figure. This plot shows that the QSS approximation gives values well-correlated with the true SS, though it systematically overestimates them. We also see that the high observed values (O($10\%$)) of $SS_{WRF}$ and $SS_{QSS}$ occur relatively infrequently in both polluted and unpolluted model cases.}
-	\label{wrfvsqss}
+	\includegraphics[width=\textwidth]{revmywrf/v1_FINAL_ss_wrf_quantiles_figure.png}
+	\caption{This figure shows the spread of true SS values for a given value predicted by the QSS approximation, using the combined WRF output from both polluted and unpolluted models. Each curve follows a fixed quantile (labeled on the figure) across the domain of predicted SS values for the range of actual SS. The quantiles are calculated with a 0.01-wide moving window centered on the respective predicted value. We see that the actual SS hew closely enough to the predicted SS that a high predicted SS guarantees a high actual SS, and vice versa. Up to about a QSS SS of 0.1, the median actual SS is, to good approximation, equal to the predicted SS. From this plot we can simply read off the confidence level of our lower bound on actual SS; for example, for a single predicted SS of 0.1, there is 95\% confidence that actual SS $<$ 0.14.}
+	\label{wrfquantiles}
 \end{figure}
 
 In their analysis, Fan et al use the following filtering criteria:
@@ -134,7 +124,7 @@ Because we use slightly different filtering criteria than that described above, 
 \clearpage
 \newpage
 
-We now seek to determine whether such high values actually occur in nature. First we look at data from the HALO flights in September and October of 2014 (see Methods/SI for details on selection of dates for this analysis) [\todo{find citation}]. Figure \ref{halobipanel} shows the analogue of Figure \ref{wrfbipanel} using data from all HALO flight dates combined. We find no points with average SS above 1 \%, even when limiting to the strongest updrafts in the combined dataset.
+We now seek to determine whether such high values actually occur in nature. First we look at data from the HALO flights in September and October of 2014 (see Methods/SI for details on selection of dates for this analysis) \cite{Wendisch2016}. Figure \ref{halobipanel} shows the analogue of Figure \ref{wrfbipanel} using data from all HALO flight dates combined. We find no points with average SS above 1 \%, even when limiting to the strongest updrafts in the combined dataset.
 
 \begin{figure}[ht]
     \centering
@@ -238,7 +228,25 @@ B(T) &= D
 \end{align}
 Figure \ref{wrfvsqssv2} shows that this form does not yield as good of agreement with the actual SS reported in WRF.
 
-We use the expressions given in \cite{Pruppacher2010} and \cite{Rogers1989} for ventilation corrections, which are quite extensive. Full formulae are contained in the analysis code at \href{https://github.com/kt-latimer/20supersat}{this GitHub repo} [\klcomm{will need to clean this up}]. Figures \ref{wrfvsqssv3} and \ref{wrfvsqssv5} show, respectively, the effects of neglecting these corrections (i.e. setting $f(r)=1$ for all $r$) for rain drops (defined here as liquid water drops with diameter greater than 50 $\mu$m), and omitting rain drops altogether from the calculations of mean radius and number concentration.
+We use the expressions given in \cite{Pruppacher2010} and \cite{Rogers1989} for the ventilation factor $f(r)$ that is used as a weighting function to compute mean drop radius for a given size distribution:
+\[ f(r) =  
+  \begin{cases} 
+      1 + 0.086N_{Re}(r) & N_{Re}(r) < 2.46 \\
+      0.78 + 0.27N_{Re}(r)^{1/2} & N_{Re}(r) \geq 2.46
+   \end{cases}
+\]
+Where $N_{Re}(r)$ is the Reynold's number given by:
+\begin{equation}
+N_{Re}(r) = \frac{2 \rho_{a} r u_{term}(r)}{\eta}
+\end{equation}
+The terminal velocity $u_{term}(r)$ is given by:
+\[ u_{term}(r) =  
+  \begin{cases} 
+      (1 + 1.26\frac{\lambda}{r})\frac{2r^2g\rho_w\eta}{9} & r <= 10 \mu m \\
+      0.78 + 0.27N_{Re}(r)^{1/2} & N_{Re}(r) \geq 2.46
+   \end{cases}
+\]
+Figures \ref{wrfvsqssv3} and \ref{wrfvsqssv5} show, respectively, the effects of neglecting these corrections (i.e. setting $f(r)=1$ for all $r$) for rain drops (defined here as liquid water drops with diameter greater than 50 $\mu$m), and omitting rain drops altogether from the calculations of mean radius and number concentration.
 
 
 \begin{figure}[ht]

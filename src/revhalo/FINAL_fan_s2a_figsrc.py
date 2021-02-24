@@ -10,7 +10,6 @@ import numpy as np
 import sys
 
 from revhalo import DATA_DIR, FIG_DIR, PCASP_bins, UHSAS_bins, UHSAS2_bins
-from revhalo.ss_qss_calculations import get_lwc_from_cas
 from revhalo.utils import linregress
 
 #for plotting
