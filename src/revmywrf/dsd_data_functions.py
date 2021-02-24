@@ -58,7 +58,7 @@ def get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, N_P, pres, rho_air, temp):
     """
     if r <= 10.e-6:
         lam = 6.6e-8*(10132.5/pres)*(temp/293.15)
-        u_term = (1 + 1.26*lam/r)*(2*r**2.*g*rho_w/9*eta)
+        u_term = (1 + 1.26*lam/r)*(2*r**2.*g*rho_w/(9*eta))
     elif r <= 535.e-6:
         N_Be = N_Be_div_r3*r**3.
         X = np.log(N_Be)

@@ -44,7 +44,6 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
                                 cutoff_bins, full_ss, \
                                 incl_rain, incl_vent, versionstr):
 
-    data_dict = {'SS_QSS': None, 'SS_WRF': None}
     #get met file variables 
     met_file = Dataset(DATA_DIR + case_dir_name + \
                                 'wrfout_d01_met_vars', 'r')
@@ -73,14 +72,16 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
                     (w > w_cutoff), \
                     (temp > 273)))
 
-    ss_qss = ss_qss[filter_inds]
-    ss_wrf = ss_wrf[filter_inds]
+    ss_qss = ss_qss[filter_inds].filled()
+    ss_wrf = ss_wrf[filter_inds].filled()
 
-    data_dict['SS_QSS'] = ss_qss
-    data_dict['SS_WRF'] = ss_wrf
-    datafile = DATA_DIR + versionstr + 'FINAL_heatmap_ss_qss_vs_ss_wrf_' \
-            + case_label + '_data.npy'
-    np.save(datafile, data_dict)
+    datafile_qss = DATA_DIR + versionstr + 'ss_qss_' + case_label + '_data'
+    f_qss = open(datafile_qss, 'bw')
+    ss_qss.tofile(f_qss)
+
+    datafile_wrf = DATA_DIR + versionstr + 'ss_wrf_' + case_label + '_data'
+    f_wrf = open(datafile_wrf, 'bw')
+    ss_wrf.tofile(f_wrf)
     return 
 
     m, b, R, sig = linregress(ss_qss, ss_wrf)

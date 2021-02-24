@@ -19,8 +19,9 @@ def combine_dsdsum_files(case_label, case_dir_name):
 
     #make output file
     output_file = Dataset(DATA_DIR + case_dir_name \
-                    + 'wrfout_d01_all_dsdsum_vars', 'w')
+                    #+ 'wrfout_d01_all_dsdsum_vars', 'w')
                     #+ 'wrfout_d01_all_dsdsum_vars_v2', 'w')
+                    + 'wrfout_d01_all_dsdsum_vars_v3', 'w')
 
     #make file dimensions
     output_file.createDimension('west_east', 450)

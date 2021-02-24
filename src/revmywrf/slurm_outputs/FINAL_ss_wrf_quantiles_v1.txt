@@ -1,0 +1,26 @@
+/global/home/users/kalatimer/proj/20supersat/src/revmywrf/ss_qss_calculations.py:72: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_ss_wrf_quantiles_figsrc.py", line 150, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_ss_wrf_quantiles_figsrc.py", line 50, in main
+    ss_wrf_combined, versionstr)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_ss_wrf_quantiles_figsrc.py", line 107, in make_and_save_ss_wrf_quantiles
+    ss_pred_combined, ss_wrf_combined)
+  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/FINAL_ss_wrf_quantiles_figsrc.py", line 139, in plot_ss_wrf_quantile_curve
+    ss_wrf_quantile = np.percentile(ss_wrf_vals, quantile)
+  File "<__array_function__ internals>", line 6, in percentile
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py", line 3706, in percentile
+    a, q, axis, out, overwrite_input, interpolation, keepdims)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py", line 3826, in _quantile_unchecked
+    interpolation=interpolation)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py", line 3403, in _ureduce
+    r = func(a, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py", line 3941, in _quantile_ureduce_func
+    x1 = take(ap, indices_below, axis=axis) * weights_below
+  File "<__array_function__ internals>", line 6, in take
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 194, in take
+    return _wrapfunc(a, 'take', indices, axis=axis, out=out, mode=mode)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 61, in _wrapfunc
+    return bound(*args, **kwds)
+IndexError: cannot do a non-empty take from an empty axes.
