@@ -1,9 +1,0 @@
-#!/bin/bash
-
-version=1;
-
-while [ $version -lt 25 ]; do
-    python ss_qss_hist_cas_figsrc.py $version
-    echo $version
-    ((version++));
-done 

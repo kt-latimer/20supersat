@@ -2,10 +2,10 @@
 First round of CAIPEEX data processing: .csv --> .npy, stripping unnecessary \
 metadata from .csv files. 
 
-Input location: /data/caipeex/ames
-Output location: /data/caipeex/npy_raw
+Input location: /data/revcaipeex/ames
+Output location: /data/revcaipeex/npy_raw
 Output format: .npy file containing one dictionary formatted as: \
-        {"flight_date": ['YYYY', 'MM', 'DD'], \
+        {"date": ['YYYY', 'MM', 'DD'], \
          "var_names": ['<full var name 1>', ...], \
          "data": <numpy array with columns labeled by var_names>}
 """
@@ -24,7 +24,7 @@ def main():
     """
 
     #get names of data files with no issues (see notes)
-    with open('good_csv_files.txt','r') as readFile:
+    with open('good_csv_filenames.txt','r') as readFile:
         good_csv_filenames = [line.strip() for line in readFile.readlines()]
     readFile.close()
 
@@ -41,6 +41,14 @@ def main():
             data_arr = np.array(data_arr)
             var_names = np.concatenate((data_arr[0:9, 0], data_arr[9:, 1]))
             data = np.array(data_arr[:, 2:], dtype=float)
+        elif 'PCASP' in filename:
+            with open(input_data_dir+filename, 'r') as readFile:
+                csvreader = csv.reader(readFile, delimiter=',')
+                for row in csvreader:
+                    data_arr.append(row)
+            data_arr = np.array(data_arr)
+            var_names = np.concatenate((data_arr[0:10, 0], data_arr[10:, 1]))
+            data = np.array(data_arr[:, 2:], dtype=float)
         else:
             with open(input_data_dir+filename, 'r') as readFile:
                 csvreader = csv.reader(readFile, delimiter=',')
@@ -51,7 +59,7 @@ def main():
             data = np.array(data_arr[1:, :], dtype=float)
 
         #save all fields in .npy format
-        data_dict = {"flight_date":flight_date, "var_names":var_names, "data":data}
+        data_dict = {"date":flight_date, "var_names":var_names, "data":data}
         np.save(output_data_dir+basename, data_dict)
 
 #run main() if user enters 'python [module path].py' from command line

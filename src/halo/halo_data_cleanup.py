@@ -2,18 +2,21 @@
 First round of HALO data processing: .ames --> .npy, stripping unnecessary \
 metadata from .ames files. 
 
-Input location: /data/halo/ames
-Output location: /data/halo/npy_raw
+Input location: /data/halo/ames (just using original raw files to save space)
+Output location: /data/revhalo/npy_raw
 Output format: .npy file containing one dictionary formatted as: \
-        {"flight_date": ['YYYY', 'MM', 'DD'], \
+        {"date": ['YYYY', 'MM', 'DD'], \
          "var_names": ['<full var name 1>', ...], \
          "data": <numpy array with columns labeled by var_names>}
+
+TODO: rewrite this code in self-documented style (relatively simple proceedure
+and works ok so low priority for now)
 """
 import numpy as np
 
 from halo import BASE_DIR, DATA_DIR, FIG_DIR
 
-input_data_dir =  DATA_DIR + 'ames/'
+input_data_dir = DATA_DIR + 'ames/'
 output_data_dir = DATA_DIR + 'npy_raw/'
 
 def main():
@@ -23,7 +26,7 @@ def main():
     """
 
     #get names of data files with no issues (see notes)
-    with open('good_ames_files.txt','r') as readFile:
+    with open('good_ames_filenames.txt','r') as readFile:
         good_ames_filenames = [line.strip() for line in readFile.readlines()]
     readFile.close()
 
@@ -72,7 +75,7 @@ def main():
             data = np.where(data==err_val, np.nan, data)
 
             #save all fields in .npy format
-            data_dict = {"flight_date":flight_date, "var_names":var_names, "data":data}
+            data_dict = {"date":flight_date, "var_names":var_names, "data":data}
             np.save(output_data_dir+basename, data_dict)
         readFile.close()
 
