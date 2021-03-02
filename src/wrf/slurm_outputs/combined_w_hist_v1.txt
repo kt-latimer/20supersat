@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_w_hist_figsrc.py", line 77, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_w_hist_figsrc.py", line 27, in main
+    allow_pickle=True).item()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/npyio.py", line 428, in load
+    fid = open(os_fspath(file), "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/global/home/users/kalatimer/proj/20supersat/data/revhalo/w_hist_data_alldates.npy'
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_w_hist_figsrc.py", line 77, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_w_hist_figsrc.py", line 27, in main
+    allow_pickle=True).item()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/npyio.py", line 428, in load
+    fid = open(os_fspath(file), "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/global/home/users/kalatimer/proj/20supersat/data/halo/w_hist_data_alldates.npy'
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_w_hist_figsrc.py", line 77, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_w_hist_figsrc.py", line 27, in main
+    allow_pickle=True).item()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/npyio.py", line 428, in load
+    fid = open(os_fspath(file), "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/global/home/users/kalatimer/proj/20supersat/data/halo/w_hist_data_alldates.npy'
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_w_hist_figsrc.py", line 77, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_w_hist_figsrc.py", line 41, in main
+    for case_label in case_label_dict.keys():
+NameError: name 'case_label_dict' is not defined

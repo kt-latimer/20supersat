@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/subdom_ss_pred_vs_z_figsrc.py", line 209, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/subdom_ss_pred_vs_z_figsrc.py", line 42, in main
+    get_ss_pred_and_z_data(case_filtered_data_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/subdom_ss_pred_vs_z_figsrc.py", line 62, in get_ss_pred_and_z_data
+    lon = x*180./np.pi*1./R_e
+NameError: name 'R_e' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/subdom_ss_pred_vs_z_figsrc.py", line 215, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/subdom_ss_pred_vs_z_figsrc.py", line 48, in main
+    get_ss_pred_and_z_data(case_filtered_data_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/subdom_ss_pred_vs_z_figsrc.py", line 73, in get_ss_pred_and_z_data
+    subdom_inds = np.logial_and.reduce((
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/__init__.py", line 220, in __getattr__
+    "{!r}".format(__name__, attr))
+AttributeError: module 'numpy' has no attribute 'logial_and'
+allpts Polluted
+allpts Unpolluted
+up10perc Polluted
+up10perc Unpolluted
+allpts Polluted
+allpts Unpolluted
+up10perc Polluted
+up10perc Unpolluted

@@ -1,6 +1,7 @@
 """
-make and save histograms showing SS_QSS distribution from HALO CAS measurements
+predicted ss versus z with area fraction histogram
 """
+import csv
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -9,20 +10,13 @@ from matplotlib.lines import Line2D
 from netCDF4 import Dataset
 import numpy as np
 
-from wrf import DATA_DIR, FIG_DIR
-from wrf.ss_pred_functions import get_lwc, get_ss, linregress
+from wrf import BASE_DIR, DATA_DIR, FIG_DIR
+CSV_DATA_DIR = BASE_DIR + 'data/wrf/'
+from wrf.ss_functions import get_lwc, get_ss_pred, linregress
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
-
-lwc_filter_val = 1.e-4
-w_cutoff = 1 
-lon_min = -60.79
-lat_min = -3.28
-lon_max = -60.47
-lat_max = -2.86
-R_e = 6.3781e6 #radius of Earth (m)
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
@@ -31,10 +25,11 @@ ss_max = 20
 z_min = -100
 z_max = 6500
 
-cutoff_bins = True
-incl_rain = True
-incl_vent = True
-full_ss = True
+lon_min = -60.79
+lat_min = -3.28
+lon_max = -60.47
+lat_max = -2.86
+R_e = 6.3781e6 #radius of Earth (m)
 
 def main():
     
@@ -44,9 +39,13 @@ def main():
                    'up10perc': {'Polluted': None, 'Unpolluted': None}}
     z_bins_dict = {'Polluted': None, 'Unpolluted': None}
 
+    filtered_data_dict = np.load(DATA_DIR + 'filtered_data_dict.npy', \
+                                    allow_pickle=True).item()
+
     for case_label in case_label_dict.keys():
+        case_filtered_data_dict = filtered_data_dict[case_label]
         ss_pred_allpts, ss_pred_up10perc, z_allpts, z_up10perc, z_bins = \
-                                        get_ss_pred_and_z_data(case_label)
+                                get_ss_pred_and_z_data(case_filtered_data_dict)
 
         ss_pred_dict['allpts'][case_label] = ss_pred_allpts
         ss_pred_dict['up10perc'][case_label] = ss_pred_up10perc
@@ -54,77 +53,48 @@ def main():
         z_dict['up10perc'][case_label] = z_up10perc
         z_bins_dict[case_label] = z_bins
 
-    make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict['allpts'], \
+    make_and_save_ss_pred_vs_z(ss_pred_dict['allpts'], \
             z_dict['allpts'], z_bins_dict, colors_arr[3], 'allpts')
-    make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict['up10perc'], \
+    make_and_save_ss_pred_vs_z(ss_pred_dict['up10perc'], \
             z_dict['up10perc'], z_bins_dict, colors_arr[7], 'up10perc')
 
-def get_ss_pred_and_z_data(case_label):
+def get_ss_pred_and_z_data(case_filtered_data_dict):
 
-    case_dir_name = case_label_dict[case_label]
-
-    #get met file variables 
-    met_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_met_vars', 'r')
-    met_vars = met_file.variables
-
-    #get dsd sum file variables
-    dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_all_dsdsum_vars', 'r')
-    dsdsum_vars = dsdsum_file.variables
-
-    #get relevant physical qtys
-    lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
-    temp = met_vars['temp'][...]
-    w = met_vars['w'][...]
-    x = met_vars['x'][...]
+    ss_qss = case_filtered_data_dict['ss_qss']
+    ss_pred = get_ss_pred(ss_qss)
+    w = case_filtered_data_dict['w']
+    x = case_filtered_data_dict['x']
+    y = case_filtered_data_dict['y']
     lon = x*180./np.pi*1./R_e
-    lon = np.transpose(np.tile(lon, [66, 1, 1, 1]), [1, 0, 2, 3])
-    y = met_vars['y'][...]
     lat = y*180./np.pi*1./R_e
-    lat = np.transpose(np.tile(lat, [66, 1, 1, 1]), [1, 0, 2, 3])
-    z = met_vars['z'][...]
-    ss_pred = get_ss(met_vars, dsdsum_vars, cutoff_bins, \
-                        full_ss, incl_rain, incl_vent)
+    z = case_filtered_data_dict['z']
+    z_bins = case_filtered_data_dict['z_bins']
+    
+    subdom_inds = np.logical_and.reduce((
+                        (lon > lon_min), \
+                        (lat > lat_min), \
+                        (lon < lon_max), \
+                        (lat < lat_max)))
 
-    #close files / delete vars for memory
-    del x, y
-    met_file.close()
-    dsdsum_file.close()
+    ss_pred = ss_pred[subdom_inds]
+    w = w[subdom_inds]
+    z = z[subdom_inds]
 
-    #before filtering, get z bins
-    z_bins = get_z_bins(z)
-
-    #apply filtering criteria
-    filter_inds = np.logical_and.reduce((
-                    (lwc > lwc_filter_val), \
-                    (w > w_cutoff), \
-                    (lon > lon_min), \
-                    (lat > lat_min), \
-                    (lon < lon_max), \
-                    (lat < lat_max), \
-                    (temp > 273)))
-
-    del lat, lon, lwc, temp #for memory
-
-    w_filt = w[filter_inds]
-    up10perc_cutoff = np.percentile(w_filt, 90)
-    up10perc_inds = np.logical_and.reduce((
-                            (filter_inds), \
-                            (w > up10perc_cutoff)))
+    up10perc_cutoff = np.percentile(w, 90)
+    up10perc_inds = (w > up10perc_cutoff)
 
     up10perc_ss_pred = ss_pred[up10perc_inds]
-    ss_pred = ss_pred[filter_inds]
-
     up10perc_z = z[up10perc_inds]
-    z = z[filter_inds]
 
     return ss_pred, up10perc_ss_pred, z, up10perc_z, z_bins
 
-def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color, label):
+def make_and_save_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color, label):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
     linestyle_str_dict = {'Polluted': '-', 'Unpolluted': '--'}
+
+    if label == 'up10perc':
+        ax1 = plot_fan_ss(ax1)
 
     for case_label in case_label_dict.keys():
         
@@ -134,6 +104,7 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color,
         z_bins = z_bins_dict[case_label]
         dz = np.array([z_bins[i+1] - z_bins[i] for i in \
                         range(np.shape(z_bins)[0] - 1)])
+        print(label, case_label)
 
         avg_ss_pred, avg_z, se = get_avg_ss_pred_and_z(ss_pred, z, z_bins)
         notnan_inds = np.logical_not(np.isnan(avg_ss_pred))
@@ -168,30 +139,41 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color,
     plt.legend(handles=handles, labels=labels, \
                 bbox_to_anchor=(1.04,1), borderaxespad=0)
 
-    fig.suptitle('Supersaturation and area fraction vertical profiles - WRF ' + case_label \
-                    + '\n (Restricted to horizontal subdomain from reference [1])')
+    fig.suptitle('Supersaturation and area fraction vertical profiles - WRF ' + case_label)
 
-    outfile = FIG_DIR + 'subdom_ss_pred_vs_z_' + label + '_figure.png'
+    outfile = FIG_DIR + 'ss_pred_vs_z_' + label + '_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
-def get_z_bins(z):
+def plot_fan_ss(ax):
 
-    n_bins = np.shape(z)[1]
-    n_edges = n_bins + 1
-    avg_z = np.array([np.mean(z[:, i, :, :]) for i in range(n_bins)])
-    z_bins = [] 
+    #get ss profiles extracted from fig 4 of fan et al 2018
+    #kinda shoddy code
 
-    for i in range(1, n_bins):
-        layer_geom_mean = np.sqrt(avg_z[i-1]*avg_z[i])
-        if layer_geom_mean < z_max:
-            z_bins.append(layer_geom_mean)
-        else:
-            break
+    profile_filenames = ['deep_poll', 'deep_unpoll', 'warm_poll', 'warm_unpoll']
+    profile_linestyles = ['-', '--', '-', '--']
+    profile_colors = [(0.3, 0.3, 0.3), (0.3, 0.3, 0.3), \
+                        (0.7, 0.7, 0.7), (0.7, 0.7, 0.7)] 
+    profile_labels = ['Fan et al: "Deep cloud" Polluted', 'Fan et al: "Deep' \
+                      + 'cloud" Unpolluted', 'Fan et al: "Warm cloud" Polluted',\
+                      'Fan et al: "Warm cloud" Unpolluted']
 
-    z_bins.insert(0, avg_z[0]*np.sqrt(avg_z[0]/avg_z[1]))
+    for i, profile_filename in enumerate(profile_filenames):
+        fan_ss_profile = []
+        with open(CSV_DATA_DIR + 'ss_fan_' + profile_filename + '.csv', 'r') as readFile:
+            csvreader = csv.reader(readFile, \
+                    quoting=csv.QUOTE_NONNUMERIC, delimiter=',')
+            for row in csvreader:
+                fan_ss_profile.append(row)
+        #fan data in km ours in m
+        fan_ss_profile = np.array(fan_ss_profile) 
+        ax.plot(fan_ss_profile[:, 0], \
+                fan_ss_profile[:, 1]*1000, \
+                linestyle=profile_linestyles[i], \
+                color=profile_colors[i], \
+                label=profile_labels[i])
 
-    return np.array(z_bins)
+    return ax
 
 def get_avg_ss_pred_and_z(ss_pred, z, z_bins):
 

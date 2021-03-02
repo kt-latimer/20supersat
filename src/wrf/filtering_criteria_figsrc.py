@@ -21,15 +21,21 @@ dec_prec = 2
 def main():
     
     heatmap_filename = 'filtering_criteria_data.npy'
-    heatmap_data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
+    heatmap_data_dict = np.load(DATA_DIR + heatmap_filename, allow_pickle=True).item()
 
     main_filename = 'filtered_data_dict.npy'
-    main_data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
+    main_data_dict = np.load(DATA_DIR + main_filename, allow_pickle=True).item()
 
-    dist_arr = np.sqrt(heatmap_data_dict['Polluted']['m_arr']**2. + \
-                        heatmap_data_dict['Polluted']['rsq_arr']**2. + \
-                        heatmap_data_dict['Unpolluted']['m_arr']**2. + \
-                        heatmap_data_dict['Unpolluted']['rsq_arr']**2.)
+    print(heatmap_data_dict['Polluted']['m_arr'])
+    print(heatmap_data_dict['Polluted']['rsq_arr'])
+    print(heatmap_data_dict['Unpolluted']['m_arr'])
+    print(heatmap_data_dict['Unpolluted']['rsq_arr'])
+    dist_arr = np.sqrt((1-heatmap_data_dict['Polluted']['m_arr'])**2. + \
+                        (1-heatmap_data_dict['Polluted']['rsq_arr'])**2. + \
+                        (1-heatmap_data_dict['Unpolluted']['m_arr'])**2. + \
+                        (1-heatmap_data_dict['Unpolluted']['rsq_arr'])**2.)
+    
+    print(dist_arr)
     
     lh_from_filtered_poll = heatmap_data_dict['Polluted']['lh_sum_arr']
     lh_tot_poll = main_data_dict['Polluted']['lh_tot']
@@ -40,10 +46,18 @@ def main():
     lh_frac_unpoll = lh_from_filtered_unpoll/lh_tot_unpoll
 
     lh_frac_arr = np.minimum(lh_frac_poll, lh_frac_unpoll)
+    print(lh_frac_arr)
 
-    make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr)
+    lwc_filter_vals = heatmap_data_dict['Polluted']['lwc_cutoffs_arr']
+    w_filter_vals = heatmap_data_dict['Polluted']['w_cutoffs_arr']
+    print(lwc_filter_vals)
+    print(w_filter_vals)
+    
+    make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
+                                    lwc_filter_vals, w_filter_vals)
 
-def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr):
+def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
+                                    lwc_filter_vals, w_filter_vals):
     """
     adapted from `Creating annotated heatmaps' matplotlib tutorial
     """
@@ -67,6 +81,9 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr):
     Z2 = g(X2,Y2)
 
     plt.contour(Y2-0.5,X2-0.5,Z2, [0.5], colors='w', linewidths=[10])
+
+    n_lwc_vals = np.shape(lwc_filter_vals)[0]
+    n_w_vals = np.shape(w_filter_vals)[1]
 
     ax.set_xticks(np.arange(n_lwc_vals))
     ax.set_yticks(np.arange(n_w_vals))

@@ -9,7 +9,7 @@ from netCDF4 import Dataset
 import numpy as np
 
 from wrf import DATA_DIR, FIG_DIR
-from wrf.ss_calculations import get_lwc, get_ss_pred, linregress
+from wrf.ss_functions import get_lwc, get_ss_pred, linregress
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -19,9 +19,9 @@ colors_dict = {'poll': colors_arr[1], \
                'halo': colors_arr[5], \
                'caipeex': colors_arr[7]}
 
-HALO_DATA_DIR = '/global/home/users/kalatimer/proj/20supersat/data/revhalo/'
+HALO_DATA_DIR = '/global/home/users/kalatimer/proj/20supersat/data/halo/'
 CAIPEEX_DATA_DIR = \
-    '/global/home/users/kalatimer/proj/20supersat/data/revcaipeex/'
+    '/global/home/users/kalatimer/proj/20supersat/data/caipeex/'
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
@@ -127,20 +127,20 @@ def calc_and_print_dCAPE(avg_dT, avg_temp, z_bins, label):
     print(dCAPE)
 
 def make_and_save_dT_prof(dT_wrf_unpolluted, z_wrf_unpolluted, \
-                            dT_wrf_polluted, z_wrf_polluted, \ 
+                            dT_wrf_polluted, z_wrf_polluted, \
                             dT_halo, z_halo, \
                             dT_caipeex, z_caipeex):
 
     fig, ax = plt.subplots()
 
     ax.plot(dT_wrf_polluted, z_wrf_polluted, color=colors_dict['poll'], \
-            label='WRF Polluted') \
+            label='WRF Polluted')
     ax.plot(dT_wrf_unpolluted, z_wrf_unpolluted, color=colors_dict['unpoll'], \
-            label='WRF Unpolluted') \
+            label='WRF Unpolluted')
     ax.plot(dT_halo, z_halo, color=colors_dict['halo'], \
-            linestyle='-', marker='o', label='HALO') \
+            linestyle='-', marker='o', label='HALO')
     ax.plot(dT_caipeex, z_caipeex, color=colors_dict['caipeex'], \
-            linestyle='-', marker='o', label='CAIPEEX') \
+            linestyle='-', marker='o', label='CAIPEEX')
 
     ax.set_xlabel(r'$\delta T$ (K)')
     ax.set_ylabel(r'z (m)')

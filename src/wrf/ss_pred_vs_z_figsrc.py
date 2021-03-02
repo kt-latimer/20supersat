@@ -33,7 +33,7 @@ def main():
                    'up10perc': {'Polluted': None, 'Unpolluted': None}}
     z_bins_dict = {'Polluted': None, 'Unpolluted': None}
 
-    filtered_data_dict = np.open(DATA_DIR + 'filtered_data_dict.npy', \
+    filtered_data_dict = np.load(DATA_DIR + 'filtered_data_dict.npy', \
                                     allow_pickle=True).item()
 
     for case_label in case_label_dict.keys():
@@ -47,9 +47,9 @@ def main():
         z_dict['up10perc'][case_label] = z_up10perc
         z_bins_dict[case_label] = z_bins
 
-    make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['allpts'], \
+    make_and_save_ss_pred_vs_z(ss_pred_dict['allpts'], \
             z_dict['allpts'], z_bins_dict, colors_arr[3], 'allpts')
-    make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict['up10perc'], \
+    make_and_save_ss_pred_vs_z(ss_pred_dict['up10perc'], \
             z_dict['up10perc'], z_bins_dict, colors_arr[7], 'up10perc')
 
 def get_ss_pred_and_z_data(case_filtered_data_dict):
@@ -60,18 +60,15 @@ def get_ss_pred_and_z_data(case_filtered_data_dict):
     z = case_filtered_data_dict['z']
     z_bins = case_filtered_data_dict['z_bins']
 
-    w_filt = w[filter_inds]
-    up10perc_cutoff = np.percentile(w_filt, 90)
-    up10perc_inds = np.logical_and.reduce((
-                            (filter_inds), \
-                            (w > up10perc_cutoff)))
+    up10perc_cutoff = np.percentile(w, 90)
+    up10perc_inds = w > up10perc_cutoff
 
     up10perc_ss_pred = ss_pred[up10perc_inds]
     up10perc_z = z[up10perc_inds]
 
     return ss_pred, up10perc_ss_pred, z, up10perc_z, z_bins
 
-def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color, label):
+def make_and_save_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color, label):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
     linestyle_str_dict = {'Polluted': '-', 'Unpolluted': '--'}
@@ -110,7 +107,7 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color,
     ax1.yaxis.grid()
     ax2.set_ylim((z_min, z_max))
     ax2.yaxis.grid()
-    ax1.set_xlabel(r'$SS_{QSS}$ (%)')
+    ax1.set_xlabel(r'$SS_{pred}$ (%)')
     ax2.set_xlabel('Avg area fraction')
     ax1.set_ylabel(r'z (m)')
     formatter = ticker.ScalarFormatter(useMathText=True)

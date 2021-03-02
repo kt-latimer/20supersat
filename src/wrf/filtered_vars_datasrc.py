@@ -8,10 +8,6 @@ import numpy as np
 from wrf import BASE_DIR, DATA_DIR, FIG_DIR
 from wrf.ss_functions import get_lwc, get_nconc, get_ss_qss, linregress
 
-#for plotting
-matplotlib.rcParams.update({'font.family': 'serif'})
-colors = {'line': '#000000', 'ss': '#88720A'}
-                            
 lwc_filter_val = 1.e-4
 w_cutoff = 1
 z_min = -100
@@ -65,6 +61,7 @@ def get_filtered_data(case_label, case_dir_name, cutoff_bins, \
     ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \
                         full_ss, incl_rain, incl_vent)
     ss_wrf = met_vars['ss_wrf'][...]*100
+    pres = met_vars['pres'][...]
     w = met_vars['w'][...]
     x = met_vars['x'][...]
     y = met_vars['y'][...]
@@ -87,6 +84,7 @@ def get_filtered_data(case_label, case_dir_name, cutoff_bins, \
 
     lh = lh[filter_inds]
     lwc = lwc[filter_inds]
+    pres = pres[filter_inds]
     ss_qss = ss_qss[filter_inds]
     ss_wrf = ss_wrf[filter_inds]
     temp = temp[filter_inds]
@@ -97,7 +95,8 @@ def get_filtered_data(case_label, case_dir_name, cutoff_bins, \
 
     case_filtered_data_dict = {'lh_tot': lh_tot, 'lh': lh, 'lwc': lwc, \
                     'ss_qss': ss_qss, 'ss_wrf': ss_wrf, 'temp': temp, \
-                    'w': w, 'x': x, 'y': y, 'z': z, 'z_bins': z_bins}
+                    'w': w, 'x': x, 'y': y, 'z': z, 'z_bins': z_bins, \
+                    'pres': pres}
 
     return case_filtered_data_dict
 

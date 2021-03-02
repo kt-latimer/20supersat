@@ -42,10 +42,7 @@ incl_rain = True
 incl_vent = True 
 full_ss = True 
 
-data_dict = {'Polluted': {'m_arr': None, 'npts_arr': None, 'rsq_arr': None, \
-                            'ss_qss_distbs': None, 'ss_wrf_distbs': None}, 
-             'Unpolluted': {'m_arr': None, 'npts_arr': None, 'rsq_arr': None, \
-                            'ss_qss_distbs': None, 'ss_wrf_distbs': None}}
+data_dict = {'Polluted': None, 'Unpolluted': None}
 
 def main():
     

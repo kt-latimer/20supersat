@@ -9,8 +9,8 @@ from matplotlib.colors import LinearSegmentedColormap
 from netCDF4 import Dataset
 import numpy as np
 
-from revmywrf import BASE_DIR, DATA_DIR, FIG_DIR
-from revmywrf.ss_functions import get_lwc, get_nconc, get_ss_qss, linregress
+from wrf import BASE_DIR, DATA_DIR, FIG_DIR
+from wrf.ss_functions import get_lwc, get_nconc, get_ss_qss, linregress
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -105,7 +105,7 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     plt.legend(loc=2)
     fig.suptitle('Actual versus approximated supersaturation - WRF ' + case_label)
 
-    outfile = FIG_DIR + 'heatmap_ss_qss_vs_ss_wrf_' \
+    outfile = FIG_DIR + 'norainnovent_heatmap_ss_qss_vs_ss_wrf_' \
                             + case_label + '_figure.png'
     plt.savefig(outfile)
     plt.close()    

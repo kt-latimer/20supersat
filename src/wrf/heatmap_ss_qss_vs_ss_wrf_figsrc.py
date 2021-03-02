@@ -23,10 +23,22 @@ ss_max = 50+d_ss
 def main():
     
     filename = 'filtered_data_dict.npy'
-    data_dict = np.open(DATA_DIR + filename, allow_pickle=True).item()
+    data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
+
+    ss_dict = {'Polluted': None, 'Unpolluted': None}
 
     for case_label in case_label_dict.keys():
-        make_and_save_ss_qss_vs_ss_wrf(data_dict, case_label)
+        ss_qss, ss_wrf = make_and_save_ss_qss_vs_ss_wrf(data_dict, case_label)
+        ss_dict[case_label] = {'ss_qss': ss_qss, 'ss_wrf': ss_wrf}
+
+    ss_qss_combined = np.concatenate((ss_dict['Polluted']['ss_qss'], \
+                                        ss_dict['Unpolluted']['ss_qss']))
+    ss_wrf_combined = np.concatenate((ss_dict['Polluted']['ss_wrf'], \
+                                        ss_dict['Unpolluted']['ss_wrf']))
+
+    m, b, R, sig = linregress(ss_qss_combined, ss_wrf_combined)
+    print('combined')
+    print(m, b, R**2)
 
 def make_and_save_ss_qss_vs_ss_wrf(data_dict, case_label):
 
@@ -74,6 +86,8 @@ def make_and_save_ss_qss_vs_ss_wrf(data_dict, case_label):
                             + case_label + '_figure.png'
     plt.savefig(outfile)
     plt.close()    
+
+    return ss_qss, ss_wrf
 
 def get_ss_bins(ss_min, ss_max, d_ss):
 

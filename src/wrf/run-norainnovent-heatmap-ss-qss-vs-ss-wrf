@@ -1,0 +1,9 @@
+#!/bin/bash
+
+clustername=$1
+
+i=1
+
+outputfilename="slurm_outputs/norainnovent_heatmap_ss_qss_vs_ss_wrf_v${i}.txt"
+
+sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/norainnovent_heatmap_ss_qss_vs_ss_wrf

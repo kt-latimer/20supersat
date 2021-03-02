@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_files_datasrc.py", line 33, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_files_datasrc.py", line 27, in main
+    ss_qss.tofile(f_qss)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 6034, in tofile
+    raise NotImplementedError("MaskedArray.tofile() not implemented yet.")
+NotImplementedError: MaskedArray.tofile() not implemented yet.

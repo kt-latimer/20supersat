@@ -1,0 +1,126 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 100, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 26, in main
+    data_dict = np.open(DATA_DIR + filename, allow_pickle=True).item()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/__init__.py", line 220, in __getattr__
+    "{!r}".format(__name__, attr))
+AttributeError: module 'numpy' has no attribute 'open'
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Polluted
+0.8669578953915296 0.0064128416829685175 0.9014913368156039
+# pts total: 6750455
+max: 20.410996056703425
+# pts ss > 2%: 599271
+Number of points in Q1: 6724588
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 23709
+
+Domain: 0.09459489742785623 20.410996056703425
+Range: -5.277823 20.070312
+Unpolluted
+0.797655233874908 0.03649511901605729 0.8715772339989689
+# pts total: 5240966
+max: 8.474011559542127
+# pts ss > 2%: 249149
+Number of points in Q1: 5218923
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 19967
+
+Domain: 0.10539240268539858 8.474011559542127
+Range: -5.184498 12.127304
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Polluted
+0.8669578953915296 0.0064128416829685175 0.9014913368156039
+# pts total: 6750455
+max: 20.410996056703425
+# pts ss > 2%: 599271
+Number of points in Q1: 6724588
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 23709
+
+Domain: 0.09459489742785623 20.410996056703425
+Range: -5.277823 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 111, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 29, in main
+    ss_qss, ss_wrf = make_and_save_ss_qss_vs_ss_wrf(data_dict, case_label)
+TypeError: cannot unpack non-iterable NoneType object
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Polluted
+0.8669578953915296 0.0064128416829685175 0.9014913368156039
+# pts total: 6750455
+max: 20.410996056703425
+# pts ss > 2%: 599271
+Number of points in Q1: 6724588
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 23709
+
+Domain: 0.09459489742785623 20.410996056703425
+Range: -5.277823 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 113, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 31, in main
+    ss_qss, ss_wrf = make_and_save_ss_qss_vs_ss_wrf(data_dict, case_label)
+TypeError: cannot unpack non-iterable NoneType object
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Polluted
+0.8669578953915296 0.0064128416829685175 0.9014913368156039
+# pts total: 6750455
+max: 20.410996056703425
+# pts ss > 2%: 599271
+Number of points in Q1: 6724588
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 23709
+
+Domain: 0.09459489742785623 20.410996056703425
+Range: -5.277823 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 115, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 32, in main
+    ss_dict[case_label]['ss_qss'] = ss_qss
+TypeError: 'NoneType' object does not support item assignment
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Polluted
+0.8669578953915296 0.0064128416829685175 0.9014913368156039
+# pts total: 6750455
+max: 20.410996056703425
+# pts ss > 2%: 599271
+Number of points in Q1: 6724588
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 23709
+
+Domain: 0.09459489742785623 20.410996056703425
+Range: -5.277823 20.070312
+Unpolluted
+0.797655233874908 0.03649511901605729 0.8715772339989689
+# pts total: 5240966
+max: 8.474011559542127
+# pts ss > 2%: 249149
+Number of points in Q1: 5218923
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 19967
+
+Domain: 0.10539240268539858 8.474011559542127
+Range: -5.184498 12.127304
+combined
+0.8498781398164678 0.011320347049628032 0.8944523264248017

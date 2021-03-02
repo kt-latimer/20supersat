@@ -1,0 +1,52 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 195, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 36, in main
+    filtered_data_dict = np.open(DATA_DIR + 'filtered_data_dict.npy', \
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/__init__.py", line 220, in __getattr__
+    "{!r}".format(__name__, attr))
+AttributeError: module 'numpy' has no attribute 'open'
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 195, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 42, in main
+    get_ss_pred_and_z_data(case_filtered_data_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 58, in get_ss_pred_and_z_data
+    ss_pred = get_ss_pred(ss_qss)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py", line 53, in get_ss_pred
+    ss_pred = LSR_INT + LSR_SLOPE*ss_qss
+NameError: name 'LSR_INT' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 195, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 42, in main
+    get_ss_pred_and_z_data(case_filtered_data_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 65, in get_ss_pred_and_z_data
+    (filter_inds), \
+NameError: name 'filter_inds' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 193, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 50, in main
+    make_and_save_bipanel_ss_qss_vs_z(ss_qss_dict['allpts'], \
+NameError: name 'make_and_save_bipanel_ss_qss_vs_z' is not defined
+allpts Polluted
+allpts Unpolluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 193, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 53, in main
+    z_dict['up10perc'], z_bins_dict, colors_arr[7], 'up10perc')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 77, in make_and_save_ss_pred_vs_z
+    ax1 = plot_fan_ss(ax1)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 143, in plot_fan_ss
+    with open(CSV_DATA_DIR + 'ss_fan_' + profile_filename + '.csv', 'r') as readFile:
+FileNotFoundError: [Errno 2] No such file or directory: '/global/home/users/kalatimer/proj/20supersat/data/wrf/ss_fan_deep_poll.csv'
+allpts Polluted
+allpts Unpolluted
+up10perc Polluted
+up10perc Unpolluted
+allpts Polluted
+allpts Unpolluted
+up10perc Polluted
+up10perc Unpolluted

@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/filtered_vars_datasrc.py", line 12, in <module>
+    matplotlib.rcParams.update({'font.family': 'serif'})
+NameError: name 'matplotlib' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/filtered_vars_datasrc.py", line 115, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/filtered_vars_datasrc.py", line 27, in main
+    full_ss, incl_rain, incl_vent)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/filtered_vars_datasrc.py", line 72, in get_filtered_data
+    z_bins = get_z_bins(z)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/filtered_vars_datasrc.py", line 105, in get_z_bins
+    if layer_geom_mean < z_max_wrf:
+NameError: name 'z_max_wrf' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/filtered_vars_datasrc.py", line 117, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/filtered_vars_datasrc.py", line 29, in main
+    full_ss, incl_rain, incl_vent)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/filtered_vars_datasrc.py", line 88, in get_filtered_data
+    x = x[filter_inds]
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+IndexError: too many indices for array
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc

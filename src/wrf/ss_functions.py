@@ -23,8 +23,8 @@ rho_w = 1000. #density of water (kg/m^3)
 ##
 ## least squares regression from wrf data 
 ## 
-#LSR_INT = 
-#LSR_SLOPE = 
+LSR_INT = 0.011320347049628032
+LSR_SLOPE = 0.8498781398164678
 
 ##
 ## methods to get ss_qss 

@@ -16,14 +16,16 @@ matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors = [colors_arr[1], colors_arr[3], colors_arr[5], colors_arr[7]]
 
-HALO_DATA_DIR = '/global/home/users/kalatimer/proj/20supersat/data/revhalo/'
+HALO_DATA_DIR = '/global/home/users/kalatimer/proj/20supersat/data/halo/'
 CAIPEEX_DATA_DIR = \
-    '/global/home/users/kalatimer/proj/20supersat/data/revcaipeex/'
+    '/global/home/users/kalatimer/proj/20supersat/data/caipeex/'
+
+case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
 def main():
 
     ### halo ###
-    halo_dict = np.load(HALO_DATA_DIR + 'w_hist_data_alldates.npy', \
+    halo_dict = np.load(HALO_DATA_DIR + 'w_hist_cas_data_alldates.npy', \
                         allow_pickle=True).item()
     w_halo = halo_dict['w']
 

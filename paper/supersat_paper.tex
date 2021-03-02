@@ -138,7 +138,7 @@ Finally, we examine a second experimental dataset from the first phase of the CA
 \begin{figure}[ht]
     \centering
     \includegraphics[width=9cm]{caipeex/ss_pred_vs_z_figure.png}
-    \caption{Analagous to Figure \ref{halossvertprof} but using experimental data from the CAIPEEX flight campaign. The only difference in the analysis for this dataset (relative to for the HALO dataset) is that we did not have access to size-resolved rain drop spectra (see text for detailed discussion). We do not find any points in the $SS_{QSS}$ profile with values above 1\% for the entire filtered data set, with only one point in the profile exceeding 1\% for the top 10 percentiles.}
+    \caption{Analagous to Figure \ref{halossvertprof} but using experimental data from the CAIPEEX flight campaign. The only difference in the analysis for this dataset (relative to for the HALO dataset) is that we did not have access to size-resolved rain drop spectra (see text for detailed discussion). We do not find any points in the $SS_{QSS}$ profile with values above 2\% for the entire filtered data set, with only one point in the profile exceeding 3\% for the top 10 percentiles.}
     \label{caipeexssvertprof}
 \end{figure}
 
@@ -229,26 +229,6 @@ B(T) &= D
 Figure \ref{simpleqsswrfvsqss} shows that this form does not yield as good of agreement with the actual SS reported in WRF.
 
 We use the expressions given in \cite{Pruppacher2010} and \cite{Rogers1989} for ventilation corrections, which are quite extensive. Full formulae are contained in the analysis code at \href{https://github.com/kt-latimer/20supersat}{this GitHub repo}. Figures \ref{noventwrfvsqss} and \ref{norainnoventwrfvsqss} show, respectively, the effects of neglecting these corrections (i.e. setting $f(r)=1$ for all $r$) for rain drops (defined here as liquid water drops with diameter greater than 50 $\mu$m), and omitting rain drops altogether from the calculations of mean radius and number concentration.
-
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{wrf/subdom_ss_pred_vs_z_allpts_figure.png}
-		\caption{}
-		\label{wrfsubdomssvertprofallpts}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{wrf/subdom_ss_pred_vs_z_up10perc_figure.png}
-		\caption{}
-		\label{wrfsubdomssvertprofup50perc}
-	\end{subfigure}
-	\caption{Analagous to Figure \ref{wrfssvertprof} restricted to the horizontal subdomain indicated by the red box in Figure S8 (bottom left panel).}
-	\label{wrfsubdomssvertprof}
-\end{figure}
-
-\clearpage
-\newpage
 
 \subsection{HALO}
 
@@ -365,7 +345,7 @@ We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factor
 		\caption{}
 		\label{wrfsubdomssvertprofup50perc}
 	\end{subfigure}
-	\caption{Analagous to Figure \ref{wrfssvertprof}, restricted to the horizontal subdomain indicated by the red box in Figure S8 of Fan et al (bottom left panel). Qualitatively the results are quite similar, suggesting that the restriction to this subdomain is not crucial to the results described in Fan's paper. TODO: Figure out why the form of the area fraction curve for the polluted simulation looks the way it does (not entirely clear just by looking at Figure \ref{subdomlwcprof}).}
+	\caption{Analagous to Figure \ref{wrfssvertprof}, restricted to the horizontal subdomain indicated by the red box in Figure S8 of Fan et al (bottom left panel). Qualitatively the results are quite similar, suggesting that the restriction to this subdomain is not crucial to the results described in Fan's paper.}
 	\label{wrfsubdomssvertprof}
 \end{figure}
 

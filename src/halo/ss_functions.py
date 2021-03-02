@@ -277,10 +277,15 @@ def get_meanr_contribution_from_cas_var(var_name, adlr_dict, cas_dict, \
     N_Bo_div_r2 = g*rho_w/sigma #pr&kl p 418
     N_P = sigma**3.*rho_air**2./(eta**4.*g*rho_w) #pr&kl p 418
 
-    u_term = get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, \
+    u_termbad, u_termgood = get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, \
                             N_P, pres, rho_air, temp)
-    N_Re = 2*rho_air*r*u_term/eta
+    N_Re = 2*rho_air*r*u_termgood/eta
+    N_Rebad = 2*rho_air*r*u_termbad/eta
+
     f = get_ventilation_coefficient(N_Re, incl_vent)
+    fbad = get_ventilation_coefficient(N_Rebad, incl_vent)
+    print('good', f)
+    print('bad', fbad)
 
     nconc_contribution_from_var = get_nconc_contribution_from_cas_var( \
         var_name, adlr_dict, cas_dict, change_cas_corr, cutoff_bins, \
@@ -441,20 +446,23 @@ def get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, N_P, pres, rho_air, temp):
     """
     if r <= 10.e-6:
         lam = 6.6e-8*(10132.5/pres)*(temp/293.15)
-        u_term = (1 + 1.26*lam/r)*(2*r**2.*g*rho_w/(9*eta))
+        u_termbad = (1 + 1.26*lam/r)*(2*r**2.*g*rho_w/9*eta)
+        u_termgood = (1 + 1.26*lam/r)*(2*r**2.*g*rho_w/(9*eta))
     elif r <= 535.e-6:
         N_Be = N_Be_div_r3*r**3.
         X = np.log(N_Be)
         N_Re = np.exp(sum([N_Re_regime2_coeffs[i]*X**i for i in \
                         range(len(N_Re_regime2_coeffs))]))
-        u_term = eta*N_Re/(2*rho_air*r)
+        u_termbad = eta*N_Re/(2*rho_air*r)
+        u_termgood = eta*N_Re/(2*rho_air*r)
     else:
         N_Bo = N_Bo_div_r2*r**2.
         X = np.log(16./3.*N_Bo*N_P**(1./6.))
         N_Re = N_P**(1./6.)*np.exp(sum([N_Re_regime3_coeffs[i]*X**i for i in \
                                     range(len(N_Re_regime3_coeffs))]))
-        u_term = eta*N_Re/(2*rho_air*r)
-    return u_term
+        u_termbad = eta*N_Re/(2*rho_air*r)
+        u_termgood = eta*N_Re/(2*rho_air*r)
+    return u_termbad, u_termgood
 
 def get_dyn_visc(temp):
     """
