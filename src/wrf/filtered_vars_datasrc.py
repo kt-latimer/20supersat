@@ -57,7 +57,8 @@ def get_filtered_data(case_label, case_dir_name, cutoff_bins, \
     del lh_filter_inds #for memory
 
     #get relevant physical qtys, cont'd
-    lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
+    lwc = met_vars['LWC_cloud'][...]
+    #lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
     ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \
                         full_ss, incl_rain, incl_vent)
     ss_wrf = met_vars['ss_wrf'][...]*100

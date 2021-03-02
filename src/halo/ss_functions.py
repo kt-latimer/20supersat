@@ -595,6 +595,20 @@ def get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins):
 
     return lwc
 
+def get_lwc_from_cas_and_cip(cas_dict, cip_dict, change_cas_corr, cutoff_bins):
+
+    lwc_var_keys = ['lwc_5um_to_25um_diam', 'lwc_above_25um_diam']
+    if not cutoff_bins:
+        lwc_var_keys.append('lwc_sub_5um_diam')
+    if change_cas_corr:
+        lwc_var_keys = [lwc_var_key+'_corr' for lwc_var_key in lwc_var_keys]
+
+    lwc = np.zeros(np.shape(cas_dict['data']['time']))
+    for lwc_var_key in lwc_var_keys:
+        lwc += cas_dict['data'][lwc_var_key]
+
+    return lwc
+
 def get_lwc_from_cdp(cdp_dict, cutoff_bins):
 
     lwc_var_keys = ['lwc_5um_to_25um_diam', 'lwc_above_25um_diam']

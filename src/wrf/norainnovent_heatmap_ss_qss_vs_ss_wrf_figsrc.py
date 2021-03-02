@@ -50,7 +50,8 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys
-    lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
+    lwc = met_vars['LWC_cloud'][...]
+    #lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
     temp = met_vars['temp'][...]
     w = met_vars['w'][...]
     ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \
