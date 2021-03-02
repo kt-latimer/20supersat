@@ -130,6 +130,7 @@ def get_meanr_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
                     change_cas_corr, cutoff_bins, incl_rain, incl_vent)
 
     meanr_sum = np.zeros(np.shape(cas_dict['data']['time']))
+    print(np.shape(meanr_sum))
 
     for var_name in cas_dict['data'].keys():
         meanr_sum += get_meanr_contribution_from_cas_var(var_name, \
@@ -277,15 +278,11 @@ def get_meanr_contribution_from_cas_var(var_name, adlr_dict, cas_dict, \
     N_Bo_div_r2 = g*rho_w/sigma #pr&kl p 418
     N_P = sigma**3.*rho_air**2./(eta**4.*g*rho_w) #pr&kl p 418
 
-    u_termbad, u_termgood = get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, \
+    u_term = get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, \
                             N_P, pres, rho_air, temp)
-    N_Re = 2*rho_air*r*u_termgood/eta
-    N_Rebad = 2*rho_air*r*u_termbad/eta
+    N_Re = 2*rho_air*r*u_term/eta
 
     f = get_ventilation_coefficient(N_Re, incl_vent)
-    fbad = get_ventilation_coefficient(N_Rebad, incl_vent)
-    print('good', f)
-    print('bad', fbad)
 
     nconc_contribution_from_var = get_nconc_contribution_from_cas_var( \
         var_name, adlr_dict, cas_dict, change_cas_corr, cutoff_bins, \
@@ -446,23 +443,20 @@ def get_u_term(r, eta, N_Be_div_r3, N_Bo_div_r2, N_P, pres, rho_air, temp):
     """
     if r <= 10.e-6:
         lam = 6.6e-8*(10132.5/pres)*(temp/293.15)
-        u_termbad = (1 + 1.26*lam/r)*(2*r**2.*g*rho_w/9*eta)
-        u_termgood = (1 + 1.26*lam/r)*(2*r**2.*g*rho_w/(9*eta))
+        u_term = (1 + 1.26*lam/r)*(2*r**2.*g*rho_w/(9*eta))
     elif r <= 535.e-6:
         N_Be = N_Be_div_r3*r**3.
         X = np.log(N_Be)
         N_Re = np.exp(sum([N_Re_regime2_coeffs[i]*X**i for i in \
                         range(len(N_Re_regime2_coeffs))]))
-        u_termbad = eta*N_Re/(2*rho_air*r)
-        u_termgood = eta*N_Re/(2*rho_air*r)
+        u_term = eta*N_Re/(2*rho_air*r)
     else:
         N_Bo = N_Bo_div_r2*r**2.
         X = np.log(16./3.*N_Bo*N_P**(1./6.))
         N_Re = N_P**(1./6.)*np.exp(sum([N_Re_regime3_coeffs[i]*X**i for i in \
                                     range(len(N_Re_regime3_coeffs))]))
-        u_termbad = eta*N_Re/(2*rho_air*r)
-        u_termgood = eta*N_Re/(2*rho_air*r)
-    return u_termbad, u_termgood
+        u_term = eta*N_Re/(2*rho_air*r)
+    return u_term
 
 def get_dyn_visc(temp):
     """
@@ -595,19 +589,54 @@ def get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins):
 
     return lwc
 
-def get_lwc_from_cas_and_cip(cas_dict, cip_dict, change_cas_corr, cutoff_bins):
+def get_lwc_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, change_cas_corr, cutoff_bins):
 
-    lwc_var_keys = ['lwc_5um_to_25um_diam', 'lwc_above_25um_diam']
-    if not cutoff_bins:
-        lwc_var_keys.append('lwc_sub_5um_diam')
-    if change_cas_corr:
-        lwc_var_keys = [lwc_var_key+'_corr' for lwc_var_key in lwc_var_keys]
+    lwc_cas = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
+    
+    #the rest is a bit brute force / ad hoc because there's only two \
+    #bins to use from the cip data and both need to get truncated.
+    cip_nconc_1 = get_cip_nconc_1(cas_dict, cip_dict, change_cas_corr)
+    cip_radius_1 = (CAS_bin_radii[-1] + CIP_bin_radii[1])/2.
+    print(cip_radius_1)
+    cip_nconc_2 = get_cip_nconc_2(cip_dict)
+    cip_radius_2 = (CIP_bin_radii[1] + 51e-6)/2.
+    print(cip_radius_2)
 
-    lwc = np.zeros(np.shape(cas_dict['data']['time']))
-    for lwc_var_key in lwc_var_keys:
-        lwc += cas_dict['data'][lwc_var_key]
+    rho_air = adlr_dict['data']['pres']/(R_a*adlr_dict['data']['temp'])
 
-    return lwc
+    lwc_cip = 4./3.*np.pi*rho_w/rho_air*(cip_nconc_1*cip_radius_1**3. + \
+                                            cip_nconc_2*cip_radius_2**3.)
+    return lwc_cas + lwc_cip
+
+def get_cip_nconc_1(cas_dict, cip_dict, change_cas_corr):
+
+    cas_nconc_above_25um_diam = np.zeros( \
+        np.shape(cas_dict['data']['time']))
+
+    for i in range(12, 17):
+        bin_ind = i - 5
+        var_key = 'nconc_' + str(i)
+        if change_cas_corr:
+            var_key += '_corr'
+        cas_nconc_above_25um_diam += \
+                cas_dict['data'][var_key]*CAS_bin_radii[bin_ind]**3.
+
+    cip_nconc_1 = cip_dict['data']['nconc_1'] - cas_nconc_above_25um_diam
+
+    num_below_zero = np.sum(cip_nconc_1 < 0)
+    if num_below_zero > 0:
+        print(str(num_below_zero) + ' below zero')
+        print(np.shape(cip_nconc_1))
+
+    return cip_nconc_1 
+
+def get_cip_nconc_2(cip_dict):
+
+    new_bin_2_width = (51e-6 - CIP_bin_radii[1])
+    old_bin_2_width = (CIP_bin_radii[2] - CIP_bin_radii[1])
+    bin_2_width_fraction = new_bin_2_width/old_bin_2_width
+
+    return bin_2_width_fraction*cip_dict['data']['nconc_2']
 
 def get_lwc_from_cdp(cdp_dict, cutoff_bins):
 

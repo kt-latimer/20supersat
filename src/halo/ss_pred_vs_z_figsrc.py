@@ -9,7 +9,8 @@ from matplotlib.lines import Line2D
 import numpy as np
 
 from halo import DATA_DIR, FIG_DIR
-from halo.ss_functions import get_ss_vs_t_cas, get_lwc_from_cas
+from halo.ss_functions import get_ss_vs_t_cas, get_lwc_from_cas, \
+                                get_lwc_from_cas_and_cip
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -84,7 +85,10 @@ def get_ss_pred_and_w_and_z_data(date):
     cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
     cip_dict = np.load(cipfile, allow_pickle=True).item()
 
-    lwc = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
+    #lwc = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
+    lwc = get_lwc_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
+                                        change_cas_corr, cutoff_bins)
+    print('one')
     temp = adlr_dict['data']['temp']
     w = adlr_dict['data']['w']
     z = adlr_dict['data']['alt']
