@@ -1,0 +1,30 @@
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Polluted
+-0.027727868368893804 0.12874897021081733 0.4053118704172735
+# pts total: 8703546
+max: 49867.333884963984
+# pts ss > 2%: 2824400
+Number of points in Q1: 7876513
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 1533235
+
+Domain: -34554.91368141662 49867.333884963984
+Range: -45.968933 20.070312
+Unpolluted
+-0.03073676760661338 1.2176871281231383 0.32400676729620076
+# pts total: 8163922
+max: 9855.259721411849
+# pts ss > 2%: 3522187
+Number of points in Q1: 7423271
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 1429591
+
+Domain: -36071.69616021038 9855.259721411849
+Range: -44.57138 54.38872
+combined
+-0.029149035783845933 0.653395173021871 0.35420614341047413

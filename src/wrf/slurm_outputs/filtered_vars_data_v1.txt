@@ -32,3 +32,5 @@ IndexError: too many indices for array
   return meanr/nconc
 /global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
   return meanr/nconc
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc

@@ -51,7 +51,7 @@ def main():
 
     ss_pred_dict, w_dict, z_dict = get_up10perc_data(ss_pred_dict, w_dict, z_dict)
 
-    h_z, z_bins = np.histogram(z_dict['allpts'], bins=30, density=True)
+    h_z, z_bins = np.histogram(z_dict['allpts'], bins=15, density=True)
     print(z_bins)
 
     make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins)
@@ -132,8 +132,11 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
         avg_ss_pred = avg_ss_pred[notnan_inds]
         avg_z = avg_z[notnan_inds]
         dz = dz[notnan_inds]
+        se = se[notnan_inds]
 
         ax1.plot(avg_ss_pred, avg_z, linestyle='-', marker='o', color=color)
+        ax1.fill_betweenx(avg_z, avg_ss_pred - se, avg_ss_pred + se, \
+                            color=color, alpha=0.5)
         ax2.hist(z, bins=z_bins, density=False, orientation='horizontal', \
                 facecolor=color, alpha=0.8)
 
@@ -198,6 +201,7 @@ def get_avg_ss_pred_and_z(ss_pred, z, z_bins):
             avg_ss_pred[i] = np.nanmean(ss_pred_slice)
             se[i] = np.nanstd(ss_pred_slice)/np.sqrt(np.sum(bin_filter))
             avg_z[i] = np.nanmean(z_slice)
+            print(i, avg_ss_pred[i], ss_pred_slice)
 
     return avg_ss_pred, avg_z, se
 

@@ -20,7 +20,7 @@ dec_prec = 2
 
 def main():
     
-    heatmap_filename = 'filtering_criteria_data.npy'
+    heatmap_filename = 'filtering_criteria_data_v2.npy'
     heatmap_data_dict = np.load(DATA_DIR + heatmap_filename, allow_pickle=True).item()
 
     main_filename = 'filtered_data_dict.npy'
@@ -97,7 +97,7 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
 
     fig.suptitle('Validity of QSS approximation vs data \n filtering scheme - Combined', x=0.6, y=1)
 
-    outfile = FIG_DIR + 'filtering_criteria_figure.png'
+    outfile = FIG_DIR + 'filtering_criteria_figure_v2.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close()    
 

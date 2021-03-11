@@ -1,0 +1,8 @@
+#!/bin/bash
+
+clustername=$1
+
+i=1
+
+outputfilename="slurm_outputs/lh_distb_by_lwc_v${i}.txt" 
+sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/lh_distb_by_lwc

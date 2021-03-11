@@ -2,7 +2,7 @@
 
 clustername=$1
 
-i=1
+i=2
 
 outputfilename="slurm_outputs/filtering_criteria_fig_v${i}.txt" 
 sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/filtering_criteria_fig

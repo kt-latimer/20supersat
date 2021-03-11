@@ -141,7 +141,7 @@ def make_and_save_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color, label):
 
     fig.suptitle('Supersaturation and area fraction vertical profiles - WRF ' + case_label)
 
-    outfile = FIG_DIR + 'ss_pred_vs_z_' + label + '_figure.png'
+    outfile = FIG_DIR + 'subdom_ss_pred_vs_z_' + label + '_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 

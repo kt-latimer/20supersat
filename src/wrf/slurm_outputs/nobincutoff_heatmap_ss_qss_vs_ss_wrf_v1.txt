@@ -66,3 +66,35 @@ Number of points in Q4: 19968
 
 Domain: 0.10539222561315065 8.474011559542127
 Range: -5.184498 12.127304
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Polluted
+0.8235083562214224 0.045265222877974076 0.8857223386839456
+# pts total: 7411325
+max: 25.500899167183604
+# pts ss > 2%: 1069822
+Number of points in Q1: 7372257
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 36906
+
+Domain: 0.09459396905046487 25.500899167183604
+Range: -12.413106 20.070312
+Unpolluted
+0.8111399778600462 0.06446912541157857 0.901090927504545
+# pts total: 6728704
+max: 50.16464305669845
+# pts ss > 2%: 1586141
+Number of points in Q1: 6696444
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 30172
+
+Domain: 0.10539222561315065 50.16464305669845
+Range: -10.896954 45.24754

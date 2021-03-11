@@ -53,7 +53,7 @@ def main():
         
         data_dict[case_label] = case_data_dict
         
-    filename ='filtering_criteria_data.npy'
+    filename ='filtering_criteria_data_v2.npy'
     np.save(DATA_DIR + filename, data_dict)
 
 def get_filter_dependent_values(case_label, case_dir_name, \
@@ -71,7 +71,8 @@ def get_filter_dependent_values(case_label, case_dir_name, \
 
     #get relevant physical qtys
     lh = met_vars['LH'][...]
-    lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
+    lwc = met_vars['LWC_cloud'][...]
+    #lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
     temp = met_vars['temp'][...]
     w = met_vars['w'][...]
     ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \

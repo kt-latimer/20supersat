@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/wrf/lh_distb_by_lwc_figsrc.py
