@@ -44,6 +44,19 @@ def get_B(input_vars):
 
     return B
 
+def get_dyn_visc(temp):
+    """
+    get dynamic viscocity as a function of temperature (from pruppacher and
+    klett p 417)
+    """
+
+    eta = np.piecewise(temp, [temp < 273, temp >= 273], \
+                [lambda temp: (1.718 + 0.0049*(temp - 273) \
+                        - 1.2e-5*(temp - 273)**2.)*1.e-5, \
+                lambda temp: (1.718 + 0.0049*(temp - 273))*1.e-5])
+
+    return eta
+
 def get_e_sat(input_vars, temp=None):
 
     if temp is None:

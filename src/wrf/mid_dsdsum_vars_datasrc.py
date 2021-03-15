@@ -40,7 +40,7 @@ sigma_coeffs = [75.93, 0.115, 6.818e-2, 6.511e-3, \
 bin_diams = np.array([4*(2.**(i/3.))*10**(-6) for i in range(33)]) #bin diams in m
 bin_radii = bin_diams/2.
 lower_cutoff = 2.5e-6
-upper_cutoff = 25e-6
+upper_cutoff = 100e-6
 
 def main():
 
@@ -99,7 +99,7 @@ def make_dsdsum_file(case_label, case_dir_name):
 
     #make output file
     output_file = Dataset(DATA_DIR + case_dir_name \
-                    + 'wrfout_d01_mid_dsdsum_vars', 'w')
+                    + 'wrfout_d01_mid_dsdsum_vars_v2', 'w')
 
     #make file dimensions
     output_file.createDimension('west_east', 450)

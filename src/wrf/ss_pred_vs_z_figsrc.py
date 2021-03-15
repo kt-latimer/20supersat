@@ -33,7 +33,7 @@ def main():
                    'up10perc': {'Polluted': None, 'Unpolluted': None}}
     z_bins_dict = {'Polluted': None, 'Unpolluted': None}
 
-    filtered_data_dict = np.load(DATA_DIR + 'filtered_data_dict.npy', \
+    filtered_data_dict = np.load(DATA_DIR + 'filtered_data_dict_v2.npy', \
                                     allow_pickle=True).item()
 
     for case_label in case_label_dict.keys():

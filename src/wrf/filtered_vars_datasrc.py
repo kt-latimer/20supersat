@@ -28,7 +28,7 @@ def main():
                                 case_label_dict[case_label], cutoff_bins, \
                                 full_ss, incl_rain, incl_vent)
 
-    filename = 'filtered_data_dict.npy'
+    filename = 'filtered_data_dict_v2.npy'
     np.save(DATA_DIR + filename, filtered_data_dict)
 
 def get_filtered_data(case_label, case_dir_name, cutoff_bins, \
@@ -41,7 +41,7 @@ def get_filtered_data(case_label, case_dir_name, cutoff_bins, \
 
     #get dsd sum file variables
     dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                                'wrfout_d01_all_dsdsum_vars', 'r')
+                                'wrfout_d01_all_dsdsum_vars_v2', 'r')
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys

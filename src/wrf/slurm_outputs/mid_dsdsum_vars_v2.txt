@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/mid_dsdsum_vars_datasrc.py", line 9, in <module>
+    from wrf.met_data_functions import get_dyn_visc
+ImportError: cannot import name 'get_dyn_visc' from 'wrf.met_data_functions' (/global/home/users/kalatimer/proj/20supersat/src/wrf/met_data_functions.py)
