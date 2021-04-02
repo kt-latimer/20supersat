@@ -1,0 +1,82 @@
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:3335: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in true_divide
+  ret = ret.dtype.type(ret / rcount)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:393: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:154: RuntimeWarning: invalid value encountered in true_divide
+  ret, rcount, out=ret, casting='unsafe', subok=False)
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:172: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ssxm, ssxym, ssyxm, ssym = np.cov(x, y, bias=1).flat
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:2455: RuntimeWarning: divide by zero encountered in true_divide
+  c *= np.true_divide(1, fact)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:2455: RuntimeWarning: invalid value encountered in multiply
+  c *= np.true_divide(1, fact)
+Polluted
+nan nan nan
+# pts total: 0
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/imax_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 174, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/imax_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 63, in main
+    cutoff_bins, full_ss, incl_rain, incl_vent, imax)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/imax_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 114, in make_and_save_imax_heatmap
+    print('max: ' + str(np.nanmax(ss_qss)))
+  File "<__array_function__ internals>", line 6, in nanmax
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/nanfunctions.py", line 443, in nanmax
+    res = np.amax(a, axis=axis, out=out, **kwargs)
+  File "<__array_function__ internals>", line 6, in amax
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 2668, in amax
+    keepdims=keepdims, initial=initial, where=where)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 88, in _wrapreduction
+    return reduction(axis=axis, out=out, **passkwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 5807, in max
+    axis=axis, out=out, **kwargs).view(type(self))
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py", line 30, in _amax
+    return umr_maximum(a, axis, None, out, keepdims, initial, where)
+ValueError: zero-size array to reduction operation maximum which has no identity
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:3335: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in true_divide
+  ret = ret.dtype.type(ret / rcount)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:393: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py:154: RuntimeWarning: invalid value encountered in true_divide
+  ret, rcount, out=ret, casting='unsafe', subok=False)
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:172: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ssxm, ssxym, ssyxm, ssym = np.cov(x, y, bias=1).flat
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:2455: RuntimeWarning: divide by zero encountered in true_divide
+  c *= np.true_divide(1, fact)
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py:2455: RuntimeWarning: invalid value encountered in multiply
+  c *= np.true_divide(1, fact)
+Unpolluted
+nan nan nan
+# pts total: 0
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/imax_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 174, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/imax_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 63, in main
+    cutoff_bins, full_ss, incl_rain, incl_vent, imax)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/imax_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 114, in make_and_save_imax_heatmap
+    print('max: ' + str(np.nanmax(ss_qss)))
+  File "<__array_function__ internals>", line 6, in nanmax
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/nanfunctions.py", line 443, in nanmax
+    res = np.amax(a, axis=axis, out=out, **kwargs)
+  File "<__array_function__ internals>", line 6, in amax
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 2668, in amax
+    keepdims=keepdims, initial=initial, where=where)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 88, in _wrapreduction
+    return reduction(axis=axis, out=out, **passkwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 5807, in max
+    axis=axis, out=out, **kwargs).view(type(self))
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/_methods.py", line 30, in _amax
+    return umr_maximum(a, axis, None, out, keepdims, initial, where)
+ValueError: zero-size array to reduction operation maximum which has no identity

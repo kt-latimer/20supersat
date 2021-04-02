@@ -106,6 +106,10 @@ def get_rho_air(input_vars, pres=None, temp=None):
 
     return rho_air
 
+def get_rain_rate(input_vars):
+
+    return input_vars['PRECR3D'][...]
+
 def get_ss_wrf(input_vars):
 
     return input_vars['SSW'][...]

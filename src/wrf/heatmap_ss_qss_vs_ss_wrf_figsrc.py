@@ -22,7 +22,7 @@ ss_max = 50+d_ss
 
 def main():
     
-    filename = 'filtered_data_dict_v2.npy'
+    filename = 'filtered_data_dict_v3.npy'
     data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
 
     ss_dict = {'Polluted': None, 'Unpolluted': None}

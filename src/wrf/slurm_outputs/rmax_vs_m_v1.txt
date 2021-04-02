@@ -1,0 +1,103 @@
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 113, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 28, in main
+    make_and_save_lh_cdf(case_label) 
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 45, in make_and_save_lh_cdf
+    ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \
+NameError: name 'get_ss_qss' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 114, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 29, in main
+    make_and_save_lh_cdf(case_label) 
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 46, in make_and_save_lh_cdf
+    ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \
+NameError: name 'dsdsum_vars' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 121, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 29, in main
+    make_and_save_lh_cdf(case_label) 
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 53, in make_and_save_lh_cdf
+    ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \
+NameError: name 'cutoff_bins' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 126, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 34, in main
+    make_and_save_lh_cdf(case_label) 
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 92, in make_and_save_lh_cdf
+    m_vals = get_m_vals(lwc_dict, lwc_cutoff_val, ss_qss, ss_wrf)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 116, in get_m_vals
+    ss_qss_i = ss_qss[filter_inds_i]
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+IndexError: boolean index did not match indexed array along dimension 0; dimension is 84 but corresponding boolean dimension is 30577930
+slurmstepd: error: *** JOB 29568607 ON n0272.lr6 CANCELLED AT 2021-03-20T07:15:16 ***
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 127, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 34, in main
+    make_and_save_rmax_vs_m(case_label) 
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 93, in make_and_save_rmax_vs_m
+    lwc_cutoff_val, ss_qss, ss_wrf)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 112, in get_m_vals
+    lwc_i = lwc_dict[var_key][filter_inds]
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+IndexError: too many indices for array
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+(30577930,)
+(84, 66, 450, 450)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 129, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 34, in main
+    make_and_save_rmax_vs_m(case_label) 
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 93, in make_and_save_rmax_vs_m
+    lwc_cutoff_val, ss_qss, ss_wrf)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 116, in get_m_vals
+    filter_inds_i = lwc_i[filter_inds] > lwc_cutoff_val
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 3188, in __getitem__
+    dout = self.data[indx]
+IndexError: too many indices for array
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 128, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 34, in main
+    make_and_save_rmax_vs_m(case_label) 
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 94, in make_and_save_rmax_vs_m
+    lwc_cutoff_val, ss_qss, ss_wrf)
+TypeError: get_m_vals() takes 4 positional arguments but 5 were given
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 127, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 34, in main
+    make_and_save_rmax_vs_m(case_label) 
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 93, in make_and_save_rmax_vs_m
+    m_vals = get_m_vals(lwc_dict, lwc_cutoff_val, ss_qss, ss_wrf)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py", line 119, in get_m_vals
+    m, b, R, sig = linregress(ss_qss_i, ss_wrf_i)
+NameError: name 'linregress' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Unpolluted

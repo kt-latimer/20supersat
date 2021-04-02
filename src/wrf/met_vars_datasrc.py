@@ -8,7 +8,8 @@ from wrf import BASE_DIR, DATA_DIR, FIG_DIR
 from wrf.met_data_functions import get_A, get_B, get_e_sat, get_LH, \
                                         get_LWC_cloud, get_LWC_rain, \
                                         get_nconc_cloud, get_nconc_rain, \
-                                        get_pres, get_rho_air, get_ss_wrf, \
+                                        get_pres, get_rain_rate, \
+                                        get_rho_air, get_ss_wrf, \
                                         get_temp, get_w, get_x, get_y, get_z
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
@@ -17,14 +18,15 @@ dim_3d = ('Time', 'south_north', 'west_east')
 dim_4d = ('Time', 'bottom_top', 'south_north', 'west_east')
 var_names = ['A', 'B', 'e_sat', 'LH', 'LWC_cloud', 'LWC_rain', \
              'nconc_cloud', 'nconc_rain', 'pres', 'rho_air', \
-             'ss_wrf', 'temp', 'w', 'x', 'y', 'z']
-var_dims = [dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, \
-            dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, dim_3d, dim_3d, dim_4d]
+             'rain_rate', 'ss_wrf', 'temp', 'w', 'x', 'y', 'z']
+var_dims = [dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, \
+            dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, dim_4d, \
+            dim_4d, dim_4d, dim_3d, dim_3d, dim_4d]
 var_calculation_functions = [get_A, get_B, get_e_sat, get_LH, \
                              get_LWC_cloud, get_LWC_rain, \
                              get_nconc_cloud, get_nconc_rain, \
-                             get_pres, get_rho_air, get_ss_wrf, \
-                             get_temp, get_w, get_x, get_y, get_z]
+                             get_pres, get_rho_air, get_rain_rate, \
+                             get_ss_wrf, get_temp, get_w, get_x, get_y, get_z]
 
 def main():
 

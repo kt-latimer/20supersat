@@ -1,0 +1,4 @@
+#!/bin/bash
+imax=$1
+
+python $HOME/proj/20supersat/src/wrf/imax_heatmap_ss_qss_vs_ss_wrf_figsrc.py $imax

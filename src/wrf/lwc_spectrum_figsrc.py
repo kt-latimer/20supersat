@@ -36,6 +36,8 @@ def make_and_save_lh_cdf(case_label):
     met_file = Dataset(DATA_DIR + case_dir_name + \
                                 'wrfout_d01_met_vars', 'r')
     met_vars = met_file.variables
+
+    #get lwc file variables 
     lwc_file = Dataset(DATA_DIR + case_dir_name + \
                                 'wrfout_d01_lwc_spectrum_vars', 'r')
     lwc_vars = lwc_file.variables

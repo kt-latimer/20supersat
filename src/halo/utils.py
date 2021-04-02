@@ -83,3 +83,16 @@ def match_two_arrays(arr1, arr2):
                 break
 
     return(inds1, inds2)
+
+def match_multiple_arrays(arrays):
+    """
+    Return: [inds1, ... , indsN] where arr1[inds1] = ... = arrN[indsN].
+    Assumes all arrays are sorted in the same order (ie time series)
+    probably a better way to do this recursively but I never learned that shit xd
+    """
+    inds = [[i for i in range(len(arrays[0]))]]
+    for i, array in enumerate(arrays[:-1]):
+        (inds1, inds2) = match_two_arrays([array[i] for i in inds[-1]], arrays[i+1])
+        inds = [[indsj[i] for i in inds1] for indsj in inds]
+        inds.append(inds2)
+    return [np.array(indsarr) for indsarr in inds]

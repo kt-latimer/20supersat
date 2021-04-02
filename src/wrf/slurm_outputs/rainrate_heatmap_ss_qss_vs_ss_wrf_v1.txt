@@ -1,0 +1,144 @@
+slurmstepd: error: *** JOB 29444762 ON n0272.lr6 CANCELLED AT 2021-03-15T10:32:02 ***
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 168, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 37, in main
+    cutoff_bins, full_ss, incl_rain, incl_vent)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 59, in make_and_save_ss_qss_vs_ss_wrf
+    full_ss, incl_rain, incl_vent)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py", line 47, in get_ss_qss
+    ss_qss = A*w/(4*np.pi*B*meanr*nconc)*100. #as a percentage
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 4130, in __mul__
+    return multiply(self, other)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/ma/core.py", line 1026, in __call__
+    result = self.f(da, db, *args, **kwargs)
+ValueError: operands could not be broadcast together with shapes (84,66,450,450) (84,450,450) 
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+0.5943858360232986 0.19858630769949304 0.8743280356919914
+# pts total: 7411327
+max: 54.54756836999827
+# pts ss > 2%: 1315322
+Number of points in Q1: 7372257
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 36906
+
+Domain: 0.10324289174550372 54.54756836999827
+Range: -12.413106 20.070312
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 168, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 37, in main
+    cutoff_bins, full_ss, incl_rain, incl_vent)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 93, in make_and_save_ss_qss_vs_ss_wrf
+    cmap=plt.cm.magma_r)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/__init__.py", line 1599, in inner
+    return func(ax, *map(sanitize_sequence, args), **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/cbook/deprecation.py", line 307, in wrapper
+    return func(*args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_axes.py", line 7075, in hist2d
+    normed=density, weights=weights)
+  File "<__array_function__ internals>", line 6, in histogram2d
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/twodim_base.py", line 715, in histogram2d
+    hist, edges = histogramdd([x, y], bins, range, normed, weights, density)
+  File "<__array_function__ internals>", line 6, in histogramdd
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/histograms.py", line 1089, in histogramdd
+    hist = np.bincount(xy, weights, minlength=nbin.prod())
+  File "<__array_function__ internals>", line 6, in bincount
+ValueError: object too deep for desired array
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+0.5943858360232986 0.19858630769949304 0.8743280356919914
+# pts total: 7411327
+max: 54.54756836999827
+# pts ss > 2%: 1315322
+Number of points in Q1: 7372257
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 36906
+
+Domain: 0.10324289174550372 54.54756836999827
+Range: -12.413106 20.070312
+(280, 280)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 173, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 37, in main
+    cutoff_bins, full_ss, incl_rain, incl_vent)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/rainrate_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 98, in make_and_save_ss_qss_vs_ss_wrf
+    cmap=plt.cm.magma_r)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/__init__.py", line 1599, in inner
+    return func(ax, *map(sanitize_sequence, args), **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/cbook/deprecation.py", line 307, in wrapper
+    return func(*args, **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_axes.py", line 7075, in hist2d
+    normed=density, weights=weights)
+  File "<__array_function__ internals>", line 6, in histogram2d
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/twodim_base.py", line 715, in histogram2d
+    hist, edges = histogramdd([x, y], bins, range, normed, weights, density)
+  File "<__array_function__ internals>", line 6, in histogramdd
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/histograms.py", line 1089, in histogramdd
+    hist = np.bincount(xy, weights, minlength=nbin.prod())
+  File "<__array_function__ internals>", line 6, in bincount
+ValueError: object too deep for desired array
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+0.5943858360232986 0.19858630769949304 0.8743280356919914
+# pts total: 7411327
+max: 54.54756836999827
+# pts ss > 2%: 1315322
+Number of points in Q1: 7372257
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 36906
+
+Domain: 0.10324289174550372 54.54756836999827
+Range: -12.413106 20.070312
+(280, 280)
+Unpolluted
+0.5035432372125351 0.35889812882174055 0.8967501776106793
+# pts total: 6728707
+max: 119.50635974626283
+# pts ss > 2%: 1711843
+Number of points in Q1: 6696444
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 30172
+
+Domain: 0.11286629575732705 119.50635974626283
+Range: -10.896954 45.24754
+(280, 280)
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+-0.027727851303300736 0.1287482628772485 0.405311620865788
+# pts total: 8703546
+max: 49868.360616704085
+# pts ss > 2%: 2824400
+Number of points in Q1: 7876513
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 1533235
+
+Domain: -34554.91368141663 49868.360616704085
+Range: -45.968933 20.070312
+(280, 280)
+Unpolluted
+-0.030736765433959482 1.2176870323125795 0.32400674439727783
+# pts total: 8163922
+max: 9855.259721411849
+# pts ss > 2%: 3522187
+Number of points in Q1: 7423271
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 1429591
+
+Domain: -36071.854476336885 9855.259721411849
+Range: -44.57138 54.38872
+(280, 280)

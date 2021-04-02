@@ -85,6 +85,42 @@ def get_ss_vs_t_cas(adlr_dict, cas_dict, cip_dict, \
 
     return ss_pred
 
+def get_ss_vs_t_splice_method_1(adlr_dict, cas_dict, cip_dict, \
+                change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent):
+
+    if incl_rain:
+        meanr = get_meanr_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
+                        change_cas_corr, cutoff_bins, incl_rain, incl_vent)
+        nconc = get_nconc_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
+                        change_cas_corr, cutoff_bins, incl_rain, incl_vent)
+    else:
+        meanr = get_meanr_vs_t_from_cas(adlr_dict, cas_dict, \
+                                    change_cas_corr, cutoff_bins, \
+                                    incl_rain, incl_vent)
+        nconc = get_nconc_vs_t_from_cas(adlr_dict, cas_dict, \
+                                    change_cas_corr, cutoff_bins, \
+                                    incl_rain, incl_vent)
+
+    temp = adlr_dict['data']['temp']
+    w = adlr_dict['data']['w']
+
+    if full_ss:
+        pres = adlr_dict['data']['pres']
+        rho_air = pres/(R_a*temp) 
+        e_s = get_sat_vap_pres(temp)
+        F_d = rho_w*R_v*temp/(D*e_s) 
+        F_k = (L_v/(R_v*temp) - 1)*L_v*rho_w/(K*temp)
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp*(F_d + F_k)
+        B = rho_w*(R_v*temp/e_s + L_v**2./(R_v*C_ap*rho_air*temp**2.)) 
+    else:
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        B = D
+
+    ss_qss = A*w/(4*np.pi*B*meanr*nconc)*100. #as a percentage
+    ss_pred = LSR_INT + LSR_SLOPE*ss_qss
+
+    return ss_pred
+
 def get_ss_vs_t_cdp(adlr_dict, cdp_dict, cip_dict, \
                 cutoff_bins, full_ss, incl_rain, incl_vent):
 
@@ -638,6 +674,46 @@ def get_cip_nconc_2(cip_dict):
 
     return bin_2_width_fraction*cip_dict['data']['nconc_2']
 
+def get_lwc_splice_method_1(cas_dict, cip_dict, change_cas_corr, cutoff_bins):
+
+    lwc = np.zeros(np.shape(cas_dict['data']['time']))
+
+    cas_lwc_var_keys = ['lwc_5um_to_25um_diam']
+    if not cutoff_bins:
+        cas_lwc_var_keys.append('lwc_sub_5um_diam')
+    if change_cas_corr:
+        cas_lwc_var_keys = [lwc_var_key+'_corr' for lwc_var_key in lwc_var_keys]
+
+    cip_lwc_var_keys = ['lwc_25um_to_200um_diam']
+
+    for cas_lwc_var_key in cas_lwc_var_keys:
+        lwc += cas_dict['data'][cas_lwc_var_key]
+
+    for cip_lwc_var_key in cip_lwc_var_keys:
+        lwc += cip_dict['data'][cip_lwc_var_key]
+
+    return lwc
+    
+def get_lwc_splice_method_2(cas_dict, cip_dict, change_cas_corr, cutoff_bins):
+
+    lwc = np.zeros(np.shape(cas_dict['data']['time']))
+
+    cas_lwc_var_keys = ['lwc_5um_to_25um_diam', 'lwc_25um_to_50um_diam']
+    if not cutoff_bins:
+        cas_lwc_var_keys.append('lwc_sub_5um_diam')
+    if change_cas_corr:
+        cas_lwc_var_keys = [lwc_var_key+'_corr' for lwc_var_key in lwc_var_keys]
+
+    cip_lwc_var_keys = ['lwc_50um_to_200um_diam']
+
+    for cas_lwc_var_key in cas_lwc_var_keys:
+        lwc += cas_dict['data'][cas_lwc_var_key]
+
+    for cip_lwc_var_key in cip_lwc_var_keys:
+        lwc += cip_dict['data'][cip_lwc_var_key]
+
+    return lwc
+    
 def get_lwc_from_cdp(cdp_dict, cutoff_bins):
 
     lwc_var_keys = ['lwc_5um_to_25um_diam', 'lwc_above_25um_diam']
@@ -649,3 +725,55 @@ def get_lwc_from_cdp(cdp_dict, cutoff_bins):
         lwc += cas_dict['data'][lwc_var_key]
 
     return lwc
+
+def get_center_bin_radii(bin_dict, bin_scaling):
+
+    if bin_scaling == 'lin':
+        return (bin_dict['upper'] + bin_dict['lower'])/2.
+    elif bin_scaling == 'log':
+        return np.log10(np.sqrt(bin_dict['upper']*bin_dict['lower']))
+    else:
+        print('incorrect bin scaling argument')
+        return
+
+def get_spliced_cas_and_cip_dicts(cas_dict, cip_dict, \
+                            bin_scaling, splice_method):
+
+    if splice_method == 'cas_over_cip':
+        cas_dict = cas_dict
+        cip_dict = get_under_spliced_cip_dict(cas_dict, cip_dict, \
+                                        bin_scaling, splice_method)
+    elif splice_method == 'cip_over_cas':
+        cas_dict = get_under_spliced_cas_dict(cas_dict)
+        cip_dict = cip_dict
+    else:
+        print('incorrect splice method argument')
+        return
+
+    return cas_dict, cip_dict
+
+def get_under_spliced_cip_dict(cas_dict, cip_dict):
+
+    cas_t = cas_dict['data']['time']
+    cas_nconc_contribution = np.zeros(np.shape(cas_t))
+
+    for i in range(12, 17):
+        var_name = 'nconc_' + str(i)
+        nconc_i = cas_dict['data'][var_name]
+        cas_nconc_contribution += nconc_i
+
+    cip_dict['data']['nconc_1'] -= cas_nconc_contribution
+
+    #alternative scheme 
+    #cip_dict['data']['nconc_1'] = 0.5*cip_dict['data']['nconc_1']
+
+    return cip_dict
+
+def get_under_spliced_cas_dict(cas_dict):
+
+    for i in range(12, 17):
+        var_name = 'nconc_' + str(i)
+        del cas_dict['data'][var_name]
+        del cas_dict['units'][var_name]
+
+    return cas_dict

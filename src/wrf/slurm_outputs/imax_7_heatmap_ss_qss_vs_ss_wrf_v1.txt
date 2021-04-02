@@ -1,0 +1,18 @@
+/var/spool/slurmd/job29594073/slurm_script: line 4: 91264 Killed                  python $HOME/proj/20supersat/src/wrf/imax_heatmap_ss_qss_vs_ss_wrf_figsrc.py $imax
+slurmstepd: error: Detected 1 oom-kill event(s) in step 29594073.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Unpolluted
+0.9918186025457584 -0.05825348325894386 0.9262656188608878
+# pts total: 79226
+max: 1.944519548709291
+# pts ss > 2%: 0
+Number of points in Q1: 79204
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 2
+
+Domain: 0.14639775138726369 1.944519548709291
+Range: -0.049182802 1.8970904

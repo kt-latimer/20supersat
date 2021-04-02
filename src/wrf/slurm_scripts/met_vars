@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/wrf/met_vars_datasrc.py

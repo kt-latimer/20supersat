@@ -1,0 +1,20 @@
+#!/bin/bash
+
+imax=6
+imax_max=32
+
+while [ $imax -lt $imax_max ]; do
+	lhcdf_poll_filename="/global/home/users/kalatimer/proj/20supersat/figures/wrf/imax_${imax}_lwc_spectrum_Polluted_figure.png"
+	lhcdf_unpoll_filename="/global/home/users/kalatimer/proj/20supersat/figures/wrf/imax_${imax}_lwc_spectrum_Unpolluted_figure.png"
+	heatmap_poll_filename="/global/home/users/kalatimer/proj/20supersat/figures/wrf/imax_${imax}_heatmap_ss_qss_vs_ss_wrf_Polluted_figure.png"
+	heatmap_unpoll_filename="/global/home/users/kalatimer/proj/20supersat/figures/wrf/imax_${imax}_heatmap_ss_qss_vs_ss_wrf_Unpolluted_figure.png"
+	poll_outfilename="/global/home/users/kalatimer/proj/20supersat/figures/wrf/imax_${imax}_combined_Polluted_figure.png"
+	unpoll_outfilename="/global/home/users/kalatimer/proj/20supersat/figures/wrf/imax_${imax}_combined_Unpolluted_figure.png"
+	outfilename="/global/home/users/kalatimer/proj/20supersat/figures/wrf/imax_${imax}_combined_figure.png"
+	convert $lhcdf_poll_filename $heatmap_poll_filename -append $poll_outfilename
+	convert $lhcdf_unpoll_filename $heatmap_unpoll_filename -append $unpoll_outfilename
+	convert $poll_outfilename $unpoll_outfilename +append $outfilename
+	((imax++))
+done
+
+convert -delay 100 /global/home/users/kalatimer/proj/20supersat/figures/wrf/imax_*_combined_figure.png /global/home/users/kalatimer/proj/20supersat/figures/wrf/rmax_gif.gif
