@@ -1,0 +1,74 @@
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 83
+    dsd_dict['std'].append(np.std(nconc_i[filter_inds])
+           ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 36, in <module>
+    bin_widths = bin_radii*(2.**(1./6.) - 2.**(-1./6.)) #edges are geometric means
+NameError: name 'bin_radii' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 146, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 46, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 81, in get_dsd_dicts
+    f_i = get_bin_vent_coeff(i, eta, N_Be_div_r3, N_Bo_div_r2, N_P, \
+NameError: name 'get_bin_vent_coeff' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 146, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 46, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 81, in get_dsd_dicts
+    f_i = get_bin_vent_coeff(i, eta, N_Be_div_r3, N_Bo_div_r2, N_P, \
+NameError: name 'eta' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 161, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 53, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 74, in get_dsd_dicts
+    N_Be_div_r3 = 32*rho_w*rho_air*g/(3*eta**2.) #pr&kl p 417
+NameError: name 'rho_w' is not defined
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 177, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 70, in main
+    make_and_save_avg_dsd(case_label, dsd_dict, vent_dsd_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 146, in make_and_save_avg_dsd
+    yerr = dsd_dict['std'], fmt='o')
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/__init__.py", line 1599, in inner
+    return func(ax, *map(sanitize_sequence, args), **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_axes.py", line 3313, in errorbar
+    self.add_line(data_line)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 1902, in add_line
+    self._update_line_limits(line)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 1924, in _update_line_limits
+    path = line.get_path()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/lines.py", line 1027, in get_path
+    self.recache()
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/lines.py", line 679, in recache
+    self._xy = np.column_stack(np.broadcast_arrays(x, y)).astype(float)
+  File "<__array_function__ internals>", line 6, in broadcast_arrays
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/stride_tricks.py", line 264, in broadcast_arrays
+    shape = _broadcast_shape(*args)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/stride_tricks.py", line 191, in _broadcast_shape
+    b = np.broadcast(*args[:32])
+ValueError: shape mismatch: objects cannot be broadcast to a single shape
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 184, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 70, in main
+    make_and_save_avg_dsd(case_label, dsd_dict, vent_dsd_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 157, in make_and_save_avg_dsd
+    dsd_dict['hi_quart']*1.e-6], fmt='o')
+KeyError: 'hi_quart'

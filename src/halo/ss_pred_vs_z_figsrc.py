@@ -9,13 +9,19 @@ from matplotlib.lines import Line2D
 import numpy as np
 
 from halo import DATA_DIR, FIG_DIR
-from halo.ss_functions import get_ss_vs_t_cas, get_lwc_from_cas, \
-                                get_lwc_from_cas_and_cip
+from halo.ss_functions import get_ss_vs_t_cas, \
+                            get_spliced_cas_and_cip_dicts, \
+                            get_spliced_cas_and_cip_bins, \
+                            get_nconc_contribution_from_cas_var, \
+                            get_nconc_contribution_from_cip_var
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
+
+splice_methods = ['cas_over_cip', 'cip_over_cas', 'wt_avg']
+rmax = 50.e-6
 
 lwc_filter_val = 1.e-4 #10**(-3.5)
 w_cutoff = 1
@@ -29,8 +35,28 @@ incl_rain = True
 incl_vent = True
 full_ss = True
 
+##
+## physical constants
+##
+C_ap = 1005. #dry air heat cap at const P (J/(kg K))
+D = 0.23e-4 #diffus coeff water in air (m^2/s)
+g = 9.8 #grav accel (m/s^2)
+K = 2.4e-2 #therm conductivity of air (J/(m s K))
+L_v = 2501000. #latent heat of evaporation of water (J/kg)
+Mm_a = .02896 #Molecular weight of dry air (kg/mol)
+Mm_v = .01806 #Molecular weight of water vapour (kg/mol)
+R = 8.317 #universal gas constant (J/(mol K))
+R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
+R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
+rho_w = 1000. #density of water (kg/m^3) 
+
 def main():
     
+    for splice_method in splice_methods:
+        make_indiv_and_alldates_ss_profiles(splice_method)
+
+def make_indiv_and_alldates_ss_profiles(splice_method):
+
     with open('good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]
 
@@ -39,7 +65,7 @@ def main():
     z_dict = {'allpts': None, 'up10perc': None}
 
     for date in good_dates:
-        ss_pred, w, z = get_ss_pred_and_w_and_z_data(date)
+        ss_pred, w, z = get_ss_pred_and_w_and_z_data(date, splice_method)
 
         if np.shape(ss_pred)[0] != 0:
             ss_pred_dict['allpts'] = add_to_alldates_array(ss_pred, \
@@ -49,12 +75,14 @@ def main():
             z_dict['allpts'] = add_to_alldates_array(z, \
                                             z_dict['allpts'])
 
-    ss_pred_dict, w_dict, z_dict = get_up10perc_data(ss_pred_dict, w_dict, z_dict)
+    ss_pred_dict, w_dict, z_dict = get_up10perc_data(ss_pred_dict, \
+                                                    w_dict, z_dict)
 
     h_z, z_bins = np.histogram(z_dict['allpts'], bins=15, density=True)
     print(z_bins)
 
-    make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins)
+    make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, \
+                                        z_bins, splice_method)
 
 def add_to_alldates_array(ss_pred, ss_pred_alldates):
 
@@ -76,7 +104,7 @@ def get_up10perc_data(ss_pred_dict, w_dict, z_dict):
 
     return ss_pred_dict, w_dict, z_dict
 
-def get_ss_pred_and_w_and_z_data(date):
+def get_ss_pred_and_w_and_z_data(date, splice_method):
 
     adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
     adlr_dict = np.load(adlrfile, allow_pickle=True).item()
@@ -85,10 +113,12 @@ def get_ss_pred_and_w_and_z_data(date):
     cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
     cip_dict = np.load(cipfile, allow_pickle=True).item()
 
+    cas_dict, cip_dict = get_spliced_cas_and_cip_dicts(cas_dict, \
+                        cip_dict, splice_method, change_cas_corr)
+
     #lwc = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
-    lwc = get_lwc_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
-                                        change_cas_corr, cutoff_bins)
-    print('one')
+    lwc = get_lwc_with_rmax(adlr_dict, cas_dict, cip_dict, \
+            change_cas_corr, False, rmax, splice_method)
     temp = adlr_dict['data']['temp']
     w = adlr_dict['data']['w']
     z = adlr_dict['data']['alt']
@@ -101,6 +131,8 @@ def get_ss_pred_and_w_and_z_data(date):
                     (w > w_cutoff), \
                     (temp > 273)))
 
+    print(np.sum(filter_inds))
+
     if np.sum(filter_inds) != 0:
         ss_pred = ss_pred[filter_inds]
         w = w[filter_inds]
@@ -112,7 +144,8 @@ def get_ss_pred_and_w_and_z_data(date):
 
     return ss_pred, w, z
 
-def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
+def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, \
+                                        z_bins, splice_method):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
     n_pts = {'allpts': 0, 'up10perc': 0}
@@ -166,7 +199,7 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
 
     fig.suptitle('Supersaturation and area fraction vertical profiles - HALO')
 
-    outfile = FIG_DIR + 'ss_pred_vs_z_figure.png'
+    outfile = FIG_DIR + 'ss_pred_vs_z_' + splice_method + '_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
@@ -204,6 +237,33 @@ def get_avg_ss_pred_and_z(ss_pred, z, z_bins):
             print(i, avg_ss_pred[i], ss_pred_slice)
 
     return avg_ss_pred, avg_z, se
+
+def get_lwc_with_rmax(adlr_dict, cas_dict, cip_dict, change_cas_corr, \
+                                    cutoff_bins, rmax, splice_method):
+
+    CAS_bin_radii, CIP_bin_radii = get_spliced_cas_and_cip_bins(splice_method)
+
+    lwc = np.zeros(np.shape(adlr_dict['data']['time']))
+    rho_air = adlr_dict['data']['pres']/(R_a*adlr_dict['data']['temp'])
+
+    for i, r in enumerate(CAS_bin_radii):
+        if r <= rmax:
+            var_name = 'nconc_' + str(i+5)
+            if change_cas_corr:
+                var_name += '_corr'
+            if var_name in cas_dict['data']:
+                nconc_i = get_nconc_contribution_from_cas_var(var_name, adlr_dict, \
+                    cas_dict, change_cas_corr, cutoff_bins, incl_rain, incl_vent)
+                lwc += nconc_i*r**3.*4./3.*np.pi*rho_w/rho_air
+
+    for i, r in enumerate(CIP_bin_radii):
+        if r <= rmax:
+            var_name = 'nconc_' + str(i+1)
+            nconc_i = get_nconc_contribution_from_cip_var(var_name, adlr_dict, \
+                    cip_dict)
+            lwc += nconc_i*r**3.*4./3.*np.pi*rho_w/rho_air
+
+    return lwc
 
 if __name__ == "__main__":
     main()

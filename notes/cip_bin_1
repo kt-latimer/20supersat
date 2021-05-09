@@ -1,0 +1,17 @@
+Morning -- a few miscellaneous things I looked at RE: understanding first CIP bin.
+
+1) Sample volumes
+
+All the instrument specs have sample area given and sample volume gets backed out using V=A*f*PAS, where f is sampling frequency and PAS is probe air speed (which includes corrections for local density variations). Throughout the campaign f=1Hz and PAS is about 100m/s ($$ /pm $$ about 10m/s). Given this, the CIP sample volume is roughly $$ 10^4 $$ccm and the CAS sample volume is roughly $$ 10^2 $$ccm. Which, thinking about it more, makes sense because the concentrations are much lower on average in the CIP range of the spectrum so I guess it just needs more space to get meaningful particle counts. But in any case, that means that when the CIP bin 1 is measuring O(1) ptcl/ccm, that's about  $$ 10^4 $$ particles. And that's what I see in these outlier spectra where only CIP bin 1 is reading anything and the rest of the spectrum is ~zero. So that's strange right?
+
+2) Anomalous spectrum counts
+
+I counted the number of spectra (for all dates at the given 1Hz sampling frequency) where the highest bin $$ \frac{dN}{dlogDp} $$ is greater than 5x the next highest bin $$ \frac{dN}{dlogDp} $$, where N is number concentration. (factor of 5 is arbitrary) So this captures spectra where there's a sharp peak in a single one of the bins. Here's the results of that:
+
+So you can see that actually the first CIP bin is not reporting quite as strange numbers as the first couple CAS bins. But to be fair, the PIs from Germany told us a while ago to exclude data for cloud droplets less than 3um since the CAS instrument isn't reliable in that range. Then the plot looks like this:
+
+3) Spectrum continuity
+
+There were a couple different ways I tried to look at this. The first was computing the R^2 for least squares regression between number concentrations of neighboring bins. It's a bit ambiguous what to do in the overlap region so I'm just showing the same thing I had sent to the folks in Germany which is correlation between the first CIP bin and sum of all CAS bins overlapping in that region. It's lowest for the two pairings including CIP bin 1, with the exception of the higher CIP bins, but the number concentrations for those are so low that they're really just picking up noise I think:
+
+Alternatively I can just plot the derivative of the spectrum, but given the relevant scales you don't see much:

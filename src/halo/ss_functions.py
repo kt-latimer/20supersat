@@ -2,6 +2,7 @@
 Various routines and subroutines for calculating predicted 
 superaturation from HALO campaign data
 """
+import copy
 import numpy as np
 import re
 
@@ -50,17 +51,27 @@ LSR_SLOPE = 0.8498781398164678
 ## methods to get ss_qss for cas and cdp
 ##
 def get_ss_vs_t_cas(adlr_dict, cas_dict, cip_dict, \
-                change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent):
+                change_cas_corr, cutoff_bins, full_ss, \
+                incl_rain, incl_vent):
 
     if incl_rain:
+        #cas_dict_copy = copy.deepcopy(cas_dict)
+        #cip_dict_copy = copy.deepcopy(cip_dict)
+        #new_cas_dict, new_cip_dict = \
+        #    get_spliced_cas_and_cip_dicts(cas_dict_copy, \
+        #    cip_dict_copy, splice_method)
+        #meanr = get_meanr_vs_t_from_cas_and_cip(adlr_dict, new_cas_dict, new_cip_dict, \
+        #    change_cas_corr, cutoff_bins, incl_rain, incl_vent)
+        #nconc = get_nconc_vs_t_from_cas_and_cip(adlr_dict, new_cas_dict, new_cip_dict, \
+        #                change_cas_corr, cutoff_bins, incl_rain, incl_vent)
         meanr = get_meanr_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
-                        change_cas_corr, cutoff_bins, incl_rain, incl_vent)
+                            change_cas_corr, cutoff_bins, incl_rain, incl_vent)
         nconc = get_nconc_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
-                        change_cas_corr, cutoff_bins, incl_rain, incl_vent)
+                            change_cas_corr, cutoff_bins, incl_rain, incl_vent)
     else:
         meanr = get_meanr_vs_t_from_cas(adlr_dict, cas_dict, \
-                                    change_cas_corr, cutoff_bins, \
-                                    incl_rain, incl_vent)
+                        change_cas_corr, cutoff_bins, incl_rain, \
+                        incl_vent)
         nconc = get_nconc_vs_t_from_cas(adlr_dict, cas_dict, \
                                     change_cas_corr, cutoff_bins, \
                                     incl_rain, incl_vent)
@@ -81,45 +92,10 @@ def get_ss_vs_t_cas(adlr_dict, cas_dict, cip_dict, \
         B = D
 
     ss_qss = A*w/(4*np.pi*B*meanr*nconc)*100. #as a percentage
-    ss_pred = LSR_INT + LSR_SLOPE*ss_qss
+    #ss_pred = LSR_INT + LSR_SLOPE*ss_qss
 
-    return ss_pred
-
-def get_ss_vs_t_splice_method_1(adlr_dict, cas_dict, cip_dict, \
-                change_cas_corr, cutoff_bins, full_ss, incl_rain, incl_vent):
-
-    if incl_rain:
-        meanr = get_meanr_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
-                        change_cas_corr, cutoff_bins, incl_rain, incl_vent)
-        nconc = get_nconc_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
-                        change_cas_corr, cutoff_bins, incl_rain, incl_vent)
-    else:
-        meanr = get_meanr_vs_t_from_cas(adlr_dict, cas_dict, \
-                                    change_cas_corr, cutoff_bins, \
-                                    incl_rain, incl_vent)
-        nconc = get_nconc_vs_t_from_cas(adlr_dict, cas_dict, \
-                                    change_cas_corr, cutoff_bins, \
-                                    incl_rain, incl_vent)
-
-    temp = adlr_dict['data']['temp']
-    w = adlr_dict['data']['w']
-
-    if full_ss:
-        pres = adlr_dict['data']['pres']
-        rho_air = pres/(R_a*temp) 
-        e_s = get_sat_vap_pres(temp)
-        F_d = rho_w*R_v*temp/(D*e_s) 
-        F_k = (L_v/(R_v*temp) - 1)*L_v*rho_w/(K*temp)
-        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp*(F_d + F_k)
-        B = rho_w*(R_v*temp/e_s + L_v**2./(R_v*C_ap*rho_air*temp**2.)) 
-    else:
-        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
-        B = D
-
-    ss_qss = A*w/(4*np.pi*B*meanr*nconc)*100. #as a percentage
-    ss_pred = LSR_INT + LSR_SLOPE*ss_qss
-
-    return ss_pred
+    #return ss_pred
+    return ss_qss
 
 def get_ss_vs_t_cdp(adlr_dict, cdp_dict, cip_dict, \
                 cutoff_bins, full_ss, incl_rain, incl_vent):
@@ -160,13 +136,12 @@ def get_ss_vs_t_cdp(adlr_dict, cdp_dict, cip_dict, \
 ## corrections) for cas and cdp (cip included for both for higher radii)
 ##
 def get_meanr_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
-                change_cas_corr, cutoff_bins, incl_rain, incl_vent):
+    change_cas_corr, cutoff_bins, incl_rain, incl_vent):
 
     nconc = get_nconc_vs_t_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, \
                     change_cas_corr, cutoff_bins, incl_rain, incl_vent)
 
     meanr_sum = np.zeros(np.shape(cas_dict['data']['time']))
-    print(np.shape(meanr_sum))
 
     for var_name in cas_dict['data'].keys():
         meanr_sum += get_meanr_contribution_from_cas_var(var_name, \
@@ -205,7 +180,7 @@ def get_meanr_vs_t_from_cdp_and_cip(adlr_dict, cdp_dict, cip_dict, \
 
     for var_name in cas_dict['data'].keys():
         meanr_sum += get_meanr_contribution_from_cdp_var(var_name, adlr_dict, \
-                            cdp_dict, cutoff_bins, incl_rain, incl_vent)
+                    cdp_dict, cutoff_bins, incl_rain, incl_vent)
     
     for var_name in cip_dict['data'].keys():
         meanr_sum += get_meanr_contribution_from_cip_var(var_name, adlr_dict, \
@@ -232,7 +207,7 @@ def get_nconc_vs_t_from_cdp_and_cip(adlr_dict, cdp_dict, cip_dict, \
 ## methods to get meanr and nconc without rain for cas and cdp
 ##
 def get_meanr_vs_t_from_cas(adlr_dict, cas_dict, change_cas_corr, \
-                            cutoff_bins, incl_rain, incl_vent):
+                cutoff_bins, incl_rain, incl_vent):
 
     nconc = get_nconc_vs_t_from_cas(adlr_dict, cas_dict, \
                     change_cas_corr, cutoff_bins, incl_rain, incl_vent)
@@ -268,7 +243,7 @@ def get_meanr_vs_t_from_cdp(adlr_dict, cdp_dict, cutoff_bins, \
 
     for var_name in cas_dict['data'].keys():
         meanr_sum += get_meanr_contribution_from_cdp_var(var_name, adlr_dict, \
-                            cdp_dict, cutoff_bins, incl_rain, incl_vent)
+                    cdp_dict, cutoff_bins, incl_rain, incl_vent)
 
     return meanr_sum/nconc
 
@@ -335,13 +310,13 @@ def get_meanr_contribution_from_cdp_var(var_name, adlr_dict, \
 
     if 'diam' in var_name:
         return zero_arr
-    
+
     try:
         nconc_ind = int(re.findall(r'\d+', var_name)[0])
     except indexerror: #there's no integer in var_name (not a bin variable)
         return zero_arr
 
-    bin_ind = nconc_ind - 1
+    bin_ind = nconc_ind - 1 
     r = CDP_bin_radii[bin_ind]
 
     pres = adlr_dict['data']['pres']
@@ -372,13 +347,16 @@ def get_meanr_contribution_from_cip_var(var_name, adlr_dict, \
                                         incl_vent):
 
     zero_arr = np.zeros(np.shape(adlr_dict['data']['time']))
+
+    if 'diam' in var_name:
+        return zero_arr
     
     try:
         nconc_ind = int(re.findall(r'\d+', var_name)[0])
     except IndexError: #there's no integer in var_name (not a bin variable)
         return zero_arr
 
-    bin_ind = nconc_ind - 1
+    bin_ind = nconc_ind - 1 
     r = CIP_bin_radii[bin_ind]
 
     pres = adlr_dict['data']['pres']
@@ -554,6 +532,7 @@ def has_correct_lower_bin_cutoff_cas(var_name, cutoff_bins):
 
 def has_correct_upper_bin_cutoff_cas(var_name, incl_rain):
 
+    return True
     if not incl_rain:
         return True
     
@@ -625,7 +604,8 @@ def get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins):
 
     return lwc
 
-def get_lwc_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, change_cas_corr, cutoff_bins):
+def get_lwc_from_cas_and_cip(adlr_dict, cas_dict, cip_dict, change_cas_corr, \
+                                                            cutoff_bins, rmax):
 
     lwc_cas = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
     
@@ -729,26 +709,135 @@ def get_lwc_from_cdp(cdp_dict, cutoff_bins):
 def get_center_bin_radii(bin_dict, bin_scaling):
 
     if bin_scaling == 'lin':
-        return (bin_dict['upper'] + bin_dict['lower'])/2.
+        return (bin_dict['upper'] + bin_dict['lower'])/4.
     elif bin_scaling == 'log':
-        return np.log10(np.sqrt(bin_dict['upper']*bin_dict['lower']))
+        return np.sqrt(bin_dict['upper']*bin_dict['lower'])/2.
     else:
         print('incorrect bin scaling argument')
         return
 
 def get_spliced_cas_and_cip_dicts(cas_dict, cip_dict, \
-                            bin_scaling, splice_method):
+                        splice_method, change_cas_corr):
 
     if splice_method == 'cas_over_cip':
-        cas_dict = cas_dict
-        cip_dict = get_under_spliced_cip_dict(cas_dict, cip_dict, \
-                                        bin_scaling, splice_method)
+        cas_dict, cip_dict = get_cas_over_cip_dicts(cas_dict, \
+                                    cip_dict, change_cas_corr)
     elif splice_method == 'cip_over_cas':
-        cas_dict = get_under_spliced_cas_dict(cas_dict)
-        cip_dict = cip_dict
+        cas_dict, cip_dict = get_cip_over_cas_dicts(cas_dict, \
+                                    cip_dict, change_cas_corr)
+    elif splice_method == 'wt_avg':
+        cas_dict, cip_dict = get_wt_avg_spliced_dicts(cas_dict, \
+                                        cip_dict, change_cas_corr)
     else:
         print('incorrect splice method argument')
         return
+
+    return cas_dict, cip_dict
+
+def get_spliced_cas_and_cip_bins(splice_method):
+
+    CAS_bin_radii = get_center_bin_radii(CAS_bins, 'log')
+    CIP_bin_radii = get_center_bin_radii(CIP_bins, 'log')
+
+    if splice_method == 'cas_over_cip':
+        CIP_bin_radii[0] = np.sqrt(CAS_bins['upper'][-1]*\
+                                    CIP_bins['upper'][0])/2.
+    elif splice_method == 'cip_over_cas':
+        CAS_bin_radii = CAS_bin_radii[:7]
+    elif splice_method == 'wt_avg':
+        CAS_bin_radii = CAS_bin_radii[:7]
+    else:
+        print('incorrect splice method argument')
+        return
+
+    return CAS_bin_radii, CIP_bin_radii
+
+def get_spliced_dlogDp(splice_method):
+
+    dlogDp = []
+
+    if splice_method == 'cas_over_cip':
+        for i, r in enumerate(CAS_bins['upper']):
+            dlogDp.append(np.log10(r/CAS_bins['lower'][i]))
+        dlogDp.append(np.log10(CIP_bins['upper'][0]/CAS_bins['upper'][-1]))
+        for i, r in enumerate(CIP_bins['upper'][1:]):
+            dlogDp.append(np.log10(r/CIP_bins['lower'][i+1]))
+    elif splice_method == 'cip_over_cas':
+        for i, r in enumerate(CAS_bins['upper'][:7]):
+            dlogDp.append(np.log10(r/CAS_bins['lower'][i]))
+        for i, r in enumerate(CIP_bins['upper']):
+            dlogDp.append(np.log10(r/CIP_bins['lower'][i]))
+    elif splice_method == 'wt_avg':
+        for i, r in enumerate(CAS_bins['upper'][:7]):
+            dlogDp.append(np.log10(r/CAS_bins['lower'][i]))
+        for i, r in enumerate(CIP_bins['upper']):
+            dlogDp.append(np.log10(r/CIP_bins['lower'][i]))
+    else:
+        print('incorrect splice method argument')
+        return 
+
+    return np.array(dlogDp)
+
+def get_cas_over_cip_dicts(cas_dict, cip_dict, change_cas_corr):
+
+    t = cas_dict['data']['time']
+    cas_nconc_contribution = np.zeros(np.shape(t))
+
+    for i in range(12, 17):
+        var_name = 'nconc_' + str(i)
+        if change_cas_corr:
+            var_name += '_corr' 
+        nconc_i = cas_dict['data'][var_name]
+        cas_nconc_contribution += nconc_i
+
+    cip_dict['data']['nconc_1'] -= cas_nconc_contribution
+
+    return cas_dict, cip_dict
+
+def get_cip_over_cas_dicts(cas_dict, cip_dict, change_cas_corr):
+
+    t = cas_dict['data']['time']
+
+    for i in range(12, 17):
+        var_name = 'nconc_' + str(i)
+        corr_var_name = 'nconc_' + str(i) + '_corr'
+        del cas_dict['data'][var_name]
+        del cas_dict['units'][var_name]
+        del cas_dict['data'][corr_var_name]
+        del cas_dict['units'][corr_var_name]
+
+    return cas_dict, cip_dict
+
+def get_wt_avg_spliced_dicts(cas_dict, cip_dict, change_cas_corr):
+
+    cas_bin_radii, cip_bin_radii = get_spliced_cas_and_cip_bins('wt_avg')
+    t = cas_dict['data']['time']
+    cas_nconc_contribution = np.zeros(np.shape(t))
+    cas_bins_range = 0
+
+    for i in range(12, 17):
+        var_name = 'nconc_' + str(i)
+        if change_cas_corr:
+            var_name += '_corr' 
+        nconc_i = cas_dict['data'][var_name]
+        cas_nconc_contribution += nconc_i
+        cas_bins_range += CAS_bins['upper'][i-5] - CAS_bins['lower'][i-5]
+
+    cip_bin_range = CIP_bins['upper'][0] - CIP_bins['lower'][0]
+    tot_bins_range = cas_bins_range + cip_bin_range
+
+    avg_nconc = cas_bins_range/tot_bins_range*cas_nconc_contribution + \
+                cip_bin_range/tot_bins_range*cip_dict['data']['nconc_1']
+
+    cip_dict['data']['nconc_1'] = avg_nconc 
+
+    for i in range(12, 17):
+        var_name = 'nconc_' + str(i)
+        corr_var_name = 'nconc_' + str(i) + '_corr'
+        del cas_dict['data'][var_name]
+        del cas_dict['units'][var_name]
+        del cas_dict['data'][corr_var_name]
+        del cas_dict['units'][corr_var_name]
 
     return cas_dict, cip_dict
 

@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/wrf/avg_dsd_figsrc.py

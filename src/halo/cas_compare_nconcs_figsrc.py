@@ -36,22 +36,8 @@ def main():
         nconc_cip_alldates = add_to_alldates_array(nconc_cip, nconc_cip_alldates)
         make_and_save_nconc_scatter(nconc_cas, nconc_cip, date)
 
-    inds = np.logical_and(np.logical_not(np.isnan(nconc_cas_alldates)), \
-                    np.logical_not(np.isnan(nconc_cip_alldates)))
-
-    x = nconc_cas_alldates[inds]
-    y = nconc_cip_alldates[inds]
-    inds = inds 
-    #inds = x < 4.e6
-    print(np.shape(inds))
-    print(np.sum(x > y))
-    print(np.sum(inds))
-
-    #x = x[inds]
-    #y = y[inds]
-
-    make_and_save_nconc_scatter(x, y, 'alldates')
-    #make_and_save_nconc_scatter(nconc_cas_alldates[inds], nconc_cip_alldates[inds])
+    make_and_save_nconc_scatter(nconc_cas_alldates, \
+                    nconc_cip_alldates, 'alldates')
 
 def add_to_alldates_array(nconc, nconc_alldates):
 
@@ -74,8 +60,8 @@ def get_nconc_data(date):
     w = adlr_dict['data']['w']
 
     filter_inds = np.logical_and.reduce(( \
-                            (temp > 27.3), \
-                            (w < 1000)))
+                            (temp > 273), \
+                            (w > 1)))
 
     cas_t = cas_dict['data']['time'][filter_inds]
     nconc_cas = np.zeros(np.shape(cas_t))
@@ -91,14 +77,17 @@ def get_nconc_data(date):
         nconc_i = cas_dict['data'][var_name][filter_inds]*volume_corr_factor
         nconc_cas += nconc_i
 
-    nconc_cip = cip_dict['data']['nconc_1'][filter_inds]
+    nconc_cip = cip_dict['data']['nconc_2'][filter_inds]
+    inds = ~np.logical_or(np.isnan(nconc_cas), np.isnan(nconc_cip))
 
-    return nconc_cas, nconc_cip 
+    return nconc_cas[inds], nconc_cip[inds] 
 
 def make_and_save_nconc_scatter(nconc_cas, nconc_cip, date):
 
     nconc_cas = nconc_cas*1.e-6
     nconc_cip = nconc_cip*1.e-6
+    diff = nconc_cas - nconc_cip
+
     m, b, R, sig = linregress(nconc_cas, nconc_cip)
 
     fig, ax = plt.subplots()
@@ -106,17 +95,56 @@ def make_and_save_nconc_scatter(nconc_cas, nconc_cip, date):
     ax.scatter(nconc_cas, nconc_cip)
     ax.set_xlabel('nconc from CAS bins 12-16 (cm$^{-3}$)')
     ax.set_ylabel('nconc from CIP bin 1 (cm$^{-3}$)')
+
+    regline = b + m*nconc_cas
+    conf_band = get_conf_band(nconc_cas, nconc_cip, regline) 
+    print(np.sum(np.isnan(nconc_cas)))
+    print(regline)
+    print(conf_band)
+    ax.scatter(nconc_cas, regline + conf_band, c='b', alpha=0.4)
+    ax.scatter(nconc_cas, regline - conf_band, c='b', alpha=0.4)
+    #ax.fill_between(nconc_cas, regline + conf_band, \
+    #                regline - conf_band, color='b', \
+    #                alpha=0.4, label='95% confidence band')
+
     ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
             c='black', \
             linestyle='dashed', \
             linewidth=2, \
             label=('m = ' + str(np.round(m, decimals=2)) + \
                     ', R^2 = ' + str(np.round(R**2, decimals=2))))
+    #ax.plot(ax.get_xlim(), ax.get_xlim(), linestyle=':', c='r')
+
+    #ax.set_xlim([0, 55])
+    #ax.set_ylim([0, 55])
+    #ax.set_xscale('log')
+    #ax.set_yscale('log')
     ax.legend()
 
-    outfile = FIG_DIR + 'cas_compare_nconcs_' + date + '_figure.png'
+    outfile = FIG_DIR + 'v2_cas_compare_nconcs_' + date + '_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
+    
+    fig, ax = plt.subplots()
+    ax.hist(diff, bins=30)
+    ax.set_yscale('log')
+
+    outfile = FIG_DIR + 'v2_cas_compare_nconcs_hist_' + date + '_figure.png'
+    plt.savefig(outfile, bbox_inches='tight')
+    plt.close(fig=fig)    
+
+def get_conf_band(xvals, yvals, regline):
+
+    t = 2.131 #two-tailed 95% CI w/ 17 pts, 2 params --> 15 dof
+    n_pts = 17 #lazy :D
+    meanx = np.mean(xvals)
+    x_quad_resid = (xvals - meanx)**2.
+    y_quad_resid = (yvals - regline)**2. 
+    se_pt = np.sqrt(np.sum(y_quad_resid)/(n_pts - 2)) 
+    se_line = se_pt*np.sqrt(1./n_pts + x_quad_resid/np.sum(x_quad_resid))
+    conf_band = t*se_line
+
+    return conf_band
 
 if __name__ == "__main__":
     main()
