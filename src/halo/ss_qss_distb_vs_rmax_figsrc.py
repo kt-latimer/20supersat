@@ -145,8 +145,6 @@ def get_lwc_with_rmax(adlr_dict, cas_dict, cip_dict, change_cas_corr, \
                                     cutoff_bins, rmax, splice_method):
 
     CAS_bin_radii, CIP_bin_radii = get_spliced_cas_and_cip_bins(splice_method)
-    #print(CAS_bin_radii)
-    #print(CIP_bin_radii)
 
     lwc = np.zeros(np.shape(adlr_dict['data']['time']))
     rho_air = adlr_dict['data']['pres']/(R_a*adlr_dict['data']['temp'])

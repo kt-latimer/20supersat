@@ -4,7 +4,7 @@ make and save histograms showing SS_QSS distribution from HALO CAS measurements
 import numpy as np
 
 from caipeex import DATA_DIR, FIG_DIR
-from caipeex.ss_functions import get_ss_vs_t, get_lwc
+from caipeex.ss_functions import get_ss_vs_t, get_lwc_vs_t
 import sys
 
 lwc_filter_val = 1.e-4
@@ -24,7 +24,7 @@ R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
 R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 
 cutoff_bins = True
-incl_rain = True 
+incl_rain = False 
 incl_vent = True
 full_ss = True
 
@@ -67,7 +67,7 @@ def get_one_day_data(date, cutoff_bins, full_ss, incl_rain, incl_vent):
     cpdfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
     cpd_dict = np.load(cpdfile, allow_pickle=True).item()
 
-    lwc = get_lwc(cpd_dict,cutoff_bins)
+    lwc = get_lwc_vs_t(cpd_dict, cutoff_bins)
     pres = met_dict['data']['pres']
     temp = met_dict['data']['temp']
     w = met_dict['data']['w']

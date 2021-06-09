@@ -44,8 +44,8 @@ rho_w = 1000. #density of water (kg/m^3)
 ##
 ## least squares regression from wrf data 
 ## 
-LSR_INT = 0.011320347049628032
-LSR_SLOPE = 0.8498781398164678
+LSR_INT = 0.04164662760767679
+LSR_SLOPE = 0.8253679031561234
 
 ##
 ## methods to get ss_qss 
@@ -276,11 +276,11 @@ def get_sat_vap_pres(temp):
 ## also not considering ventilation corrections under the [as of now untested]
 ## assumption that they won't be significant for cloud size droplets)
 ## 
-def get_lwc(cpd_dict, cutoff_bins):
+def get_lwc_vs_t(cpd_dict, cutoff_bins):
 
-    lwc_var_keys = ['lwc_5um_to_50um_diam']
+    lwc_var_keys = ['lwc_3um_to_50um_diam']
     if not cutoff_bins:
-        lwc_var_keys.append('lwc_sub_5um_diam')
+        lwc_var_keys.append('lwc_sub_3um_diam')
 
     lwc = np.zeros(np.shape(cpd_dict['data']['time']))
     for lwc_var_key in lwc_var_keys:

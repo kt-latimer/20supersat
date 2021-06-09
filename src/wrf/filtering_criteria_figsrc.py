@@ -20,7 +20,7 @@ dec_prec = 2
 
 def main():
     
-    heatmap_filename = 'filtering_criteria_data_v2.npy'
+    heatmap_filename = 'filtering_criteria_data.npy'
     heatmap_data_dict = np.load(DATA_DIR + heatmap_filename, allow_pickle=True).item()
 
     main_filename = 'filtered_data_dict.npy'
@@ -66,8 +66,7 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
 
     im = ax.imshow(dist_arr.T, cmap=rev_magma)
     cbar = ax.figure.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-    cbar.ax.set_ylabel(r'$\sqrt{(1-m_{unpoll})^2 + (1-R_{unpoll}^2)^2 + ' \
-                            + '(1-m_{poll})^2 + (1-R_{poll}^2)^2}}}}}}}}}$')
+    cbar.ax.set_ylabel('Skill score')
     annotate_heatmap(im)
 
     resolution = 75 
@@ -87,17 +86,18 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
 
     ax.set_xticks(np.arange(n_lwc_vals))
     ax.set_yticks(np.arange(n_w_vals))
-    ax.set_xticklabels(np.around(np.log10(lwc_filter_vals), 2))
-    ax.set_yticklabels(np.around(w_filter_vals, 2))
+    ax.set_xticklabels([str(lwc) for lwc in \
+        np.around(np.log10(lwc_filter_vals[:,0]), 2)])
+    ax.set_yticklabels([str(w) for w in np.around(w_filter_vals[0], 2)])
     ax.set_xbound([-0.5, 6.5])
     ax.set_ybound([-0.5, -0.5 + n_w_vals])
 
     ax.set_xlabel('Min log(LWC) cutoff (kg/kg)')
     ax.set_ylabel('Min w cutoff (m/s)')
 
-    fig.suptitle('Validity of QSS approximation vs data \n filtering scheme - Combined', x=0.6, y=1)
+    fig.suptitle('Skill scores for QSS approximation')#, x=0.6, y=1)
 
-    outfile = FIG_DIR + 'filtering_criteria_figure_v2.png'
+    outfile = FIG_DIR + 'filtering_criteria_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close()    
 

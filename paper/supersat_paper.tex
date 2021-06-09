@@ -14,9 +14,9 @@
 \usepackage[counterclockwise]{rotating}
 \graphicspath{{../figures/}}
 
-\title{Paper draft v1.7 for supersat project}
+\title{Paper draft v1.9 for supersat project}
 \author{K. Latimer}
-\date{Feb 28, 2020}
+\date{June 2, 2021}
 
 \newcommand{\drcomm}[1]{\textcolor{blue}{\textit{#1}}}
 \newcommand{\klcomm}[1]{\textcolor{red}{\textit{#1}}}
@@ -58,13 +58,13 @@ Taking the differential of Equation \ref{qveqn} and rearranging terms in Equatio
 \label{dT}
 \delta T = \frac{-L_vq_v^*}{C_{pa} + q_v\frac{L_v^2}{R_vT^2}}\delta RH
 \end{equation}
-Plugging in typical values for $RH$ ($\approx 1.1$) and $T$ ($\approx 300$ K) gives $dT\approx 1$ K.
+Plugging in typical values for $RH$ ($\approx 1.1$) and $T$ ($\approx 300$ K) gives $\delta T\approx 1$ K.
 
 In their paper (see for example Figure 2(b) of that work), Fan et al provide anecdotal evidence that the WPIM is capable of producing enhancements in vertical wind velocity on the order of 10 m/s for polluted relative to unpolluted storms. Even neglecting diffusive, frictional, or radiative losses, this requires a variation in convective available potential energy ($CAPE$) of $\approx 100$ J/kg, or a $RH$ difference between the dirty storm and clean environment of $\approx 0.1$, i.e., the environment must support SS on the order of 10\% throughout the troposphere.
 
 While Fan et al do not offer any proof based on experimental data that such high SS exist in the convection setting the environmental lapse rate, they do observe comparable values in numerical simulations. In particular, using the Weather Research and Forcasting (WRF) model to simulate pristine (no UAP$_{<50}$) conditions in the Amazon Rainforest, they find (horizontally- and time-averaged) SS in convective cores of up to 15\%.
 
-Since this is well above what is typically reported or assumed in the literature \cite{Hoppel1996, Yang2019, Koike2012, Politovich1988, Moteki2019, Siebert2017, Shen2018, Hammer2014, Li2019}, we seek in this paper to determine if we can find experimental evidence for O(10\%) SS in nature. We use data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in and around Manaus, Brazil in 2014-15), as well as from the first phase of the Cloud Aerosol Interaction and Precipitation Enhancement EXperiment (CAIPEEX) in India (taken in June [around Hyderabad] and August [around Bareilly] 2009) \cite{???, Kulkarni2012} as a dataset of opportunity.
+Since this is well above what is typically reported or assumed in the literature \cite{Hoppel1996, Yang2019, Koike2012, Politovich1988, Moteki2019, Siebert2017, Shen2018, Hammer2014, Li2019}, we seek in this paper to determine if we can find experimental evidence for O(10\%) SS in nature. We use data from the High-Altitude LOng-range research aircraft (HALO) (part of the ACRIDICON-CHUVA mission in and around Manaus, Brazil in 2014-15).
 
 \section{Data Analysis and Results}
 
@@ -74,7 +74,13 @@ In order to determine experimental supersaturation within a reasonable margin of
 \item We want the criteria to be inclusive enough that we are still capturing a significant fraction of the convection which sets the average temperature profile of the troposphere.
 \item In keeping with the analysis by Fan et al, and with our general interest in studying convective cores, we additionally exclude the $w$ lower bound value of 0 to ensure we are capturing reasonably strong updrafts. 
 \end{itemize}
-In Figure \ref{filtcritheatmap} we synthesize the data needed to take all three of the above considerations into account. We find that taking $LWC > 10^{-4}$ kg/kg and $w>1$ m/s yields the best agreement of the QSS approxiamtion with the true SS while still yielding a subset of the data that accounts for greater than half of the condensational latent heating in the troposphere below the freezing line and consists of reasonably strong convective updrafts. To summarize, we use the following criteria in all subsequent analyses:
+In Figure \ref{filtcritheatmap} we synthesize the data needed to take all three of the above considerations into account. In order to make a quantitative comparison between various filtering criteria we define the following skill score based on the linear regression parameters for $SS_{WRF}$ vs $SS_{QSS}$:
+\begin{equation}
+\text{Skill score } = \sqrt{(1-m_{unpoll})^2 + (1-R_{unpoll}^2)^2 + (1-m_{poll})^2 + (1-R_{poll}^2)^2}
+\end{equation}
+Here $m$ represents the LSR slope and $R^2$ is the correlation coefficient. The subscripts 'poll' and 'unpoll' distinguish the two different simulation cases.
+
+We find that taking $LWC > 10^{-4}$ kg/kg and $w>1$ m/s yields the best agreement of the QSS approxiamtion with the true SS while still yielding a subset of the data that accounts for greater than half of the condensational latent heating in the troposphere below the freezing line and consists of reasonably strong convective updrafts. To summarize, we use the following criteria in all subsequent analyses:
 \begin{itemize}
 	\item T \textgreater  273K (we're not including ice in the theory; note that Fan et al do evaluate SS wrt water above the freezing line though)
 	\item w \textgreater  1 m/s
@@ -92,8 +98,8 @@ In Figure \ref{filtcritheatmap} we synthesize the data needed to take all three 
 We would like to further quantify the spread of true SS values for a given value predicted by the QSS approximation. In Figure \ref{ssquantiles}, we plot a range of quantiles for the true SS given the predicted SS, using the polluted and unpolluted data sets combined (see Table \ref{lsrtable} for details on the regression parameters for each case). 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{wrf/ss_quantiles_figure.png}
-	\caption{This figure shows the spread of true SS values for a given value predicted by the QSS approximation, using the combined WRF output from both polluted and unpolluted models. Each curve follows a fixed quantile (labeled on the figure) across the domain of predicted SS values for the range of actual SS. The quantiles are calculated with a 0.01-wide moving window centered on the respective predicted value. We see that the actual SS hew closely enough to the predicted SS that a high predicted SS guarantees a high actual SS, and vice versa. Up to about a QSS SS of 0.1, the median actual SS is, to good approximation, equal to the predicted SS. From this plot we can simply read off the confidence level of our lower bound on actual SS; for example, for a single predicted SS of 0.1, there is 95\% confidence that actual SS $<$ 0.14.}
+	\includegraphics[width=\textwidth]{wrf/18supersat_predict.png}
+	\caption{This figure shows the spread of true SS values for a given value predicted by the QSS approximation, using the combined WRF output from both polluted and unpolluted models. Each curve follows a fixed quantile (labeled on the figure) across the domain of predicted SS values for the range of actual SS. The quantiles are calculated with a 0.01-wide moving window centered on the respective predicted value. We see that the actual SS hew closely enough to the predicted SS that a high predicted SS guarantees a high actual SS, and vice versa. Up to about a QSS SS of 0.1, the median actual SS is, to good approximation, equal to the predicted SS. From this plot we can simply read off the confidence level of our lower bound on actual SS; for example, for a single predicted SS of 0.1, there is 95\% confidence that actual SS $<$ 0.15.}
 	\label{ssquantiles}
 \end{figure}
 
@@ -107,17 +113,8 @@ Because we use slightly different filtering criteria than that described above, 
 
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{wrf/ss_pred_vs_z_allpts_figure.png}
-		\caption{}
-		\label{wrfssvertprofallpts}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{wrf/ss_pred_vs_z_up10perc_figure.png}
-		\caption{}
-		\label{wrfssvertprofup50perc}
-	\end{subfigure}
-	\caption{This figure serves to verity that our data filtering scheme yields SS profiles similar to those obtained by Fan et al (c.f. Figure 4 of that paper). Using a) all filtered data points and b) only the top 10 percentiles of filtered data points as measured by $w$ (see text for details), the latter being aligned with the analysis method of Fan et al. Left hand panels show $SS_{QSS}$ averaged across time and horizontal spatial coordinates. Right hand panels show time-averaged area fraction occupied by filtered data points. Note that $z$ interval width scales logarithmically with $z$, in accordance with the WRF grid spacing. The gray curves in (b) are reconstructed from \cite{Fan2018}; `warm cloud' and `deep cloud' designate early and central periods of precipitation measured by surface rain rates (our analysis does not make that distinction). We observe that our filtering scheme indeed recovers average $SS_{QSS}$ values on the order of 10\% as reported in \cite{Fan2018}. The dropoff in area fraction in (a) at higher altitudes is due to a fairly sharp peak in $LWC$ around 2 km (see Figure \ref{lwcprof} in Supplementary section).}
+	\includegraphics[width=\textwidth]{wrf/single_panel_ss_pred_vs_z_figure.png}
+	\caption{[\drcomm{This figure is too busy for the one point it is trying to make. Just show the two curves in panel “left a” and the black and orange curves in “left b”, possibly all in the same plot.} \klcomm{I realize I didn't state this explicitly in the figure, but the right panels do show that the majority of points lie in regions where the supersaturation is relatively low. Do you not think this is an important thing to point out?}\drcomm{I do not think so. The distribution in the b panels is a combination of where the plane flew (definitely not of physical interest) and the mass-flux profile (which could decline with height starting a bit above the cloud base). Even if the observational sampling were unbiased, our point is that SS is low everywhere below the melting line, not just near the cloud base.}\klcomm{OK. Just to clarify, these are the simulation data so there's no plane flying. But I think I take your general point and have modified the figure accordingly.}] This figure serves to verify that our data filtering scheme yields SS profiles similar to those obtained by Fan et al (c.f. Figure 4 of that paper). Using all filtered data points (purple) and only the top 10 percentiles of filtered data points as measured by $w$ (orange; see text for details), the latter being aligned with the analysis method of Fan et al. Profiles show $SS_{pred}$ averaged across time and horizontal spatial coordinates. Note that $z$ interval width scales logarithmically with $z$, in accordance with the WRF grid spacing. The gray curves are reconstructed from \cite{Fan2018}. We observe that our filtering scheme indeed recovers average $SS_{QSS}$ values on the order of 10\% as reported in \cite{Fan2018}.}
 	\label{wrfssvertprof}
 \end{figure}
 
@@ -129,56 +126,41 @@ We now seek to determine whether such high values actually occur in nature. Firs
 \begin{figure}[ht]
     \centering
     \includegraphics[width=9cm]{halo/ss_pred_vs_z_figure.png}
-    \caption{This figure serves to determine whether the high-SS values found in the WRF simulation output indeed occur in nature. Left hand panel shows $SS_{QSS}$ averaged across all filtered data points from HALO flight campaign (all dates combined), as well as across only the top 10 percentiles of those filtered data points as measured by $w$ (see text for details). Right hand panel shows the number of points in each $z$ interval (constant with respect to $z$) used in the analysis. We do not find any points in the $SS_{QSS}$ profile with values above 1\%, even when restricting to only the top 10 percentiles.}
+    \caption{This figure serves to determine whether the high-SS values found in the WRF simulation output indeed occur in nature. Profile shows $SS_{pred}$ averaged across all filtered data points (purple) from HALO flight campaign (all dates combined), as well as across only the top 10 percentiles of those filtered data points as measured by $w$ (orange; see text for details). We do not find any points in the $SS_{pred}$ profile with values above 1\%, even when restricting to only the top 10 percentiles.}
     \label{halossvertprof}
 \end{figure}
 
-Finally, we examine a second experimental dataset from the first phase of the CAIPEEX campaign \cite{Kulkarni2012}. Although no UAP$_{<50}$ concentration measurements are available during this phase of the experiment, measurements of aerosols with diameters in the range of 0.1-3 $\mu$m showed total aerosol concentrations ranging from 700/ccm to 2500/ccm in the BL (see Figure 3(b) in \cite{Prabha2011} and Figure 4(a) in \cite{Kulkarni2012}). Reliable rain drop particle size distributions are unavailable from the flight dates in this analysis phase of the experiment, but we observe that exclusion of raindrops from the calculation of QSS SS leads to a systematic overestimation of the true SS (see Methods/SI). Therefore we take the SS profiles in Figure \ref{caipeexssvertprof} as an upper bound. We observe slightly higher values relative to those from the HALO flights, although we still don't find such high values as those output by the WRF models for the middle troposphere.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=9cm]{caipeex/ss_pred_vs_z_figure.png}
-    \caption{Analagous to Figure \ref{halossvertprof} but using experimental data from the CAIPEEX flight campaign. The only difference in the analysis for this dataset (relative to for the HALO dataset) is that we did not have access to size-resolved rain drop spectra (see text for detailed discussion). We do not find any points in the $SS_{QSS}$ profile with values above 2\% for the entire filtered data set, with only one point in the profile exceeding 3\% for the top 10 percentiles.}
-    \label{caipeexssvertprof}
-\end{figure}
-
-We can use Equation \ref{dT} and the SS profiles in Figures \ref{wrfssvertprof}-\ref{caipeexssvertprof} to infer a buoyancy profile for a hypothetical non-supersaturated parcel. For this analysis we take the temperature of the parcel equal to that of the environment (i.e., what has been measured). The resulting error in the value of $\delta T$ in Equation \ref{dCAPE} is quadratic in $\delta RH$, which is acceptable for our purposes. In Figure \ref{dTprofiles} we plot $\delta T$ profiles from both WRF simulations and field campaigns side-by-side. We use these profiles to derive enhancements in $CAPE$ for the non-supersaturated parcel as:
+We can use Equation \ref{dT} and the SS profiles in Figures \ref{wrfssvertprof} and \ref{halossvertprof} to infer a buoyancy profile for a hypothetical non-supersaturated parcel. For this analysis we take the temperature of the parcel equal to that of the environment (i.e., what has been measured). The resulting error in the value of $\delta T$ in Equation \ref{dCAPE} is quadratic in $\delta RH$, which is acceptable for our purposes. In Figure \ref{dTprofiles} we plot $\delta T$ profiles from both WRF simulations and field campaigns side-by-side. We use these profiles to derive enhancements in $CAPE$ for the non-supersaturated parcel as:
 \begin{equation}
 \label{dCAPE}
 \delta CAPE = g \int dz \frac{\delta T}{T}
 \end{equation}
-where we again approximate $T$ as the environmental temperature and integrate from 647 to 4488 m, the common vertical domain for all four curves in Figure \ref{dTprofiles}. We find values of $\delta CAPE$ of 3, 5, 30, and 50 J/kg for HALO, CAIPEEX, WRF (polluted), and WRF (unpolluted), respectively. Neglecting any other physical energy sinks as above, these translate to vertical velocity enhancements on the order of 1 m/s in the field campaigns and 10 m/s in the simulations.
+where we again approximate $T$ as the environmental temperature and integrate from 647 to 4488 m, the common vertical domain for all four curves in Figure \ref{dTprofiles}. We find values of $\delta CAPE$ of 2, 25, and 50 J/kg for HALO, WRF (polluted), and WRF (unpolluted), respectively. Neglecting any other physical energy sinks as above, these translate to vertical velocity enhancements on the order of 1 m/s in the field campaign and 10 m/s in both the simulations under consideration.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=12cm]{wrf/combined_dT_profile_figure.png}
-    \caption{Profiles for $\delta T$ of a non-supersaturated ($RH=1$) parcel ascending in an environment with SS profiles shown in Figures \ref{wrfssvertprof}-\ref{caipeexssvertprof}, using Equation \ref{dCAPE}. SS profiles for HALO and CAIPEEX are plotted with markers so as not to obscure intervals with missing data. We find that the buoyancy of this hypothetical parcel in nature is far lower than in the simulations, casting doubt on the real validity of the WPIM as described in Fan et al.}
+    \caption{Profiles for $\delta T$ of a non-supersaturated ($RH=1$) parcel ascending in an environment with SS profiles shown in Figures \ref{wrfssvertprof}-\ref{caipeexssvertprof}, using Equation \ref{dCAPE}. We find that the buoyancy of this hypothetical parcel in nature is far lower than in the simulations, casting doubt on the real validity of the WPIM as described in Fan et al.}
     \label{dTprofiles}
 \end{figure}
 
 One possible counterargument is that the aerosol concentrations in the BL during the dates of the HALO flights might have been significantly higher than those during the dates considered in Fan's paper, thus precluding the occurence of high SS values in the troposphere. In order to investigate this, we use the aerosol particle size distribution measured by the scanning mobility particle sizer (SMPS) in Manacapuru, located southwest of Manaus (PI: Chongai Kuang). This intrument measures particle concentrations in the diameter range 11.1-469.8nm. In Figure \ref{goamazonhist}, we show that, while we do indeed see higher total aerosol concentrations on average during the HALO flight date range (3500/ccm vs 2400/ccm), the UAP50 concentration is on average lower (670/ccm vs 1600/ccm). In fact, the aerosol concentrations used in the WRF simulations are much lower than those observed during the day the simulation takes place, which is not justified quantitatively in that study.
 
-We note additionally that the positive experimental correlation between concentration of UAP50 and maximum vertical velocity during the dates studied by Fan et al is not significant at the 95\% confidence level - the least-squares slope parameter for their data set (the plot of which we reproduce in Figure \ref{fans2a}, with additional 95\% confidence bands) has a p-value of 0.11.
+We note additionally that the positive experimental correlation between concentration of UAP50 and maximum vertical velocity during the dates studied by Fan et al is not significant at the 95\% confidence level - the least-squares slope parameter for their data set has a p-value of 0.11.
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{goamazon/tot_nconc_hist_alldates_figure.png}
+		\includegraphics[width=\textwidth]{goama/v1_FINAL_tot_compare_nconc_hist_alldates_figure.png}
 		\label{goamazontothist}
 		\caption{}
 	\end{subfigure}
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{goamazon/uap50_nconc_hist_alldates_figure.png}
+		\includegraphics[width=\textwidth]{goama/v1_FINAL_uap50_compare_nconc_hist_alldates_figure.png}
 		\label{goamazonuap50hist}
 		\caption{}
 	\end{subfigure}
 	\caption{Distribution of aerosol concentration measurements by the ground-based SMPS at Manacapuru, Brazil; a) entire size range, b) only particles with diameter greater than 50nm. HALO flight dates are the same as those represented in Figure \ref{halossvertprof} (see main text for details). Dashed (dotted) lines show initial concentrations in the BL of the WRF simulation of polluted (unpolluted) conditions. The unpolluted model aerosol concentrations are quite low relative to what is actually observed.}
 	\label{goamazonhist}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=12cm]{halo/fan_fig_s2a.png}
-    \caption{Ground-based total (including UAP50) aerosol concentration measurements versus maximum vertical wind velocity in convective cores; reproduced from Figure S2(a) of \cite{Fan2018} with additional confidence bands our own. Note that a line with zero slope lies well within the confidence bands, corroborating the statistically insignificant p-value of the least-squares linear regression slope parameter.}
-    \label{fans2a}
 \end{figure}
 
 Another possible counterargument is that the flight campaigns simply didn't fly through strong enough updrafts. However the vertical velocity distributions from the campaigns are quite similar to that from the simulations. See Figure \ref{combinedwhist}. 
@@ -190,7 +172,7 @@ Another possible counterargument is that the flight campaigns simply didn't fly 
     \label{combinedwhist}
 \end{figure}
 
-Conclusion: The WPIM as proposed by Fan et al requires the average temperature profile of the troposphere to be set by relatively clean (high-SS) convection, in order for more polluted (low-SS) convection to experience an enhancement in buoyancy. However, we find no evidence that the high SS values reported by Fan's model actually occur in nature, which weakens the possibility of measureable invigoration effects - in particular, we estimate an upper bound on vertical velocity enhancement of $\approx$ 1 m/s from the HALO and CAIPEEX flight campaigns, compared to $\approx$ 10 m/s from Fan's control simulations in WRF. The relatively low aerosol concentrations used to initialize the simulations, in combination with possible irregularities in microphysical parameterizations, may be to blame for the anomalously high SS values in the WRF output.
+Conclusion: The WPIM as proposed by Fan et al requires the average temperature profile of the troposphere to be set by relatively clean (high-SS) convection, in order for more polluted (low-SS) convection to experience an enhancement in buoyancy. However, we find no evidence that the high SS values reported by Fan's model actually occur in nature, which weakens the possibility of measureable invigoration effects - in particular, we estimate an upper bound on vertical velocity enhancement of $\approx$ 1 m/s from the HALO flight campaign, compared to $\approx$ 10 m/s from Fan's control simulations in WRF. The relatively low aerosol concentrations used to initialize the simulations, in combination with possible irregularities in microphysical parameterizations, may be to blame for the anomalously high SS values in the WRF output.
 
 \clearpage
 \newpage
@@ -228,25 +210,21 @@ B(T) &= D
 \end{align}
 Figure \ref{simpleqsswrfvsqss} shows that this form does not yield as good of agreement with the actual SS reported in WRF.
 
-We use the expressions given in \cite{Pruppacher2010} and \cite{Rogers1989} for ventilation corrections, which are quite extensive. Full formulae are contained in the analysis code at \href{https://github.com/kt-latimer/20supersat}{this GitHub repo}. Figures \ref{noventwrfvsqss} and \ref{norainnoventwrfvsqss} show, respectively, the effects of neglecting these corrections (i.e. setting $f(r)=1$ for all $r$) for rain drops (defined here as liquid water drops with diameter greater than 50 $\mu$m), and omitting rain drops altogether from the calculations of mean radius and number concentration.
+We use the expressions given in \cite{Pruppacher2010} and \cite{Rogers1989} for ventilation corrections, which are quite extensive. Full formulae are contained in the analysis code at \href{https://github.com/kt-latimer/20supersat}{this GitHub repo}. Figures \ref{noventwrfvsqss} and \ref{norainnoventwrfvsqss} show, respectively, the effects of neglecting these corrections (i.e. setting $f(r)=1$ for all $r$) for rain drops (defined here as liquid water drops with radius greater than 102 $\mu$m), and omitting rain drops altogether from the calculations of mean radius and number concentration.
 
 \subsection{HALO}
 
 The HALO aircraft supported two instruments for measuring cloud droplet spectra: a cloud and aerosol spectrometer (CAS-DPOL) and a cloud droplet probe (one element of a cloud combination probe) (CCP-CDP) \cite{Braga2017}. We found that the CCP-CDP consistently reported unphysical bimodal size distributions, and therefore used only data from the CAS-DPOL for all calculations involving cloud droplets. Number concentrations from the CAS-DPOL were corrected using the $\xi$ factor derived in \cite{Weigel2016}.
 
-The rain drop spectra came from data collected by greyscale cloud imaging probe (second element of the cloud combination probe) (CCP-CIP). The drop diameter detection ranges for CAS-DPOL and CCP-CIP were 0.89-50 $\mu$m and 25-2000 $\mu$m, respectively. Per guidance from the principal investigators for the CAS-DPOL, we only included data for droplets from size bins with a lower diameter bound greater than 3 $\mu$m in the analysis \cite{Jurkat2020}. Effectively (given size bins for this instrument), this meant that the lower bound on diameter for water drops was 5 $\mu$m. Because the CAS-DPOL and CCP-CIP have overlapping diameter detection ranges, we use concentrations for particles between 5 and 25 $\mu$m from CAS-DPOL and from 25 to 2000 $\mu$m from CCP-CIP. 
+The rain drop spectra came from data collected by greyscale cloud imaging probe (second element of the cloud combination probe) (CCP-CIP). The drop diameter detection ranges for CAS-DPOL and CCP-CIP were 0.89-50 $\mu$m and 25-2000 $\mu$m, respectively. Per guidance from the principal investigators for the CAS-DPOL, we only included data for droplets from size bins with a lower diameter bound greater than or equal to 3 $\mu$m in the analysis \cite{Jurkat2020}.  
+
+There was some ambiguity in how to treat the region of overlap of the CAS-DPOL and the CCP-CIP instruments. Upon examination of spectra across the range of dates in question, we see that the first size bin for CCP-CIP consistently reports suspect measurements. For example, correlation in number concentrations measured by this bin with those measured by neighboring bins is consistently low (Figure \ref{cipbin1corr}), and there are a relatively high number of instances where the spectrum shows an unphysical spike for that bin (Figure \ref{cipbin1anom}). We therefore apply the average value of $\frac{dN}{dlogDp}$ for all CAS-DPOL bins in the range of 25-50 $\mu$m diameter across the entire region of 25-75 $\mu$m diameter (namely the range of CCP-CIP bin 1). 
 
 All measurements of environmental variables were taken from the Basic Halo Measurement and Sensor System (BAHAMAS).
 
 Out of the dates for which all three instruments (BAHAMAS, CAS-DPOL, CCP-CIP) report data, we take those for which measurements of shared variables (true airspeed for BAHAMAS and CAS-DPOL; $\xi$ correction factor for CAS-DPOL and CCP-CIP) are well-correlated ($R^2$ above 0.95). These are (all in 2014): 6, 9, 11, 12, 16, 18, 27, 28, 30 September; 1 October.
 
 We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factors as described above.
-
-\subsection{CAIPEEX}
-
-Cloud droplet spectra for phase 1 of the CAIPEEX field campaign were measured by a CDP (detection range 2-1562.5 $\mu$m). We used the data from the following flight dates in 2009: 16, 21, 22 June; and 18, 23, 24, 25 August.
-
-We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factors as described above, and excluded data from cloud droplets of diameter less than 5 $\mu$m.
 
 \clearpage
 \newpage
@@ -255,12 +233,12 @@ We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factor
 
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{1\textwidth}
+	\begin{subfigure}{0.7\textwidth}
 		\includegraphics[width=\textwidth]{wrf/filtering_criteria_separate_Unpolluted_figure.png}
 		\caption{Unpolluted case.}
 		\label{filtcritheatmapsepunpoll}
 	\end{subfigure}
-	\begin{subfigure}{1\textwidth}
+	\begin{subfigure}{0.7\textwidth}
 		\includegraphics[width=\textwidth]{wrf/filtering_criteria_separate_Polluted_figure.png}
 		\caption{Polluted case.}
 		\label{filtcritheatmapseppoll}
@@ -313,7 +291,7 @@ We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factor
 		\caption{Polluted case.}
 		\label{noventwrfvsqsspoll}
 	\end{subfigure}
-	\caption{Same as Figure \ref{wrfvsqss}, without ventilation corrections. Correlation is not appreciably affected but the value of least-squares linear regression slopes is lower for both simulation cases.}
+	\caption{Same as Figure \ref{wrfvsqss}, without ventilation corrections. Correlation is not appreciably affected but the value of least-squared linear regression slopes is lower for both simulation cases.}
 	\label{noventwrfvsqss}
 \end{figure}
 
@@ -329,22 +307,27 @@ We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factor
 		\caption{Polluted case.}
 		\label{norainnoventwrfvsqsspoll}
 	\end{subfigure}
-	\caption{Same as Figure \ref{wrfvsqss}, without contributions from rain drops. Correlation is slightly lower and the value of least-squared linear regression slopes is lower for both simulaiton cases.}
+	\caption{Same as Figure \ref{wrfvsqss}, without contributions from rain drops. Correlation is slightly lower and the value of least-squared linear regression slopes is lower for both simulation cases.}
 	\label{norainnoventwrfvsqss}
 \end{figure}
 
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{wrf/ss_pred_vs_z_allpts_figure.png}
-		\caption{}
-		\label{wrfsubdomssvertprofallpts}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{wrf/ss_pred_vs_z_up10perc_figure.png}
-		\caption{}
-		\label{wrfsubdomssvertprofup50perc}
-	\end{subfigure}
+	\includegraphics[width=\textwidth]{halo/bin_correlations_figure.png}
+	\caption{Correlation coefficient for number concentrations measured in adjacent or overlapping bins. We find that number concentrations measured by CCP-CIP bin 1 (25-75 $\mu$m diameter) correlate poorly with those measured by CAS bins 12-16 (25-50 $\mu$m diameter) and by CIP bin 2 (75-125 $\mu$m diameter), indicating discontinuity with the rest of the drop size distribution at that point. The very low correlations at the upper end of the total size range are due to the fact that number concentrations in that regime are very close to zero for all times and therefore are essentially noise.}
+	\label{cipbin1corr}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{halo/v2_anomalous_spectrum_counts_figure.png}
+	\caption{Raw count of samples across all dates under consideration where $\frac{dN}{dlogDp}$ measured by a given bin is a global maximum for the spectrum and also greater than 5 times the next highest bin's $\frac{dN}{dlogDp}$ in that same spectrum. This figure shows that the measured spectrum often has a spike at CIP bin 1, which we believe is unphysical.}
+	\label{cipbin1anom}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{wrf/single_panel_subdom_ss_pred_vs_z_figure.png}
 	\caption{Analagous to Figure \ref{wrfssvertprof}, restricted to the horizontal subdomain indicated by the red box in Figure S8 of Fan et al (bottom left panel). Qualitatively the results are quite similar, suggesting that the restriction to this subdomain is not crucial to the results described in Fan's paper.}
 	\label{wrfsubdomssvertprof}
 \end{figure}

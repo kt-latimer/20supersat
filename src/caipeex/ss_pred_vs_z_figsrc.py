@@ -9,7 +9,7 @@ from matplotlib.lines import Line2D
 import numpy as np
 
 from caipeex import DATA_DIR, FIG_DIR
-from caipeex.ss_functions import get_ss_vs_t, get_lwc
+from caipeex.ss_functions import get_ss_vs_t, get_lwc_vs_t
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -24,7 +24,7 @@ z_max = 6500
 
 cutoff_bins = True
 incl_rain = False 
-incl_vent = False 
+incl_vent = True 
 full_ss = True
 
 def main():
@@ -81,7 +81,7 @@ def get_ss_qss_and_w_and_z_data(date):
     cpdfile = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
     cpd_dict = np.load(cpdfile, allow_pickle=True).item()
 
-    lwc = get_lwc(cpd_dict,cutoff_bins)
+    lwc = get_lwc_vs_t(cpd_dict, cutoff_bins)
     pres = met_dict['data']['pres']
     temp = met_dict['data']['temp']
     w = met_dict['data']['w']

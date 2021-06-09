@@ -21,10 +21,10 @@ dec_prec = 2
 def main():
     
     heatmap_filename = 'filtering_criteria_data.npy'
-    heatmap_data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
+    heatmap_data_dict = np.load(DATA_DIR + heatmap_filename, allow_pickle=True).item()
 
     main_filename = 'filtered_data_dict.npy'
-    main_data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
+    main_data_dict = np.load(DATA_DIR + main_filename, allow_pickle=True).item()
     
     lh_from_filtered_poll = heatmap_data_dict['Polluted']['lh_sum_arr']
     lh_tot_poll = main_data_dict['Polluted']['lh_tot']
@@ -38,9 +38,16 @@ def main():
 
     for case_label in heatmap_data_dict.keys():
         case_heatmap_data_dict = heatmap_data_dict[case_label]
-        make_and_save_filtering_criteria_heatmap(case_heatmap_data_dict)
+        dist_arr = np.sqrt((1-case_heatmap_data_dict['m_arr'])**2. + \
+                            (1-case_heatmap_data_dict['rsq_arr'])**2.)
+        lh_frac_arr = case_heatmap_data_dict['lh_frac']
+        lwc_filter_vals = case_heatmap_data_dict['lwc_cutoffs_arr']
+        w_filter_vals = case_heatmap_data_dict['w_cutoffs_arr']
+        make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
+                                lwc_filter_vals, w_filter_vals, case_label)
 
-def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr):
+def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
+                            lwc_filter_vals, w_filter_vals, case_label):
     """
     adapted from `Creating annotated heatmaps' matplotlib tutorial
     """
@@ -49,8 +56,10 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr):
 
     im = ax.imshow(dist_arr.T, cmap=rev_magma)
     cbar = ax.figure.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-    cbar.ax.set_ylabel(r'$\sqrt{(1-m_{unpoll})^2 + (1-R_{unpoll}^2)^2 + ' \
-                            + '(1-m_{poll})^2 + (1-R_{poll}^2)^2}}}}}}}}}$')
+    if case_label == 'Polluted':
+        cbar.ax.set_ylabel(r'$\sqrt{(1-m_{poll})^2 + (1-R_{poll}^2)^2}$')
+    else:
+        cbar.ax.set_ylabel(r'$\sqrt{(1-m_{unpoll})^2 + (1-R_{unpoll}^2)^2}$')
     annotate_heatmap(im)
 
     resolution = 75 
@@ -65,19 +74,25 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr):
 
     plt.contour(Y2-0.5,X2-0.5,Z2, [0.5], colors='w', linewidths=[10])
 
+    n_lwc_vals = np.shape(lwc_filter_vals)[0]
+    n_w_vals = np.shape(w_filter_vals)[1]
+
     ax.set_xticks(np.arange(n_lwc_vals))
     ax.set_yticks(np.arange(n_w_vals))
-    ax.set_xticklabels(np.around(np.log10(lwc_filter_vals), 2))
-    ax.set_yticklabels(np.around(w_filter_vals, 2))
+    ax.set_xticklabels([str(lwc) for lwc in \
+        np.around(np.log10(lwc_filter_vals[:,0]), 2)])
+    ax.set_yticklabels([str(w) for w in np.around(w_filter_vals[0], 2)])
     ax.set_xbound([-0.5, 6.5])
     ax.set_ybound([-0.5, -0.5 + n_w_vals])
 
     ax.set_xlabel('Min log(LWC) cutoff (kg/kg)')
     ax.set_ylabel('Min w cutoff (m/s)')
 
-    fig.suptitle('Validity of QSS approximation vs data \n filtering scheme - Combined', x=0.6, y=1)
+    fig.suptitle('Validity of QSS approximation vs data \n filtering scheme' \
+                                        + ' - WRF ' + case_label, x=0.6, y=1)
 
-    outfile = FIG_DIR + 'filtering_criteria_figure.png'
+    outfile = FIG_DIR + 'filtering_criteria_separate_' + \
+                                case_label + '_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close()    
 

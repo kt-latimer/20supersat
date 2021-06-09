@@ -204,20 +204,20 @@ def add_lwc_to_processed_cpd_file(date):
     
     cpd_t = cpd_dict['data']['time']
     
-    r_cubed_sum_sub_5um_diam = np.zeros(np.shape(cpd_t))
-    r_cubed_sum_5um_to_50um_diam = np.zeros(np.shape(cpd_t))
+    r_cubed_sum_sub_3um_diam = np.zeros(np.shape(cpd_t))
+    r_cubed_sum_3um_to_50um_diam = np.zeros(np.shape(cpd_t))
     r_cubed_sum_above_50um_diam = np.zeros(np.shape(cpd_t))
 
-    for i in range(1, 4):
+    for i in range(1, 3):
         bin_ind = i - 1
         var_key = 'nconc_' + str(i)
-        r_cubed_sum_sub_5um_diam += \
+        r_cubed_sum_sub_3um_diam += \
                 cpd_dict['data'][var_key]*bin_radii[bin_ind]**3.
 
-    for i in range(4, 31):
+    for i in range(3, 31):
         bin_ind = i - 1
         var_key = 'nconc_' + str(i)
-        r_cubed_sum_5um_to_50um_diam += \
+        r_cubed_sum_3um_to_50um_diam += \
                 cpd_dict['data'][var_key]*bin_radii[bin_ind]**3.
 
     for i in range(31, 92):
@@ -228,12 +228,12 @@ def add_lwc_to_processed_cpd_file(date):
 
     rho_air = met_dict['data']['pres']/(R_a*met_dict['data']['temp'])
 
-    cpd_dict['data']['lwc_sub_5um_diam'] = \
-            4./3.*np.pi*rho_l*r_cubed_sum_sub_5um_diam/rho_air
-    cpd_dict['units']['lwc_sub_5um_diam'] = 'kg/kg'
-    cpd_dict['data']['lwc_5um_to_50um_diam'] = \
-            4./3.*np.pi*rho_l*r_cubed_sum_5um_to_50um_diam/rho_air
-    cpd_dict['units']['lwc_5um_to_50um_diam'] = 'kg/kg'
+    cpd_dict['data']['lwc_sub_3um_diam'] = \
+            4./3.*np.pi*rho_l*r_cubed_sum_sub_3um_diam/rho_air
+    cpd_dict['units']['lwc_sub_3um_diam'] = 'kg/kg'
+    cpd_dict['data']['lwc_3um_to_50um_diam'] = \
+            4./3.*np.pi*rho_l*r_cubed_sum_3um_to_50um_diam/rho_air
+    cpd_dict['units']['lwc_3um_to_50um_diam'] = 'kg/kg'
     cpd_dict['data']['lwc_above_50um_diam'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_above_50um_diam/rho_air
     cpd_dict['units']['lwc_above_50um_diam'] = 'kg/kg'

@@ -4,10 +4,13 @@ make and save histograms showing SS_QSS distribution from HALO CAS measurements
 import numpy as np
 
 from halo import DATA_DIR, FIG_DIR
-from halo.ss_functions import get_ss_vs_t_cas, get_lwc_from_cas
+from halo.ss_functions import get_ss_vs_t, get_lwc_vs_t, \
+                            get_full_spectrum_dict
 
 lwc_filter_val = 1.e-4
 w_cutoff = 1
+
+rmax = 102.e-6
 
 z_min = -100
 z_max = 6500
@@ -72,14 +75,16 @@ def get_one_day_data(date, change_cas_corr, cutoff_bins, full_ss, \
     cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
     cip_dict = np.load(cipfile, allow_pickle=True).item()
 
-    lwc = get_lwc_from_cas(cas_dict, change_cas_corr, cutoff_bins)
+    full_spectrum_dict = get_full_spectrum_dict(cas_dict, \
+                                cip_dict, change_cas_corr)
+
+    lwc = get_lwc_vs_t(adlr_dict, full_spectrum_dict, cutoff_bins, rmax)
     pres = adlr_dict['data']['pres']
     temp = adlr_dict['data']['temp']
     w = adlr_dict['data']['w']
     z = adlr_dict['data']['alt']
-    ss_pred = get_ss_vs_t_cas(adlr_dict, cas_dict, cip_dict, \
-                change_cas_corr, cutoff_bins, full_ss, \
-                incl_rain, incl_vent)
+    ss_pred = get_ss_vs_t(adlr_dict, full_spectrum_dict, change_cas_corr, \
+                                cutoff_bins, full_ss, incl_rain, incl_vent)
 
     filter_inds = np.logical_and.reduce((
                     (lwc > lwc_filter_val), \
