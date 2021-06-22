@@ -5,6 +5,7 @@ distributions (histograms) in the same parameter space
 """
 from itertools import product
 import matplotlib
+import matplotlib.patches as patches
 from matplotlib import cm
 import matplotlib.pyplot as plt
 import numpy as np
@@ -47,20 +48,18 @@ def main():
                                 lwc_filter_vals, w_filter_vals, case_label)
 
 def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
-                            lwc_filter_vals, w_filter_vals, case_label):
+                        lwc_filter_vals, w_filter_vals, case_label):
     """
     adapted from `Creating annotated heatmaps' matplotlib tutorial
     """
 
     fig, ax = plt.subplots()
 
-    im = ax.imshow(dist_arr.T, cmap=rev_magma)
+    im = ax.imshow(np.flip(dist_arr.T, axis=0), cmap=rev_magma)
     cbar = ax.figure.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-    if case_label == 'Polluted':
-        cbar.ax.set_ylabel(r'$\sqrt{(1-m_{poll})^2 + (1-R_{poll}^2)^2}$')
-    else:
-        cbar.ax.set_ylabel(r'$\sqrt{(1-m_{unpoll})^2 + (1-R_{unpoll}^2)^2}$')
+    cbar.ax.set_ylabel('Skill score')
     annotate_heatmap(im)
+    add_hatching(ax, lh_frac_arr)
 
     resolution = 75 
 
@@ -72,8 +71,6 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
     X2, Y2= np.meshgrid(x[:-1],y[:-1])
     Z2 = g(X2,Y2)
 
-    plt.contour(Y2-0.5,X2-0.5,Z2, [0.5], colors='w', linewidths=[10])
-
     n_lwc_vals = np.shape(lwc_filter_vals)[0]
     n_w_vals = np.shape(w_filter_vals)[1]
 
@@ -81,15 +78,16 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
     ax.set_yticks(np.arange(n_w_vals))
     ax.set_xticklabels([str(lwc) for lwc in \
         np.around(np.log10(lwc_filter_vals[:,0]), 2)])
-    ax.set_yticklabels([str(w) for w in np.around(w_filter_vals[0], 2)])
+    ax.set_yticklabels(np.flip(np.array([str(w) for w in \
+                        np.around(w_filter_vals[0], 2)])))
     ax.set_xbound([-0.5, 6.5])
     ax.set_ybound([-0.5, -0.5 + n_w_vals])
 
     ax.set_xlabel('Min log(LWC) cutoff (kg/kg)')
     ax.set_ylabel('Min w cutoff (m/s)')
 
-    fig.suptitle('Validity of QSS approximation vs data \n filtering scheme' \
-                                        + ' - WRF ' + case_label, x=0.6, y=1)
+    fig.suptitle('Skill scores for QSS approximation - ' + \
+                                    case_label, x=0.6, y=1)
 
     outfile = FIG_DIR + 'filtering_criteria_separate_' + \
                                 case_label + '_figure.png'
@@ -99,12 +97,13 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
 def annotate_heatmap(im):
 
     data = im.get_array()
-    threshold = im.norm(data.max())/2.
+    threshold = im.norm(data.max())/.2
     valfmt="{x:.2f}"
     valfmt = matplotlib.ticker.StrMethodFormatter(valfmt)
     textcolors=["black", "white"]
     kw = dict(horizontalalignment="center", \
-              verticalalignment="center")
+              verticalalignment="center", 
+              bbox=dict(boxstyle='square,pad=0.1', fc='white', ec='none'))
 
     texts = []
     for i in range(data.shape[0]):
@@ -112,6 +111,15 @@ def annotate_heatmap(im):
             kw.update(color=textcolors[int(im.norm(data[i, j]) > threshold)])
             text = im.axes.text(j, i, valfmt(data[i, j], None), **kw)
             texts.append(text)
+
+def add_hatching(ax, lh_frac_arr):
+
+    for i, row in enumerate(lh_frac_arr):
+        for j, val in enumerate(row):
+            if val < 0.5: 
+                rect = patches.Rectangle((i-0.5, 5-(j-0.5)), 1, 1, linewidth=0, \
+                        hatch='//', edgecolor='gray', facecolor='none')
+                ax.add_patch(rect)
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,914 @@
+abstract: "<jats:title>Abstract</jats:title>\n               <jats:p>Between 1 September\
+  \ and 4 October 2014, a combined airborne and ground-based measurement campaign\
+  \ was conducted to study tropical deep convective clouds over the Brazilian Amazon\
+  \ rain forest. The new German research aircraft, High Altitude and Long Range Research\
+  \ Aircraft (HALO), a modified Gulfstream G550, and extensive ground-based instrumentation\
+  \ were deployed in and near Manaus (State of Amazonas). The campaign was part of\
+  \ the German–Brazilian Aerosol, Cloud, Precipitation, and Radiation Interactions\
+  \ and Dynamics of Convective Cloud Systems–Cloud Processes of the Main Precipitation\
+  \ Systems in Brazil: A Contribution to Cloud Resolving Modeling and to the GPM (Global\
+  \ Precipitation Measurement) (ACRIDICON– CHUVA) venture to quantify aerosol–cloud–precipitation\
+  \ interactions and their thermodynamic, dynamic, and radiative effects by in situ\
+  \ and remote sensing measurements over Amazonia. The ACRIDICON–CHUVA field observations\
+  \ were carried out in cooperation with the second intensive operating period of\
+  \ Green Ocean Amazon 2014/15 (GoAmazon2014/5). In this paper we focus on the airborne\
+  \ data measured on HALO, which was equipped with about 30 in situ and remote sensing\
+  \ instruments for meteorological, trace gas, aerosol, cloud, precipitation, and\
+  \ spectral solar radiation measurements. Fourteen research flights with a total\
+  \ duration of 96 flight hours were performed. Five scientific topics were pursued:\
+  \ 1) cloud vertical evolution and life cycle (cloud profiling), 2) cloud processing\
+  \ of aerosol particles and trace gases (inflow and outflow), 3) satellite and radar\
+  \ validation (cloud products), 4) vertical transport and mixing (tracer experiment),\
+  \ and 5) cloud formation over forested/deforested areas. Data were collected in\
+  \ near-pristine atmospheric conditions and in environments polluted by biomass burning\
+  \ and urban emissions. The paper presents a general introduction of the ACRIDICON–\
+  \ CHUVA campaign (motivation and addressed research topics) and of HALO with its\
+  \ extensive instrument package, as well as a presentation of a few selected measurement\
+  \ results acquired during the flights for some selected scientific topics.</jats:p>"
+author: Wendisch, Manfred and Pöschl, Ulrich and Andreae, Meinrat O. and Machado,
+  Luiz A. T. and Albrecht, Rachel and Schlager, Hans and Rosenfeld, Daniel and Martin,
+  Scot T. and Abdelmonem, Ahmed and Afchine, Armin and Araùjo, Alessandro C. and Artaxo,
+  Paulo and Aufmhoff, Heinfried and Barbosa, Henrique M. J. and Borrmann, Stephan
+  and Braga, Ramon and Buchholz, Bernhard and Cecchini, Micael Amore and Costa, Anja
+  and Curtius, Joachim and Dollner, Maximilian and Dorf, Marcel and Dreiling, Volker
+  and Ebert, Volker and Ehrlich, André and Ewald, Florian and Fisch, Gilberto and
+  Fix, Andreas and Frank, Fabian and Fütterer, Daniel and Heckl, Christopher and Heidelberg,
+  Fabian and Hüneke, Tilman and Jäkel, Evelyn and Järvinen, Emma and Jurkat, Tina
+  and Kanter, Sandra and Kästner, Udo and Kenntner, Mareike and Kesselmeier, Jürgen
+  and Klimach, Thomas and Knecht, Matthias and Kohl, Rebecca and Kölling, Tobias and
+  Krämer, Martina and Krüger, Mira and Krisna, Trismono Candra and Lavric, Jost V.
+  and Longo, Karla and Mahnke, Christoph and Manzi, Antonio O. and Mayer, Bernhard
+  and Mertes, Stephan and Minikin, Andreas and Molleker, Sergej and Münch, Steffen
+  and Nillius, Björn and Pfeilsticker, Klaus and Pöhlker, Christopher and Roiger,
+  Anke and Rose, Diana and Rosenow, Dagmar and Sauer, Daniel and Schnaiter, Martin
+  and Schneider, Johannes and Schulz, Christiane and de Souza, Rodrigo A. F. and Spanu,
+  Antonio and Stock, Paul and Vila, Daniel and Voigt, Christiane and Walser, Adrian
+  and Walter, David and Weigel, Ralf and Weinzierl, Bernadett and Werner, Frank and
+  Yamasoe, Marcia A. and Ziereis, Helmut and Zinner, Tobias and Zöger, Martin
+author_list:
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Wendisch
+  given: Manfred
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Pöschl
+  given: Ulrich
+- affiliation:
+  - name: Biogeochemistry Department, Max Planck Institute for Chemistry, Mainz, Germany
+  family: Andreae
+  given: Meinrat O.
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Machado
+  given: Luiz A. T.
+- affiliation:
+  - name: Departamento de Ciências Atmosféricas, Instituto de Astronomia, Geofísica
+      e Ciências Atmosféricas, Universidade de São Paulo, São Paulo, Brazil
+  family: Albrecht
+  given: Rachel
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Schlager
+  given: Hans
+- affiliation:
+  - name: Program of Atmospheric Sciences, Institute of Earth Sciences, The Hebrew
+      University of Jerusalem, Jerusalem, Israel
+  family: Rosenfeld
+  given: Daniel
+- affiliation:
+  - name: School of Engineering and Applied Sciences, Harvard University, Cambridge,
+      Massachusetts
+  family: Martin
+  given: Scot T.
+- affiliation:
+  - name: Institute of Meteorology and Climate Research, Karlsruhe Institute of Technology,
+      Karlsruhe, Germany
+  family: Abdelmonem
+  given: Ahmed
+- affiliation:
+  - name: Forschungszentrum Jülich (FZJ), Jülich, Germany
+  family: Afchine
+  given: Armin
+- affiliation:
+  - name: Empresa Brasileira de Pesquisa Agropecuária (EMBRAPA), Belém, Brazil
+  family: Araùjo
+  given: Alessandro C.
+- affiliation:
+  - name: Instituto de Física, Universidade de São Paulo, São Paulo, Brazil
+  family: Artaxo
+  given: Paulo
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Aufmhoff
+  given: Heinfried
+- affiliation:
+  - name: Instituto de Física, Universidade de São Paulo, São Paulo, Brazil
+  family: Barbosa
+  given: Henrique M. J.
+- affiliation:
+  - name: Particle Chemistry Department, Max Planck Institute for Chemistry, and Institut
+      für Physik der Atmosphäre, Johannes Gutenberg-Universität Mainz, Mainz, Germany
+  family: Borrmann
+  given: Stephan
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Braga
+  given: Ramon
+- affiliation:
+  - name: Physikalisch-Technische Bundesanstalt, Braunschweig, Germany
+  family: Buchholz
+  given: Bernhard
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Cecchini
+  given: Micael Amore
+- affiliation:
+  - name: Forschungszentrum Jülich (FZJ), Jülich, Germany
+  family: Costa
+  given: Anja
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Curtius
+  given: Joachim
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, and Institut
+      für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt (DLR),
+      Oberpfaffenhofen, Germany
+  family: Dollner
+  given: Maximilian
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Dorf
+  given: Marcel
+- affiliation:
+  - name: Flugexperimente, Deutsches Zentrum für Luft- und Raumfahrt (DLR), Oberpfaffenhofen,
+      Germany
+  family: Dreiling
+  given: Volker
+- affiliation:
+  - name: Physikalisch-Technische Bundesanstalt, Braunschweig, Germany
+  family: Ebert
+  given: Volker
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Ehrlich
+  given: André
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, Germany
+  family: Ewald
+  given: Florian
+- affiliation:
+  - name: Departamento de Ciência e Tecnologia Aeroespacial, Instituto de Aeronaútica
+      e Espaço, São José dos Campos, Brazil
+  family: Fisch
+  given: Gilberto
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Fix
+  given: Andreas
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Frank
+  given: Fabian
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Fütterer
+  given: Daniel
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Heckl
+  given: Christopher
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Heidelberg
+  given: Fabian
+- affiliation:
+  - name: Institut für Umweltphysik (IUP), Universität Heidelberg, Heidelberg, Germany
+  family: Hüneke
+  given: Tilman
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Jäkel
+  given: Evelyn
+- affiliation:
+  - name: Institute of Meteorology and Climate Research, Karlsruhe Institute of Technology,
+      Karlsruhe, Germany
+  family: Järvinen
+  given: Emma
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Jurkat
+  given: Tina
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Kanter
+  given: Sandra
+- affiliation:
+  - name: Leibniz-Institut für Troposphärenforschung (TROPOS), Leipzig, Germany
+  family: Kästner
+  given: Udo
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Kenntner
+  given: Mareike
+- affiliation:
+  - name: Biogeochemistry Department, Max Planck Institute for Chemistry, Mainz, Germany
+  family: Kesselmeier
+  given: Jürgen
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Klimach
+  given: Thomas
+- affiliation:
+  - name: Institut für Umweltphysik (IUP), Universität Heidelberg, Heidelberg, Germany
+  family: Knecht
+  given: Matthias
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Kohl
+  given: Rebecca
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, Germany
+  family: Kölling
+  given: Tobias
+- affiliation:
+  - name: Forschungszentrum Jülich (FZJ), Jülich, Germany
+  family: Krämer
+  given: Martina
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Krüger
+  given: Mira
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Krisna
+  given: Trismono Candra
+- affiliation:
+  - name: Max Planck Institute for Biogeochemistry, Jena, Germany
+  family: Lavric
+  given: Jost V.
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Longo
+  given: Karla
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Johannes Gutenberg-Universität Mainz,
+      Mainz, Germany
+  family: Mahnke
+  given: Christoph
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais da Amazônia (INPA), Clima e Ambiente
+      (CLIAMB), Manaus, Brazil
+  family: Manzi
+  given: Antonio O.
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, Germany
+  family: Mayer
+  given: Bernhard
+- affiliation:
+  - name: Leibniz-Institut für Troposphärenforschung (TROPOS), Leipzig, Germany
+  family: Mertes
+  given: Stephan
+- affiliation:
+  - name: Flugexperimente, Deutsches Zentrum für Luft- und Raumfahrt (DLR), Oberpfaffenhofen,
+      Germany
+  family: Minikin
+  given: Andreas
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Johannes Gutenberg-Universität Mainz,
+      Mainz, Germany
+  family: Molleker
+  given: Sergej
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Münch
+  given: Steffen
+- affiliation:
+  - name: Multiphase Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Nillius
+  given: Björn
+- affiliation:
+  - name: Institut für Umweltphysik (IUP), Universität Heidelberg, Heidelberg, Germany
+  family: Pfeilsticker
+  given: Klaus
+- affiliation:
+  - name: Biogeochemistry Department, Max Planck Institute for Chemistry, Mainz, Germany
+  family: Pöhlker
+  given: Christopher
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Roiger
+  given: Anke
+- affiliation:
+  - name: Institut für Atmosphäre und Umwelt, Universität Frankfurt, Frankfurt, Germany
+  family: Rose
+  given: Diana
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Rosenow
+  given: Dagmar
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, and Institut
+      für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt (DLR),
+      Oberpfaffenhofen, Germany
+  family: Sauer
+  given: Daniel
+- affiliation:
+  - name: Institute of Meteorology and Climate Research, Karlsruhe Institute of Technology,
+      Karlsruhe, Germany
+  family: Schnaiter
+  given: Martin
+- affiliation:
+  - name: Particle Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Schneider
+  given: Johannes
+- affiliation:
+  - name: Particle Chemistry Department, Max Planck Institute for Chemistry, Mainz,
+      Germany
+  family: Schulz
+  given: Christiane
+- affiliation:
+  - name: Departamento de Meteorologia, Universidade do Estado do Amazonas, Manaus,
+      Amazonas, Brazil
+  family: de Souza
+  given: Rodrigo A. F.
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Spanu
+  given: Antonio
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Stock
+  given: Paul
+- affiliation:
+  - name: Instituto Nacional de Pesquisas Espaciais, Centro de Previsão de Tempo e
+      Estudos Climáticos, São José dos Campos, Brazil
+  family: Vila
+  given: Daniel
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, and Institut für Physik der Atmosphäre, Johannes Gutenberg-Universität
+      Mainz, Mainz, Germany
+  family: Voigt
+  given: Christiane
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, and Institut
+      für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt (DLR),
+      Oberpfaffenhofen, Germany
+  family: Walser
+  given: Adrian
+- affiliation:
+  - name: Biogeochemistry Department, Max Planck Institute for Chemistry, Mainz, Germany
+  family: Walter
+  given: David
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Johannes Gutenberg-Universität Mainz,
+      Mainz, Germany
+  family: Weigel
+  given: Ralf
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, and Institut
+      für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt (DLR),
+      Oberpfaffenhofen, Germany
+  family: Weinzierl
+  given: Bernadett
+- affiliation:
+  - name: Leipziger Institut für Meteorologie, Universität Leipzig, Leipzig, Germany
+  family: Werner
+  given: Frank
+- affiliation:
+  - name: Departamento de Ciências Atmosféricas, Instituto de Astronomia, Geofísica
+      e Ciências Atmosféricas, Universidade de São Paulo, São Paulo, Brazil
+  family: Yamasoe
+  given: Marcia A.
+- affiliation:
+  - name: Institut für Physik der Atmosphäre, Deutsches Zentrum für Luft- und Raumfahrt
+      (DLR), Oberpfaffenhofen, Germany
+  family: Ziereis
+  given: Helmut
+- affiliation:
+  - name: Meteorologisches Institut, Ludwig-Maximilians-Universität, Munich, Germany
+  family: Zinner
+  given: Tobias
+- affiliation:
+  - name: Flugexperimente, Deutsches Zentrum für Luft- und Raumfahrt (DLR), Oberpfaffenhofen,
+      Germany
+  family: Zöger
+  given: Martin
+citations:
+- article-title: 'Electrification of precipitating systems over the Amazon: Physical
+    processes of thunderstorm development'
+  author: Albrecht
+  doi: 10.1029/2010JD014756
+  first-page: D08209
+  journal-title: J. Geophys. Res.
+  volume: '116'
+  year: '2011'
+- article-title: Characteristics of strong updrafts in precipitation systems over
+    the central tropical Pacific Ocean and in the Amazon
+  author: Anderson
+  doi: 10.1175/JAM2231.1
+  first-page: '731'
+  journal-title: J. Appl. Meteor.
+  volume: '44'
+  year: '2005'
+- article-title: Smoking rain clouds over the Amazon
+  author: Andreae
+  doi: 10.1126/science.1092779
+  first-page: '1337'
+  journal-title: Science
+  volume: '303'
+  year: '2004'
+- article-title: 'The Amazon Tall Tower Observatory (ATTO): Overview of pilot measurements
+    on ecosystem ecology, meteorology, trace gases, and aerosols'
+  author: Andreae
+  doi: 10.5194/acp-15-10723-2015
+  first-page: 10 723
+  journal-title: Atmos. Chem. Phys.
+  volume: '15'
+  year: '2015'
+- article-title: Physical and chemical properties of aerosols in the wet and dry seasons
+    in Rondônia, Amazonia
+  author: Artaxo
+  doi: 10.1029/2001JD000666
+  first-page: '8081'
+  journal-title: J. Geophys. Res.
+  volume: '107'
+  year: '2002'
+- article-title: Mesoscale vegetation-atmosphere feedbacks in Amazonia
+  author: Baidya Roy
+  doi: 10.1029/2009JD012001
+  first-page: D20111
+  journal-title: J. Geophys. Res.
+  volume: '114'
+  year: '2009'
+- article-title: Spectral surface albedo over Morocco and its impact on the radiative
+    forcing of Saharan dust
+  author: Bierwirth
+  doi: 10.1111/j.1600-0889.2008.00395.x
+  first-page: '252'
+  journal-title: Tellus
+  volume: 61B
+  year: '2009'
+- article-title: Rapid, optical measurement of the atmospheric pressure on a fast
+    research aircraft using open-path TDLAS
+  author: Buchholz
+  doi: 10.5194/amt-7-3653-2014
+  first-page: '3653'
+  journal-title: Atmos. Meas. Technol.
+  volume: '7'
+  year: '2014'
+- article-title: Absolute validation of a diode laser hygrometer via intercomparison
+    with the German national primary water vapor standard
+  author: Buchholz
+  doi: 10.1007/s00340-014-5775-4
+  first-page: '883'
+  journal-title: Appl. Phys.
+  volume: 116B
+  year: '2014'
+- article-title: Contemporary climate change in the Amazon
+  author: Chagnon
+  doi: 10.1029/2005GL022722
+  first-page: L13703
+  journal-title: Geophys. Res. Lett.
+  volume: '32'
+  year: '2005'
+- article-title: Comprehensive mapping and characteristic regimes of aerosol effects
+    on the formation and evolution of pyro-convective clouds
+  author: Chang
+  doi: 10.5194/acp-15-10325-2015
+  first-page: 10 325
+  journal-title: Atmos. Chem. Phys.
+  volume: '15'
+  year: '2015'
+- article-title: 'Biomass burning in the tropics: Impact on atmospheric chemistry
+    and biogeochemical cycles'
+  author: Crutzen
+  doi: 10.1126/science.250.4988.1669
+  first-page: '1669'
+  journal-title: Science
+  volume: '250'
+  year: '1990'
+- article-title: Enhancement of cumulus clouds over deforested lands in Amazonia
+  author: Cutrim
+  doi: 10.1175/1520-0477(1995)076&lt;1801:EOCCOD&gt;2.0.CO;2
+  first-page: '1801'
+  journal-title: Bull. Amer. Meteor. Soc.
+  volume: '76'
+  year: '1995'
+- article-title: The Pagami Creek smoke plume after long-range transport to the upper
+    troposphere over Europe—Aerosol properties and black carbon mixing state
+  author: Dahlkötter
+  doi: 10.5194/acp-14-6111-2014
+  first-page: '6111'
+  journal-title: Atmos. Chem. Phys.
+  volume: '14'
+  year: '2014'
+- article-title: Predicting global atmospheric ice nuclei distributions and their
+    impacts on climate
+  author: DeMott
+  doi: 10.1073/pnas.0910818107
+  first-page: 11 217
+  journal-title: Proc. Natl. Acad. Sci. USA
+  volume: '107'
+  year: '2010'
+- article-title: 'Primary biological aerosol particles in the atmosphere: A review'
+  author: Després
+  doi: 10.3402/tellusb.v64i0.15598
+  first-page: '15598'
+  journal-title: Tellus
+  volume: 64B
+  year: '2012'
+- article-title: A new time-of-flight aerosol mass spectrometer (ToF-AMS)—Instrument
+    description and first field deployment
+  author: Drewnick
+  doi: 10.1080/02786820500182040
+  first-page: '637'
+  journal-title: Aerosol Sci. Technol.
+  volume: '39'
+  year: '2005'
+- article-title: The impact of deforestation on cloud cover over the Amazon arc of
+    deforestation
+  author: Durieux
+  doi: 10.1016/S0034-4257(03)00095-6
+  first-page: '132'
+  journal-title: Remote Sens. Environ.
+  volume: '86'
+  year: '2003'
+- article-title: 'Cloud phase identification of arctic boundary-layer clouds from
+    airborne spectral reflection measurements: Test of three approaches'
+  author: Ehrlich
+  doi: 10.5194/acp-8-7493-2008
+  first-page: '7493'
+  journal-title: Atmos. Chem. Phys.
+  volume: '8'
+  year: '2008'
+- article-title: Design and characterization of specMACS, a multipurpose hyperspectral
+    cloud and sky imager
+  author: Ewald
+  doi: 10.5194/amtd-8-9853-2015
+  first-page: '9853'
+  journal-title: Atmos. Meas. Technol. Discuss.
+  volume: '8'
+  year: '2015'
+- article-title: Dominant role by vertical wind shear in regulating aerosol effects
+    on deep convective clouds
+  author: Fan
+  doi: 10.1029/2009JD012352
+  first-page: D22206
+  journal-title: J. Geophys. Res.
+  volume: '114'
+  year: '2009'
+- article-title: Potential aerosol indirect effects on atmospheric circulation and
+    radiative forcing through deep convection
+  author: Fan
+  doi: 10.1029/2012GL051851
+  first-page: L09806
+  journal-title: Geophys. Res. Lett.
+  volume: '39'
+  year: '2012'
+- article-title: Microphysical effects determine macrophysical response for aerosol
+    impacts on deep convective clouds
+  author: Fan
+  doi: 10.1073/pnas.1316830110
+  first-page: E4581
+  journal-title: Proc. Natl. Acad. Sci. USA
+  volume: '110'
+  year: '2013'
+- article-title: The convective boundary layer over pasture and forest in Amazonia
+  author: Fisch
+  doi: 10.1007/s00704-004-0043-x
+  first-page: '47'
+  journal-title: Theor. Appl. Climatol.
+  volume: '78'
+  year: '2004'
+- article-title: 'The biomass burning aerosol influence on precipitation over the
+    Central Amazon: An observational study'
+  author: Gonçalves
+  doi: 10.5194/acp-15-6789-2015
+  first-page: '6789'
+  journal-title: Atmos. Chem. Phys.
+  volume: '15'
+  year: '2015'
+- article-title: 'Cloud condensation nuclei in pristine tropical rainforest air of
+    Amazonia: Size-resolved measurements and modeling of atmospheric aerosol composition
+    and CCN activity'
+  author: Gunthe
+  doi: 10.5194/acp-9-7551-2009
+  first-page: '7551'
+  journal-title: Atmos. Chem. Phys.
+  volume: '9'
+  year: '2009'
+- article-title: Production of secondary ice particles during riming process
+  author: Hallett
+  doi: 10.1038/249026a0
+  first-page: '26'
+  journal-title: Nature
+  volume: '249'
+  year: '1974'
+- article-title: 'Observations and parameterizations of particle size distributions
+    in deep tropical cirrus and stratiform precipitating clouds: Results from in situ
+    observations in TRMM field campaigns'
+  author: Heymsfield
+  doi: 10.1175/1520-0469(2002)059&lt;3457:OAPOPS&gt;2.0.CO;2
+  first-page: '3457'
+  journal-title: J. Atmos. Sci.
+  volume: '59'
+  year: '2002'
+- article-title: '1989: An investigation of the annual cycle of the convective activity
+    over the tropical Americas'
+  author: Horel
+  doi: 10.1175/1520-0442(1989)002&lt;1388:AIOTAC&gt;2.0.CO;2
+  first-page: '1388'
+  journal-title: J. Climate
+  volume: '2'
+- article-title: 'Thermodynamic phase retrieval of convective clouds: impact of sensor
+    viewing geometry and vertical distribution of cloud properties'
+  author: Jäkel
+  doi: 10.5194/amt-6-539-2013
+  first-page: '539'
+  journal-title: Atmos. Meas. Tech.
+  volume: '6'
+  year: '2013'
+- article-title: 'Factors determining the impact of aerosols on surface precipitation
+    from clouds: An attempt at classification'
+  author: Khain
+  doi: 10.1175/2007JAS2515.1
+  first-page: '1721'
+  journal-title: J. Atmos. Sci.
+  volume: '65'
+  year: '2008'
+- article-title: Effects of aerosols on the dynamics and microphysics of squall lines
+    simulated by spectral bin and bulk parameterization schemes
+  author: Khain
+  doi: 10.1029/2009JD011902
+  first-page: D22203
+  journal-title: J. Geophys. Res.
+  volume: '114'
+  year: '2009'
+- article-title: An overview of current issues in the uptake of atmospheric trace
+    gases by aerosols and clouds
+  author: Kolb
+  doi: 10.5194/acp-10-10561-2010
+  first-page: 10 561
+  journal-title: Atmos. Chem. Phys.
+  volume: '10'
+  year: '2010'
+- article-title: Assessment of cloud supersaturation by size–resolved aerosol particle
+    and cloud condensation nuclei (CCN) measurements
+  author: Krüger
+  doi: 10.5194/amt-7-2615-2014
+  first-page: '2615'
+  journal-title: Atmos. Meas. Tech.
+  volume: '7'
+  year: '2014'
+- article-title: 'HIAPER: The next generation NSF/NCAR research aircraft'
+  author: Laursen
+  doi: 10.1175/BAMS-87-7-896
+  first-page: '896'
+  journal-title: Bull. Amer. Meteor. Soc.
+  volume: '87'
+  year: '2006'
+- article-title: Dynamical effects of aerosol perturbations on simulated idealized
+    squall lines
+  author: Lebo
+  doi: 10.1175/MWR-D-13-00156.1
+  first-page: '991'
+  journal-title: Mon. Wea. Rev.
+  volume: '142'
+  year: '2014'
+- article-title: Long-term impacts of aerosols on the vertical development of clouds
+    and precipitation
+  author: Li
+  doi: 10.1038/ngeo1313
+  first-page: '888'
+  journal-title: Nat. Geosci.
+  volume: '4'
+  year: '2011'
+- article-title: 'The CHUVA project: How does convection vary across Brazil'
+  author: Machado
+  doi: 10.1175/BAMS-D-13-00084.1
+  first-page: '1365'
+  journal-title: Bull. Amer. Meteor. Soc.
+  volume: '95'
+  year: '2014'
+- article-title: Sources and properties of Amazonian aerosol particles
+  author: Martin
+  doi: 10.1029/2008RG000280
+  first-page: RG2002
+  journal-title: Rev. Geophys.
+  volume: '48'
+  year: '2010'
+- article-title: 'Introduction: Observations and modeling of the Green Ocean Amazon
+    (GoAmazon2014/5)'
+  author: Martin
+  doi: 10.5194/acp-16-4785-2016
+  first-page: '4785'
+  journal-title: Atmos. Chem. Phys.
+  volume: '16'
+  year: '2016'
+- article-title: 'Response of tropical deep convection to localized heating perturbations:
+    Implications for aerosol-induced convective invigoration'
+  author: Morrison
+  doi: 10.1175/JAS-D-13-027.1
+  first-page: '3533'
+  journal-title: J. Atmos. Sci.
+  volume: '70'
+  year: '2013'
+- article-title: The impact of Amazonian deforestation on dry season rainfall
+  author: Negri
+  doi: 10.1175/1520-0442(2004)017&lt;1306:TIOADO&gt;2.0.CO;2
+  first-page: '1306'
+  journal-title: J. Climate
+  volume: '17'
+  year: '2004'
+- article-title: The daily cycle of the atmospheric boundary layer heights over pasture
+    site in Amazonia
+  author: Neves
+  doi: 10.5923/s.ajee.201501.06
+  first-page: '39'
+  journal-title: Amer. J. Environ. Eng.
+  volume: '5'
+  year: '2015'
+- article-title: A synthesis of cloud condensation nuclei counter (CCNC) measurements
+    within the EUCAARI network
+  author: Paramonov
+  doi: 10.5194/acp-15-12211-2015
+  first-page: 12 211
+  journal-title: Atmos. Chem. Phys.
+  volume: '15'
+  year: '2015'
+- author: Platt
+  doi: 10.1007/978-3-540-75776-4
+  year: '2008'
+- author: Pöschl
+  year: '2009'
+- article-title: Rainforest aerosols as biogenic nuclei of clouds and precipitation
+    in the Amazon
+  author: Pöschl
+  doi: 10.1126/science.1191056
+  first-page: '1513'
+  journal-title: Science
+  volume: '429'
+  year: '2010'
+- article-title: 'Aerosol- and updraft-limited regimes of cloud droplet formation:
+    Influence of particle number, size and hygroscopicity on the activation of cloud
+    condensation nuclei (CCN)'
+  author: Reutter
+  doi: 10.5194/acp-9-7067-2009
+  first-page: '7067'
+  journal-title: Atmos. Chem. Phys.
+  volume: '9'
+  year: '2009'
+- article-title: Impact of biomass burning on cloud properties in the Amazon Basin
+  author: Roberts
+  doi: 10.1029/2001JD000985
+  first-page: '4062'
+  journal-title: J. Geophys. Res.
+  volume: '108'
+  year: '2003'
+- article-title: TRMM observed first direct evidence of smoke from forest fires inhibiting
+    rainfall
+  author: Rosenfeld
+  doi: 10.1029/1999GL006066
+  first-page: '3105'
+  journal-title: Geophys. Res. Lett.
+  volume: '26'
+  year: '1999'
+- article-title: Satellite-based insights into precipitation formation processes in
+    continental and maritime convective clouds
+  author: Rosenfeld
+  doi: 10.1175/1520-0477(1998)079&lt;2457:SBIIPF&gt;2.0.CO;2
+  first-page: '2457'
+  journal-title: Bull. Amer. Meteor. Soc.
+  volume: '79'
+  year: '1998'
+- article-title: 'Flood or drought: How do aerosols affect precipitation?'
+  author: Rosenfeld
+  doi: 10.1126/science.1160606
+  first-page: '1309'
+  journal-title: Science
+  volume: '321'
+  year: '2008'
+- article-title: Global observations of aerosol-cloud-precipitation-climate interactions
+  author: Rosenfeld
+  doi: 10.1002/2013RG000441
+  first-page: '750'
+  journal-title: Rev. Geophys.
+  volume: '52'
+  year: '2014'
+- article-title: 'Aerosol layers from the 2008 eruptions of Mt. Okmok and Mt. Kasatochi:
+    In situ UT/LS measurements of sulfate and organics over Europe'
+  author: Schmale
+  doi: 10.1029/2009JD013628
+  first-page: D00L07
+  journal-title: J. Geophys. Res.
+  volume: '115'
+  year: '2010'
+- article-title: Amazon deforestation and climate change
+  author: Shukla
+  doi: 10.1126/science.247.4948.1322
+  first-page: '1322'
+  journal-title: Science
+  volume: '247'
+  year: '1990'
+- article-title: Cloud and rain processes in a biosphere-atmosphere interaction context
+    in the Amazon Region
+  author: Silva Dias
+  doi: 10.1029/2001JD000335
+  first-page: '8072'
+  journal-title: J. Geophys. Res.
+  volume: '107'
+  year: '2002'
+- article-title: Microphysical observations of tropical clouds
+  author: Stith
+  doi: 10.1175/1520-0450(2002)041&lt;0097:MOOTC&gt;2.0.CO;2
+  first-page: '97'
+  journal-title: J. Appl. Meteor.
+  volume: '41'
+  year: '2002'
+- article-title: Impact of aerosols on convective clouds and precipitation
+  author: Tao
+  doi: 10.1029/2011RG000369
+  first-page: RG2001
+  journal-title: Rev. Geophys.
+  volume: '50'
+  year: '2012'
+- article-title: On the roles of deep convective clouds in tropospheric chemistry
+  author: Wang
+  doi: 10.1029/2000JD900263
+  first-page: 22 269
+  journal-title: J. Geophys. Res.
+  volume: '105'
+  year: '2000'
+- article-title: Impact of deforestation in the Amazon basin on cloud climatology
+  author: Wang
+  doi: 10.1073/pnas.0810156106
+  first-page: '3670'
+  journal-title: Proc. Natl. Acad. Sci. USA
+  volume: '106'
+  year: '2010'
+- author: Wendisch
+  doi: 10.1002/9783527653218
+  volume-title: 'Airborne Measurements for Environmental Research: Methods and Instruments'
+  year: '2013'
+- article-title: '2001: An airborne spectral albedometer with active horizontal stabilization'
+  author: Wendisch
+  doi: 10.1175/1520-0426(2001)018&lt;1856:AASAWA&gt;2.0.CO;2
+  first-page: '1856'
+  journal-title: J. Atmos. Oceanic Technol.
+  volume: '18'
+- article-title: 'Contrasting convective regimes over the Amazon: Implications for
+    cloud electrification'
+  author: Williams
+  doi: 10.1029/2001JD000380
+  first-page: '8082'
+  journal-title: J. Geophys. Res.
+  volume: '107'
+  year: '2002'
+- article-title: Linear relation between convective cloud base height and updrafts
+    and application to satellite retrievals
+  author: Zheng
+  doi: 10.1002/2015GL064809
+  first-page: '6485'
+  journal-title: Geophys. Res. Lett.
+  volume: '42'
+  year: '2015'
+doc_url: http://journals.ametsoc.org/bams/article-pdf/97/10/1885/3934821/bams-d-14-00255_1.pdf
+doi: 10.1175/bams-d-14-00255.1
+files:
+- tmp7mrzfnqx.data
+issue: '10'
+journal: Bulletin of the American Meteorological Society
+language: en
+month: 10
+pages: 1885--1908
+publisher: American Meteorological Society
+title: 'ACRIDICON–CHUVA Campaign: Studying Tropical Deep Convective Clouds and Precipitation
+  over Amazonia Using the New German Research Aircraft HALO'
+type: article
+url: http://dx.doi.org/10.1175/bams-d-14-00255.1
+volume: '97'
+year: 2016

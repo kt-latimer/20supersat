@@ -23,8 +23,10 @@ w_cutoff = 1
 
 rmax = 102.e-6
 
-z_min = -100
-z_max = 6500
+#hard-coded based on shared_z_lim computed in wrf/ss_pred_vs_z
+z_min = 973.0825
+z_max = 4529.355
+z_lim = (z_min, z_max)
 
 change_cas_corr = True
 cutoff_bins = True 
@@ -75,7 +77,7 @@ def make_indiv_and_alldates_ss_profiles():
                                                     w_dict, z_dict)
 
     h_z, z_bins = np.histogram(z_dict['allpts'], bins=30, density=True)
-    print(z_bins)
+    #print(z_bins)
 
     make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins)
 
@@ -94,8 +96,8 @@ def get_up10perc_data(ss_pred_dict, w_dict, z_dict):
     ss_pred_dict['up10perc'] = ss_pred_dict['allpts'][up10perc_inds]
     w_dict['up10perc'] = w_dict['allpts'][up10perc_inds]
     z_dict['up10perc'] = z_dict['allpts'][up10perc_inds]
-    print(z_dict['allpts'])
-    print(z_dict['up10perc'])
+    #print(z_dict['allpts'])
+    #print(z_dict['up10perc'])
 
     return ss_pred_dict, w_dict, z_dict
 
@@ -124,6 +126,7 @@ def get_ss_pred_and_w_and_z_data(date):
                     (w > w_cutoff), \
                     (temp > 273)))
 
+    print(date)
     print(np.sum(filter_inds))
 
     if np.sum(filter_inds) != 0:
@@ -150,11 +153,11 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
         n_pts[key] = np.shape(ss_pred)[0]
         dz = np.array([z_bins[i+1] - z_bins[i] for i in \
                         range(np.shape(z_bins)[0] - 1)])
-        print(key)
+        #print(key)
 
         avg_ss_pred, avg_z, se = get_avg_ss_pred_and_z(ss_pred, z, z_bins)
         notnan_inds = np.logical_not(np.isnan(avg_ss_pred))
-        print(avg_z)
+        #print(avg_z)
         avg_ss_pred = avg_ss_pred[notnan_inds]
         avg_z = avg_z[notnan_inds]
         dz = dz[notnan_inds]
@@ -188,11 +191,11 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
                         linewidth=6, linestyle='-')
     up10perc_line = Line2D([0], [0], color=colors_dict['up10perc'], \
                         linewidth=6, linestyle='-')
-    plt.legend([allpts_line, up10perc_line], ['All filtered data points (N=' +
-                str(n_allpts) + ')', 'Top 10 percentiles by w (N=' + \
+    plt.legend([allpts_line, up10perc_line], ['WCU (N=' +
+                str(n_allpts) + ')', 'Top 10% WCU (N=' + \
                 str(n_up10perc) + ')'])
 
-    fig.suptitle('Supersaturation and area fraction vertical profiles - HALO')
+    fig.suptitle('Supersaturation in HALO observations')
 
     outfile = FIG_DIR + 'ss_pred_vs_z_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
@@ -229,7 +232,7 @@ def get_avg_ss_pred_and_z(ss_pred, z, z_bins):
             avg_ss_pred[i] = np.nanmean(ss_pred_slice)
             se[i] = np.nanstd(ss_pred_slice)/np.sqrt(np.sum(bin_filter))
             avg_z[i] = np.nanmean(z_slice)
-            print(i, avg_ss_pred[i], ss_pred_slice)
+            #print(i, avg_ss_pred[i], ss_pred_slice)
 
     return avg_ss_pred, avg_z, se
 

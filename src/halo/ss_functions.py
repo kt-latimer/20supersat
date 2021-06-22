@@ -73,11 +73,40 @@ def get_ss_vs_t(adlr_dict, full_spectrum_dict, change_cas_corr, \
         A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
         B = D
 
+    #print('avg r', np.nanmean(meanr*nconc))
     ss_qss = A*w/(4*np.pi*B*meanr*nconc)*100. #as a percentage
     ss_pred = LSR_INT + LSR_SLOPE*ss_qss
 
-    return ss_pred
-    #return ss_qss
+    #return ss_pred
+    return ss_qss
+
+def get_ss_qss_components(adlr_dict, full_spectrum_dict, change_cas_corr, \
+                    cutoff_bins, full_ss, incl_rain, incl_vent):
+
+    full_spectrum_bin_radii = get_full_spectrum_bin_radii(CAS_bins, \
+                                                    CIP_bins, 'log')
+
+    meanr = get_meanr_vs_t(adlr_dict, full_spectrum_dict, \
+            cutoff_bins, incl_rain, incl_vent, full_spectrum_bin_radii)
+    nconc = get_nconc_vs_t(adlr_dict, full_spectrum_dict, \
+            cutoff_bins, incl_rain, full_spectrum_bin_radii)
+
+    temp = adlr_dict['data']['temp']
+    w = adlr_dict['data']['w']
+
+    if full_ss:
+        pres = adlr_dict['data']['pres']
+        rho_air = pres/(R_a*temp) 
+        e_s = get_sat_vap_pres(temp)
+        F_d = rho_w*R_v*temp/(D*e_s) 
+        F_k = (L_v/(R_v*temp) - 1)*L_v*rho_w/(K*temp)
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp*(F_d + F_k)
+        B = rho_w*(R_v*temp/e_s + L_v**2./(R_v*C_ap*rho_air*temp**2.)) 
+    else:
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        B = D
+    
+    return A, B, meanr, nconc
 
 ##
 ## methods to combine CAS and CIP drop spectra into one dictionary 
@@ -135,6 +164,7 @@ def get_meanr_vs_t(adlr_dict, full_spectrum_dict, cutoff_bins, \
         meanr_sum += get_meanr_contribution_from_spectrum_var(var_name, \
                             adlr_dict, full_spectrum_dict, cutoff_bins, \
                             incl_rain, incl_vent, full_spectrum_bin_radii)
+    #print('innerm', np.nanmean(meanr_sum))
     
     return meanr_sum/nconc
 
@@ -147,6 +177,7 @@ def get_nconc_vs_t(adlr_dict, full_spectrum_dict, cutoff_bins, \
         nconc_sum += get_nconc_contribution_from_spectrum_var(var_name, \
                             adlr_dict, full_spectrum_dict, cutoff_bins, \
                             incl_rain, full_spectrum_bin_radii)
+    #print('innern', np.nanmean(nconc_sum))
 
     return nconc_sum
 
@@ -325,6 +356,21 @@ def splice_radii_arrays(CAS_radii, CIP_radii):
         full_spectrum_bin_radii.append(CIP_radii[bin_ind])
 
     return np.array(full_spectrum_bin_radii)
+
+def get_full_spectrum_dlogDp(CAS_bins, CIP_bins):
+
+    full_spectrum_dlogDp = []
+
+    for i in range(5, 12):
+        bin_ind = i - 5
+        full_spectrum_dlogDp.append(np.log10(\
+            CAS_bins['upper'][bin_ind]/CAS_bins['lower'][bin_ind]))
+    for i in range(1, 20):
+        bin_ind = i - 1 
+        full_spectrum_dlogDp.append(np.log10\
+            (CIP_bins['upper'][bin_ind]/CIP_bins['lower'][bin_ind]))
+    
+    return np.array(full_spectrum_dlogDp)
 
 def get_ss_coeff(pres, temp):
 

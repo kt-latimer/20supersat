@@ -52,6 +52,7 @@ def main():
         w_alldates = add_to_alldates_array(w, w_alldates)
         z_alldates = add_to_alldates_array(z, z_alldates)
 
+    print(np.max(z_alldates))
     h_z, z_bins = np.histogram(z_alldates, bins=30, density=True)
     print(z_bins)
 

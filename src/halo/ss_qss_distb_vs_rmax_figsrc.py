@@ -82,12 +82,12 @@ def make_ss_hist_from_rmax(rmax, splice_method):
 
     make_and_save_ss_qss_hist(ss_qss_alldates, rmax, splice_method)
 
-def add_to_alldates_array(ss_qss, ss_qss_alldates):
+def add_to_alldates_array(arr, arr_alldates):
 
-    if ss_qss_alldates is None:
-        return ss_qss
+    if arr_alldates is None:
+        return arr
     else:
-        return np.concatenate((ss_qss_alldates, ss_qss))
+        return np.concatenate((arr_alldates, arr))
 
 def get_ss_qss_data(date, rmax, splice_method):
 

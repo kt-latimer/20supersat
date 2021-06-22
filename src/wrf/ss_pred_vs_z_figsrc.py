@@ -119,7 +119,7 @@ def make_and_save_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict, color, label):
     plt.legend(handles=handles, labels=labels, \
                 bbox_to_anchor=(1.04,1), borderaxespad=0)
 
-    fig.suptitle('Supersaturation and area fraction vertical profiles - WRF ' + case_label)
+    fig.suptitle('Supersaturation in WRF simulations')
 
     outfile = FIG_DIR + 'ss_pred_vs_z_' + label + '_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
