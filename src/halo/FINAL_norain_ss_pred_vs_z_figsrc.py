@@ -1,10 +1,10 @@
 """
-Vertical profile of SS_pred for WCUs in HALO flights
+Vertical profile of SS_pred for WCUs in HALO flights, calculated without
+contributions from rain drops
 """
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from matplotlib import ticker
 from matplotlib.lines import Line2D
 import numpy as np
 
@@ -18,7 +18,7 @@ matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
 
-lwc_filter_val = 1.e-4 #10**(-3.5)
+lwc_filter_val = 1.e-4
 w_cutoff = 1
 
 rmax = 102.e-6
@@ -30,8 +30,8 @@ z_lim = (z_min, z_max)
 
 change_CAS_corr = True
 cutoff_bins = True 
-incl_rain = True 
-incl_vent = True 
+incl_rain = False 
+incl_vent = False 
 full_ss = True
 
 ##
@@ -123,9 +123,6 @@ def get_ss_pred_and_w_and_z_data(date):
                     (w > w_cutoff), \
                     (temp > 273)))
 
-    print(date)
-    print(np.sum(filter_inds))
-
     if np.sum(filter_inds) != 0:
         ss_pred = ss_pred[filter_inds]
         w = w[filter_inds]
@@ -139,8 +136,7 @@ def get_ss_pred_and_w_and_z_data(date):
 
 def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
 
-    #fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
-    fig, ax1 = plt.subplots()
+    fig, ax = plt.subplots()
     n_pts = {'allpts': 0, 'up10perc': 0}
 
     for key in ss_pred_dict.keys():
@@ -150,36 +146,20 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
         n_pts[key] = np.shape(ss_pred)[0]
         dz = np.array([z_bins[i+1] - z_bins[i] for i in \
                         range(np.shape(z_bins)[0] - 1)])
-        #print(key)
 
         avg_ss_pred, avg_z, se = get_avg_ss_pred_and_z(ss_pred, z, z_bins)
         notnan_inds = np.logical_not(np.isnan(avg_ss_pred))
-        #print(avg_z)
         avg_ss_pred = avg_ss_pred[notnan_inds]
         avg_z = avg_z[notnan_inds]
         dz = dz[notnan_inds]
         se = se[notnan_inds]
 
-        ax1.plot(avg_ss_pred, avg_z, linestyle='-', color=color)
-        #ax1.plot(avg_ss_pred, avg_z, linestyle='-', marker='o', color=color)
-        #ax1.fill_betweenx(avg_z, avg_ss_pred - se, avg_ss_pred + se, \
-        #                    color=color, alpha=0.5)
-        #ax2.hist(z, bins=z_bins, density=False, orientation='horizontal', \
-        #        facecolor=color, alpha=0.8)
+        ax.plot(avg_ss_pred, avg_z, linestyle='-', color=color)
 
-    #formatting
-    ax1.set_ylim((z_min, z_max))
-    #ax1.set_xlim((0, 1.5))
-    ax1.yaxis.grid()
-    #ax2.set_ylim((z_min, z_max))
-    #ax2.yaxis.grid()
-    ax1.set_xlabel(r'$SS_{pred}$ (%)')
-    #ax2.set_xlabel(r'$N_{points}$')
-    ax1.set_ylabel(r'z (m)')
-    formatter = ticker.ScalarFormatter(useMathText=True)
-    formatter.set_scientific(True) 
-    formatter.set_powerlimits((-1,1)) 
-    #ax2.xaxis.set_major_formatter(formatter)
+    ax.set_ylim((z_min, z_max))
+    ax.yaxis.grid()
+    ax.set_xlabel(r'$SS_{pred}$ (%)')
+    ax.set_ylabel(r'z (m)')
 
     #custom legend
     n_allpts = n_pts['allpts']
@@ -194,7 +174,7 @@ def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
 
     fig.suptitle('Supersaturation in HALO observations')
 
-    outfile = FIG_DIR + 'ss_pred_vs_z_figure.png'
+    outfile = FIG_DIR + 'FINAL_ss_pred_vs_z_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
@@ -229,7 +209,6 @@ def get_avg_ss_pred_and_z(ss_pred, z, z_bins):
             avg_ss_pred[i] = np.nanmean(ss_pred_slice)
             se[i] = np.nanstd(ss_pred_slice)/np.sqrt(np.sum(bin_filter))
             avg_z[i] = np.nanmean(z_slice)
-            #print(i, avg_ss_pred[i], ss_pred_slice)
 
     return avg_ss_pred, avg_z, se
 

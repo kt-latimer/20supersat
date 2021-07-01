@@ -21,20 +21,19 @@ dec_prec = 2
 
 def main():
     
-    heatmap_filename = 'v2_filtering_criteria_data.npy'
+    heatmap_filename = 'filtering_criteria_mse_data.npy'
     heatmap_data_dict = np.load(DATA_DIR + heatmap_filename, allow_pickle=True).item()
 
     main_filename = 'filtered_data_dict.npy'
     main_data_dict = np.load(DATA_DIR + main_filename, allow_pickle=True).item()
 
-    print(heatmap_data_dict['Polluted']['m_arr'])
-    print(heatmap_data_dict['Polluted']['rsq_arr'])
-    print(heatmap_data_dict['Unpolluted']['m_arr'])
-    print(heatmap_data_dict['Unpolluted']['rsq_arr'])
-    dist_arr = np.sqrt((1-heatmap_data_dict['Polluted']['m_arr'])**2. + \
-                        (1-heatmap_data_dict['Polluted']['rsq_arr'])**2. + \
-                        (1-heatmap_data_dict['Unpolluted']['m_arr'])**2. + \
-                        (1-heatmap_data_dict['Unpolluted']['rsq_arr'])**2.)
+    mse_poll = heatmap_data_dict['Polluted']['mse_arr']
+    mse_unpoll = heatmap_data_dict['Unpolluted']['mse_arr']
+    npts_poll = heatmap_data_dict['Polluted']['npts_arr']
+    npts_unpoll = heatmap_data_dict['Unpolluted']['npts_arr']
+    #dist_arr = mse_unpoll
+    dist_arr = (mse_poll*npts_poll + mse_unpoll*npts_unpoll)/ \
+                (npts_poll + npts_unpoll)
     
     print(dist_arr)
     
@@ -67,7 +66,7 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
 
     im = ax.imshow(np.flip(dist_arr.T, axis=0), cmap=rev_magma)
     cbar = ax.figure.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-    cbar.ax.set_ylabel('Skill score')
+    cbar.ax.set_ylabel('MSE')
     annotate_heatmap(im)
     add_hatching(ax, lh_frac_arr)
 
@@ -96,9 +95,9 @@ def make_and_save_filtering_criteria_heatmap(dist_arr, lh_frac_arr, \
     ax.set_xlabel('Min log(LWC) cutoff (kg/kg)')
     ax.set_ylabel('Min w cutoff (m/s)')
 
-    fig.suptitle('Skill scores for QSS approximation', x=0.6, y=1)
+    fig.suptitle('MSE - QSS approximation vs true SS', x=0.6, y=1)
 
-    outfile = FIG_DIR + 'v2_filtering_criteria_figure.png'
+    outfile = FIG_DIR + 'filtering_criteria_mse_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close()    
 

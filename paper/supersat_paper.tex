@@ -14,9 +14,9 @@
 \usepackage[counterclockwise]{rotating}
 \graphicspath{{../figures/}}
 
-\title{Paper draft v1.10 for supersat project}
+\title{Paper draft v1.11 for supersat project}
 \author{K. Latimer}
-\date{June 15, 2021}
+\date{June 25, 2021}
 
 \newcommand{\drcomm}[1]{\textcolor{blue}{\textit{#1}}}
 \newcommand{\klcomm}[1]{\textcolor{red}{\textit{#1}}}
@@ -179,6 +179,28 @@ Another possible counterargument is that the flight campaigns simply didn't fly 
     \includegraphics[width=12cm]{wrf/combined_w_hist_figure.png}
     \caption{Vertical wind velocity probability distributions from simulations and field campaigns, using filtering criteria outlined in the text. Experimental distributions are not qualtitatively different from those in the simulation.}
     \label{combinedwhist}
+\end{figure}
+
+In order to probe more precisely why the SS profiles for HALO and WRF are so different, we compare their average water drop spectra over the altitude range of 1.5-2.5 km. This range was chosen because it gives a relatively local snapshot while still including a statistically meaningful number of WCU points from the HALO dataset (114 out of 203 total). Figure \ref{combineddsds} a and b show the drop size and mass distributions which determine, respectively, the magnitudes of $SS_{QSS}$ and $LWC$. 
+
+Figure \ref{combineddsds} a is consistent with the order-of-magnitude difference between the average $SS_{QSS}$ values for this altitude slice (0.14\% for HALO, 1.2\% (polluted) and 2.4\% (unpolluted) for WRF) since, from Equation \ref{fullss}, average $SS_{QSS}$ is inversely proportional to the average value of $\sum\limits_{i}r_if(r_i)N(r_i)$ (up to some non-local cross terms in the average which we find contribute to a fractional error of at most 60\%). 
+
+In both panels a and b of Figure \ref{combineddsds} there is an evident bias in the WRF simulations towards larger water drops. In particular, we note the large $LWC$ contribution from drizzle and rain in the WCU regions. This suggests that ... [\klcomm{I think I still need some verbal discussion about this}]
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{halo/halo_slice_meanr_dsd_alldates_figure.png}
+		\label{combineddsdssize}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=\textwidth]{halo/no_vent_halo_slice_meanr_dsd_alldates_vol_figure.png}
+		\label{combineddsdsmass}
+		\caption{}
+	\end{subfigure}
+	\caption{Comparison of water drop spectra in HALO field campaign data versus WRF microphysics simulations; a) size distributions, b) volume distributions. Note that the volume distribution is not weighted by ventilation factor, since we do not use that to calculate $LWC$, and because it artifically inflates the spectrum in the region of higher drop radii. Panel a) is consistent with the discrepancy in derived $SS_{QSS}$ values between experiment and simulation, since the integrated areas of those curves are approximately inversely proportional to $SS_{QSS}$. Panel b) shows more clearly the bias in WRF towards accumulating liquid water in (a relatively small number of) larger drops. [\todo{other comments?}]}
+	\label{combineddsds}
 \end{figure}
 
 Conclusion: The WPIM as proposed by Fan et al requires the average temperature profile of the troposphere to be set by relatively clean (high-SS) convection, in order for more polluted (low-SS) convection to experience an enhancement in buoyancy. However, we find no evidence that the high SS values reported by Fan's model actually occur in nature, which weakens the possibility of measureable invigoration effects - in particular, we estimate an upper bound on vertical velocity enhancement of $\approx$ 1 m/s from the HALO flight campaign, compared to $\approx$ 10 m/s from Fan's control simulations in WRF. The relatively low aerosol concentrations used to initialize the simulations, in combination with possible irregularities in microphysical parameterizations, may be to blame for the anomalously high SS values in the WRF output.

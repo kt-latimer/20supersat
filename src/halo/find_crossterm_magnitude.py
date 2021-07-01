@@ -72,6 +72,7 @@ def main():
         nconc_alldates = add_to_alldates_array(nconc, nconc_alldates)
         w_alldates = add_to_alldates_array(w, w_alldates)
 
+    print(np.shape(ss_qss_alldates))
     print(np.nanmean(ss_qss_alldates))
     print(np.mean(A_alldates*w_alldates/(4*np.pi*B_alldates))*np.mean(1./(meanr_alldates*nconc_alldates))*100.)
     print(np.mean(A_alldates*w_alldates/(4*np.pi*B_alldates))/np.mean((meanr_alldates*nconc_alldates))*100.)
@@ -111,6 +112,8 @@ def get_ss_qss_data(date):
     filter_inds = np.logical_and.reduce((
                     (lwc > lwc_filter_val), \
                     (w > w_cutoff), \
+                    (z > 1500), \
+                    (z < 2500), \
                     (temp > 273)))
 
     if np.sum(filter_inds) != 0:

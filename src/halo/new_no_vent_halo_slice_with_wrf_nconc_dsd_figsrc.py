@@ -22,10 +22,11 @@ matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('viridis', 10).colors
 colors_dict = {'halo': colors_arr[2], 'wrf_poll': colors_arr[5], \
                                     'wrf_unpoll': colors_arr[8]}
-linestyles_dict = {'v1_': '-', 'v2_': '--'}
-legends_dict = {'v1_': '1000-1500 m', 'v2_': '3000-4000 m'}
+linestyles_dict = {'v1_': '-', 'v2_': '--', 'v3_': '-'}
+legends_dict = {'v1_': '1000-1500 m', 'v2_': '3000-4000 m', 'v3_': '1500-2500 m'}
 #versionstrs = ['v1_', 'v2_']
-versionstrs = ['v1_']
+versionstrs = ['v3_']
+#versionstrs = ['v1_']
                             
 lwc_cutoff_val = 1.e-4
 w_cutoff_val = 1
@@ -52,31 +53,29 @@ def main():
     with open('good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]
 
-    alldates_spectrum_vent_dsd_dict = {'mean': np.zeros(np.shape(HALO_bin_radii)), \
-                                    'std': np.zeros(np.shape(HALO_bin_radii))}
-    n_pts_tot = 0
+    alldates_spectrum_vent_dict = None 
 
     for date in good_dates:
-        spectrum_vent_dsd_dict, n_pts_date = get_vent_dsd_dict_and_n_pts(date)
-        n_pts_tot += n_pts_date
-
-        if n_pts_date > 0:
-            alldates_spectrum_vent_dsd_dict['mean'] = \
-                n_pts_date*spectrum_vent_dsd_dict['mean']
-            alldates_spectrum_vent_dsd_dict['std'] += \
-                n_pts_date*spectrum_vent_dsd_dict['std']
-
-    print('allpts', n_pts_tot)
-    alldates_spectrum_vent_dsd_dict['mean'] = \
-        alldates_spectrum_vent_dsd_dict['mean']/n_pts_tot
-    alldates_spectrum_vent_dsd_dict['std'] = \
-        alldates_spectrum_vent_dsd_dict['std']/n_pts_tot
-
+        print(date)
+        #print(alldates_spectrum_vent_dict)
+        date_spectrum_vent_dict = get_date_spectrum_vent_dict(date)
+        if alldates_spectrum_vent_dict == None:
+            print('hi')
+            alldates_spectrum_vent_dict = date_spectrum_vent_dict
+        else:
+            alldates_spectrum_vent_dict = \
+                update_alldates_spectrum_vent_dict( \
+                        alldates_spectrum_vent_dict, \
+                        date_spectrum_vent_dict)
+            
+    #for key in alldates_spectrum_vent_dict.keys():
+    #    print(key)
+    #    print(np.nanmean(alldates_spectrum_vent_dict[key]))
     for case_label in case_label_dict.keys():
         make_vent_dsd_fig_with_wrf_for_date('alldates', \
-            alldates_spectrum_vent_dsd_dict, case_label)
+                alldates_spectrum_vent_dict, case_label)
 
-def get_vent_dsd_dict_and_n_pts(date):
+def get_date_spectrum_vent_dict(date):
 
     adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
     adlr_dict = np.load(adlrfile, allow_pickle=True).item()
@@ -91,70 +90,73 @@ def get_vent_dsd_dict_and_n_pts(date):
     lwc = get_lwc_vs_t(adlr_dict, spectrum_dict, cutoff_bins, rmax)
     temp = adlr_dict['data']['temp']
     w = adlr_dict['data']['w']
+    z = adlr_dict['data']['alt']
 
     filter_inds = np.logical_and.reduce(( \
                             (lwc > lwc_cutoff_val), \
                             (temp > 273), \
+                            (z > 1500), \
+                            (z < 2500), \
                             (w > w_cutoff_val)))
 
-    spectrum_vent_dsd_dict = {'mean': [], 'std': [], 'median': [], \
-                        'up_quart': [], 'lo_quart': []}
+    date_spectrum_vent_dict = {}
 
-    for j in range(1, 27):
-        var_name = 'nconc_' + str(j)
-        if change_cas_corr:
-            var_name += '_corr'
-        meanfr = get_meanr_contribution_from_spectrum_var(var_name, adlr_dict, \
-            spectrum_dict, cutoff_bins, incl_rain, incl_vent, HALO_bin_radii)
-        #print(np.shape(np.isnan(meanfr[filter_inds])))
-        #print(np.sum(np.isnan(meanfr[filter_inds])))
-        #print('inf', np.sum(np.isinf(meanfr)))
+    for var_name in spectrum_dict['data'].keys():
+        meanfr = get_nconc_contribution_from_spectrum_var(var_name, adlr_dict, \
+            spectrum_dict, cutoff_bins, incl_rain, HALO_bin_radii)
         meanfr = meanfr[filter_inds]
-        #print(meanfr)
-        spectrum_vent_dsd_dict['mean'].append( \
-                np.nanmean(meanfr))
-        spectrum_vent_dsd_dict['std'].append( \
-                np.nanstd(meanfr))
+        date_spectrum_vent_dict[var_name] = meanfr
 
-    for key in spectrum_vent_dsd_dict.keys():
-        spectrum_vent_dsd_dict[key] = \
-        np.array(spectrum_vent_dsd_dict[key])
+    return date_spectrum_vent_dict
 
-    return spectrum_vent_dsd_dict, np.sum(filter_inds)
+def update_alldates_spectrum_vent_dict(alldates_spectrum_vent_dict, \
+                                            date_spectrum_vent_dict):
 
-def make_vent_dsd_fig_with_wrf_for_date(date, spectrum_vent_dsd_dict, case_label):
+    for var_name in date_spectrum_vent_dict.keys():
+        alldates_spectrum_vent_dict[var_name] = np.concatenate(( \
+            alldates_spectrum_vent_dict[var_name], \
+            date_spectrum_vent_dict[var_name]))
+
+    return alldates_spectrum_vent_dict
+
+def make_vent_dsd_fig_with_wrf_for_date(date, \
+    alldates_spectrum_vent_dict, case_label):
 
     fig, ax = plt.subplots()
 
-    #print(HALO_log_bin_widths)
-    #print(spectrum_vent_dsd_dict['mean']/HALO_log_bin_widths)
-    print('halo', np.sum(spectrum_vent_dsd_dict['mean']))
+    HALO_y_vals = np.array([np.nanmean(alldates_spectrum_vent_dict[key]) \
+                            for key in alldates_spectrum_vent_dict.keys()])
+    print(np.sum(HALO_y_vals))
     ax.plot(HALO_bin_radii*1.e6, \
-            spectrum_vent_dsd_dict['mean']/HALO_log_bin_widths, \
-            color=colors_dict['halo'], label='HALO')
+            HALO_y_vals/HALO_log_bin_widths, \
+            color=colors_dict['halo'], label='HALO 1500-2500 m')
     for versionstr in versionstrs:
         wrf_dsd_dict, wrf_vent_dsd_dict = get_wrf_dsd_dicts(case_label, versionstr)
-        #print(versionstr, case_label, \
-        #    np.sum(wrf_vent_dsd_dict['mean']*WRF_bin_radii))
+        #print(wrf_vent_dsd_dict.keys())
+        print(np.sum(wrf_vent_dsd_dict['data']*WRF_bin_radii))
         ax.plot(WRF_bin_radii*1.e6,
-                wrf_vent_dsd_dict['data']*WRF_bin_radii/WRF_log_bin_widths, \
+                wrf_vent_dsd_dict['data']/WRF_log_bin_widths, \
                 color=colors_dict[case_color_key_dict[case_label]], \
                 linestyle=linestyles_dict[versionstr], \
                 label='WRF ' + legends_dict[versionstr])
 
     ax.set_xlabel(r'r ($\mu$m)')
-    ax.set_ylabel(r'$\frac{d(r \cdot f(r) \cdot N(r))}{d\log r}$ ($\frac{\mu m^3}{cm^3}$)')
-
-    #ax.set_ylim([1.e-5, 1.e8])
+    ax.set_ylabel(r'$\frac{d(r \cdot N(r))}{d\log r}$ ($\frac{\mu m}{cm^3}$)')
+    #ax.set_ylabel(r'$\frac{d(r^3 \cdot N(r))}{d\log r}$ ($\frac{\mu m^3}{cm^3}$)')
 
     ax.set_xscale('log')
+    #ax.set_ylim([0, 20])
     #ax.set_yscale('log')
 
     ax.legend()
     ax.set_title('HALO vs ' + case_label + ' WRF simulation')
     
-    outfile = FIG_DIR + 'meanr_dsd_' + date + '_' + \
-                            case_label + '_figure.png'
+    outfile = FIG_DIR + 'no_vent_halo_slice_nconc_dsd_' + date + '_' + \
+                        case_label + '_figure.png'
+                            #case_label + '_figure.png'
+                            #case_label + '_zoom2_figure.png'
+                            #case_label + '_logy_figure.png'
+                        #case_label + '_mass_logy_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
@@ -162,13 +164,13 @@ def get_wrf_dsd_dicts(case_label, versionstr):
 
     print(case_label)
 
-    case_dsd_filename = WRF_DATA_DIR + versionstr + 'dsd_dict_slice_' + case_label + '_data.npy'
+    case_dsd_filename = None#WRF_DATA_DIR + versionstr + 'dsd_dict_slice_' + case_label + '_data.npy'
     #case_vent_dsd_filename = WRF_DATA_DIR + versionstr + 'vent_dsd_dict_slice_' \
     #                            + case_label + '_data.npy'
-    case_vent_dsd_filename = WRF_DATA_DIR + versionstr + 'finiri_avg_' \
+    case_vent_dsd_filename = WRF_DATA_DIR + versionstr + 'niri_avg_' \
                                 + case_label + '_data.npy'
 
-    dsd_dict = np.load(case_dsd_filename, allow_pickle=True).item()
+    dsd_dict = None#np.load(case_dsd_filename, allow_pickle=True).item()
     vent_dsd_dict = np.load(case_vent_dsd_filename, allow_pickle=True).item()
 
     return dsd_dict, vent_dsd_dict

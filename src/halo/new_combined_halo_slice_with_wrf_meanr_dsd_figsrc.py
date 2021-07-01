@@ -22,9 +22,10 @@ matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('viridis', 10).colors
 colors_dict = {'halo': colors_arr[2], 'wrf_poll': colors_arr[5], \
                                     'wrf_unpoll': colors_arr[8]}
-linestyles_dict = {'v1_': '-', 'v2_': '--'}
-legends_dict = {'v1_': '1000-1500 m', 'v2_': '3000-4000 m'}
-versionstrs = ['v1_', 'v2_']
+linestyles_dict = {'v1_': '-', 'v2_': '--', 'v3_': '-'}
+legends_dict = {'v1_': '1000-1500 m', 'v2_': '3000-4000 m', 'v3_': '1500-2500 m'}
+#versionstrs = ['v1_', 'v2_']
+versionstrs = ['v3_']
 #versionstrs = ['v1_']
                             
 lwc_cutoff_val = 1.e-4
@@ -70,9 +71,8 @@ def main():
     #for key in alldates_spectrum_vent_dict.keys():
     #    print(key)
     #    print(np.nanmean(alldates_spectrum_vent_dict[key]))
-    for case_label in case_label_dict.keys():
-        make_vent_dsd_fig_with_wrf_for_date('alldates', \
-                alldates_spectrum_vent_dict, case_label)
+    make_vent_dsd_fig_with_wrf_for_date('alldates', \
+            alldates_spectrum_vent_dict)
 
 def get_date_spectrum_vent_dict(date):
 
@@ -89,10 +89,13 @@ def get_date_spectrum_vent_dict(date):
     lwc = get_lwc_vs_t(adlr_dict, spectrum_dict, cutoff_bins, rmax)
     temp = adlr_dict['data']['temp']
     w = adlr_dict['data']['w']
+    z = adlr_dict['data']['alt']
 
     filter_inds = np.logical_and.reduce(( \
                             (lwc > lwc_cutoff_val), \
                             (temp > 273), \
+                            (z > 1500), \
+                            (z < 2500), \
                             (w > w_cutoff_val)))
 
     date_spectrum_vent_dict = {}
@@ -100,8 +103,12 @@ def get_date_spectrum_vent_dict(date):
     for var_name in spectrum_dict['data'].keys():
         meanfr = get_meanr_contribution_from_spectrum_var(var_name, adlr_dict, \
             spectrum_dict, cutoff_bins, incl_rain, incl_vent, HALO_bin_radii)
+        nconc = get_nconc_contribution_from_spectrum_var(var_name, adlr_dict, \
+            spectrum_dict, cutoff_bins, incl_rain, HALO_bin_radii)
         meanfr = meanfr[filter_inds]
+        nconc = nconc[filter_inds]
         date_spectrum_vent_dict[var_name] = meanfr
+        date_spectrum_vent_dict[var_name+'_nconc'] = nconc 
 
     return date_spectrum_vent_dict
 
@@ -115,44 +122,53 @@ def update_alldates_spectrum_vent_dict(alldates_spectrum_vent_dict, \
 
     return alldates_spectrum_vent_dict
 
-def make_vent_dsd_fig_with_wrf_for_date(date, \
-    alldates_spectrum_vent_dict, case_label):
+def make_vent_dsd_fig_with_wrf_for_date(date, alldates_spectrum_vent_dict):
 
     fig, ax = plt.subplots()
 
     HALO_y_vals = np.array([np.nanmean(alldates_spectrum_vent_dict[key]) \
-                            for key in alldates_spectrum_vent_dict.keys()])
+                            for key in alldates_spectrum_vent_dict.keys() \
+                            if key[-5:] != 'nconc'])
+    HALO_tot_nconc = 0 
+
+    for key in alldates_spectrum_vent_dict.keys():
+        if key[-5:] == 'nconc':
+            HALO_tot_nconc += np.nanmean(alldates_spectrum_vent_dict[key])
+
     print(np.sum(HALO_y_vals))
+    #print(np.sum(HALO_y_vals*HALO_bin_radii**1*1.e6))
+    #print(np.sum(HALO_y_vals*HALO_bin_radii**1*1.e6/HALO_tot_nconc))
+    for case_label in case_label_dict.keys():
+        for versionstr in versionstrs:
+            wrf_dsd_dict, wrf_vent_dsd_dict = get_wrf_dsd_dicts(case_label, versionstr)
+            #print(wrf_vent_dsd_dict.keys())
+            WRF_tot_nconc = np.sum(wrf_vent_dsd_dict['data'])
+            print(np.sum(wrf_vent_dsd_dict['data']*WRF_bin_radii))
+            #print(np.sum(wrf_vent_dsd_dict['data']*WRF_bin_radii**2.*1.e6))
+            #print(np.sum(wrf_vent_dsd_dict['data']*WRF_bin_radii**2.*1.e6/WRF_tot_nconc))
+            ax.plot(WRF_bin_radii*1.e6,
+                    #wrf_vent_dsd_dict['data']*WRF_bin_radii**2.*1.e6/WRF_tot_nconc/WRF_log_bin_widths, \
+                    wrf_vent_dsd_dict['data']*WRF_bin_radii**2.*1.e6/WRF_log_bin_widths, \
+                    color=colors_dict[case_color_key_dict[case_label]], \
+                    linestyle=linestyles_dict[versionstr], \
+                    label='WRF ' + case_label)
     ax.plot(HALO_bin_radii*1.e6, \
-            HALO_y_vals/HALO_log_bin_widths, \
+            HALO_y_vals*HALO_bin_radii**1*1.e6/HALO_log_bin_widths, \
+            #HALO_y_vals*HALO_bin_radii**1*1.e6/HALO_tot_nconc/HALO_log_bin_widths, \
+            #HALO_y_vals/HALO_log_bin_widths, \
             color=colors_dict['halo'], label='HALO')
-    for versionstr in versionstrs:
-        wrf_dsd_dict, wrf_vent_dsd_dict = get_wrf_dsd_dicts(case_label, versionstr)
-        #print(wrf_vent_dsd_dict.keys())
-        print(np.sum(wrf_vent_dsd_dict['data']*WRF_bin_radii))
-        ax.plot(WRF_bin_radii*1.e6,
-                wrf_vent_dsd_dict['data']*WRF_bin_radii/WRF_log_bin_widths, \
-                color=colors_dict[case_color_key_dict[case_label]], \
-                linestyle=linestyles_dict[versionstr], \
-                label='WRF ' + legends_dict[versionstr])
 
     ax.set_xlabel(r'r ($\mu$m)')
-    ax.set_ylabel(r'$\frac{d(r \cdot f(r) \cdot N(r))}{d\log r}$ ($\frac{\mu m}{cm^3}$)')
-    #ax.set_ylabel(r'$\frac{d(r^3 \cdot f(r) \cdot N(r))}{d\log r}$ ($\frac{\mu m^3}{cm^3}$)')
+    #ax.set_ylabel(r'$\frac{d(r \cdot f(r) \cdot N(r))}{d\log r}$ ($\frac{\mu m}{cm^3}$)')
+    ax.set_ylabel(r'$\frac{d(r^2 \cdot f(r) \cdot N(r))}{N_{tot}\cdot d\log r}$ ($\frac{\mu m^2}{cm^3}$)')
 
     ax.set_xscale('log')
-    #ax.set_ylim([0, 20])
-    #ax.set_yscale('log')
 
     ax.legend()
-    ax.set_title('HALO vs ' + case_label + ' WRF simulation')
+    ax.set_title('Drop area distributions - 1.5-2.5 km')
     
-    outfile = FIG_DIR + 'meanr_dsd_' + date + '_' + \
-                            case_label + '_figure.png'
-                            #case_label + '_zoom2_figure.png'
-                            #case_label + '_logy_figure.png'
-                        #case_label + '_mass_logy_figure.png'
-                        #case_label + '_mass_figure.png'
+    #outfile = FIG_DIR + 'halo_slice_meanr_dsd_' + date + '_figure.png'
+    outfile = FIG_DIR + 'halo_slice_meanr_dsd_' + date + '_area_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 
@@ -160,13 +176,13 @@ def get_wrf_dsd_dicts(case_label, versionstr):
 
     print(case_label)
 
-    case_dsd_filename = WRF_DATA_DIR + versionstr + 'dsd_dict_slice_' + case_label + '_data.npy'
+    case_dsd_filename = None#WRF_DATA_DIR + versionstr + 'dsd_dict_slice_' + case_label + '_data.npy'
     #case_vent_dsd_filename = WRF_DATA_DIR + versionstr + 'vent_dsd_dict_slice_' \
     #                            + case_label + '_data.npy'
     case_vent_dsd_filename = WRF_DATA_DIR + versionstr + 'finiri_avg_' \
                                 + case_label + '_data.npy'
 
-    dsd_dict = np.load(case_dsd_filename, allow_pickle=True).item()
+    dsd_dict = None#np.load(case_dsd_filename, allow_pickle=True).item()
     vent_dsd_dict = np.load(case_vent_dsd_filename, allow_pickle=True).item()
 
     return dsd_dict, vent_dsd_dict
