@@ -2,7 +2,7 @@
 
 clustername=$1
 
-i=1
+i=3
 
 outputfilename="slurm_outputs/combined_dT_profile_v${i}.txt" 
 sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/combined_dT_profile

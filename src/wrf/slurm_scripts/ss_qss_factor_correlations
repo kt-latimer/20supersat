@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/wrf/ss_qss_factor_correlations.py

@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/wrf/random_bin_check.py

@@ -31,7 +31,7 @@ full_ss = False
 
 def main():
     
-    for case_label in case_label_dict.keys():
+    for case_label in ['Unpolluted']:#case_label_dict.keys():
         make_and_save_ss_qss_vs_ss_wrf(case_label, case_label_dict[case_label], \
                                     cutoff_bins, full_ss, incl_rain, incl_vent)
 
@@ -49,8 +49,7 @@ def make_and_save_ss_qss_vs_ss_wrf(case_label, case_dir_name, \
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys
-    lwc = met_vars['LWC_cloud'][...]
-    #lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
+    lwc = get_lwc(met_vars, dsdsum_vars, False, False, False)
     temp = met_vars['temp'][...]
     w = met_vars['w'][...]
     ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \

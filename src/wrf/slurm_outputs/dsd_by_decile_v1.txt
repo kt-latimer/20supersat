@@ -1,0 +1,155 @@
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 242, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 126, in make_and_save_spectrum_dict
+    t = t[env_filter] 
+ValueError: operands could not be broadcast together with shapes (66,84,450,450) (84,66,450,450) 
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+(84, 66, 450, 450)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 243, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 127, in make_and_save_spectrum_dict
+    t = t[env_filter] 
+ValueError: operands could not be broadcast together with shapes (66,84,450,450) (84,66,450,450) 
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+(66, 84, 450, 450)
+(66, 84, 450, 450)
+(66, 84, 450, 450)
+(84, 66, 450, 450)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 246, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 130, in make_and_save_spectrum_dict
+    t = t[env_filter] 
+ValueError: operands could not be broadcast together with shapes (66,84,450,450) (84,66,450,450) 
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 243, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 132, in make_and_save_spectrum_dict
+    decile_filters, rand_inds = get_decile_filters(ss_wrf)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 165, in get_decile_filters
+    rand_inds = np.choice(n_per_decile, n_spectra, replace=False)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/__init__.py", line 220, in __getattr__
+    "{!r}".format(__name__, attr))
+AttributeError: module 'numpy' has no attribute 'choice'
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 243, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 132, in make_and_save_spectrum_dict
+    decile_filters, rand_inds = get_decile_filters(ss_wrf)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 165, in get_decile_filters
+    rand_inds = np.random.choice(n_per_decile, n_spectra, replace=False)
+NameError: name 'n_spectra' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 243, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 139, in make_and_save_spectrum_dict
+    spectrum_dict[decile_key]['nconc'] = [[] for i in range(n_bins)]
+KeyError: 'decile_1'
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 243, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 142, in make_and_save_spectrum_dict
+    z, w, ss_qss, ss_wrf)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 197, in add_non_dsd_data
+    spectrum_dict['w'].append(w[decile_filter])
+KeyError: 'w'
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 243, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 149, in make_and_save_spectrum_dict
+    decile_filters, i, nconc_i, f_i)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 205, in add_dsd_data
+    for j, decile_filter in decile_filters:
+ValueError: too many values to unpack (expected 2)
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 243, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 149, in make_and_save_spectrum_dict
+    decile_filters, i, nconc_i, f_i)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 210, in add_dsd_data
+    f_i[env_filter][decile_filter]
+KeyError: 'vent_filter'
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 244, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 65, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 149, in make_and_save_spectrum_dict
+    decile_filters, i, nconc_i, f_i)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 209, in add_dsd_data
+    nconc_i[env_filter][decile_filter]
+IndexError: list assignment index out of range
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 244, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 66, in main
+    make_and_save_dsds_by_decile_graphs(case_label, spectrum_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 225, in make_and_save_dsds_by_decile_graphs
+    decile_spectra = get_decile_spectra(spectrum_dict[decile_key])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 236, in get_decile_spectra
+    dsd = decile_dsd_dict['vent_coeff']*decile_dsd_dict['nconc']
+TypeError: can't multiply sequence by non-int of type 'list'
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Unpolluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 244, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 66, in main
+    make_and_save_dsds_by_decile_graphs(case_label, spectrum_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 225, in make_and_save_dsds_by_decile_graphs
+    decile_spectra = get_decile_spectra(spectrum_dict[decile_key])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/dsds_by_decile_figsrc.py", line 236, in get_decile_spectra
+    dsd = decile_dsd_dict['vent_coeff']*decile_dsd_dict['nconc']
+TypeError: can't multiply sequence by non-int of type 'list'

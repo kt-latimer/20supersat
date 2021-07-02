@@ -72,3 +72,6 @@ Traceback (most recent call last):
   File "/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_dsd_figsrc.py", line 157, in make_and_save_avg_dsd
     dsd_dict['hi_quart']*1.e-6], fmt='o')
 KeyError: 'hi_quart'
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:746: UserWarning: Warning: 'partition' will ignore the 'mask' of the MaskedArray.
+  a.partition(kth, axis=axis, kind=kind, order=order)
+Unpolluted

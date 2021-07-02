@@ -2,7 +2,7 @@
 
 clustername=$1
 
-i=2
+i=1
 
 outputfilename="slurm_outputs/mid_dsdsum_vars_v${i}.txt" 
 sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/mid_dsdsum_vars

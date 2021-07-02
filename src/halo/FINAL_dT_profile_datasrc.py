@@ -6,21 +6,12 @@ import numpy as np
 from halo import DATA_DIR, FIG_DIR
 from halo.ss_functions import get_ss_vs_t, get_lwc_vs_t, \
                             get_full_spectrum_dict
+from phys_consts import *
 
 lwc_filter_val = 1.e-4
 w_cutoff = 1
 
 rmax = 102.e-6
-
-#physical constants
-C_ap = 1005. #dry air heat cap at const P (J/(kg K))
-g = 9.8 #grav accel (m/s^2)
-L_v = 2501000. #latent heat of evaporation of water (J/kg)
-Mm_a = .02896 #Molecular weight of dry air (kg/mol)
-Mm_v = .01806 #Molecular weight of water vapour (kg/mol)
-R = 8.317 #universal gas constant (J/(mol K))
-R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
-R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
 
 change_CAS_corr = True
 cutoff_bins = True

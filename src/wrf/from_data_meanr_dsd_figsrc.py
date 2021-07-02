@@ -49,25 +49,12 @@ def get_dsd_dicts(case_label):
     dsd_dict = np.load(case_dsd_filename, allow_pickle=True).item()
     vent_dsd_dict = np.load(case_vent_dsd_filename, allow_pickle=True).item()
 
-    for key in dsd_dict.keys():
-        dsd_dict[key] = bin_radii**3.*dsd_dict[key]
-        vent_dsd_dict[key] = bin_radii**3.*vent_dsd_dict[key]
-
     return dsd_dict, vent_dsd_dict
 
 def make_and_save_meanr_dsd(case_label, dsd_dict, vent_dsd_dict):
 
     fig, ax = plt.subplots()
 
-    ax.errorbar(bin_radii*1.e6, dsd_dict['mean']/log_bin_widths, \
-                yerr=dsd_dict['std']/log_bin_widths, color='grey', \
-                alpha=0.3, fmt='o')
-    ax.step(lower_bin_radii*1.e6, dsd_dict['mean']/log_bin_widths, \
-            where='post', color=magma_pink)
-    ax.plot([lower_bin_radii[-1]*1.e6, upper_bin_radii[-1]*1.e6], \
-            [dsd_dict['mean'][-1]/log_bin_widths[-1], \
-            dsd_dict['mean'][-1]/log_bin_widths[-1]], \
-            color=magma_pink)
     #ax.errorbar(bin_radii*1.e6, vent_dsd_dict['mean']/log_bin_widths, \
     #            yerr=vent_dsd_dict['std']/log_bin_widths, color='grey', \
     #            alpha=0.3, fmt='o')
@@ -77,21 +64,21 @@ def make_and_save_meanr_dsd(case_label, dsd_dict, vent_dsd_dict):
     #        [vent_dsd_dict['mean'][-1]/log_bin_widths[-1], \
     #        vent_dsd_dict['mean'][-1]/log_bin_widths[-1]], \
     #        color=magma_pink)
-    ##ax.errorbar(bin_radii*1.e6, vent_dsd_dict['median']/log_bin_widths, \
-    #            yerr=[vent_dsd_dict['lo_quart']/log_bin_widths, \
-    #                    vent_dsd_dict['up_quart']/log_bin_widths], \
-    #                    color='grey', alpha=0.3, fmt='o')
-    #ax.step(lower_bin_radii*1.e6, vent_dsd_dict['median']/log_bin_widths, \
-    #        where='post', color=magma_pink)
-    #ax.plot([lower_bin_radii[-1]*1.e6, upper_bin_radii[-1]*1.e6], \
-    #        [vent_dsd_dict['median'][-1]/log_bin_widths[-1], \
-    #        vent_dsd_dict['median'][-1]/log_bin_widths[-1]], \
-    #        color=magma_pink)
+    ax.errorbar(bin_radii*1.e6, vent_dsd_dict['median']/log_bin_widths, \
+                yerr=[vent_dsd_dict['lo_quart']/log_bin_widths, \
+                        vent_dsd_dict['up_quart']/log_bin_widths], \
+                        color='grey', alpha=0.3, fmt='o')
+    ax.step(lower_bin_radii*1.e6, vent_dsd_dict['median']/log_bin_widths, \
+            where='post', color=magma_pink)
+    ax.plot([lower_bin_radii[-1]*1.e6, upper_bin_radii[-1]*1.e6], \
+            [vent_dsd_dict['median'][-1]/log_bin_widths[-1], \
+            vent_dsd_dict['median'][-1]/log_bin_widths[-1]], \
+            color=magma_pink)
 
     ax.set_xlabel(r'r ($\mu$m)')
     ax.set_ylabel(r'$\frac{d(r \cdot f(r) \cdot N(r))}{d\log r}$ (cm$^{-3}$)')
 
-    #ax.set_ylim([1.e-5, 1.e8])
+    ax.set_ylim([1.e-5, 1.e8])
     ax.set_xlim([1.e-1, 1.e4])
 
     ax.set_xscale('log')

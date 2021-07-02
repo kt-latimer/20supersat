@@ -1,0 +1,8 @@
+#!/bin/bash
+
+clustername=$1
+
+i=1
+
+outputfilename="slurm_outputs/test_nconc_plot_v${i}.txt" 
+sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/test_nconc_plot

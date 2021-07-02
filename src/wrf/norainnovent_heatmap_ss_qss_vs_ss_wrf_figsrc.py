@@ -32,7 +32,7 @@ full_ss = False
 
 def main():
     
-    for case_label in case_label_dict.keys():
+    for case_label in ['Unpolluted']:#case_label_dict.keys():
         make_and_save_ss_qss_vs_ss_wrf(case_label, case_label_dict[case_label], \
                                     cutoff_bins, full_ss, incl_rain, incl_vent)
 

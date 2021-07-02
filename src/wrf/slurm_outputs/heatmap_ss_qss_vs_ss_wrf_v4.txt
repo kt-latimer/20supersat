@@ -1,0 +1,32 @@
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+dict_keys(['lh_tot', 'lh', 'lwc', 'ss_qss', 'ss_wrf', 'temp', 'w', 'x', 'y', 'z', 'z_bins', 'pres'])
+Polluted
+0.8077378143101436 0.05886463200005321 0.8769912147785364
+# pts total: 7538219
+max: 25.500898931213246
+# pts ss > 2%: 1162964
+Number of points in Q1: 7496548
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 39504
+
+Domain: 0.09459396846692318 25.500898931213246
+Range: -12.413106 20.070312
+dict_keys(['lh_tot', 'lh', 'lwc', 'ss_qss', 'ss_wrf', 'temp', 'w', 'x', 'y', 'z', 'z_bins', 'pres'])
+Unpolluted
+0.8280510014174532 0.040867204381291655 0.9013657736832758
+# pts total: 6886504
+max: 51.53354383014857
+# pts ss > 2%: 1735043
+Number of points in Q1: 6852353
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 32052
+
+Domain: 0.10539222533619678 51.53354383014857
+Range: -10.896954 50.342487
+combined
+0.8253679031561234 0.04164662760767679 0.9005105542831772

@@ -23,8 +23,8 @@ rho_w = 1000. #density of water (kg/m^3)
 ##
 ## least squares regression from wrf data 
 ## 
-LSR_INT = 0.011320347049628032
-LSR_SLOPE = 0.8498781398164678
+LSR_INT = 0.04164662760767679
+LSR_SLOPE = 0.8253679031561234
 
 ##
 ## methods to get ss_qss 
@@ -47,6 +47,23 @@ def get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, full_ss, incl_rain, incl_vent
     ss_qss = A*w/(4*np.pi*B*meanr*nconc)*100. #as a percentage
 
     return ss_qss
+
+def get_ss_qss_components(met_vars, dsdsum_vars, cutoff_bins, full_ss, incl_rain, incl_vent):
+
+    meanr = get_meanr(dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
+    nconc = get_nconc(dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
+
+    w = met_vars['w'][...]
+
+    if full_ss:
+        A = met_vars['A'][...]
+        B = met_vars['B'][...]
+    else:
+        temp = met_vars['temp'][...]
+        A = g*(L_v*R_a/(C_ap*R_v)*1/temp - 1)*1./R_a*1./temp
+        B = D
+
+    return A, B, meanr, nconc 
 
 def get_ss_pred(ss_qss):
 

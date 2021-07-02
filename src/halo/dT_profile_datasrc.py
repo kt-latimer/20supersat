@@ -115,7 +115,7 @@ def save_dT_profile_data(pres, temp, ss_pred, w, z, z_bins):
     z_bins = get_adjusted_z_bins(notnan_inds, z_bins)
     dT_profile_data_dict = {'dT': avg_dT, 'temp': avg_temp, 'z': avg_z, 'z_bins': z_bins}
 
-    filename = 'dT_profile_data_alldates.npy'
+    filename = 'dT_profile_data.npy'
     np.save(DATA_DIR + filename, dT_profile_data_dict)
 
 def get_qvstar(pres, temp):

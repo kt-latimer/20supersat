@@ -1,0 +1,322 @@
+640.59094 5224.1157
+973.0825 5224.1157
+686.1746 5224.59
+924.6975 4529.355
+640.59094 5224.59
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+640.59094 5224.1157
+973.0825 5224.1157
+686.1746 5224.59
+924.6975 4529.355
+640.59094 5224.59
+[          nan           nan           nan           nan  226.75892639
+  265.75799561  304.96722412  329.40377808  362.98852539  402.64608765
+  442.51589966  485.10198975  530.20257568  576.84625244  623.8939209
+  670.75134277  717.37121582  763.04272461  809.41906738  859.8515625
+  907.49554443  951.92736816  996.49108887 1049.8104248  1101.88574219
+ 1151.06286621 1205.1550293  1261.87512207 1318.47009277 1379.65075684
+ 1442.91918945 1502.37670898 1560.42346191 1622.97961426 1687.36584473
+ 1755.87609863 1821.75891113 1887.89611816 1962.40063477 2040.77160645
+ 2129.38720703 2229.19067383 2520.65332031 3026.11572266 3587.82470703
+ 4207.73974609 4875.2421875  5597.77099609]
+[        nan         nan         nan         nan  0.65176383  0.59789273
+  0.63075921  0.55451132  0.61301112  0.7016312   0.67788431  0.73222569
+  0.7739752   0.79315252  0.81034165  0.80585477  0.79055789  0.76895572
+  0.7307824   0.65183822  0.58361566  0.54631029  0.53924396  0.54751059
+  0.53663106  0.53705098  0.54609616  0.5533211   0.55469652  0.58575068
+  0.60929015  0.6429978   0.67496872  0.7582636   0.78544106  0.9359427
+  0.90459037  1.06774672  1.13211234  1.27386288  1.48160784  1.280435
+  2.13138702  2.40320047  3.2195636   3.96532758  4.73691688 10.83337935]
+[          nan           nan           nan           nan           nan
+           nan           nan           nan           nan           nan
+           nan           nan  546.41265869  591.23864746  636.1005249
+  681.35638428  721.42193604  765.71295166  809.73669434  860.89178467
+  908.21704102  949.47558594  992.62457275 1048.08337402 1099.92456055
+ 1149.24475098 1204.13208008 1261.17871094 1318.08227539 1379.71508789
+ 1442.8659668  1501.98913574 1560.47058105 1623.55102539 1688.13952637
+ 1756.79870605 1822.52709961 1888.82910156 1963.73120117 2041.81542969
+ 2130.24780273 2229.35888672 2521.14355469 3027.78955078 3590.95141602
+ 4211.91796875 4878.87451172 5597.77099609]
+[        nan         nan         nan         nan         nan         nan
+         nan         nan         nan         nan         nan         nan
+  1.16680589  1.14946971  1.19095666  1.2069439   1.18196777  1.14204351
+  1.07908974  1.04848625  1.00857215  0.97497276  0.96187345  0.94024661
+  0.89917363  0.87892224  0.86224923  0.84967571  0.83745193  0.87526345
+  0.90099388  0.9413377   0.9788833   1.07915451  1.10409272  1.30495511
+  1.26394073  1.49399372  1.60399803  1.83502266  2.2014064   1.84614352
+  3.24754332  3.52387324  4.66547245  5.79838924  7.13753603 10.83337935]
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+640.59094 5224.1157
+973.0825 5224.1157
+686.1746 5224.59
+924.6975 4529.355
+973.0825 4529.355
+[          nan           nan           nan           nan  226.75892639
+  265.75799561  304.96722412  329.40377808  362.98852539  402.64608765
+  442.51589966  485.10198975  530.20257568  576.84625244  623.8939209
+  670.75134277  717.37121582  763.04272461  809.41906738  859.8515625
+  907.49554443  951.92736816  996.49108887 1049.8104248  1101.88574219
+ 1151.06286621 1205.1550293  1261.87512207 1318.47009277 1379.65075684
+ 1442.91918945 1502.37670898 1560.42346191 1622.97961426 1687.36584473
+ 1755.87609863 1821.75891113 1887.89611816 1962.40063477 2040.77160645
+ 2129.38720703 2229.19067383 2520.65332031 3026.11572266 3587.82470703
+ 4207.73974609 4875.2421875  5597.77099609]
+[          nan           nan           nan           nan           nan
+           nan           nan           nan           nan           nan
+           nan           nan  546.41265869  591.23864746  636.1005249
+  681.35638428  721.42193604  765.71295166  809.73669434  860.89178467
+  908.21704102  949.47558594  992.62457275 1048.08337402 1099.92456055
+ 1149.24475098 1204.13208008 1261.17871094 1318.08227539 1379.71508789
+ 1442.8659668  1501.98913574 1560.47058105 1623.55102539 1688.13952637
+ 1756.79870605 1822.52709961 1888.82910156 1963.73120117 2041.81542969
+ 2130.24780273 2229.35888672 2521.14355469 3027.78955078 3590.95141602
+ 4211.91796875 4878.87451172 5597.77099609]
+[          nan           nan           nan           nan           nan
+           nan           nan  341.4359436   367.48095703  404.96694946
+  444.34017944  483.88208008  525.54382324  571.07232666  618.67108154
+  666.79760742  715.02209473  762.68835449  810.19433594  860.02581787
+  907.19262695  951.90093994  997.12939453 1050.19848633 1102.12487793
+ 1151.33093262 1205.53405762 1262.3236084  1319.15588379 1380.45336914
+ 1443.64477539 1503.10632324 1561.31799316 1623.97106934 1688.38452148
+ 1756.93566895 1822.91357422 1889.04052734 1963.52270508 2041.9576416
+ 2130.54370117 2230.75610352 2522.39697266 3028.33374023 3590.89770508
+ 4211.0703125  4876.84277344 5605.33349609]
+[          nan           nan           nan           nan           nan
+           nan           nan           nan           nan           nan
+           nan           nan  523.63079834  564.37182617  611.63824463
+  660.61328125  713.49786377  758.86798096  805.6973877   859.71124268
+  908.45874023  950.16162109  992.66113281 1048.06677246 1100.15551758
+ 1149.46264648 1204.60107422 1261.7064209  1318.89355469 1380.62780762
+ 1443.68518066 1502.88354492 1561.39343262 1624.44396973 1689.00793457
+ 1757.77929688 1823.61938477 1889.93066406 1964.91040039 2043.04003906
+ 2131.41748047 2230.85009766 2523.89599609 3032.56640625 3597.30615234
+ 4219.3359375  4877.93066406 5605.33349609]
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+640.59094 5224.1157
+973.0825 5224.1157
+686.1746 5224.59
+924.6975 4529.355
+973.0825 4529.355
+[          nan           nan           nan           nan  226.75892639
+  265.75799561  304.96722412  329.40377808  362.98852539  402.64608765
+  442.51589966  485.10198975  530.20257568  576.84625244  623.8939209
+  670.75134277  717.37121582  763.04272461  809.41906738  859.8515625
+  907.49554443  951.92736816  996.49108887 1049.8104248  1101.88574219
+ 1151.06286621 1205.1550293  1261.87512207 1318.47009277 1379.65075684
+ 1442.91918945 1502.37670898 1560.42346191 1622.97961426 1687.36584473
+ 1755.87609863 1821.75891113 1887.89611816 1962.40063477 2040.77160645
+ 2129.38720703 2229.19067383 2520.65332031 3026.11572266 3587.82470703
+ 4207.73974609 4875.2421875  5597.77099609]
+[          nan           nan           nan           nan           nan
+           nan           nan           nan           nan           nan
+           nan           nan  546.41265869  591.23864746  636.1005249
+  681.35638428  721.42193604  765.71295166  809.73669434  860.89178467
+  908.21704102  949.47558594  992.62457275 1048.08337402 1099.92456055
+ 1149.24475098 1204.13208008 1261.17871094 1318.08227539 1379.71508789
+ 1442.8659668  1501.98913574 1560.47058105 1623.55102539 1688.13952637
+ 1756.79870605 1822.52709961 1888.82910156 1963.73120117 2041.81542969
+ 2130.24780273 2229.35888672 2521.14355469 3027.78955078 3590.95141602
+ 4211.91796875 4878.87451172 5597.77099609]
+[          nan           nan           nan           nan           nan
+           nan           nan  341.4359436   367.48095703  404.96694946
+  444.34017944  483.88208008  525.54382324  571.07232666  618.67108154
+  666.79760742  715.02209473  762.68835449  810.19433594  860.02581787
+  907.19262695  951.90093994  997.12939453 1050.19848633 1102.12487793
+ 1151.33093262 1205.53405762 1262.3236084  1319.15588379 1380.45336914
+ 1443.64477539 1503.10632324 1561.31799316 1623.97106934 1688.38452148
+ 1756.93566895 1822.91357422 1889.04052734 1963.52270508 2041.9576416
+ 2130.54370117 2230.75610352 2522.39697266 3028.33374023 3590.89770508
+ 4211.0703125  4876.84277344 5605.33349609]
+[          nan           nan           nan           nan           nan
+           nan           nan           nan           nan           nan
+           nan           nan  523.63079834  564.37182617  611.63824463
+  660.61328125  713.49786377  758.86798096  805.6973877   859.71124268
+  908.45874023  950.16162109  992.66113281 1048.06677246 1100.15551758
+ 1149.46264648 1204.60107422 1261.7064209  1318.89355469 1380.62780762
+ 1443.68518066 1502.88354492 1561.39343262 1624.44396973 1689.00793457
+ 1757.77929688 1823.61938477 1889.93066406 1964.91040039 2043.04003906
+ 2131.41748047 2230.85009766 2523.89599609 3032.56640625 3597.30615234
+ 4219.3359375  4877.93066406 5605.33349609]
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+Polluted allpts
+[  54.181225   82.26269   117.42699   152.42995   189.40044   228.85385
+  268.38275   308.01038   345.64822   383.16428   423.12415   463.20767
+  505.57007   550.41534   595.42175   640.59094   685.9261    731.42883
+  779.32654   829.77563   878.1805    924.4048    973.0825   1026.6302
+ 1080.5194   1132.245    1186.5225   1243.4778   1300.7139   1360.5972
+ 1423.255    1483.8676   1542.3269   1603.5168   1667.5527   1734.419
+ 1801.7682   1866.991    1937.6176   2013.8827   2095.7864   2186.1516
+ 2372.9216   2762.3423   3295.2668   3885.3005   4528.8      5224.1157
+ 5964.621   ]
+Polluted up10perc
+[  54.181225   82.26269   117.42699   152.42995   189.40044   228.85385
+  268.38275   308.01038   345.64822   383.16428   423.12415   463.20767
+  505.57007   550.41534   595.42175   640.59094   685.9261    731.42883
+  779.32654   829.77563   878.1805    924.4048    973.0825   1026.6302
+ 1080.5194   1132.245    1186.5225   1243.4778   1300.7139   1360.5972
+ 1423.255    1483.8676   1542.3269   1603.5168   1667.5527   1734.419
+ 1801.7682   1866.991    1937.6176   2013.8827   2095.7864   2186.1516
+ 2372.9216   2762.3423   3295.2668   3885.3005   4528.8      5224.1157
+ 5964.621   ]
+Unpolluted allpts
+[  54.185863   82.28268   117.46871   152.49203   189.48224   228.955
+  268.5018    308.14563   345.79852   383.32816   423.3018    463.39835
+  505.7733    550.6309    595.6489    640.8295    686.1746    731.6867
+  779.5944    830.0533    878.46594   924.6975    973.3833   1026.938
+ 1080.8353   1132.5685   1186.8525   1243.8147   1301.0562   1360.9454
+ 1423.609    1484.2264   1542.6915   1603.8889   1667.9344   1734.808
+ 1802.1638   1867.395    1938.0323   2014.311    2096.23     2186.6106
+ 2373.4038   2762.859    3295.8184   3885.877    4529.355    5224.59
+ 5964.997   ]
+Unpolluted up10perc
+[  54.185863   82.28268   117.46871   152.49203   189.48224   228.955
+  268.5018    308.14563   345.79852   383.32816   423.3018    463.39835
+  505.7733    550.6309    595.6489    640.8295    686.1746    731.6867
+  779.5944    830.0533    878.46594   924.6975    973.3833   1026.938
+ 1080.8353   1132.5685   1186.8525   1243.8147   1301.0562   1360.9454
+ 1423.609    1484.2264   1542.6915   1603.8889   1667.9344   1734.808
+ 1802.1638   1867.395    1938.0323   2014.311    2096.23     2186.6106
+ 2373.4038   2762.859    3295.8184   3885.877    4529.355    5224.59
+ 5964.997   ]
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+Polluted allpts
+[  54.181225   82.26269   117.42699   152.42995   189.40044   228.85385
+  268.38275   308.01038   345.64822   383.16428   423.12415   463.20767
+  505.57007   550.41534   595.42175   640.59094   685.9261    731.42883
+  779.32654   829.77563   878.1805    924.4048    973.0825   1026.6302
+ 1080.5194   1132.245    1186.5225   1243.4778   1300.7139   1360.5972
+ 1423.255    1483.8676   1542.3269   1603.5168   1667.5527   1734.419
+ 1801.7682   1866.991    1937.6176   2013.8827   2095.7864   2186.1516
+ 2372.9216   2762.3423   3295.2668   3885.3005   4528.8      5224.1157
+ 5964.621   ]
+Polluted up10perc
+[  54.181225   82.26269   117.42699   152.42995   189.40044   228.85385
+  268.38275   308.01038   345.64822   383.16428   423.12415   463.20767
+  505.57007   550.41534   595.42175   640.59094   685.9261    731.42883
+  779.32654   829.77563   878.1805    924.4048    973.0825   1026.6302
+ 1080.5194   1132.245    1186.5225   1243.4778   1300.7139   1360.5972
+ 1423.255    1483.8676   1542.3269   1603.5168   1667.5527   1734.419
+ 1801.7682   1866.991    1937.6176   2013.8827   2095.7864   2186.1516
+ 2372.9216   2762.3423   3295.2668   3885.3005   4528.8      5224.1157
+ 5964.621   ]
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 220, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 51, in main
+    make_and_save_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 108, in make_and_save_ss_pred_vs_z
+    ax_arr[i].set_ylim(z_lim)
+NameError: name 'z_lim' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:168: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+Polluted allpts
+[  54.181225   82.26269   117.42699   152.42995   189.40044   228.85385
+  268.38275   308.01038   345.64822   383.16428   423.12415   463.20767
+  505.57007   550.41534   595.42175   640.59094   685.9261    731.42883
+  779.32654   829.77563   878.1805    924.4048    973.0825   1026.6302
+ 1080.5194   1132.245    1186.5225   1243.4778   1300.7139   1360.5972
+ 1423.255    1483.8676   1542.3269   1603.5168   1667.5527   1734.419
+ 1801.7682   1866.991    1937.6176   2013.8827   2095.7864   2186.1516
+ 2372.9216   2762.3423   3295.2668   3885.3005   4528.8      5224.1157
+ 5964.621   ]
+Polluted up10perc
+[  54.181225   82.26269   117.42699   152.42995   189.40044   228.85385
+  268.38275   308.01038   345.64822   383.16428   423.12415   463.20767
+  505.57007   550.41534   595.42175   640.59094   685.9261    731.42883
+  779.32654   829.77563   878.1805    924.4048    973.0825   1026.6302
+ 1080.5194   1132.245    1186.5225   1243.4778   1300.7139   1360.5972
+ 1423.255    1483.8676   1542.3269   1603.5168   1667.5527   1734.419
+ 1801.7682   1866.991    1937.6176   2013.8827   2095.7864   2186.1516
+ 2372.9216   2762.3423   3295.2668   3885.3005   4528.8      5224.1157
+ 5964.621   ]
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 220, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 51, in main
+    make_and_save_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins_dict)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py", line 108, in make_and_save_ss_pred_vs_z
+    ax_arr[i].set_ylim(z_lim)
+NameError: name 'z_lim' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_pred_vs_z_figsrc.py:169: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+(973.0825, 4529.355)
+(973.0825, 4529.355)

@@ -22,6 +22,8 @@ w_cutoff = 1
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
+versionstr = 'vONE_'
+
 bin_diams = np.array([4*(2.**(i/3.))*10**(-6) for i in range(33)]) #bin diams in m
 bin_radii = bin_diams/2.
 
@@ -77,7 +79,7 @@ def make_and_save_imax_heatmap(case_label, case_dir_name, \
 
     #get dsd sum file variables
     dsdsum_file = Dataset(DATA_DIR + case_dir_name + \
-                    'wrfout_d01_all_dsdsum_vars_v2', 'r')
+                    'wrfout_d01_all_dsdsum_vars', 'r')
     dsdsum_vars = dsdsum_file.variables
 
     #get relevant physical qtys
@@ -102,6 +104,8 @@ def make_and_save_imax_heatmap(case_label, case_dir_name, \
                     (lwc > lwc_filter_val), \
                     (w > w_cutoff), \
                     (temp > 273)))
+
+    print(np.sum(filter_inds))
 
     ss_qss = ss_qss[filter_inds]
     ss_wrf = ss_wrf[filter_inds]
@@ -144,8 +148,8 @@ def make_and_save_imax_heatmap(case_label, case_dir_name, \
     ax.text(0.7, 0.9, r'$r_{max}='+rmax+'\mu m$')
     fig.suptitle('Actual versus approximated supersaturation - WRF ' + case_label)
 
-    outfile = FIG_DIR + 'imax_' + str(imax) + '_heatmap_ss_qss_vs_ss_wrf_' \
-                                            + case_label + '_figure.png'
+    outfile = FIG_DIR + versionstr + 'imax_' + str(imax) + \
+        '_heatmap_ss_qss_vs_ss_wrf_' + case_label + '_figure.png'
     plt.savefig(outfile)
     plt.close()    
 

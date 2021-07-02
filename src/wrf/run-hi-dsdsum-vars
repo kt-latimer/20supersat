@@ -4,5 +4,5 @@ clustername=$1
 
 i=1
 
-outputfilename="slurm_outputs/dsd_q1_vs_q4_v${i}.txt" 
-sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/dsd_q1_vs_q4
+outputfilename="slurm_outputs/hi_dsdsum_vars_v${i}.txt" 
+sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/hi_dsdsum_vars

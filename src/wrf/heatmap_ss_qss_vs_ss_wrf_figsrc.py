@@ -14,6 +14,8 @@ from wrf.ss_functions import linregress
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors = {'line': '#000000', 'ss': '#88720A'}
                             
+versionstr = 'v4_'
+
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
 ss_min = -20
@@ -22,7 +24,7 @@ ss_max = 50+d_ss
 
 def main():
     
-    filename = 'filtered_data_dict_v3.npy'
+    filename = 'filtered_data_dict.npy'
     data_dict = np.load(DATA_DIR + filename, allow_pickle=True).item()
 
     ss_dict = {'Polluted': None, 'Unpolluted': None}
@@ -43,6 +45,7 @@ def main():
 def make_and_save_ss_qss_vs_ss_wrf(data_dict, case_label):
 
     case_data_dict = data_dict[case_label]
+    print(case_data_dict.keys())
 
     ss_qss = case_data_dict['ss_qss'] 
     ss_wrf = case_data_dict['ss_wrf'] 
@@ -82,7 +85,7 @@ def make_and_save_ss_qss_vs_ss_wrf(data_dict, case_label):
     plt.legend(loc=2)
     fig.suptitle('Actual versus approximated supersaturation - WRF ' + case_label)
 
-    outfile = FIG_DIR + 'heatmap_ss_qss_vs_ss_wrf_' \
+    outfile = FIG_DIR + versionstr + 'heatmap_ss_qss_vs_ss_wrf_' \
                             + case_label + '_figure.png'
     plt.savefig(outfile)
     plt.close()    

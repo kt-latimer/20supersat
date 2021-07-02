@@ -1,0 +1,61 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 14, in <module>
+    colors_arr = cm.get_cmap('magma', 10).colors
+NameError: name 'cm' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 180, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 36, in main
+    lwc_cdf_dict = get_lwc_cdf_dict(case_label)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 66, in get_lwc_cdf_dict
+    lwc_tot = get_lwc_tot(filter_inds, lwc_vars, rho_air)
+TypeError: get_lwc_tot() takes 2 positional arguments but 3 were given
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 180, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 36, in main
+    lwc_cdf_dict = get_lwc_cdf_dict(case_label)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 67, in get_lwc_cdf_dict
+    lwc = np.zeros(np.shape(tot_adlr_dict['data']['time']))
+NameError: name 'tot_adlr_dict' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 180, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 36, in main
+    lwc_cdf_dict = get_lwc_cdf_dict(case_label)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py", line 76, in get_lwc_cdf_dict
+    lwc_cutoff_val, lwc_tot)
+TypeError: update_lwc_cdf_dict() missing 1 required positional argument: 'lwc_tot'
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:97: RuntimeWarning: invalid value encountered in true_divide
+  np.nanmean(lwc[filter_inds]/lwc_tot[filter_inds]))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:99: RuntimeWarning: invalid value encountered in true_divide
+  np.nanstd(lwc[filter_inds]/lwc_tot[filter_inds]))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:101: RuntimeWarning: invalid value encountered in true_divide
+  np.nanmedian(lwc[filter_inds]/lwc_tot[filter_inds]))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:103: RuntimeWarning: invalid value encountered in true_divide
+  (np.nanmedian(lwc[filter_inds]/lwc_tot[filter_inds]) - \
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:104: RuntimeWarning: invalid value encountered in true_divide
+  np.percentile(lwc[filter_inds]/lwc_tot[filter_inds], 25)))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:106: RuntimeWarning: invalid value encountered in true_divide
+  (np.percentile(lwc[filter_inds]/lwc_tot[filter_inds], 75) - \
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:107: RuntimeWarning: invalid value encountered in true_divide
+  np.nanmedian(lwc[filter_inds]/lwc_tot[filter_inds])))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:97: RuntimeWarning: invalid value encountered in true_divide
+  np.nanmean(lwc[filter_inds]/lwc_tot[filter_inds]))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:99: RuntimeWarning: invalid value encountered in true_divide
+  np.nanstd(lwc[filter_inds]/lwc_tot[filter_inds]))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:101: RuntimeWarning: invalid value encountered in true_divide
+  np.nanmedian(lwc[filter_inds]/lwc_tot[filter_inds]))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:103: RuntimeWarning: invalid value encountered in true_divide
+  (np.nanmedian(lwc[filter_inds]/lwc_tot[filter_inds]) - \
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:104: RuntimeWarning: invalid value encountered in true_divide
+  np.percentile(lwc[filter_inds]/lwc_tot[filter_inds], 25)))
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:106: RuntimeWarning: invalid value encountered in true_divide
+  (np.percentile(lwc[filter_inds]/lwc_tot[filter_inds], 75) - \
+/global/home/users/kalatimer/proj/20supersat/src/wrf/lwc_cdf_figsrc.py:107: RuntimeWarning: invalid value encountered in true_divide
+  np.nanmedian(lwc[filter_inds]/lwc_tot[filter_inds])))
+Polluted
+Unpolluted

@@ -1,0 +1,40 @@
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 143, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 72, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 125, in make_and_save_meanr_dicts
+    fnr_sum += bin_radii[i]*f_i*nconc_i
+UnboundLocalError: local variable 'fnr_sum' referenced before assignment
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 144, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 72, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 128, in make_and_save_meanr_dicts
+    fnr_sum += bin_radii[i]*f_i*nconc_i
+IndexError: index 33 is out of bounds for axis 0 with size 33
+slurmstepd: error: *** JOB 32903681 ON n0273.lr6 CANCELLED AT 2021-06-17T21:37:45 ***
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 147, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 72, in main
+    case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/compare_meanr_calc_methods_datasrc.py", line 89, in make_and_save_meanr_dicts
+    nconc = get_nconc(dsdsum_vars, cutoff_bins, incl_rain, incl_vent) 
+NameError: name 'get_nconc' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted
+Unpolluted
+Polluted
+Unpolluted

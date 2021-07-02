@@ -13,8 +13,9 @@ from wrf.ss_functions import get_lwc
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
-colors_arr = cm.get_cmap('magma', 10).colors
-colors = [colors_arr[1], colors_arr[3], colors_arr[5], colors_arr[7]]
+colors_arr = cm.get_cmap('viridis', 10).colors
+colors_dict = {'halo': colors_arr[2], 'wrf_poll': colors_arr[5], \
+                                    'wrf_unpoll': colors_arr[8]}
 
 HALO_DATA_DIR = '/global/home/users/kalatimer/proj/20supersat/data/halo/'
 CAIPEEX_DATA_DIR = \
@@ -54,18 +55,19 @@ def make_and_save_w_hist(w_wrf_polluted, w_wrf_unpolluted, \
 
     fig, ax = plt.subplots()
     n_wrf, bins_wrf, patches_wrf = ax.hist(w_wrf_polluted, bins=30, \
-            density=True, label='WRF Polluted', \
-            facecolor=(0, 0, 0, 0.0), edgecolor=colors[0], \
+            density=True, label='WRF Polluted', facecolor=(0, 0, 0, 0.0), \
+            edgecolor=colors_dict['wrf_poll'], \
             histtype='stepfilled', linewidth=3)
     ax.hist(w_wrf_unpolluted, bins=bins_wrf, density=True, \
             label='WRF Unpolluted', facecolor=(0, 0, 0, 0.0), \
-            edgecolor=colors[1], histtype='stepfilled', linewidth=3) 
+            edgecolor=colors_dict['wrf_unpoll'], \
+            histtype='stepfilled', linewidth=3) 
     ax.hist(w_halo, bins=bins_wrf, density=True, label='HALO', \
-            facecolor=(0, 0, 0, 0.0), edgecolor=colors[2], \
+            facecolor=(0, 0, 0, 0.0), edgecolor=colors_dict['halo'], \
             histtype='stepfilled', linewidth=3)
-    ax.hist(w_caipeex, bins=bins_wrf, density=True, label='CAIPEEX', \
-            facecolor=(0, 0, 0, 0.0), edgecolor=colors[3], \
-            histtype='stepfilled', linewidth=3)
+    #ax.hist(w_caipeex, bins=bins_wrf, density=True, label='CAIPEEX', \
+    #        facecolor=(0, 0, 0, 0.0), edgecolor=colors[3], \
+    #        histtype='stepfilled', linewidth=3)
     ax.set_xlabel('w (m/s)')
     ax.set_ylabel(r'$\frac{dn_{points}}{dw}$ (s/m)')
     fig.suptitle('Vertical wind velocity distributions')

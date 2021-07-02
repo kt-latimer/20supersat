@@ -1,0 +1,202 @@
+python: can't open file '/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations_figsrc.py': [Errno 2] No such file or directory
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 31
+    case_label_dict[case_label], cutoff_bins, \
+                   ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 11, in <module>
+    matplotlib.rcParams.update({'font.family': 'serif'})
+NameError: name 'matplotlib' is not defined
+Polluted (1000, 1500)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 73, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 23, in main
+    case_label_dict[case_label], cutoff_bins, \
+NameError: name 'cutoff_bins' is not defined
+Polluted (1000, 1500)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 78, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 29, in main
+    full_ss, incl_rain, incl_vent, z_lim)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 46, in calc_and_print_correlation_info
+    lwc = get_lwc(met_vars, dsdsum_vars, False, False, False)
+NameError: name 'get_lwc' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted (1000, 1500)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 79, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 30, in main
+    full_ss, incl_rain, incl_vent, z_lim)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 62, in calc_and_print_correlation_info
+    (lwc > lwc_filter_val), \
+NameError: name 'lwc_filter_val' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted (1000, 1500)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 82, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 33, in main
+    full_ss, incl_rain, incl_vent, z_lim)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 65, in calc_and_print_correlation_info
+    (lwc > lwc_filter_val), \
+NameError: name 'lwc_filter_val' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted (1000, 1500)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 82, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 33, in main
+    full_ss, incl_rain, incl_vent, z_lim)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 66, in calc_and_print_correlation_info
+    (w > w_cutoff), \
+NameError: name 'w_cutoff' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted (1000, 1500)
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 82, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 33, in main
+    full_ss, incl_rain, incl_vent, z_lim)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 67, in calc_and_print_correlation_info
+    (z > z_lim[0]), \
+NameError: name 'z' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted (1000, 1500)
+0.6423084345876668
+0.0006714739139039885
+Polluted (3000, 4000)
+3.3316187308523064
+0.0002607751914686226
+Unpolluted (1000, 1500)
+0.732613722891172
+0.0006358922636738196
+Unpolluted (3000, 4000)
+7.178409596998905
+0.00022130507043903566
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted (1000, 1500)
+0.6423084345876668
+0.0006714739139039885
+0 0
+0.9298554404503597
+0 1
+0.07645854667292043
+0 2
+0.030151425673867135
+0 3
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 91, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 33, in main
+    full_ss, incl_rain, incl_vent, z_lim)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_qss_factor_correlations.py", line 87, in calc_and_print_correlation_info
+    m, b, R, sig = linregress(var1, var2)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py", line 189, in linregress
+    ssxm, ssxym, ssyxm, ssym = np.cov(x, y, bias=1).flat
+  File "<__array_function__ internals>", line 6, in cov
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/numpy/lib/function_base.py", line 2378, in cov
+    raise ValueError("y has more than 2 dimensions")
+ValueError: y has more than 2 dimensions
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:99: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+Polluted (1000, 1500)
+0.6423084345876668
+0.5371557530633401
+0 1
+0.9298554404503597
+0 2
+0.07645854667292043
+0 3
+0.030151425673867135
+0 4
+0.010493081705788951
+1 2
+0.11842887924191571
+1 3
+0.03568879044650036
+1 4
+0.0005197554938575585
+2 3
+0.25966293139173524
+2 4
+1.7628151575815275e-05
+3 4
+0.16519359130724617
+Polluted (3000, 4000)
+3.3316187308523064
+2.595315647133762
+0 1
+0.9753201365566793
+0 2
+0.008516924233794779
+0 3
+0.04413436479456302
+0 4
+0.062382195518276604
+1 2
+0.024716325590314663
+1 3
+0.053522793348638895
+1 4
+0.025300950470578298
+2 3
+0.3252414449539888
+2 4
+0.0015344192831809544
+3 4
+0.040752026119699136
+Unpolluted (1000, 1500)
+0.732613722891172
+0.521533684540322
+0 1
+0.9247399508581096
+0 2
+0.03690663058299657
+0 3
+0.01533433425388114
+0 4
+0.008737345108887025
+1 2
+0.06843643279991937
+1 3
+0.027098860975497498
+1 4
+0.00032240827058134595
+2 3
+0.32223186982964813
+2 4
+0.005661428102083256
+3 4
+0.07125785998047574
+Unpolluted (3000, 4000)
+7.178409596998905
+1.8511637415062345
+0 1
+0.9841408005231125
+0 2
+0.003027772491019839
+0 3
+0.003149739448409927
+0 4
+0.021927432205721704
+1 2
+0.003958212762044222
+1 3
+0.004517114050778188
+1 4
+0.015473770370008745
+2 3
+0.12992789854382844
+2 4
+0.03391756656457625
+3 4
+0.0012349633711615914

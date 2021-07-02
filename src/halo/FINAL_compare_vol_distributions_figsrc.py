@@ -12,10 +12,10 @@ from halo import DATA_DIR, FIG_DIR, CAS_bins, CIP_bins
 from halo.ss_functions import get_nconc_contribution_from_spectrum_var, \
                                 get_meanr_contribution_from_spectrum_var, \
                                 get_full_spectrum_bin_radii, \
-                                get_full_spectrum_dlogDp, \
+                                get_full_spectrum_bin_dlogDp, \
                                 get_full_spectrum_dict, get_lwc_vs_t
 from halo.utils import linregress
-from wrf import DATA_DIR as WRF_DATA_DIR
+from wrf import DATA_DIR as WRF_DATA_DIR, WRF_bin_radii, WRF_bin_bin_dlogDp
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -34,13 +34,10 @@ case_color_key_dict = {'Polluted': 'wrf_poll', 'Unpolluted': 'wrf_unpoll'}
 change_CAS_corr = True
 cutoff_bins = False 
 incl_rain = True 
-incl_vent = True 
+incl_vent = False 
 
-WRF_bin_diams = np.array([4*(2.**(i/3.))*10**(-6) for i in range(33)]) #bin diams in m
-WRF_bin_radii = WRF_bin_diams/2. 
-WRF_dlogDp = np.array([np.log10(2.**(1./3.)) for i in range(33)])
 HALO_bin_radii = get_full_spectrum_bin_radii(CAS_bins, CIP_bins, 'log')
-HALO_dlogDp = get_full_spectrum_dlogDp(CAS_bins, CIP_bins)
+HALO_bin_dlogDp = get_full_spectrum_bin_dlogDp(CAS_bins, CIP_bins)
 
 def main():
 
@@ -87,21 +84,26 @@ def make_vol_distribution_fig(spectrum_dict):
 
     HALO_meanr = np.array([np.nanmean(spectrum_dict[key]) \
                             for key in spectrum_dict.keys()])
+    
+    if incl_vent:
+        vent_key = 'with_vent'
+    else:
+        vent_key = 'no_vent'
 
     for case_label in case_label_dict.keys():
         WRF_dict = get_WRF_dict(case_label)
-        WRF_nconc = WRF_dict['data'] 
+        WRF_nconc = WRF_dict['data'][vent_key]
         ax.plot(WRF_bin_radii*1.e6,
-                WRF_nconc*WRF_bin_radii**3.*1.e12/WRF_log_bin_widths, \
+                WRF_nconc*WRF_bin_radii**3.*1.e12/WRF_bin_dlogDp, \
                 color=colors_dict[case_color_key_dict[case_label]], \
                 linestyle=linestyles_dict[versionstr], \
                 label='WRF ' + case_label)
     ax.plot(HALO_bin_radii*1.e6, \
-            HALO_meanr*HALO_bin_radii**2.*1.e12/HALO_log_bin_widths, \
+            HALO_meanr*HALO_bin_radii**2.*1.e12/HALO_bin_dlogDp, \
             color=colors_dict['halo'], label='HALO')
 
     ax.set_xlabel(r'r ($\mu$m)')
-    ax.set_ylabel(r'$\frac{d(r^3 \cdot N(r))}{d\log r}$ ($\frac{\mu m^3}{cm^3}$)')
+    ax.set_ylabel(y_labels_dict[vent_key])
 
     ax.set_xscale('log')
 
@@ -116,7 +118,7 @@ def get_WRF_dict(case_label):
 
     #misleading file name but each bin is avg of n(r) for WCU in 1.5-2.5
     #km altitude slice
-    WRF_filename = WRF_DATA_DIR + 'v3_niri_avg_' + case_label + '_data.npy'
+    WRF_filename = WRF_DATA_DIR + 'avg_dsd_for_slice_' + case_label + '_data.npy'
     WRF_dict = np.load(WRF_filename, allow_pickle=True).item()
 
     return WRF_dict

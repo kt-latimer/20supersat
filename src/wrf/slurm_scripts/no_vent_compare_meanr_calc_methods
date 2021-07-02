@@ -1,0 +1,2 @@
+#!/bin/bash
+python $HOME/proj/20supersat/src/wrf/no_vent_compare_meanr_calc_methods_datasrc.py

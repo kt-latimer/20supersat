@@ -98,3 +98,25 @@ Number of points in Q4: 30172
 
 Domain: 0.11237240741095997 59.60593428126699
 Range: -10.896954 45.24754
+/var/spool/slurmd/job31395774/slurm_script: line 2: 182885 Killed                  python $HOME/proj/20supersat/src/wrf/simpleqss_heatmap_ss_qss_vs_ss_wrf_figsrc.py
+slurmstepd: error: Detected 1 oom-kill event(s) in step 31395774.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/simpleqss_heatmap_ss_qss_vs_ss_wrf_figsrc.py", line 34
+    for case_label in ['Unpolluted']#case_label_dict.keys():
+                                                           ^
+SyntaxError: invalid syntax
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+Unpolluted
+0.7183332222942338 0.09641504896237674 0.9175326637348944
+# pts total: 6728704
+max: 59.60593157645111
+# pts ss > 2%: 1675542
+Number of points in Q1: 6696444
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 30172
+
+Domain: 0.11237221831614619 59.60593157645111
+Range: -10.896954 45.24754

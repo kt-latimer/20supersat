@@ -3,21 +3,12 @@
 for different vals of w and LWC cutoffs; 2) save ss_wrf and ss_qss
 distributions (histograms) in the same parameter space
 """
-from itertools import product
-import matplotlib
-from matplotlib import cm
-import matplotlib.pyplot as plt
 from netCDF4 import Dataset
 import numpy as np
 
 from wrf import BASE_DIR, DATA_DIR, FIG_DIR
 from wrf.ss_functions import get_lwc, get_ss_qss, linregress
 
-#for plotting
-matplotlib.rcParams.update({'font.family': 'serif'})
-magma = cm.get_cmap('magma')
-rev_magma = cm.get_cmap('magma_r')
-                            
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
 log_lwc_min = -6
@@ -29,13 +20,6 @@ w_min = 0
 w_max = 6 
 n_w_vals = 7
 w_filter_vals = np.linspace(w_min, w_max, n_w_vals)
-
-#modified color structure for histograms
-magma_discrete = cm.get_cmap('magma', n_lwc_vals*n_w_vals)
-colors = magma_discrete.colors 
-
-d_ss = 0.25
-dec_prec = 2
 
 cutoff_bins = True 
 incl_rain = True 
@@ -53,7 +37,7 @@ def main():
         
         data_dict[case_label] = case_data_dict
         
-    filename ='filtering_criteria_data_v2.npy'
+    filename ='FINAL_filtering_criteria_data.npy'
     np.save(DATA_DIR + filename, data_dict)
 
 def get_filter_dependent_values(case_label, case_dir_name, \
@@ -71,8 +55,7 @@ def get_filter_dependent_values(case_label, case_dir_name, \
 
     #get relevant physical qtys
     lh = met_vars['LH'][...]
-    lwc = met_vars['LWC_cloud'][...]
-    #lwc = get_lwc(met_vars, dsdsum_vars, cutoff_bins, incl_rain, incl_vent)
+    lwc = get_lwc(met_vars, dsdsum_vars, False, False, False)
     temp = met_vars['temp'][...]
     w = met_vars['w'][...]
     ss_qss = get_ss_qss(met_vars, dsdsum_vars, cutoff_bins, \

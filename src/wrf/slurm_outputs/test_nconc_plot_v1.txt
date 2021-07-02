@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py", line 76, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py", line 39, in main
+    make_test_nconc_plot(case_label, case_label_dict[case_label])
+NameError: name 'make_test_nconc_plot' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py", line 76, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py", line 39, in main
+    make_test_nconc_plot(case_label, case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py", line 65, in make_test_nconc_plot
+    fig, ax = plt.subplots()
+NameError: name 'plt' is not defined
+Polluted
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py", line 78, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py", line 41, in main
+    make_test_nconc_plot(case_label, case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py", line 69, in make_test_nconc_plot
+    ax.hist(test_nconc, bins=30, density=True)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/__init__.py", line 1599, in inner
+    return func(ax, *map(sanitize_sequence, args), **kwargs)
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/axes/_axes.py", line 6696, in hist
+    x = cbook._reshape_2D(x, 'x')
+  File "/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/cbook/__init__.py", line 1459, in _reshape_2D
+    raise ValueError("{} must have 2 or fewer dimensions".format(name))
+ValueError: x must have 2 or fewer dimensions
+Polluted
+Unpolluted

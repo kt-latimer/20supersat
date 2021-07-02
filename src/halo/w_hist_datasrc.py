@@ -71,7 +71,7 @@ def make_and_save_w_data(w, label, change_cas_corr, cutoff_bins, \
     fig, ax = plt.subplots()
     n, bins, patches = ax.hist(w, bins=30, density=False)
     w_data_dict = {'w': w, 'n': n, 'bins': bins}
-    filename = 'w_hist_cas_data_alldates.npy'
+    filename = 'w_hist_data.npy'
     np.save(DATA_DIR + filename, w_data_dict)
     plt.close(fig=fig)    
 

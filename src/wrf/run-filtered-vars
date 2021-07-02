@@ -2,7 +2,7 @@
 
 clustername=$1
 
-i=3
+i=TWO
 
 outputfilename="slurm_outputs/filtered_vars_data_v${i}.txt" 
 sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/filtered_vars

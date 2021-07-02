@@ -1,0 +1,18 @@
+slurmstepd: error: *** JOB 31302120 ON n0272.lr6 CANCELLED AT 2021-05-17T06:43:10 ***
+/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
+  return meanr/nconc
+/global/home/users/kalatimer/miniconda3/envs/supersatenv/lib/python3.7/site-packages/matplotlib/colors.py:1110: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+6405683
+Unpolluted
+0.7760384175508059 0.08871917397564477 0.8902505149909955
+# pts total: 6405683
+max: 33.89957446358802
+# pts ss > 2%: 1266728
+Number of points in Q1: 6376185
+Number of points in Q2: 0
+Number of points in Q3: 0
+Number of points in Q4: 27416
+
+Domain: 0.10539240309665145 33.89957446358802
+Range: -10.285073 24.250416

@@ -1,0 +1,16 @@
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/nconc_simple_hist_figsrc.py", line 28
+    def make_and_save_nconc_hists(case_label, case_dir_name)
+                                                           ^
+SyntaxError: invalid syntax
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/nconc_simple_hist_figsrc.py", line 13
+    from wrf.met_data_functions import get_cloud_nconc, get_rain_nconc, get_temp, 
+                                      ^
+SyntaxError: trailing comma not allowed without surrounding parentheses
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/nconc_simple_hist_figsrc.py", line 69, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/nconc_simple_hist_figsrc.py", line 27, in main
+    make_and_save_nconc_hists(case_label, case_label_dict[case_label])
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/nconc_simple_hist_figsrc.py", line 32, in make_and_save_nconc_hists
+    input_file = MFDataset(DATA_DIR + case_dir_name + 'wrfout_d01_2014*', 'r')
+NameError: name 'MFDataset' is not defined

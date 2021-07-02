@@ -1,0 +1,1089 @@
+halo
+606.07 4490.85
+[282.80166667 323.73166667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 388.478      194.239      194.239      258.98533333
+ 194.239      194.239      258.98533333 194.239      191.389     ]
+[0.02569619 0.04248189 0.01766256 0.00815151 0.02278065 0.01582738
+ 0.01351547 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946
+ 0.0146147  0.01759495 0.02059546 0.01518418 0.05136892 0.0061155
+ 0.00793119 0.01058562]
+[295.47727273 291.292      292.5        291.2275     290.545
+ 290.82166667 289.31111111 289.20206349 288.605      288.17928571
+ 287.10428571 286.515      283.313      281.19714286 279.99470588
+ 279.1325     278.99       276.42       275.37555556 273.53333333]
+2.432242453527822
+caipeex
+647.0 5147.0
+[150. 150. 150. 150. 150. 150. 150. 150. 150. 150. 150. 150. 225. 225.
+ 150. 150. 150. 150. 150. 150. 150. 150. 150. 150.  91.]
+[0.02721375 0.05469432 0.02355212 0.02866256 0.03826952 0.05877227
+ 0.02929913 0.02940132 0.03321288 0.02295301 0.02935382 0.03844582
+ 0.02827459 0.03484377 0.03814101 0.03873556 0.07647462 0.03179657
+ 0.03127513 0.03795008 0.02470797 0.06008795 0.03787854 0.05286497
+ 0.02559932 0.08088281 0.03529792 0.03990768 0.03233176]
+[296.52222222 295.67285714 294.31769231 293.73666667 293.24880952
+ 291.41060606 292.03977273 291.78903226 290.5344     288.59
+ 288.10692308 288.23375    286.28388889 284.63095238 284.1474359
+ 282.54396226 281.13333333 281.22295775 280.28       279.5304
+ 278.80512195 279.1792     277.08033333 276.85105263 274.8616
+ 273.76285714 274.15136364 273.94916667 273.74333333]
+4.910239466027734
+unpolluted
+54.185863 5964.997
+[ 39.17462158  45.51208496  47.90771484  50.4588623   48.41265869
+  46.23156738  48.68579102  53.5546875   53.89733887  51.7331543
+  54.28405762  56.9621582   57.24145508  59.88928223  62.66357422
+  60.61743164  58.46508789  61.1973877   64.04553223  66.87353516
+  67.35583496  65.23120117  70.6373291   76.27868652  81.91894531
+  90.38061523 186.79321289 389.45507812 532.95947266 590.05859375
+ 602.12304688]
+[       nan        nan        nan        nan        nan        nan
+        nan 0.104598   0.09346815 0.11406927 0.13430685 0.13575916
+ 0.1428506  0.14339718 0.14436177 0.14249587 0.1371559  0.12468031
+ 0.11164848 0.09168683 0.07531294 0.0675966  0.06618979 0.06767674
+ 0.06634242 0.06613049 0.06771363 0.06916305 0.07075224 0.0758862
+ 0.08260681 0.09141625 0.10240495 0.12013933 0.13889673 0.16885719
+ 0.19395768 0.22919252 0.27230208 0.32538478 0.39844882 0.44883693
+ 0.50403981 0.55620086 0.5820438  0.5923188  0.65237624 0.37975465]
+[294.6473388671875 294.6131286621094 294.7040100097656 ...
+ 274.455810546875 274.4488830566406 274.287841796875]
+49.86642837209937
+polluted
+54.181225 5964.621
+[ 38.92608643  45.50274658  47.89770508  50.44909668  48.40484619
+  46.2243042   48.67773438  53.54772949  53.88916016  51.72558594
+  54.27746582  56.95532227  57.23608398  59.88330078  62.65783691
+  60.61254883  58.45935059  61.18994141  64.03588867  66.86621094
+  67.34924316  65.22277832  70.62658691  76.26513672  81.90368652
+  90.36523438 186.77001953 389.4206543  532.92456055 590.03369141
+ 602.69946289]
+[       nan        nan        nan        nan 0.07966087 0.07295429
+ 0.07667117 0.06721516 0.07418375 0.08491283 0.08189824 0.08821502
+ 0.09293972 0.09495266 0.09670885 0.09588253 0.09378572 0.09088889
+ 0.08620493 0.07664753 0.06831825 0.06370976 0.06273684 0.06348925
+ 0.06202765 0.06189776 0.06271873 0.06331019 0.0632347  0.06648171
+ 0.06882323 0.07232606 0.07560507 0.08453379 0.08712989 0.1033012
+ 0.09930032 0.11667205 0.12296996 0.13747424 0.15883494 0.13596211
+ 0.22066499 0.23759789 0.30140669 0.3478987  0.38346196 0.8528774 ]
+[294.3983154296875 294.46051025390625 294.57293701171875 ...
+ 273.2080993652344 273.333740234375 273.0007019042969]
+25.3303269202295
+halo
+606.07 4490.85
+[282.80166667 323.73166667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 388.478      194.239      194.239      258.98533333
+ 194.239      194.239      258.98533333 194.239      191.389     ]
+[0.02569619 0.04248189 0.01766256 0.00815151 0.02278065 0.01582738
+ 0.01351547 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946
+ 0.0146147  0.01759495 0.02059546 0.01518418 0.05136892 0.0061155
+ 0.00793119 0.01058562]
+[295.47727273 291.292      292.5        291.2275     290.545
+ 290.82166667 289.31111111 289.20206349 288.605      288.17928571
+ 287.10428571 286.515      283.313      281.19714286 279.99470588
+ 279.1325     278.99       276.42       275.37555556 273.53333333]
+2.432242453527822
+caipeex
+647.0 5147.0
+[150. 150. 150. 150. 150. 150. 150. 150. 150. 150. 150. 150. 225. 225.
+ 150. 150. 150. 150. 150. 150. 150. 150. 150. 150.  91.]
+[0.02721375 0.05469432 0.02355212 0.02866256 0.03826952 0.05877227
+ 0.02929913 0.02940132 0.03321288 0.02295301 0.02935382 0.03844582
+ 0.02827459 0.03484377 0.03814101 0.03873556 0.07647462 0.03179657
+ 0.03127513 0.03795008 0.02470797 0.06008795 0.03787854 0.05286497
+ 0.02559932 0.08088281 0.03529792 0.03990768 0.03233176]
+[296.52222222 295.67285714 294.31769231 293.73666667 293.24880952
+ 291.41060606 292.03977273 291.78903226 290.5344     288.59
+ 288.10692308 288.23375    286.28388889 284.63095238 284.1474359
+ 282.54396226 281.13333333 281.22295775 280.28       279.5304
+ 278.80512195 279.1792     277.08033333 276.85105263 274.8616
+ 273.76285714 274.15136364 273.94916667 273.74333333]
+4.910239466027734
+unpolluted
+54.185863 5964.997
+[ 39.17462158  45.51208496  47.90771484  50.4588623   48.41265869
+  46.23156738  48.68579102  53.5546875   53.89733887  51.7331543
+  54.28405762  56.9621582   57.24145508  59.88928223  62.66357422
+  60.61743164  58.46508789  61.1973877   64.04553223  66.87353516
+  67.35583496  65.23120117  70.6373291   76.27868652  81.91894531
+  90.38061523 186.79321289 389.45507812 532.95947266 590.05859375
+ 602.12304688]
+[       nan        nan        nan        nan        nan        nan
+        nan 0.104598   0.09346815 0.11406927 0.13430685 0.13575916
+ 0.1428506  0.14339718 0.14436177 0.14249587 0.1371559  0.12468031
+ 0.11164848 0.09168683 0.07531294 0.0675966  0.06618979 0.06767674
+ 0.06634242 0.06613049 0.06771363 0.06916305 0.07075224 0.0758862
+ 0.08260681 0.09141625 0.10240495 0.12013933 0.13889673 0.16885719
+ 0.19395768 0.22919252 0.27230208 0.32538478 0.39844882 0.44883693
+ 0.50403981 0.55620086 0.5820438  0.5923188  0.65237624 0.37975465]
+[294.6473388671875 294.6131286621094 294.7040100097656 ...
+ 274.455810546875 274.4488830566406 274.287841796875]
+49.86642837209937
+polluted
+54.181225 5964.621
+[ 38.92608643  45.50274658  47.89770508  50.44909668  48.40484619
+  46.2243042   48.67773438  53.54772949  53.88916016  51.72558594
+  54.27746582  56.95532227  57.23608398  59.88330078  62.65783691
+  60.61254883  58.45935059  61.18994141  64.03588867  66.86621094
+  67.34924316  65.22277832  70.62658691  76.26513672  81.90368652
+  90.36523438 186.77001953 389.4206543  532.92456055 590.03369141
+ 602.69946289]
+[       nan        nan        nan        nan 0.07966087 0.07295429
+ 0.07667117 0.06721516 0.07418375 0.08491283 0.08189824 0.08821502
+ 0.09293972 0.09495266 0.09670885 0.09588253 0.09378572 0.09088889
+ 0.08620493 0.07664753 0.06831825 0.06370976 0.06273684 0.06348925
+ 0.06202765 0.06189776 0.06271873 0.06331019 0.0632347  0.06648171
+ 0.06882323 0.07232606 0.07560507 0.08453379 0.08712989 0.1033012
+ 0.09930032 0.11667205 0.12296996 0.13747424 0.15883494 0.13596211
+ 0.22066499 0.23759789 0.30140669 0.3478987  0.38346196 0.8528774 ]
+[294.3983154296875 294.46051025390625 294.57293701171875 ...
+ 273.2080993652344 273.333740234375 273.0007019042969]
+25.3303269202295
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 233, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 54, in main
+    z_bins_halo = z_bins_halo[in_z_lim_inds.append(in_z_lims[-1]+1)]
+AttributeError: 'numpy.ndarray' object has no attribute 'append'
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 233, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 54, in main
+    z_bins_halo = z_bins_halo[np.append(in_z_lim_inds, in_z_lims[-1]+1)]
+NameError: name 'in_z_lims' is not defined
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 233, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 83, in main
+    get_avg_dT_and_temp_and_z(dT, temp, z, z_bins)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 218, in get_avg_dT_and_temp_and_z
+    ss_pred_slice = ss_pred[bin_filter]
+NameError: name 'ss_pred' is not defined
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:226: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:226: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 229, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 92, in main
+    calc_and_print_dCAPE(avg_dT_halo, avg_temp_halo, z_bins_halo, 'halo')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 133, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+UnboundLocalError: local variable 'end_ind' referenced before assignment
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:228: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:228: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+halo (973.0825, 4529.355) 1253.5333333333333
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 231, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 92, in main
+    calc_and_print_dCAPE(avg_dT_halo, avg_temp_halo, z_bins_halo, 'halo')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 135, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+UnboundLocalError: local variable 'end_ind' referenced before assignment
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:230: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:230: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+halo [False  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True]
+Polluted [False False False False False False False False False False False False
+ False False False False False False False False False False  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True False False]
+Unpolluted [False False False False False False False False False False False False
+ False False False False False False False False False False  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True False False]
+halo (973.0825, 4529.355) 1253.5333333333333
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 233, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 94, in main
+    calc_and_print_dCAPE(avg_dT_halo, avg_temp_halo, z_bins_halo, 'halo')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 137, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+UnboundLocalError: local variable 'end_ind' referenced before assignment
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:230: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:230: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+halo (973.0825, 4529.355) 4490.85
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 242, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 94, in main
+    calc_and_print_dCAPE(avg_dT_halo, avg_temp_halo, z_bins_halo, 'halo')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 137, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+UnboundLocalError: local variable 'end_ind' referenced before assignment
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:232: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:232: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+halo (973.0825, 4529.355) 4490.85
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 244, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 94, in main
+    calc_and_print_dCAPE(avg_dT_halo, avg_temp_halo, z_bins_halo, 'halo')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 131, in calc_and_print_dCAPE
+    elif i == np.shape(z_bins[-1])[0]:
+IndexError: tuple index out of range
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:232: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:232: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+halo (973.0825, 4529.355) 4490.85
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 244, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 94, in main
+    calc_and_print_dCAPE(avg_dT_halo, avg_temp_halo, z_bins_halo, 'halo')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 139, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+UnboundLocalError: local variable 'end_ind' referenced before assignment
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:233: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:233: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+(19,)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+halo
+606.07 4490.85
+[280.45083333 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 388.478      194.239      194.239      258.98533333 194.239
+ 194.239      258.98533333 194.239      194.239     ]
+[0.04248189 0.01766256 0.00815151 0.02278065 0.01582738 0.01351547
+ 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946 0.0146147
+ 0.01759495 0.02059546 0.01518418 0.05136892 0.0061155  0.00793119
+ 0.01058562]
+[291.292      292.5        291.2275     290.545      290.82166667
+ 289.31111111 289.20206349 288.605      288.17928571 287.10428571
+ 286.515      283.313      281.19714286 279.99470588 279.1325
+ 278.99       276.42       275.37555556 273.53333333]
+2.1304453966017816
+(29,)
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+caipeex
+647.0 5147.0
+[123.9175 150.     150.     150.     150.     150.     150.     150.
+ 150.     150.     225.     225.     150.     150.     150.     150.
+ 150.     150.     150.     150.     150.     150.     132.355 ]
+[0.02721375 0.05469432 0.02355212 0.02866256 0.03826952 0.05877227
+ 0.02929913 0.02940132 0.03321288 0.02295301 0.02935382 0.03844582
+ 0.02827459 0.03484377 0.03814101 0.03873556 0.07647462 0.03179657
+ 0.03127513 0.03795008 0.02470797 0.06008795 0.03787854 0.05286497
+ 0.02559932 0.08088281 0.03529792 0.03990768 0.03233176]
+[296.52222222 295.67285714 294.31769231 293.73666667 293.24880952
+ 291.41060606 292.03977273 291.78903226 290.5344     288.59
+ 288.10692308 288.23375    286.28388889 284.63095238 284.1474359
+ 282.54396226 281.13333333 281.22295775 280.28       279.5304
+ 278.80512195 279.1792     277.08033333 276.85105263 274.8616
+ 273.76285714 274.15136364 273.94916667 273.74333333]
+4.520695053243588
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 245, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 98, in main
+    wrf_dict['Unpolluted']['z_bins'], 'unpolluted')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 140, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+ValueError: operands could not be broadcast together with shapes (26,) (3,) 
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:224: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:224: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+(19,)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+halo
+606.07 4490.85
+[280.45083333 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 388.478      194.239      194.239      258.98533333 194.239
+ 194.239      258.98533333 194.239      194.239     ]
+[0.04248189 0.01766256 0.00815151 0.02278065 0.01582738 0.01351547
+ 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946 0.0146147
+ 0.01759495 0.02059546 0.01518418 0.05136892 0.0061155  0.00793119
+ 0.01058562]
+[291.292      292.5        291.2275     290.545      290.82166667
+ 289.31111111 289.20206349 288.605      288.17928571 287.10428571
+ 286.515      283.313      281.19714286 279.99470588 279.1325
+ 278.99       276.42       275.37555556 273.53333333]
+2.1304453966017816
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 236, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 89, in main
+    wrf_dict['Unpolluted']['z_bins'], 'unpolluted')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 131, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+ValueError: operands could not be broadcast together with shapes (26,) (3,) 
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:224: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:224: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+(19,)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+halo
+606.07 4490.85
+[280.45083333 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 388.478      194.239      194.239      258.98533333 194.239
+ 194.239      258.98533333 194.239      194.239     ]
+[0.04248189 0.01766256 0.00815151 0.02278065 0.01582738 0.01351547
+ 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946 0.0146147
+ 0.01759495 0.02059546 0.01518418 0.05136892 0.0061155  0.00793119
+ 0.01058562]
+[291.292      292.5        291.2275     290.545      290.82166667
+ 289.31111111 289.20206349 288.605      288.17928571 287.10428571
+ 286.515      283.313      281.19714286 279.99470588 279.1325
+ 278.99       276.42       275.37555556 273.53333333]
+2.1304453966017816
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 236, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 89, in main
+    wrf_dict['Unpolluted']['z_bins'], 'unpolluted')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 131, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+ValueError: operands could not be broadcast together with shapes (26,) (3,) 
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:228: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:228: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+(19,)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+(19,)
+(19,)
+(19,)
+0 19
+halo
+606.07 4490.85
+[280.45083333 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 388.478      194.239      194.239      258.98533333 194.239
+ 194.239      258.98533333 194.239      194.239     ]
+[0.04248189 0.01766256 0.00815151 0.02278065 0.01582738 0.01351547
+ 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946 0.0146147
+ 0.01759495 0.02059546 0.01518418 0.05136892 0.0061155  0.00793119
+ 0.01058562]
+[291.292      292.5        291.2275     290.545      290.82166667
+ 289.31111111 289.20206349 288.605      288.17928571 287.10428571
+ 286.515      283.313      281.19714286 279.99470588 279.1325
+ 278.99       276.42       275.37555556 273.53333333]
+2.1304453966017816
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+(26,)
+(24,)
+(6886504,)
+21 47
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 240, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 89, in main
+    wrf_dict['Unpolluted']['z_bins'], 'unpolluted')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 135, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+ValueError: operands could not be broadcast together with shapes (26,) (3,) 
+(19,)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+(19,)
+(19,)
+(19,)
+0 19
+halo
+606.07 4490.85
+[280.45083333 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 388.478      194.239      194.239      258.98533333 194.239
+ 194.239      258.98533333 194.239      194.239     ]
+[0.04248189 0.01766256 0.00815151 0.02278065 0.01582738 0.01351547
+ 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946 0.0146147
+ 0.01759495 0.02059546 0.01518418 0.05136892 0.0061155  0.00793119
+ 0.01058562]
+[291.292      292.5        291.2275     290.545      290.82166667
+ 289.31111111 289.20206349 288.605      288.17928571 287.10428571
+ 286.515      283.313      281.19714286 279.99470588 279.1325
+ 278.99       276.42       275.37555556 273.53333333]
+2.1304453966017816
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+(26,)
+(48,)
+(6886504,)
+21 47
+unpolluted
+54.185863 5964.997
+[3.00800781e-01 5.35546875e+01 5.38973389e+01 5.17331543e+01
+ 5.42840576e+01 5.69621582e+01 5.72414551e+01 5.98892822e+01
+ 6.26635742e+01 6.06174316e+01 5.84650879e+01 6.11973877e+01
+ 6.40455322e+01 6.68735352e+01 6.73558350e+01 6.52312012e+01
+ 7.06373291e+01 7.62786865e+01 8.19189453e+01 9.03806152e+01
+ 1.86793213e+02 3.89455078e+02 5.32959473e+02 5.90058594e+02
+ 6.43478027e+02 1.95312496e-05]
+[       nan        nan        nan        nan        nan        nan
+        nan 0.104598   0.09346815 0.11406927 0.13430685 0.13575916
+ 0.1428506  0.14339718 0.14436177 0.14249587 0.1371559  0.12468031
+ 0.11164848 0.09168683 0.07531294 0.0675966  0.06618979 0.06767674
+ 0.06634242 0.06613049 0.06771363 0.06916305 0.07075224 0.0758862
+ 0.08260681 0.09141625 0.10240495 0.12013933 0.13889673 0.16885719
+ 0.19395768 0.22919252 0.27230208 0.32538478 0.39844882 0.44883693
+ 0.50403981 0.55620086 0.5820438  0.5923188  0.65237624 0.37975465]
+[294.6473388671875 294.6131286621094 294.7040100097656 ...
+ 274.455810546875 274.4488830566406 274.287841796875]
+49.53065747104202
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+(26,)
+(48,)
+(7538219,)
+21 47
+polluted
+54.181225 5964.621
+[1.95312500e-05 5.35477295e+01 5.38891602e+01 5.17255859e+01
+ 5.42774658e+01 5.69553223e+01 5.72360840e+01 5.98833008e+01
+ 6.26578369e+01 6.06125488e+01 5.84593506e+01 6.11899414e+01
+ 6.40358887e+01 6.68662109e+01 6.73492432e+01 6.52227783e+01
+ 7.06265869e+01 7.62651367e+01 8.19036865e+01 9.03652344e+01
+ 1.86770020e+02 3.89420654e+02 5.32924561e+02 5.90033691e+02
+ 6.43499268e+02 5.55195312e-01]
+[       nan        nan        nan        nan 0.07966087 0.07295429
+ 0.07667117 0.06721516 0.07418375 0.08491283 0.08189824 0.08821502
+ 0.09293972 0.09495266 0.09670885 0.09588253 0.09378572 0.09088889
+ 0.08620493 0.07664753 0.06831825 0.06370976 0.06273684 0.06348925
+ 0.06202765 0.06189776 0.06271873 0.06331019 0.0632347  0.06648171
+ 0.06882323 0.07232606 0.07560507 0.08453379 0.08712989 0.1033012
+ 0.09930032 0.11667205 0.12296996 0.13747424 0.15883494 0.13596211
+ 0.22066499 0.23759789 0.30140669 0.3478987  0.38346196 0.8528774 ]
+[294.3983154296875 294.46051025390625 294.57293701171875 ...
+ 273.2080993652344 273.333740234375 273.0007019042969]
+24.924352895762024
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 240, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 99, in main
+    avg_dT_caipeex, avg_z_caipeex)
+NameError: name 'avg_dT_caipeex' is not defined
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 145
+    dT_halo, z_halo)
+                   ^
+SyntaxError: invalid syntax
+(19,)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+(19,)
+(19,)
+(19,)
+0 19
+halo
+606.07 4490.85
+[280.45083333 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 388.478      194.239      194.239      258.98533333 194.239
+ 194.239      258.98533333 194.239      194.239     ]
+[0.04248189 0.01766256 0.00815151 0.02278065 0.01582738 0.01351547
+ 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946 0.0146147
+ 0.01759495 0.02059546 0.01518418 0.05136892 0.0061155  0.00793119
+ 0.01058562]
+[291.292      292.5        291.2275     290.545      290.82166667
+ 289.31111111 289.20206349 288.605      288.17928571 287.10428571
+ 286.515      283.313      281.19714286 279.99470588 279.1325
+ 278.99       276.42       275.37555556 273.53333333]
+2.1304453966017816
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+(26,)
+(48,)
+(6886504,)
+21 47
+unpolluted
+54.185863 5964.997
+[3.00800781e-01 5.35546875e+01 5.38973389e+01 5.17331543e+01
+ 5.42840576e+01 5.69621582e+01 5.72414551e+01 5.98892822e+01
+ 6.26635742e+01 6.06174316e+01 5.84650879e+01 6.11973877e+01
+ 6.40455322e+01 6.68735352e+01 6.73558350e+01 6.52312012e+01
+ 7.06373291e+01 7.62786865e+01 8.19189453e+01 9.03806152e+01
+ 1.86793213e+02 3.89455078e+02 5.32959473e+02 5.90058594e+02
+ 6.43478027e+02 1.95312496e-05]
+[       nan        nan        nan        nan        nan        nan
+        nan 0.104598   0.09346815 0.11406927 0.13430685 0.13575916
+ 0.1428506  0.14339718 0.14436177 0.14249587 0.1371559  0.12468031
+ 0.11164848 0.09168683 0.07531294 0.0675966  0.06618979 0.06767674
+ 0.06634242 0.06613049 0.06771363 0.06916305 0.07075224 0.0758862
+ 0.08260681 0.09141625 0.10240495 0.12013933 0.13889673 0.16885719
+ 0.19395768 0.22919252 0.27230208 0.32538478 0.39844882 0.44883693
+ 0.50403981 0.55620086 0.5820438  0.5923188  0.65237624 0.37975465]
+[294.6473388671875 294.6131286621094 294.7040100097656 ...
+ 274.455810546875 274.4488830566406 274.287841796875]
+49.53065747104202
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+(26,)
+(48,)
+(7538219,)
+21 47
+polluted
+54.181225 5964.621
+[1.95312500e-05 5.35477295e+01 5.38891602e+01 5.17255859e+01
+ 5.42774658e+01 5.69553223e+01 5.72360840e+01 5.98833008e+01
+ 6.26578369e+01 6.06125488e+01 5.84593506e+01 6.11899414e+01
+ 6.40358887e+01 6.68662109e+01 6.73492432e+01 6.52227783e+01
+ 7.06265869e+01 7.62651367e+01 8.19036865e+01 9.03652344e+01
+ 1.86770020e+02 3.89420654e+02 5.32924561e+02 5.90033691e+02
+ 6.43499268e+02 5.55195312e-01]
+[       nan        nan        nan        nan 0.07966087 0.07295429
+ 0.07667117 0.06721516 0.07418375 0.08491283 0.08189824 0.08821502
+ 0.09293972 0.09495266 0.09670885 0.09588253 0.09378572 0.09088889
+ 0.08620493 0.07664753 0.06831825 0.06370976 0.06273684 0.06348925
+ 0.06202765 0.06189776 0.06271873 0.06331019 0.0632347  0.06648171
+ 0.06882323 0.07232606 0.07560507 0.08453379 0.08712989 0.1033012
+ 0.09930032 0.11667205 0.12296996 0.13747424 0.15883494 0.13596211
+ 0.22066499 0.23759789 0.30140669 0.3478987  0.38346196 0.8528774 ]
+[294.3983154296875 294.46051025390625 294.57293701171875 ...
+ 273.2080993652344 273.333740234375 273.0007019042969]
+24.924352895762024
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:226: RuntimeWarning: invalid value encountered in greater
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py:226: RuntimeWarning: invalid value encountered in less
+  return np.logical_and(z_vals > z_lim[0], z_vals < z_lim[1])
+(19,)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+(19,)
+(19,)
+(19,)
+0 19
+halo
+606.07 4490.85
+[280.45083333 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 388.478      194.239      194.239      258.98533333 194.239
+ 194.239      258.98533333 194.239      194.239     ]
+[0.04248189 0.01766256 0.00815151 0.02278065 0.01582738 0.01351547
+ 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946 0.0146147
+ 0.01759495 0.02059546 0.01518418 0.05136892 0.0061155  0.00793119
+ 0.01058562]
+[291.292      292.5        291.2275     290.545      290.82166667
+ 289.31111111 289.20206349 288.605      288.17928571 287.10428571
+ 286.515      283.313      281.19714286 279.99470588 279.1325
+ 278.99       276.42       275.37555556 273.53333333]
+2.1304453966017816
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+(26,)
+(24,)
+(6886504,)
+21 47
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 238, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 89, in main
+    wrf_dict['Unpolluted']['z_bins'], 'unpolluted')
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/combined_dT_profile_figsrc.py", line 134, in calc_and_print_dCAPE
+    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+ValueError: operands could not be broadcast together with shapes (26,) (3,) 
+(20,)
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+(19,)
+(20,)
+(20,)
+1 20
+halo
+606.07 4490.85
+[280.45083333 129.49266667 129.49266667 129.49266667 129.49266667
+ 129.49266667 129.49266667 129.49266667 129.49266667 129.49266667
+ 388.478      194.239      194.239      258.98533333 194.239
+ 194.239      258.98533333 194.239      194.239     ]
+[0.02569619 0.04248189 0.01766256 0.00815151 0.02278065 0.01582738
+ 0.01351547 0.01566525 0.01612704 0.01097904 0.01004844 0.00861946
+ 0.0146147  0.01759495 0.02059546 0.01518418 0.05136892 0.0061155
+ 0.00793119 0.01058562]
+[295.47727273 291.292      292.5        291.2275     290.545
+ 290.82166667 289.31111111 289.20206349 288.605      288.17928571
+ 287.10428571 286.515      283.313      281.19714286 279.99470588
+ 279.1325     278.99       276.42       275.37555556 273.53333333]
+2.1304453966017816
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+(26,)
+(48,)
+(6886504,)
+21 47
+unpolluted
+54.185863 5964.997
+[3.00800781e-01 5.35546875e+01 5.38973389e+01 5.17331543e+01
+ 5.42840576e+01 5.69621582e+01 5.72414551e+01 5.98892822e+01
+ 6.26635742e+01 6.06174316e+01 5.84650879e+01 6.11973877e+01
+ 6.40455322e+01 6.68735352e+01 6.73558350e+01 6.52312012e+01
+ 7.06373291e+01 7.62786865e+01 8.19189453e+01 9.03806152e+01
+ 1.86793213e+02 3.89455078e+02 5.32959473e+02 5.90058594e+02
+ 6.43478027e+02 1.95312496e-05]
+[       nan        nan        nan        nan        nan        nan
+        nan 0.104598   0.09346815 0.11406927 0.13430685 0.13575916
+ 0.1428506  0.14339718 0.14436177 0.14249587 0.1371559  0.12468031
+ 0.11164848 0.09168683 0.07531294 0.0675966  0.06618979 0.06767674
+ 0.06634242 0.06613049 0.06771363 0.06916305 0.07075224 0.0758862
+ 0.08260681 0.09141625 0.10240495 0.12013933 0.13889673 0.16885719
+ 0.19395768 0.22919252 0.27230208 0.32538478 0.39844882 0.44883693
+ 0.50403981 0.55620086 0.5820438  0.5923188  0.65237624 0.37975465]
+[294.6473388671875 294.6131286621094 294.7040100097656 ...
+ 274.455810546875 274.4488830566406 274.287841796875]
+49.53065747104202
+(48,)
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+(26,)
+(48,)
+(7538219,)
+21 47
+polluted
+54.181225 5964.621
+[1.95312500e-05 5.35477295e+01 5.38891602e+01 5.17255859e+01
+ 5.42774658e+01 5.69553223e+01 5.72360840e+01 5.98833008e+01
+ 6.26578369e+01 6.06125488e+01 5.84593506e+01 6.11899414e+01
+ 6.40358887e+01 6.68662109e+01 6.73492432e+01 6.52227783e+01
+ 7.06265869e+01 7.62651367e+01 8.19036865e+01 9.03652344e+01
+ 1.86770020e+02 3.89420654e+02 5.32924561e+02 5.90033691e+02
+ 6.43499268e+02 5.55195312e-01]
+[       nan        nan        nan        nan 0.07966087 0.07295429
+ 0.07667117 0.06721516 0.07418375 0.08491283 0.08189824 0.08821502
+ 0.09293972 0.09495266 0.09670885 0.09588253 0.09378572 0.09088889
+ 0.08620493 0.07664753 0.06831825 0.06370976 0.06273684 0.06348925
+ 0.06202765 0.06189776 0.06271873 0.06331019 0.0632347  0.06648171
+ 0.06882323 0.07232606 0.07560507 0.08453379 0.08712989 0.1033012
+ 0.09930032 0.11667205 0.12296996 0.13747424 0.15883494 0.13596211
+ 0.22066499 0.23759789 0.30140669 0.3478987  0.38346196 0.8528774 ]
+[294.3983154296875 294.46051025390625 294.57293701171875 ...
+ 273.2080993652344 273.333740234375 273.0007019042969]
+24.924352895762024

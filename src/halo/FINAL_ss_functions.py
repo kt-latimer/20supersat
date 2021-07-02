@@ -2,12 +2,12 @@
 Various routines and subroutines for calculating predicted 
 superaturation from HALO campaign data
 """
-import copy
 import numpy as np
 import re
 
 from halo import CAS_bins, CDP_bins, CIP_bins, CAS_lo_bin, \
             CAS_mid_bin, CAS_up_bin, CIP_lo_bin, CIP_up_bin
+from phys_consts import *
 
 ##
 ## various series expansion coeffs - comment = page in pruppacher and klett
@@ -19,21 +19,6 @@ N_Re_regime2_coeffs = [-0.318657e1, 0.992696, -0.153193e-2, \
                         -0.327815e-5] #417
 N_Re_regime3_coeffs = [-0.500015e1, 0.523778e1, -0.204914e1, \
                         0.475294, -0.542819e-1, 0.238449e-2] #418
-
-##
-## physical constants
-##
-C_ap = 1005. #dry air heat cap at const P (J/(kg K))
-D = 0.23e-4 #diffus coeff water in air (m^2/s)
-g = 9.8 #grav accel (m/s^2)
-K = 2.4e-2 #therm conductivity of air (J/(m s K))
-L_v = 2501000. #latent heat of evaporation of water (J/kg)
-Mm_a = .02896 #Molecular weight of dry air (kg/mol)
-Mm_v = .01806 #Molecular weight of water vapour (kg/mol)
-R = 8.317 #universal gas constant (J/(mol K))
-R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
-R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
-rho_w = 1000. #density of water (kg/m^3) 
 
 ##
 ## least squares regression from wrf data 
