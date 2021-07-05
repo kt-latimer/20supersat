@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/wrf/from_data_dsds_by_decile_figsrc.py

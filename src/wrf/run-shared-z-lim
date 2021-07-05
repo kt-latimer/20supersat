@@ -1,8 +1,0 @@
-#!/bin/bash
-
-clustername=$1
-
-i=1
-
-outputfilename="slurm_outputs/shared_z_lim_v${i}.txt" 
-sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/shared_z_lim

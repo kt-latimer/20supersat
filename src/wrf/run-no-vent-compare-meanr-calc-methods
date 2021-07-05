@@ -1,8 +1,0 @@
-#!/bin/bash
-
-clustername=$1
-
-i=2
-
-outputfilename="slurm_outputs/no_vent_compare_meanr_calc_methods_v${i}.txt" 
-sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/no_vent_compare_meanr_calc_methods

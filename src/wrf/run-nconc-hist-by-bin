@@ -1,8 +1,0 @@
-#!/bin/bash
-
-clustername=$1
-
-i=1
-
-outputfilename="slurm_outputs/nconc_hist_by_bin_v${i}.txt" 
-sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL -t 720 slurm_scripts/nconc_hist_by_bin

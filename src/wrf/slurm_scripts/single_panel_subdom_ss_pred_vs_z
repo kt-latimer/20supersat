@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/wrf/single_panel_subdom_ss_pred_vs_z_figsrc.py

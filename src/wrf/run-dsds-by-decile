@@ -1,8 +1,0 @@
-#!/bin/bash
-
-clustername=$1
-
-i=1
-
-outputfilename="slurm_outputs/dsd_by_decile_v${i}.txt" 
-sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/dsds_by_decile

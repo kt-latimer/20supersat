@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/wrf/test_nconc_plot_figsrc.py

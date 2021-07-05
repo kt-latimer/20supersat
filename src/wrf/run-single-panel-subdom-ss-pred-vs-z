@@ -1,8 +1,0 @@
-#!/bin/bash
-
-clustername=$1
-
-i=1
-
-outputfilename="slurm_outputs/single_panel_subdom_ss_pred_vs_z_v${i}.txt" 
-sbatch -p $clustername -q lr_normal -o $outputfilename -t 10 --open-mode=append --export=ALL slurm_scripts/single_panel_subdom_ss_pred_vs_z

@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/wrf/nconc_hist_by_bin_figsrc.py

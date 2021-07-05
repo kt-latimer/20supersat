@@ -1,4 +1,0 @@
-#!/bin/bash
-imax=$1
-
-python $HOME/proj/20supersat/src/wrf/imax_lwc_spectrum_figsrc.py $imax

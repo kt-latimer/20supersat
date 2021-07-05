@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/wrf/rmax_vs_m_figsrc.py

@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/wrf/nconc_heatmap_ss_qss_vs_ss_wrf_figsrc.py
