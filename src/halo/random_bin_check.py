@@ -10,7 +10,7 @@ from ss_functions import get_lwc_vs_t, \
                          get_full_spectrum_dict, \
                          get_full_spectrum_dlogDp
 
-change_cas_corr = True
+change_CAS_corr = True
 cutoff_bins = False 
 incl_rain = True 
 incl_vent = True 
@@ -37,7 +37,7 @@ def main():
     spectrum_dict = get_full_spectrum_dict(CAS_dict, \
                                 CIP_dict, change_CAS_corr)
 
-    bin_nconc = get_bin_nconc(random_bin_ind, spectrum_dict)
+    bin_nconc = get_bin_nconc(random_bin_ind, ADLR_dict, spectrum_dict)
 
     print(random_bin_ind, HALO_bin_radii[random_bin_ind], \
         np.nanmean(bin_nconc)*HALO_bin_radii[random_bin_ind]/HALO_bin_dlogDp[random_bin_ind])

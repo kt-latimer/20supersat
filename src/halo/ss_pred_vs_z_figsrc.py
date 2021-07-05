@@ -68,7 +68,7 @@ def get_up10perc_data(ss_pred_dict, w_dict, z_dict):
 
     return ss_pred_dict, w_dict, z_dict
 
-def get_data(date):
+def get_data():
 
     ADLR_file = DATA_DIR + 'npy_proc/ADLR_alldates.npy'
     ADLR_dict = np.load(ADLR_file, allow_pickle=True).item()

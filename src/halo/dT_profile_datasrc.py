@@ -4,8 +4,8 @@ Save data to add HALO to dT profile in ``wrf/combined_dT_profile_figsrc.py``
 import numpy as np
 
 from halo import DATA_DIR, FIG_DIR
-from halo.ss_functions import get_ss_vs_t, get_lwc_vs_t, \
-                            get_full_spectrum_dict
+from halo.ss_functions import get_ss_pred_vs_t, get_lwc_vs_t, \
+                                        get_full_spectrum_dict
 from phys_consts import *
 
 lwc_filter_val = 1.e-4
@@ -36,7 +36,7 @@ def main():
     temp = ADLR_dict['data']['temp']
     w = ADLR_dict['data']['w']
     z = ADLR_dict['data']['alt']
-    ss_pred = get_ss_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
+    ss_pred = get_ss_pred_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent)
 
     filter_inds = np.logical_and.reduce((

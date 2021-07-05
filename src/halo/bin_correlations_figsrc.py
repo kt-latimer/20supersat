@@ -92,11 +92,11 @@ def get_overlap_nconc_data(CAS_dict, CIP_dict):
     if change_CAS_corr:
         CAS_var_names = [var_name + '_corr' for var_name in CAS_var_names]
 
-    CAS_nconc = np.zeros(np.shape(CAS_dict['data']['time'][filter_inds]))
-    CIP_nconc = CIP_dict['data'][CIP_var_name][filter_inds]
+    CAS_nconc = np.zeros(np.shape(CAS_dict['data']['time']))#[filter_inds]))
+    CIP_nconc = CIP_dict['data'][CIP_var_name]#[filter_inds]
 
     for var_name in CAS_var_names:
-        CAS_nconc += CAS_dict['data'][var_name][filter_inds]
+        CAS_nconc += CAS_dict['data'][var_name]#[filter_inds]
 
     naninds = ~np.logical_or(np.isnan(CAS_nconc), np.isnan(CIP_nconc))
     infinds = ~np.logical_or(np.isinf(CAS_nconc), np.isinf(CIP_nconc))

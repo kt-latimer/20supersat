@@ -30,7 +30,7 @@ rmax = 102.e-6
 z_min = -100
 z_max = 6500
 
-change_cas_corr = True
+change_CAS_corr = True
 cutoff_bins = True 
 incl_rain = True 
 incl_vent = True 
@@ -65,11 +65,12 @@ def get_up10perc_data(ss_pred_dict, w_dict, z_dict):
     up10perc_inds = w_dict['allpts'] > w_cutoff
 
     ss_pred_dict['up10perc'] = ss_pred_dict['allpts'][up10perc_inds]
+    w_dict['up10perc'] = w_dict['allpts'][up10perc_inds]
     z_dict['up10perc'] = z_dict['allpts'][up10perc_inds]
 
-    return ss_pred_dict, z_dict
+    return ss_pred_dict, w_dict, z_dict
 
-def get_data(date):
+def get_data():
 
     ADLR_file = DATA_DIR + 'npy_proc/ADLR_alldates.npy'
     ADLR_dict = np.load(ADLR_file, allow_pickle=True).item()
@@ -85,7 +86,7 @@ def get_data(date):
     temp = ADLR_dict['data']['temp']
     w = ADLR_dict['data']['w']
     z = ADLR_dict['data']['alt']
-    ss_pred = get_ss_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
+    ss_pred = get_ss_pred_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent)
 
     filter_inds = np.logical_and.reduce((
@@ -105,10 +106,7 @@ def make_and_save_plot(ss_pred_dict, z_dict, z_bins):
     n_pts = {'allpts': 0, 'up10perc': 0}
 
     ss_pred_domain = get_ss_pred_domain(ss_pred_dict['allpts'])
-    print(ss_pred_dict['allpts'])
-    print(ss_pred_domain)
     ss_qss_sigma = get_ss_qss_sigma(ss_pred_domain)
-    print(ss_qss_sigma)
 
     for key in ss_pred_dict.keys():
         color = colors_dict[key]
@@ -196,7 +194,6 @@ def get_avg_ss_pred_and_z(ss_pred, ss_pred_domain, ss_qss_sigma, z, z_bins):
             se_qss[i] = get_se_qss(ss_pred_slice, ss_pred_domain, ss_qss_sigma)
             avg_z[i] = np.nanmean(z_slice)
 
-    print(se_qss)
     return avg_ss_pred, avg_z, se_qss
 
 def get_ss_pred_domain(ss_pred):

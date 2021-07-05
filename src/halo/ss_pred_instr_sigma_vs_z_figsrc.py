@@ -46,7 +46,7 @@ def make_ss_profile():
     w_dict = {'allpts': None, 'up10perc': None}
     z_dict = {'allpts': None, 'up10perc': None}
 
-    pres, ss_pred, temp, w, z = get_data(date)
+    pres, ss_pred, temp, w, z = get_data()
 
     ss_pred_dict['allpts'] =ss_pred
     pres_dict['allpts'] = pres
@@ -75,7 +75,7 @@ def get_up10perc_data(pres_dict, ss_pred_dict, temp_dict, w_dict, z_dict):
 
     return pres_dict, ss_pred_dict, temp_dict, w_dict, z_dict
 
-def get_data(date):
+def get_data():
 
     ADLR_file = DATA_DIR + 'npy_proc/ADLR_alldates.npy'
     ADLR_dict = np.load(ADLR_file, allow_pickle=True).item()
@@ -92,7 +92,7 @@ def get_data(date):
     temp = ADLR_dict['data']['temp']
     w = ADLR_dict['data']['w']
     z = ADLR_dict['data']['alt']
-    ss_pred = get_ss_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
+    ss_pred = get_ss_pred_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent)
 
     filter_inds = np.logical_and.reduce((

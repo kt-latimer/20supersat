@@ -38,7 +38,7 @@ def main():
     anomalous_spectrum_counts = get_anomalous_spectrum_counts()
     make_anomalous_spectrum_count_fig(anomalous_spectrum_counts)
 
-def get_anomalous_spectrum_counts(date):
+def get_anomalous_spectrum_counts():
 
     CAS_file = DATA_DIR + 'npy_proc/CAS_alldates.npy'
     CAS_dict = np.load(CAS_file, allow_pickle=True).item()
@@ -54,11 +54,11 @@ def get_anomalous_spectrum_counts(date):
             var_name = 'nconc_' + str(j)
             if change_CAS_corr:
                 var_name += '_corr'
-            nconc_j = CAS_dict['data'][var_name][i]/dlogDp[j-5]
+            nconc_j = CAS_dict['data'][var_name][i]/CAS_dlogDp[j-5]
             spectrum.append(nconc_j)
         for j in range(CIP_lo_bin, CIP_up_bin+1):
             var_name = 'nconc_' + str(j)
-            nconc_j = CIP_dict['data'][var_name][i]/dlogDp[j-1] 
+            nconc_j = CIP_dict['data'][var_name][i]/CIP_dlogDp[j-1] 
             spectrum.append(nconc_j)
 
         i_max, val_max = get_spectrum_max(spectrum)

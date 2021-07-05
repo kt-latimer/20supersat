@@ -10,7 +10,7 @@ from matplotlib.lines import Line2D
 import numpy as np
 
 from halo import DATA_DIR, FIG_DIR
-from halo.ss_functions import get_lwc_vs_t, get_ss_pres_vs_t, \
+from halo.ss_functions import get_lwc_vs_t, get_ss_pred_vs_t, \
                               get_full_spectrum_bin_radii, \
                               get_full_spectrum_dict
 from phys_consts import *

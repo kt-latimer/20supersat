@@ -34,6 +34,7 @@ def main():
                                 CIP_dict, change_CAS_corr)
 
     lwc = get_lwc_vs_t(ADLR_dict, full_spectrum_dict, cutoff_bins, rmax)
+    temp = ADLR_dict['data']['temp']
     w = ADLR_dict['data']['w']
     ss_qss = get_ss_qss_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent)
@@ -45,6 +46,11 @@ def main():
                     (w > w_cutoff), \
                     (temp > 273)))
 
+    A = A[filter_inds]
+    B = B[filter_inds]
+    meanr = meanr[filter_inds]
+    nconc = nconc[filter_inds]
+    ss_qss = ss_qss[filter_inds]
     w = w[filter_inds]
 
     print(np.shape(ss_qss))
