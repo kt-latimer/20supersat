@@ -1,2 +1,0 @@
-/var/spool/slurmd/job26076337/slurm_script: line 2: 28236 Killed                  python $HOME/proj/20supersat/src/revmywrf/make_dsd_vars.py
-slurmstepd: error: Detected 1 oom-kill event(s) in step 26076337.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.

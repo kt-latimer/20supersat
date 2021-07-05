@@ -1,4 +1,0 @@
-allpts Polluted
-allpts Unpolluted
-up10perc Polluted
-up10perc Unpolluted

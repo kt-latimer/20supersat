@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/revmywrf/lwc_hist_figsrc.py

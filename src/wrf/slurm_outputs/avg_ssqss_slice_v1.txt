@@ -1,6 +1,0 @@
-/global/home/users/kalatimer/proj/20supersat/src/wrf/ss_functions.py:82: RuntimeWarning: invalid value encountered in true_divide
-  return meanr/nconc
-Polluted
-0.6423084345876668
-Unpolluted
-0.732613722891172

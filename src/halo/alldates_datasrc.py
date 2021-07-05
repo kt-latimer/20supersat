@@ -1,5 +1,6 @@
 """
-make and save histograms showing SS_QSS distribution from HALO CAS measurements
+Consolidate data from all HALO flight dates used in our study into a single
+file for each instrument.
 """
 import numpy as np
 
@@ -9,37 +10,42 @@ output_data_dir = DATA_DIR + 'npy_proc/'
 
 def main():
     
-    tot_adlr_dict, tot_cas_dict, tot_cip_dict = get_dicts_from_all_dates()
-    save_processed_file('ADLR', 'alldates', tot_adlr_dict)
-    save_processed_file('CAS', 'alldates', tot_cas_dict)
-    save_processed_file('CIP', 'alldates', tot_cip_dict)
+    tot_ADLR_dict, tot_CAS_dict, tot_CDP_dict, tot_CIP_dict = \
+                                    get_dicts_from_all_dates()
+    save_processed_file('ADLR', 'alldates', tot_ADLR_dict)
+    save_processed_file('CAS', 'alldates', tot_CAS_dict)
+    save_processed_file('CDP', 'alldates', tot_CDP_dict)
+    save_processed_file('CIP', 'alldates', tot_CIP_dict)
 
 def get_dicts_from_all_dates():
 
     with open('good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]
 
-    tot_adlr_dict, tot_cas_dict, tot_cip_dict = \
-            get_dicts_from_one_date(good_dates[0])
+    tot_ADLR_dict, tot_CAS_dict, tot_CDP_dict, tot_CIP_dict = \
+                            get_dicts_from_one_date(good_dates[0])
 
     for date in good_dates[1:]:
-        adlr_dict, cas_dict, cip_dict = get_dicts_from_one_date(date)
-        tot_adlr_dict = update_tot_dict(tot_adlr_dict, adlr_dict)
-        tot_cas_dict = update_tot_dict(tot_cas_dict, cas_dict)
-        tot_cip_dict = update_tot_dict(tot_cip_dict, cip_dict)
+        ADLR_dict, CAS_dict, CDP_dict, CIP_dict = get_dicts_from_one_date(date)
+        tot_ADLR_dict = update_tot_dict(tot_ADLR_dict, ADLR_dict)
+        tot_CAS_dict = update_tot_dict(tot_CAS_dict, CAS_dict)
+        tot_CDP_dict = update_tot_dict(tot_CDP_dict, CDP_dict)
+        tot_CIP_dict = update_tot_dict(tot_CIP_dict, CIP_dict)
 
-    return tot_adlr_dict, tot_cas_dict, tot_cip_dict
+    return tot_ADLR_dict, tot_CAS_dict, tot_CDP_dict, tot_CIP_dict
 
 def get_dicts_from_one_date(date):
     
-    adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
-    adlr_dict = np.load(adlrfile, allow_pickle=True).item()
-    casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
-    cas_dict = np.load(casfile, allow_pickle=True).item()
-    cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
-    cip_dict = np.load(cipfile, allow_pickle=True).item()
+    ADLR_file = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
+    ADLR_dict = np.load(ADLR_file, allow_pickle=True).item()
+    CAS_file = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
+    CAS_dict = np.load(CAS_file, allow_pickle=True).item()
+    CDP_file = DATA_DIR + 'npy_proc/CDP_' + date + '.npy'
+    CDP_dict = np.load(CDP_file, allow_pickle=True).item()
+    CIP_file = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
+    CIP_dict = np.load(CIP_file, allow_pickle=True).item()
 
-    return adlr_dict, cas_dict, cip_dict
+    return ADLR_dict, CAS_dict, CDP_dict, CIP_dict
 
 def update_tot_dict(tot_data_dict, data_dict):
 

@@ -1,5 +1,5 @@
 """
-make and save histograms showing SS_QSS distribution from HALO CAS measurements
+Save w distribution for WCUs in HALO
 """
 import matplotlib
 import matplotlib.pyplot as plt
@@ -16,7 +16,7 @@ w_cutoff = 1
 
 rmax = 102.e-6
 
-change_cas_corr = True
+change_CAS_corr = True
 cutoff_bins = True
 incl_rain = True 
 incl_vent = True
@@ -24,39 +24,27 @@ full_ss = True
 
 def main():
 
-    with open('good_dates.txt', 'r') as readFile:
-        good_dates = [line.strip() for line in readFile.readlines()]
+    ADLR_file = DATA_DIR + 'npy_proc/ADLR_alldates.npy'
+    ADLR_dict = np.load(ADLR_file, allow_pickle=True).item()
+    CAS_file = DATA_DIR + 'npy_proc/CAS_alldates.npy'
+    CAS_dict = np.load(CAS_file, allow_pickle=True).item()
+    CIP_file = DATA_DIR + 'npy_proc/CIP_alldates.npy'
+    CIP_dict = np.load(CIP_file, allow_pickle=True).item()
 
-    w_alldates = None
+    full_spectrum_dict = get_full_spectrum_dict(CAS_dict, \
+                                CIP_dict, change_CAS_corr)
 
-    for date in good_dates:
-        adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
-        adlr_dict = np.load(adlrfile, allow_pickle=True).item()
-        casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
-        cas_dict = np.load(casfile, allow_pickle=True).item()
-        cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
-        cip_dict = np.load(cipfile, allow_pickle=True).item()
+    lwc = get_lwc_vs_t(ADLR_dict, full_spectrum_dict, cutoff_bins, rmax)
+    temp = ADLR_dict['data']['temp']
+    w = ADLR_dict['data']['w']
 
-        full_spectrum_dict = get_full_spectrum_dict(cas_dict, \
-                                    cip_dict, change_cas_corr)
+    filter_inds = np.logical_and.reduce((
+                    (lwc > lwc_filter_val), \
+                    (w > w_cutoff), \
+                    (temp > 273)))
 
-        lwc = get_lwc_vs_t(adlr_dict, full_spectrum_dict, cutoff_bins, rmax)
-        temp = adlr_dict['data']['temp']
-        w = adlr_dict['data']['w']
-
-        filter_inds = np.logical_and.reduce((
-                        (lwc > lwc_filter_val), \
-                        (w > w_cutoff), \
-                        (temp > 273)))
-
-        print(date)
-        w = w[filter_inds]
-
-        w_alldates = add_to_alldates_array(w, w_alldates)
-
-    print(w_alldates)
-    make_and_save_w_data(w_alldates, 'alldates', change_cas_corr, \
-                        cutoff_bins, full_ss, incl_rain, incl_vent)
+    make_and_save_w_data(w[filter_inds], change_CAS_corr, cutoff_bins, \
+                                        full_ss, incl_rain, incl_vent)
 
 def add_to_alldates_array(w, w_alldates):
 
@@ -65,8 +53,8 @@ def add_to_alldates_array(w, w_alldates):
     else:
         return np.concatenate((w_alldates, w))
 
-def make_and_save_w_data(w, label, change_cas_corr, cutoff_bins, \
-                                    full_ss, incl_rain, incl_vent):
+def make_and_save_w_data(w, change_CAS_corr, cutoff_bins, \
+                            full_ss, incl_rain, incl_vent):
     
     fig, ax = plt.subplots()
     n, bins, patches = ax.hist(w, bins=30, density=False)

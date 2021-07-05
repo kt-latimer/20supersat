@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/revmywrf/effect_of_incl_rain_ss_qss_hist_figsrc.py

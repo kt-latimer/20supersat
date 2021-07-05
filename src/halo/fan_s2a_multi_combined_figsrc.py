@@ -1,5 +1,6 @@
 """
-make and save histograms showing aerosol nconc distribution from HALO PCASP measurements
+Make scatter plots of max w vs aerosol nconc using various methods to determine
+aerosol nconc. Same as other code but save as single figure file with 4 panels
 """
 import csv
 from math import ceil
@@ -15,7 +16,7 @@ from halo.utils import linregress
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
-magma_pink = colors_arr[3]
+magma_pink = colors_arr[5]
 
 nconc_methods = {'fan_table': 'Fan Table S1', \
                  'dig_plot': 'Fan Fig S2 (digitized)', \
@@ -42,7 +43,7 @@ def main():
 
     fig.suptitle('Max vertical wind velocity versus aerosol number concentration')
     outfile = FIG_DIR + 'fan_fig_s2a_multi_combined.png'
-    plt.savefig(outfile)#, bbox_inches='tight')
+    plt.savefig(outfile)
     plt.close(fig=fig)    
     
 def get_fan_s2a_multi_data(method):

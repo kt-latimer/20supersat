@@ -8,9 +8,6 @@ Output format: .npy file containing one dictionary formatted as: \
         {"date": ['YYYY', 'MM', 'DD'], \
          "var_names": ['<full var name 1>', ...], \
          "data": <numpy array with columns labeled by var_names>}
-
-TODO: rewrite this code in self-documented style (relatively simple proceedure
-and works ok so low priority for now)
 """
 import numpy as np
 

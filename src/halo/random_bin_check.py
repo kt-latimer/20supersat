@@ -1,3 +1,6 @@
+"""
+check d(N*r)/dlogDp for a random HALO bin
+"""
 import numpy as np
 
 from halo import CAS_bins, CIP_bins, DATA_DIR
@@ -24,33 +27,26 @@ def main():
     
     random_bin_ind = np.random.randint(0, np.shape(HALO_bin_radii)[0])
 
-    with open('good_dates.txt', 'r') as readFile:
-        good_dates = [line.strip() for line in readFile.readlines()]
+    ADLR_file = DATA_DIR + 'npy_proc/ADLR_alldates.npy'
+    ADLR_dict = np.load(ADLR_file, allow_pickle=True).item()
+    CAS_file = DATA_DIR + 'npy_proc/CAS_alldates.npy'
+    CAS_dict = np.load(CAS_file, allow_pickle=True).item()
+    CIP_file = DATA_DIR + 'npy_proc/CIP_alldates.npy'
+    CIP_dict = np.load(CIP_file, allow_pickle=True).item()
 
-    bin_nconc = np.array([])
+    spectrum_dict = get_full_spectrum_dict(CAS_dict, \
+                                CIP_dict, change_CAS_corr)
 
-    for date in good_dates:
-        bin_nconc = np.concatenate(( \
-            bin_nconc, get_bin_nconc_for_date(date, random_bin_ind)))
+    bin_nconc = get_bin_nconc(random_bin_ind, spectrum_dict)
 
     print(random_bin_ind, HALO_bin_radii[random_bin_ind], \
         np.nanmean(bin_nconc)*HALO_bin_radii[random_bin_ind]/HALO_bin_dlogDp[random_bin_ind])
     
-def get_bin_nconc_for_date(date, random_bin_ind):
-    
-    adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
-    adlr_dict = np.load(adlrfile, allow_pickle=True).item()
-    casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
-    cas_dict = np.load(casfile, allow_pickle=True).item()
-    cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
-    cip_dict = np.load(cipfile, allow_pickle=True).item()
+def get_bin_nconc(random_bin_ind, ADLR_dict, spectrum_dict):
 
-    full_spectrum_dict = get_full_spectrum_dict(cas_dict, \
-                                cip_dict, change_cas_corr)
-
-    lwc = get_lwc_vs_t(adlr_dict, full_spectrum_dict, cutoff_bins, rmax)
-    temp = adlr_dict['data']['temp']
-    w = adlr_dict['data']['w']
+    lwc = get_lwc_vs_t(ADLR_dict, spectrum_dict, cutoff_bins, rmax)
+    temp = ADLR_dict['data']['temp']
+    w = ADLR_dict['data']['w']
 
     filter_inds = np.logical_and.reduce(( \
                             (lwc > lwc_cutoff_val), \
@@ -58,8 +54,8 @@ def get_bin_nconc_for_date(date, random_bin_ind):
                             (w > w_cutoff_val)))
 
     var_name = 'nconc_' + str(random_bin_ind+1) + '_corr'
-    bin_nconc = get_nconc_contribution_from_spectrum_var(var_name, adlr_dict, \
-                                    full_spectrum_dict, cutoff_bins, \
+    bin_nconc = get_nconc_contribution_from_spectrum_var(var_name, ADLR_dict, \
+                                    spectrum_dict, cutoff_bins, \
                                     incl_rain, HALO_bin_radii)
 
     return bin_nconc[filter_inds]

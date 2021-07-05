@@ -1,4 +1,0 @@
-/var/spool/slurmd/job26134445/slurm_script: line 2: 41424 Killed                  python $HOME/proj/20supersat/src/revmywrf/ss_qss_vs_ss_wrf_figsrc.py
-slurmstepd: error: Detected 1 oom-kill event(s) in step 26134445.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
-/var/spool/slurmd/job26159872/slurm_script: line 2: 72749 Killed                  python $HOME/proj/20supersat/src/revmywrf/ss_qss_vs_ss_wrf_figsrc.py
-slurmstepd: error: Detected 1 oom-kill event(s) in step 26159872.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.

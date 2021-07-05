@@ -1,5 +1,0 @@
-python: can't open file '/global/home/users/kalatimer/proj/20supersat/src/wrf/avg_w_slice_figsrc.py': [Errno 2] No such file or directory
-Polluted
-3.0553715
-Unpolluted
-2.075424

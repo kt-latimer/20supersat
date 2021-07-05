@@ -15,6 +15,7 @@ import numpy as np
 import re
 
 from halo import DATA_DIR, CAS_bins, CDP_bins, CIP_bins
+from phys_consts import *
 
 var_info_dict = {'ADLR':{'var_names':['time', 'pres', 'temp', 'w', \
                          'alt', 'TAS'], \
@@ -68,14 +69,6 @@ var_info_dict = {'ADLR':{'var_names':['time', 'pres', 'temp', 'w', \
 input_data_dir = DATA_DIR + 'npy_raw/'
 output_data_dir = DATA_DIR + 'npy_proc/'
 
-#physical constants
-Mm_a = .02896 #Molecular weight of dry air (kg/mol)
-Mm_v = .01806 #Molecular weight of water vapour (kg/mol)
-R = 8.317 #universal gas constant (J/(mol K))
-R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
-R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
-rho_l = 1000. #density of water (kg/m^3) 
-
 #std pres and temp
 P_0 = 101300
 T_0 = 273.15
@@ -86,7 +79,7 @@ def main():
         good_ames_filenames = [line.strip() for line in readFile.readlines()]
 
     for good_ames_filename in good_ames_filenames:
-        make_processed_file_without_additions_requiring_adlr(good_ames_filename)
+        make_processed_file_without_additions_requiring_ADLR(good_ames_filename)
 
     with open('good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]
@@ -96,26 +89,26 @@ def main():
         add_lwc_to_processed_dsd_files(date)
         add_nonstp_nconc_to_processed_asd_files(date)
 
-#"additions requiring adlr" for dsd files = lwc
-#"additions requiring adlr" for asd files = undoing stp standardization
-def make_processed_file_without_additions_requiring_adlr(good_ames_filename):
+#"additions requiring ADLR" for dsd files = lwc
+#"additions requiring ADLR" for asd files = undoing stp standardization
+def make_processed_file_without_additions_requiring_ADLR(good_ames_filename):
     
-    if 'adlr' in good_ames_filename:
-        make_processed_adlr_file(good_ames_filename)
+    if 'ADLR' in good_ames_filename:
+        make_processed_ADLR_file(good_ames_filename)
     elif 'CAS_DPOL' in good_ames_filename:
-        make_processed_cas_file_without_lwc(good_ames_filename)
+        make_processed_CAS_file_without_lwc(good_ames_filename)
     elif 'CDP' in good_ames_filename:
-        make_processed_cdp_file_without_lwc(good_ames_filename)
+        make_processed_CDP_file_without_lwc(good_ames_filename)
     elif 'CIP' in good_ames_filename:
-        make_processed_cip_file_without_lwc(good_ames_filename)
-    elif 'pcasp' in good_ames_filename:
-        make_processed_pcasp_file_without_nonstp_nconc(good_ames_filename)
+        make_processed_CIP_file_without_lwc(good_ames_filename)
+    elif 'PCASP' in good_ames_filename:
+        make_processed_PCASP_file_without_nonstp_nconc(good_ames_filename)
     elif 'UHSAS' in good_ames_filename:
-        make_processed_uhsas_file_without_nonstp_nconc(good_ames_filename)
+        make_processed_UHSAS_file_without_nonstp_nconc(good_ames_filename)
     elif 'CPC0' in good_ames_filename:
         make_processed_cpc_file(good_ames_filename)
 
-def make_processed_adlr_file(good_ames_filename):
+def make_processed_ADLR_file(good_ames_filename):
 
     good_numpy_filename = good_ames_filename[0:-4] + 'npy' #change file type
     raw_data_dict = np.load(DATA_DIR + 'npy_raw/' + good_numpy_filename, \
@@ -132,13 +125,13 @@ def make_processed_adlr_file(good_ames_filename):
                            'data': {}, 'units': {}}
 
     for i, var_name in enumerate(var_names):
-        processed_data_dict = add_var_to_processed_adlr_dict(var_name, \
+        processed_data_dict = add_var_to_processed_ADLR_dict(var_name, \
                                 var_inds[i], var_scale[i], var_units[i], \
                                 processed_data_dict, data)
 
     save_processed_file('ADLR', date, processed_data_dict)
 
-def make_processed_cas_file_without_lwc(good_ames_filename):
+def make_processed_CAS_file_without_lwc(good_ames_filename):
 
     if '3914' in good_ames_filename:
         #weird corrupted file
@@ -159,7 +152,7 @@ def make_processed_cas_file_without_lwc(good_ames_filename):
                            'data': {}, 'units': {}}
 
     for i, var_name in enumerate(var_names):
-        processed_data_dict = add_var_to_processed_cas_dict(var_name, \
+        processed_data_dict = add_var_to_processed_CAS_dict(var_name, \
                                 var_inds[i], var_scale[i], var_units[i], \
                                 processed_data_dict, data)
 
@@ -171,7 +164,7 @@ def make_processed_cas_file_without_lwc(good_ames_filename):
 
     save_processed_file('CAS', date, processed_data_dict)
 
-def make_processed_cdp_file_without_lwc(good_ames_filename):
+def make_processed_CDP_file_without_lwc(good_ames_filename):
 
     good_numpy_filename = good_ames_filename[0:-4] + 'npy' #change file type
     raw_data_dict = np.load(DATA_DIR + 'npy_raw/' + good_numpy_filename, \
@@ -190,13 +183,13 @@ def make_processed_cdp_file_without_lwc(good_ames_filename):
     #sample volume corrected to ambient conditions, 1/cm3
     sample_vol = data[:, var_inds[var_names.index('sample_vol')]]
     for i, var_name in enumerate(var_names):
-        processed_data_dict = add_var_to_processed_cdp_dict(var_name, \
+        processed_data_dict = add_var_to_processed_CDP_dict(var_name, \
                                 var_inds[i], var_scale[i], var_units[i], \
                                 sample_vol, processed_data_dict, data)
 
     save_processed_file('CDP', date, processed_data_dict)
 
-def make_processed_cip_file_without_lwc(good_ames_filename):
+def make_processed_CIP_file_without_lwc(good_ames_filename):
 
     good_numpy_filename = good_ames_filename[0:-4] + 'npy' #change file type
     raw_data_dict = np.load(DATA_DIR + 'npy_raw/' + good_numpy_filename, \
@@ -213,13 +206,13 @@ def make_processed_cip_file_without_lwc(good_ames_filename):
                            'data': {}, 'units': {}}
 
     for i, var_name in enumerate(var_names):
-        processed_data_dict = add_var_to_processed_cip_dict(var_name, \
+        processed_data_dict = add_var_to_processed_CIP_dict(var_name, \
                                 var_inds[i], var_scale[i], var_units[i], \
                                 processed_data_dict, data)
 
     save_processed_file('CIP', date, processed_data_dict)
 
-def make_processed_pcasp_file_without_nonstp_nconc(good_ames_filename):
+def make_processed_PCASP_file_without_nonstp_nconc(good_ames_filename):
 
     good_numpy_filename = good_ames_filename[0:-4] + 'npy' #change file type
     raw_data_dict = np.load(DATA_DIR + 'npy_raw/' + good_numpy_filename, \
@@ -236,13 +229,13 @@ def make_processed_pcasp_file_without_nonstp_nconc(good_ames_filename):
                            'data': {}, 'units': {}}
 
     for i, var_name in enumerate(var_names):
-        processed_data_dict = add_var_to_processed_pcasp_dict(var_name, \
+        processed_data_dict = add_var_to_processed_PCASP_dict(var_name, \
                                 var_inds[i], var_scale[i], var_units[i], \
                                 processed_data_dict, data)
 
     save_processed_file('PCASP', date, processed_data_dict)
 
-def make_processed_uhsas_file_without_nonstp_nconc(good_ames_filename):
+def make_processed_UHSAS_file_without_nonstp_nconc(good_ames_filename):
 
     good_numpy_filename = good_ames_filename[0:-4] + 'npy' #change file type
     raw_data_dict = np.load(DATA_DIR + 'npy_raw/' + good_numpy_filename, \
@@ -250,7 +243,7 @@ def make_processed_uhsas_file_without_nonstp_nconc(good_ames_filename):
     data = raw_data_dict['data']
     date_array = raw_data_dict['date']
     date = date_array[0] + date_array[1] + date_array[2]
-    var_info_dict_key = get_uhsas_var_info_dict_key(date)
+    var_info_dict_key = get_UHSAS_var_info_dict_key(date)
     var_inds = var_info_dict[var_info_dict_key]['var_inds']
     var_names = var_info_dict[var_info_dict_key]['var_names']
     var_scale = var_info_dict[var_info_dict_key]['var_scale']
@@ -260,13 +253,13 @@ def make_processed_uhsas_file_without_nonstp_nconc(good_ames_filename):
                            'data': {}, 'units': {}}
 
     for i, var_name in enumerate(var_names):
-        processed_data_dict = add_var_to_processed_uhsas_dict(var_name, \
+        processed_data_dict = add_var_to_processed_UHSAS_dict(var_name, \
                                 var_inds[i], var_scale[i], var_units[i], \
                                 processed_data_dict, data)
 
     save_processed_file('UHSAS', date, processed_data_dict)
 
-def get_uhsas_var_info_dict_key(date):
+def get_UHSAS_var_info_dict_key(date):
     
     if date in ['20140916', '20140918', '20140919', '20140921']:
         return 'UHSAS2'
@@ -296,7 +289,7 @@ def make_processed_cpc_file(good_ames_filename):
 
     save_processed_file('CPC', date, processed_data_dict)
 
-def add_var_to_processed_adlr_dict(var_name, var_ind, var_scale, \
+def add_var_to_processed_ADLR_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
     if var_name == 'time':
@@ -309,7 +302,7 @@ def add_var_to_processed_adlr_dict(var_name, var_ind, var_scale, \
 
     return processed_data_dict
 
-def add_var_to_processed_cas_dict(var_name, var_ind, var_scale, \
+def add_var_to_processed_CAS_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
     if var_name == 'time':
@@ -322,7 +315,7 @@ def add_var_to_processed_cas_dict(var_name, var_ind, var_scale, \
 
     return processed_data_dict
 
-def add_var_to_processed_cdp_dict(var_name, var_ind, var_scale, \
+def add_var_to_processed_CDP_dict(var_name, var_ind, var_scale, \
                                   var_unit, sample_vol, processed_data_dict, data):
 
     if var_name == 'time':
@@ -338,7 +331,7 @@ def add_var_to_processed_cdp_dict(var_name, var_ind, var_scale, \
 
     return processed_data_dict
 
-def add_var_to_processed_cip_dict(var_name, var_ind, var_scale, \
+def add_var_to_processed_CIP_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
     if var_name == 'time':
@@ -357,7 +350,7 @@ def add_var_to_processed_cip_dict(var_name, var_ind, var_scale, \
 
     return processed_data_dict
 
-def add_var_to_processed_pcasp_dict(var_name, var_ind, var_scale, \
+def add_var_to_processed_PCASP_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
     if var_name == 'time':
@@ -370,7 +363,7 @@ def add_var_to_processed_pcasp_dict(var_name, var_ind, var_scale, \
 
     return processed_data_dict
 
-def add_var_to_processed_uhsas_dict(var_name, var_ind, var_scale, \
+def add_var_to_processed_UHSAS_dict(var_name, var_ind, var_scale, \
                                     var_unit, processed_data_dict, data):
 
     if var_name == 'time':
@@ -398,124 +391,124 @@ def add_var_to_processed_cpc_dict(var_name, var_ind, var_scale, \
 
 def add_lwc_to_processed_dsd_files(date):
 
-    adlr_dict = np.load(output_data_dir + 'ADLR_' + date + '.npy', \
+    ADLR_dict = np.load(output_data_dir + 'ADLR_' + date + '.npy', \
                 allow_pickle=True).item()
-    cas_dict = np.load(output_data_dir + 'CAS_' + date + '.npy', \
+    CAS_dict = np.load(output_data_dir + 'CAS_' + date + '.npy', \
                 allow_pickle=True).item()
-    cdp_dict = np.load(output_data_dir + 'CDP_' + date + '.npy', \
+    CDP_dict = np.load(output_data_dir + 'CDP_' + date + '.npy', \
                 allow_pickle=True).item()
-    cip_dict = np.load(output_data_dir + 'CIP_' + date + '.npy', \
+    CIP_dict = np.load(output_data_dir + 'CIP_' + date + '.npy', \
                 allow_pickle=True).item()
 
-    (adlr_dict, cas_dict, cdp_dict, cip_dict) = \
-            sync_and_match_times_adlr_dsd(adlr_dict, \
-            cas_dict, cdp_dict, cip_dict)
+    (ADLR_dict, CAS_dict, CDP_dict, CIP_dict) = \
+            sync_and_match_times_ADLR_dsd(ADLR_dict, \
+            CAS_dict, CDP_dict, CIP_dict)
 
-    save_processed_file('ADLR', date, adlr_dict)
-    add_lwc_to_processed_cas_file(date, adlr_dict, cas_dict)
-    add_lwc_to_processed_cdp_file(date, adlr_dict, cdp_dict)
-    add_lwc_to_processed_cip_file(date, adlr_dict, cip_dict)
+    save_processed_file('ADLR', date, ADLR_dict)
+    add_lwc_to_processed_CAS_file(date, ADLR_dict, CAS_dict)
+    add_lwc_to_processed_CDP_file(date, ADLR_dict, CDP_dict)
+    add_lwc_to_processed_CIP_file(date, ADLR_dict, CIP_dict)
 
-def sync_and_match_times_adlr_dsd(adlr_dict, cas_dict, cdp_dict, cip_dict):
+def sync_and_match_times_ADLR_dsd(ADLR_dict, CAS_dict, CDP_dict, CIP_dict):
 
-    delta_cas = get_adlr_cas_offset(adlr_dict, cas_dict)
-    delta_cdp = get_cas_cdp_offset(cas_dict, cdp_dict) + delta_cas
-    delta_cip = delta_cdp #cdp and cip are already synced (I checked
+    delta_CAS = get_ADLR_CAS_offset(ADLR_dict, CAS_dict)
+    delta_CDP = get_CAS_CDP_offset(CAS_dict, CDP_dict) + delta_CAS
+    delta_CIP = delta_CDP #CDP and CIP are already synced (I checked
                           #this manually via xi values in both files)
     
-    adlr_t = adlr_dict['data']['time']
-    cas_t = cas_dict['data']['time'] + delta_cas
-    cdp_t = cdp_dict['data']['time'] + delta_cdp
-    cip_t = cip_dict['data']['time'] + delta_cip
+    ADLR_t = ADLR_dict['data']['time']
+    CAS_t = CAS_dict['data']['time'] + delta_CAS
+    CDP_t = CDP_dict['data']['time'] + delta_CDP
+    CIP_t = CIP_dict['data']['time'] + delta_CIP
 
-    cas_dict['data']['time'] = cas_t
-    cdp_dict['data']['time'] = cdp_t
-    cip_dict['data']['time'] = cip_t
+    CAS_dict['data']['time'] = CAS_t
+    CDP_dict['data']['time'] = CDP_t
+    CIP_dict['data']['time'] = CIP_t
 
-    [adlr_inds, cas_inds, cdp_inds, cip_inds] = \
-                match_multiple_arrays([adlr_t, cas_t, cdp_t, cip_t])
+    [ADLR_inds, CAS_inds, CDP_inds, CIP_inds] = \
+                match_multiple_arrays([ADLR_t, CAS_t, CDP_t, CIP_t])
 
-    adlr_dict['data'] = get_time_matched_data_dict(adlr_dict['data'], adlr_inds) 
-    cas_dict['data'] = get_time_matched_data_dict(cas_dict['data'], cas_inds) 
-    cdp_dict['data'] = get_time_matched_data_dict(cdp_dict['data'], cdp_inds) 
-    cip_dict['data'] = get_time_matched_data_dict(cip_dict['data'], cip_inds) 
+    ADLR_dict['data'] = get_time_matched_data_dict(ADLR_dict['data'], ADLR_inds) 
+    CAS_dict['data'] = get_time_matched_data_dict(CAS_dict['data'], CAS_inds) 
+    CDP_dict['data'] = get_time_matched_data_dict(CDP_dict['data'], CDP_inds) 
+    CIP_dict['data'] = get_time_matched_data_dict(CIP_dict['data'], CIP_inds) 
 
-    return (adlr_dict, cas_dict, cdp_dict, cip_dict)
+    return (ADLR_dict, CAS_dict, CDP_dict, CIP_dict)
 
-def get_adlr_cas_offset(adlr_dict, cas_dict):
+def get_ADLR_CAS_offset(ADLR_dict, CAS_dict):
 
     #some day do some stuff
     return 0
 
-def get_cas_cdp_offset(cas_dict, cdp_dict):
+def get_CAS_CDP_offset(CAS_dict, CDP_dict):
 
     #some day do some stuff
     return 0
 
 def add_nonstp_nconc_to_processed_asd_files(date):
 
-    if date == '20140906' or date == '20140921': #dates dne for pcasp
+    if date == '20140906' or date == '20140921': #dates dne for PCASP
         return
 
-    adlr_dict = np.load(output_data_dir + 'ADLR_' + date + '.npy', \
+    ADLR_dict = np.load(output_data_dir + 'ADLR_' + date + '.npy', \
                 allow_pickle=True).item()
-    pcasp_dict = np.load(output_data_dir + 'PCASP_' + date + '.npy', \
+    PCASP_dict = np.load(output_data_dir + 'PCASP_' + date + '.npy', \
                 allow_pickle=True).item()
-    uhsas_dict = np.load(output_data_dir + 'UHSAS_' + date + '.npy', \
+    UHSAS_dict = np.load(output_data_dir + 'UHSAS_' + date + '.npy', \
                 allow_pickle=True).item()
 
     #do time syncing inside dataset-specific routines
 
-    add_nonstp_nconc_to_processed_pcasp_file(adlr_dict, pcasp_dict, date) 
-    add_nonstp_nconc_to_processed_uhsas_file(adlr_dict, uhsas_dict, date) 
+    add_nonstp_nconc_to_processed_PCASP_file(ADLR_dict, PCASP_dict, date) 
+    add_nonstp_nconc_to_processed_UHSAS_file(ADLR_dict, UHSAS_dict, date) 
     
-def add_nonstp_nconc_to_processed_pcasp_file(adlr_dict, pcasp_dict, date):
+def add_nonstp_nconc_to_processed_PCASP_file(ADLR_dict, PCASP_dict, date):
 
-    (adlr_dict, pcasp_dict) = \
-            sync_and_match_times_adlr_asd(adlr_dict, pcasp_dict)
+    (ADLR_dict, PCASP_dict) = \
+            sync_and_match_times_ADLR_asd(ADLR_dict, PCASP_dict)
 
-    stp_factor = P_0*adlr_dict['data']['temp']/(T_0*adlr_dict['data']['pres']) 
+    stp_factor = P_0*ADLR_dict['data']['temp']/(T_0*ADLR_dict['data']['pres']) 
 
     for i in range(1, 31):
         var_name = 'nconc_' + str(i)
-        pcasp_dict['data'][var_name] = \
-                pcasp_dict['data']['stp_'+var_name]/stp_factor
-        pcasp_dict['units'][var_name] = 'm^-3'
+        PCASP_dict['data'][var_name] = \
+                PCASP_dict['data']['stp_'+var_name]/stp_factor
+        PCASP_dict['units'][var_name] = 'm^-3'
 
-    save_processed_file('PCASP', date, pcasp_dict)
+    save_processed_file('PCASP', date, PCASP_dict)
 
-def add_nonstp_nconc_to_processed_uhsas_file(adlr_dict, uhsas_dict, date):
+def add_nonstp_nconc_to_processed_UHSAS_file(ADLR_dict, UHSAS_dict, date):
 
-    (adlr_dict, uhsas_dict) = \
-            sync_and_match_times_adlr_asd(adlr_dict, uhsas_dict)
+    (ADLR_dict, UHSAS_dict) = \
+            sync_and_match_times_ADLR_asd(ADLR_dict, UHSAS_dict)
 
-    stp_factor = P_0*adlr_dict['data']['temp']/(T_0*adlr_dict['data']['pres']) 
+    stp_factor = P_0*ADLR_dict['data']['temp']/(T_0*ADLR_dict['data']['pres']) 
 
-    bin_range = get_uhsas_bin_range(date)
+    bin_range = get_UHSAS_bin_range(date)
 
     for i in bin_range:
         var_name = 'nconc_' + str(i)
-        uhsas_dict['data'][var_name] = \
-                uhsas_dict['data']['stp_'+var_name]/stp_factor
-        uhsas_dict['units'][var_name] = 'm^-3'
+        UHSAS_dict['data'][var_name] = \
+                UHSAS_dict['data']['stp_'+var_name]/stp_factor
+        UHSAS_dict['units'][var_name] = 'm^-3'
 
-    save_processed_file('UHSAS', date, uhsas_dict)
+    save_processed_file('UHSAS', date, UHSAS_dict)
 
-def get_uhsas_bin_range(date):
+def get_UHSAS_bin_range(date):
     
     if date in ['20140916', '20140918', '20140919', '20140921']:
         return range(4, 56) 
     else:
         return range(15, 81) 
 
-def sync_and_match_times_adlr_asd(adlr_dict, asd_dict):
+def sync_and_match_times_ADLR_asd(ADLR_dict, asd_dict):
 
-    #For now there is no way to sync adlr and pcasp that I can tell...
+    #For now there is no way to sync ADLR and PCASP that I can tell...
     #possible that I will need to get aerosol data from other instruments
     #than PCASP in the future so may be that further offset functions
     #are required. For now just moving ahead with zero offset and 
     #also assuming ADLR has already been updated via the function 
-    #sync_and_match_times_adlr_dsd (i.e. everything is rounded to nearest
+    #sync_and_match_times_ADLR_dsd (i.e. everything is rounded to nearest
     #integer and aligned to most recent specification with dsd instruments).
     #In order not to fuck up dsd files and their respective analyses, I
     #am just inserting nan's in times where PCASP is missing data and
@@ -523,48 +516,48 @@ def sync_and_match_times_adlr_asd(adlr_dict, asd_dict):
     #all dsd files) does not.
     #update 10/5/20: making generic for asd files (ie PCASP and UHSAS) 
     
-    adlr_t = adlr_dict['data']['time']
+    ADLR_t = ADLR_dict['data']['time']
     asd_t = asd_dict['data']['time']
 
-    [adlr_inds, asd_inds] = match_multiple_arrays([adlr_t, asd_t])
+    [ADLR_inds, asd_inds] = match_multiple_arrays([ADLR_t, asd_t])
 
     asd_dict['data'] = \
         get_time_matched_data_dict_asd_only(asd_dict['data'], \
-                                    adlr_dict['data'], asd_inds, adlr_inds)
+                                    ADLR_dict['data'], asd_inds, ADLR_inds)
 
-    return (adlr_dict, asd_dict)
+    return (ADLR_dict, asd_dict)
 
-def get_time_matched_data_dict_asd_only(pcasp_data_dict, adlr_data_dict, \
-                                        pcasp_inds, adlr_inds):
+def get_time_matched_data_dict_asd_only(PCASP_data_dict, ADLR_data_dict, \
+                                        PCASP_inds, ADLR_inds):
 
-    length_adlr_var = np.shape(adlr_data_dict['temp'])[0]
+    length_ADLR_var = np.shape(ADLR_data_dict['temp'])[0]
 
-    for key in pcasp_data_dict.keys():
-        pcasp_data_dict[key] = pad_asd_dict_with_nans(length_adlr_var, \
-                                pcasp_data_dict[key], pcasp_inds, adlr_inds)
+    for key in PCASP_data_dict.keys():
+        PCASP_data_dict[key] = pad_asd_dict_with_nans(length_ADLR_var, \
+                                PCASP_data_dict[key], PCASP_inds, ADLR_inds)
         
-    return pcasp_data_dict 
+    return PCASP_data_dict 
 
-def pad_asd_dict_with_nans(length_adlr_var, pcasp_var, pcasp_inds, adlr_inds):
+def pad_asd_dict_with_nans(length_ADLR_var, PCASP_var, PCASP_inds, ADLR_inds):
     
-    new_pcasp_var = np.zeros(length_adlr_var)
+    new_PCASP_var = np.zeros(length_ADLR_var)
 
-    for i in range(length_adlr_var):
-        new_pcasp_var = add_data_to_pcasp_var_row(i, new_pcasp_var, \
-                                    pcasp_var, pcasp_inds, adlr_inds)
+    for i in range(length_ADLR_var):
+        new_PCASP_var = add_data_to_PCASP_var_row(i, new_PCASP_var, \
+                                    PCASP_var, PCASP_inds, ADLR_inds)
 
-    return new_pcasp_var
+    return new_PCASP_var
     
-def add_data_to_pcasp_var_row(i, new_pcasp_var, pcasp_var, \
-                                pcasp_inds, adlr_inds):
+def add_data_to_PCASP_var_row(i, new_PCASP_var, PCASP_var, \
+                                PCASP_inds, ADLR_inds):
 
-    if i in adlr_inds:
-        pcasp_ind = pcasp_inds[np.where(adlr_inds == i)[0][0]]
-        new_pcasp_var[i] = pcasp_var[pcasp_ind]
+    if i in ADLR_inds:
+        PCASP_ind = PCASP_inds[np.where(ADLR_inds == i)[0][0]]
+        new_PCASP_var[i] = PCASP_var[PCASP_ind]
     else:
-        new_pcasp_var[i] = np.nan
+        new_PCASP_var[i] = np.nan
 
-    return new_pcasp_var
+    return new_PCASP_var
     
 def match_multiple_arrays(arrays):
 
@@ -605,169 +598,169 @@ def get_time_matched_data_dict(data_dict, inds):
 
     return data_dict
 
-def add_lwc_to_processed_cas_file(date, adlr_dict, cas_dict):
+def add_lwc_to_processed_CAS_file(date, ADLR_dict, CAS_dict):
 
-    cas_dict = add_corrected_nconc_to_processed_cas_file(adlr_dict, cas_dict)
+    CAS_dict = add_corrected_nconc_to_processed_CAS_file(ADLR_dict, CAS_dict)
     
     #divide by 4 to average diams and get radii
     bin_radii = (CAS_bins['upper'] + CAS_bins['lower'])/4.
 
-    adlr_t = adlr_dict['data']['time']
+    ADLR_t = ADLR_dict['data']['time']
     
-    r_cubed_sum_sub_5um_diam = np.zeros(np.shape(adlr_t))
-    r_cubed_sum_5um_to_25um_diam = np.zeros(np.shape(adlr_t))
-    r_cubed_sum_above_25um_diam = np.zeros(np.shape(adlr_t))
+    r_cubed_sum_sub_5um_diam = np.zeros(np.shape(ADLR_t))
+    r_cubed_sum_5um_to_25um_diam = np.zeros(np.shape(ADLR_t))
+    r_cubed_sum_above_25um_diam = np.zeros(np.shape(ADLR_t))
 
-    r_cubed_sum_sub_5um_diam_corr = np.zeros(np.shape(adlr_t))
-    r_cubed_sum_5um_to_25um_diam_corr = np.zeros(np.shape(adlr_t))
-    r_cubed_sum_above_25um_diam_corr = np.zeros(np.shape(adlr_t))
+    r_cubed_sum_sub_5um_diam_corr = np.zeros(np.shape(ADLR_t))
+    r_cubed_sum_5um_to_25um_diam_corr = np.zeros(np.shape(ADLR_t))
+    r_cubed_sum_above_25um_diam_corr = np.zeros(np.shape(ADLR_t))
 
     for i in range(5, 8):
         bin_ind = i - 5
         var_key = 'nconc_' + str(i)
         r_cubed_sum_sub_5um_diam += \
-                cas_dict['data'][var_key]*bin_radii[bin_ind]**3.
+                CAS_dict['data'][var_key]*bin_radii[bin_ind]**3.
         r_cubed_sum_sub_5um_diam_corr += \
-                cas_dict['data'][var_key+'_corr']*bin_radii[bin_ind]**3.
+                CAS_dict['data'][var_key+'_corr']*bin_radii[bin_ind]**3.
 
     for i in range(8, 12):
         bin_ind = i - 5
         var_key = 'nconc_' + str(i)
         r_cubed_sum_5um_to_25um_diam += \
-                cas_dict['data'][var_key]*bin_radii[bin_ind]**3.
+                CAS_dict['data'][var_key]*bin_radii[bin_ind]**3.
         r_cubed_sum_5um_to_25um_diam_corr += \
-                cas_dict['data'][var_key+'_corr']*bin_radii[bin_ind]**3.
+                CAS_dict['data'][var_key+'_corr']*bin_radii[bin_ind]**3.
 
     for i in range(12, 17):
         bin_ind = i - 5
         var_key = 'nconc_' + str(i)
         r_cubed_sum_above_25um_diam += \
-                cas_dict['data'][var_key]*bin_radii[bin_ind]**3.
+                CAS_dict['data'][var_key]*bin_radii[bin_ind]**3.
         r_cubed_sum_above_25um_diam_corr += \
-                cas_dict['data'][var_key+'_corr']*bin_radii[bin_ind]**3.
+                CAS_dict['data'][var_key+'_corr']*bin_radii[bin_ind]**3.
 
-    rho_air = adlr_dict['data']['pres']/(R_a*adlr_dict['data']['temp'])
+    rho_air = ADLR_dict['data']['pres']/(R_a*ADLR_dict['data']['temp'])
 
-    cas_dict['data']['lwc_sub_5um_diam'] = \
+    CAS_dict['data']['lwc_sub_5um_diam'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_sub_5um_diam/rho_air
-    cas_dict['units']['lwc_sub_5um_diam'] = 'kg/kg'
-    cas_dict['data']['lwc_5um_to_25um_diam'] = \
+    CAS_dict['units']['lwc_sub_5um_diam'] = 'kg/kg'
+    CAS_dict['data']['lwc_5um_to_25um_diam'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_5um_to_25um_diam/rho_air
-    cas_dict['units']['lwc_5um_to_25um_diam'] = 'kg/kg'
-    cas_dict['data']['lwc_above_25um_diam'] = \
+    CAS_dict['units']['lwc_5um_to_25um_diam'] = 'kg/kg'
+    CAS_dict['data']['lwc_above_25um_diam'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_above_25um_diam/rho_air
-    cas_dict['units']['lwc_above_25um_diam'] = 'kg/kg'
+    CAS_dict['units']['lwc_above_25um_diam'] = 'kg/kg'
 
-    cas_dict['data']['lwc_sub_5um_diam_corr'] = \
+    CAS_dict['data']['lwc_sub_5um_diam_corr'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_sub_5um_diam_corr/rho_air
-    cas_dict['units']['lwc_sub_5um_diam_corr'] = 'kg/kg'
-    cas_dict['data']['lwc_5um_to_25um_diam_corr'] = \
+    CAS_dict['units']['lwc_sub_5um_diam_corr'] = 'kg/kg'
+    CAS_dict['data']['lwc_5um_to_25um_diam_corr'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_5um_to_25um_diam_corr/rho_air
-    cas_dict['units']['lwc_5um_to_25um_diam_corr'] = 'kg/kg'
-    cas_dict['data']['lwc_above_25um_diam_corr'] = \
+    CAS_dict['units']['lwc_5um_to_25um_diam_corr'] = 'kg/kg'
+    CAS_dict['data']['lwc_above_25um_diam_corr'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_above_25um_diam_corr/rho_air
-    cas_dict['units']['lwc_above_25um_diam_corr'] = 'kg/kg'
+    CAS_dict['units']['lwc_above_25um_diam_corr'] = 'kg/kg'
 
-    save_processed_file('CAS', date, cas_dict)
+    save_processed_file('CAS', date, CAS_dict)
 
-def add_lwc_to_processed_cdp_file(date, adlr_dict, cdp_dict):
+def add_lwc_to_processed_CDP_file(date, ADLR_dict, CDP_dict):
     
     #divide by 4 to average diams and get radii
     bin_radii = (CDP_bins['upper'] + CDP_bins['lower'])/4.
     
-    adlr_t = adlr_dict['data']['time']
+    ADLR_t = ADLR_dict['data']['time']
     
     #technically 25um is 24.6um for CDP...
-    r_cubed_sum_sub_5um_diam = np.zeros(np.shape(adlr_t))
-    r_cubed_sum_5um_to_25um_diam = np.zeros(np.shape(adlr_t))
-    r_cubed_sum_above_25um_diam = np.zeros(np.shape(adlr_t))
+    r_cubed_sum_sub_5um_diam = np.zeros(np.shape(ADLR_t))
+    r_cubed_sum_5um_to_25um_diam = np.zeros(np.shape(ADLR_t))
+    r_cubed_sum_above_25um_diam = np.zeros(np.shape(ADLR_t))
 
     for i in range(1, 3):
         bin_ind = i - 1
         var_key = 'nconc_' + str(i)
         r_cubed_sum_sub_5um_diam += \
-                cdp_dict['data'][var_key]*bin_radii[bin_ind]**3.
+                CDP_dict['data'][var_key]*bin_radii[bin_ind]**3.
 
     for i in range(3, 10):
         bin_ind = i - 1
         var_key = 'nconc_' + str(i)
         r_cubed_sum_5um_to_25um_diam += \
-                cdp_dict['data'][var_key]*bin_radii[bin_ind]**3.
+                CDP_dict['data'][var_key]*bin_radii[bin_ind]**3.
 
     for i in range(10, 16):
         bin_ind = i - 1 
         var_key = 'nconc_' + str(i)
         r_cubed_sum_above_25um_diam += \
-                cdp_dict['data'][var_key]*bin_radii[bin_ind]**3.
+                CDP_dict['data'][var_key]*bin_radii[bin_ind]**3.
 
-    rho_air = adlr_dict['data']['pres']/(R_a*adlr_dict['data']['temp'])
+    rho_air = ADLR_dict['data']['pres']/(R_a*ADLR_dict['data']['temp'])
 
-    cdp_dict['data']['lwc_sub_5um_diam'] = \
+    CDP_dict['data']['lwc_sub_5um_diam'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_sub_5um_diam/rho_air
-    cdp_dict['units']['lwc_sub_5um_diam'] = 'kg/kg'
-    cdp_dict['data']['lwc_5um_to_25um_diam'] = \
+    CDP_dict['units']['lwc_sub_5um_diam'] = 'kg/kg'
+    CDP_dict['data']['lwc_5um_to_25um_diam'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_5um_to_25um_diam/rho_air
-    cdp_dict['units']['lwc_5um_to_25um_diam'] = 'kg/kg'
-    cdp_dict['data']['lwc_above_25um_diam'] = \
+    CDP_dict['units']['lwc_5um_to_25um_diam'] = 'kg/kg'
+    CDP_dict['data']['lwc_above_25um_diam'] = \
             4./3.*np.pi*rho_l*r_cubed_sum_above_25um_diam/rho_air
-    cdp_dict['units']['lwc_above_25um_diam'] = 'kg/kg'
+    CDP_dict['units']['lwc_above_25um_diam'] = 'kg/kg'
 
-    save_processed_file('CDP', date, cdp_dict)
+    save_processed_file('CDP', date, CDP_dict)
 
-def add_lwc_to_processed_cip_file(date, adlr_dict, cip_dict):
+def add_lwc_to_processed_CIP_file(date, ADLR_dict, CIP_dict):
 
     #divide by 4 to average diams and get radii
     bin_radii = (CIP_bins['upper'] + CIP_bins['lower'])/4.
 
-    adlr_t = adlr_dict['data']['time']
+    ADLR_t = ADLR_dict['data']['time']
     
-    r_cubed_sum_25um_to_225um_diam = np.zeros(np.shape(adlr_t))
-    r_cubed_sum_50um_to_225um_diam = np.zeros(np.shape(adlr_t))
+    r_cubed_sum_25um_to_225um_diam = np.zeros(np.shape(ADLR_t))
+    r_cubed_sum_50um_to_225um_diam = np.zeros(np.shape(ADLR_t))
 
     #add contribution from first bin (fractional for splice method 2)
     bin_ind = 0
     var_key = 'nconc_1'
     r_cubed_sum_25um_to_225um_diam += \
-            cip_dict['data'][var_key]*bin_radii[bin_ind]**3.
+            CIP_dict['data'][var_key]*bin_radii[bin_ind]**3.
     mod_bin_1_radius = (bin_radii[bin_ind] + CIP_bins['upper'][bin_ind]/2.)/2.
     r_cubed_sum_50um_to_225um_diam += \
-            (0.5*cip_dict['data'][var_key])*(mod_bin_1_radius)**3.
+            (0.5*CIP_dict['data'][var_key])*(mod_bin_1_radius)**3.
 
     #add contribution from rest of bins
     for i in range(2, 5):
         bin_ind = i - 1
         var_key = 'nconc_' + str(i)
         r_cubed_sum_25um_to_225um_diam += \
-                cip_dict['data'][var_key]*bin_radii[bin_ind]**3.
+                CIP_dict['data'][var_key]*bin_radii[bin_ind]**3.
         r_cubed_sum_50um_to_225um_diam += \
-                cip_dict['data'][var_key]*bin_radii[bin_ind]**3.
+                CIP_dict['data'][var_key]*bin_radii[bin_ind]**3.
 
-    rho_air = adlr_dict['data']['pres']/(R_a*adlr_dict['data']['temp'])
+    rho_air = ADLR_dict['data']['pres']/(R_a*ADLR_dict['data']['temp'])
 
-    cip_dict['data']['lwc_25um_to_225um_diam'] = \
+    CIP_dict['data']['lwc_25um_to_225um_diam'] = \
                 4./3.*np.pi*rho_l*r_cubed_sum_25um_to_225um_diam/rho_air
-    cip_dict['units']['lwc_25um_to_225um_diam'] = 'kg/kg'
-    cip_dict['data']['lwc_50um_to_225um_diam'] = \
+    CIP_dict['units']['lwc_25um_to_225um_diam'] = 'kg/kg'
+    CIP_dict['data']['lwc_50um_to_225um_diam'] = \
                 4./3.*np.pi*rho_l*r_cubed_sum_50um_to_225um_diam/rho_air
-    cip_dict['units']['lwc_50um_to_225um_diam'] = 'kg/kg'
+    CIP_dict['units']['lwc_50um_to_225um_diam'] = 'kg/kg'
 
-    save_processed_file('CIP', date, cip_dict)
+    save_processed_file('CIP', date, CIP_dict)
 
-def add_corrected_nconc_to_processed_cas_file(adlr_dict, cas_dict):
+def add_corrected_nconc_to_processed_CAS_file(ADLR_dict, CAS_dict):
 
-    xi = cas_dict['data']['xi']
-    PAS = cas_dict['data']['PAS']
-    TAS = cas_dict['data']['TAS']
+    xi = CAS_dict['data']['xi']
+    PAS = CAS_dict['data']['PAS']
+    TAS = CAS_dict['data']['TAS']
 
     volume_corr_factor = xi/(PAS/TAS)
 
     for i in range(5, 17):
         var_key = 'nconc_' + str(i)
-        cas_dict['data'][var_key+'_corr'] = \
-                cas_dict['data'][var_key]*volume_corr_factor
-        cas_dict['units'][var_key+'_corr'] = 'm^-3'
+        CAS_dict['data'][var_key+'_corr'] = \
+                CAS_dict['data'][var_key]*volume_corr_factor
+        CAS_dict['units'][var_key+'_corr'] = 'm^-3'
 
-    return cas_dict
+    return CAS_dict
 
 def save_processed_file(setname, date, processed_data_dict):
 

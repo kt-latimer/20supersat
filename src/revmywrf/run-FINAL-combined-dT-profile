@@ -1,8 +1,0 @@
-#!/bin/bash
-
-clustername=$1
-
-i=2
-
-outputfilename="slurm_outputs/FINAL_combined_dT_profile_v${i}.txt"
-sbatch -p $clustername -q lr_normal -o $outputfilename --open-mode=append --export=ALL slurm_scripts/FINAL_combined_dT_profile

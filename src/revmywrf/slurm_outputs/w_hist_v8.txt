@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 122, in <module>
-    main()
-  File "/global/home/users/kalatimer/proj/20supersat/src/revmywrf/w_hist_figsrc.py", line 30, in main
-    versionnum = int(os.environ['versionnum'])
-NameError: name 'os' is not defined

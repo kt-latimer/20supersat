@@ -1,5 +1,5 @@
 """
-plot my vs file SMPS total nconc to make sure everything is straight 
+check Rusen's plots of aerosol concentrations vs time for 3/26 
 """
 import matplotlib
 import matplotlib.pyplot as plt
@@ -7,16 +7,14 @@ from netCDF4 import Dataset
 import numpy as np
 import os
 
-from goama import DATA_DIR, FIG_DIR, SMPS_bins
+from goamazon import DATA_DIR, FIG_DIR, SMPS_bins
 
 #for plotting
-versionstr = 'v3_'
-matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
 # bin diams
-smps_radii = np.sqrt(SMPS_bins['upper']*SMPS_bins['lower'])/2.
-smps_dlogDp = np.log10(SMPS_bins['upper']/SMPS_bins['lower'])
+SMPS_radii = np.sqrt(SMPS_bins['upper']*SMPS_bins['lower'])/2.
+SMPS_dlogDp = np.log10(SMPS_bins['upper']/SMPS_bins['lower'])
 
 def main():
 
@@ -29,11 +27,11 @@ def main():
     above15conc = np.zeros(288)
     above50conc = np.zeros(288)
 
-    for i, r in enumerate(smps_radii):
+    for i, r in enumerate(SMPS_radii):
         if r > 7.5e-9:
-            above15conc += smps_dlogDp[i]*dsd[:, i]
+            above15conc += SMPS_dlogDp[i]*dsd[:, i]
         if r > 25e-9:
-            above50conc += smps_dlogDp[i]*dsd[:, i]
+            above50conc += SMPS_dlogDp[i]*dsd[:, i]
 
     timeavg = []
     above15nconcavg = []
@@ -60,7 +58,7 @@ def main():
     ax.set_ylabel('aerosol concentration')
     ax.legend()
 
-    outfile = FIG_DIR + versionstr + 'check_rusen_plot_figure.png'
+    outfile = FIG_DIR + 'check_rusen_plot_figure.png'
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig=fig)    
 

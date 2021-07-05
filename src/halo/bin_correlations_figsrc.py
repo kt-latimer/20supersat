@@ -1,5 +1,6 @@
 """
-make and save histograms showing SS_QSS distribution from HALO CAS measurements
+Bar chart showing equal-time correlation in number concentrations measured by
+adjacent bins
 """
 import matplotlib
 import matplotlib.pyplot as plt
@@ -8,7 +9,8 @@ from matplotlib import ticker
 from matplotlib.lines import Line2D
 import numpy as np
 
-from halo import DATA_DIR, FIG_DIR
+from halo import DATA_DIR, FIG_DIR, CAS_lo_bin, CAS_mid_bin, CAS_up_bin, \
+                                                    CIP_lo_bin, CIP_up_bin
 from halo.utils import linregress
 
 #for plotting
@@ -16,7 +18,7 @@ matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 magma_pink = colors_arr[5]
 
-change_cas_corr = True
+change_CAS_corr = True
 cutoff_bins = True
 incl_rain = True 
 incl_vent = True
@@ -24,135 +26,84 @@ full_ss = True
 
 def main():
 
+    CAS_file = DATA_DIR + 'npy_proc/CAS_alldates.npy'
+    CAS_dict = np.load(CAS_file, allow_pickle=True).item()
+    CIP_file = DATA_DIR + 'npy_proc/CIP_alldates.npy'
+    CIP_dict = np.load(CIP_file, allow_pickle=True).item()
+
     rsq_vals = []
     x_labels = []
 
-    for i in range(5, 16):
-        rsq = make_adjacent_bin_plot(i, 'CAS')
+    for i in range(CAS_lo_bin, CAS_up_bin):
+        rsq = make_adjacent_bin_plot(i, 'CAS', CAS_dict)
         rsq_vals.append(rsq)
         x_labels.append('CAS bin ' + str(i) + ' vs ' + str(i+1))
         
-    rsq = make_overlap_bin_plot()
+    rsq = make_overlap_bin_plot(CAS_dict, CIP_dict)
     rsq_vals.append(rsq)
     x_labels.append('CAS bins 12-16 vs CIP bin 1')
 
-    for i in range(1, 19):
-        rsq = make_adjacent_bin_plot(i, 'CIP')
+    for i in range(CIP_lo_bin, CIP_up_bin):
+        rsq = make_adjacent_bin_plot(i, 'CIP', CIP_dict)
         rsq_vals.append(rsq)
         x_labels.append('CIP bin ' + str(i) + ' vs ' + str(i+1))
 
     make_rsq_chart(rsq_vals, x_labels)
 
-def make_adjacent_bin_plot(i, instr_name):
-    
-    with open('good_dates.txt', 'r') as readFile:
-        good_dates = [line.strip() for line in readFile.readlines()]
-
-    nconc_bin1_alldates = None
-    nconc_bin2_alldates = None
-
-    for date in good_dates:
-        nconc_bin1, nconc_bin2 = get_nconc_data(date, i, instr_name)
-        nconc_bin1_alldates = add_to_alldates_array(nconc_bin1, nconc_bin1_alldates)
-        nconc_bin2_alldates = add_to_alldates_array(nconc_bin2, nconc_bin2_alldates)
-
-    rsq = make_and_save_nconc_scatter(nconc_bin1_alldates, \
-                    nconc_bin2_alldates, i, instr_name)
-
-    return rsq 
-
-def make_overlap_bin_plot():
-    
-    with open('good_dates.txt', 'r') as readFile:
-        good_dates = [line.strip() for line in readFile.readlines()]
-
-    nconc_casbins_alldates = None
-    nconc_cipbin_alldates = None
-
-    for date in good_dates:
-        nconc_casbins, nconc_cipbin = get_overlap_nconc_data(date)
-        nconc_casbins_alldates = add_to_alldates_array(nconc_casbins, nconc_casbins_alldates)
-        nconc_cipbin_alldates = add_to_alldates_array(nconc_cipbin, nconc_cipbin_alldates)
-
-    rsq = make_and_save_nconc_scatter(nconc_casbins_alldates, \
-                    nconc_cipbin_alldates, 543, 'both')
-
-    return rsq 
-
-def add_to_alldates_array(nconc, nconc_alldates):
-
-    if nconc_alldates is None:
-        return nconc 
-    else:
-        return np.concatenate((nconc_alldates, nconc))
-
-def get_nconc_data(date, i, instr_name):
-
-    #print(date)
-    adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
-    adlr_dict = np.load(adlrfile, allow_pickle=True).item()
-    datafile = DATA_DIR + 'npy_proc/' + instr_name + '_' + date + '.npy'
-    data_dict = np.load(datafile, allow_pickle=True).item()
-
-    temp = adlr_dict['data']['temp']
-    w = adlr_dict['data']['w']
-
-    filter_inds = np.logical_and.reduce(( \
-                            (temp > 27.3), \
-                            (w < 1000)))
+def make_adjacent_bin_plot(i, instr_name, instr_dict):
 
     var_name1 = 'nconc_' + str(i)
     var_name2 = 'nconc_' + str(i+1)
 
-    if instr_name == 'CAS' and change_cas_corr:
+    if instr_name == 'CAS' and change_CAS_corr:
         var_name1 += '_corr'
         var_name2 += '_corr'
 
-    nconc_bin1 = data_dict['data'][var_name1][filter_inds]
-    nconc_bin2 = data_dict['data'][var_name2][filter_inds]
+    nconc_bin1 = instr_dict['data'][var_name1]
+    nconc_bin2 = instr_dict['data'][var_name2]
 
     naninds = ~np.logical_or(np.isnan(nconc_bin1), np.isnan(nconc_bin2))
     infinds = ~np.logical_or(np.isinf(nconc_bin1), np.isinf(nconc_bin2))
 
     inds = np.logical_and(naninds, infinds) 
 
-    return nconc_bin1[inds], nconc_bin2[inds] 
+    nconc_bin1 = nconc_bin1[inds]
+    nconc_bin2 = nconc_bin2[inds] 
 
-def get_overlap_nconc_data(date):
+    rsq = make_and_save_nconc_scatter(nconc_bin1, nconc_bin2, i, instr_name)
 
-    #print(date)
-    adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
-    adlr_dict = np.load(adlrfile, allow_pickle=True).item()
-    casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
-    cas_dict = np.load(casfile, allow_pickle=True).item()
-    cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
-    cip_dict = np.load(cipfile, allow_pickle=True).item()
+    return rsq 
 
-    temp = adlr_dict['data']['temp']
-    w = adlr_dict['data']['w']
+def make_overlap_bin_plot(CAS_dict, CIP_dict):
+    
+    CAS_nconc, CIP_nconc = get_overlap_nconc_data(CAS_dict, CIP_dict)
+    rsq = make_and_save_nconc_scatter(CAS_nconc, CIP_nconc, 543, 'both')
 
-    filter_inds = np.logical_and.reduce(( \
-                            (temp > 27.3), \
-                            (w < 1000)))
+    return rsq 
 
-    cas_var_names = ['nconc_' + str(i) for i in range(12, 17)]
-    cip_var_name = 'nconc_1' 
+def get_overlap_nconc_data(CAS_dict, CIP_dict):
 
-    if change_cas_corr:
-        cas_var_names = [var_name + '_corr' for var_name in cas_var_names]
+    #cas bins 25-50um diam
+    CAS_var_names = ['nconc_' + str(i) for i in \
+                range(CAS_mid_bin, CAS_up_bin+1)]
+    #cip bin 25-75um diam
+    CIP_var_name = 'nconc_1' 
 
-    cas_nconc = np.zeros(np.shape(cas_dict['data']['time'][filter_inds]))
-    cip_nconc = cip_dict['data'][cip_var_name][filter_inds]
+    if change_CAS_corr:
+        CAS_var_names = [var_name + '_corr' for var_name in CAS_var_names]
 
-    for var_name in cas_var_names:
-        cas_nconc += cas_dict['data'][var_name][filter_inds]
+    CAS_nconc = np.zeros(np.shape(CAS_dict['data']['time'][filter_inds]))
+    CIP_nconc = CIP_dict['data'][CIP_var_name][filter_inds]
 
-    naninds = ~np.logical_or(np.isnan(cas_nconc), np.isnan(cip_nconc))
-    infinds = ~np.logical_or(np.isinf(cas_nconc), np.isinf(cip_nconc))
+    for var_name in CAS_var_names:
+        CAS_nconc += CAS_dict['data'][var_name][filter_inds]
+
+    naninds = ~np.logical_or(np.isnan(CAS_nconc), np.isnan(CIP_nconc))
+    infinds = ~np.logical_or(np.isinf(CAS_nconc), np.isinf(CIP_nconc))
 
     inds = np.logical_and(naninds, infinds) 
 
-    return cas_nconc[inds], cip_nconc[inds] 
+    return CAS_nconc[inds], CIP_nconc[inds] 
 
 def make_and_save_nconc_scatter(nconc_bin1, nconc_bin2, i, instr_name):
 
@@ -171,14 +122,8 @@ def make_and_save_nconc_scatter(nconc_bin1, nconc_bin2, i, instr_name):
 
     regline = b + m*nconc_bin1
     conf_band = get_conf_band(nconc_bin1, nconc_bin2, regline) 
-    print(np.sum(np.isinf(nconc_bin1)))
-    print(regline)
-    print(conf_band)
     ax.scatter(nconc_bin1, regline + conf_band, c='b', alpha=0.4)
     ax.scatter(nconc_bin1, regline - conf_band, c='b', alpha=0.4)
-    #ax.fill_between(nconc_bin1, regline + conf_band, \
-    #                regline - conf_band, color='b', \
-    #                alpha=0.4, label='95% confidence band')
 
     ax.plot(ax.get_xlim(), np.add(b, m*np.array(ax.get_xlim())), \
             c='black', \
@@ -186,12 +131,6 @@ def make_and_save_nconc_scatter(nconc_bin1, nconc_bin2, i, instr_name):
             linewidth=2, \
             label=('m = ' + str(np.round(m, decimals=2)) + \
                     ', R^2 = ' + str(np.round(R**2, decimals=2))))
-    #ax.plot(ax.get_xlim(), ax.get_xlim(), linestyle=':', c='r')
-
-    #ax.set_xlim([0, 55])
-    #ax.set_ylim([0, 55])
-    #ax.set_xscale('log')
-    #ax.set_yscale('log')
     ax.legend()
 
     outfile = FIG_DIR + 'bin_correlations_' + instr_name + '_' \
@@ -221,11 +160,9 @@ def make_rsq_chart(rsq_vals, x_labels):
     print(x_labels)
     print(rsq_vals)
     ax.bar(x_labels, rsq_vals, color=magma_pink)
-    #ax.bar(x_labels[2:], anomalous_spectrum_counts[2:], color=magma_pink)
     ax.set_ylabel(r'$R^2$')
     ax.set_xticklabels(x_labels, rotation=90)
-    #ax.set_xticklabels(x_labels[2:], rotation=90)
-    #ax.get_xticklabels()[10].set_color('red')
+    #highlight correlations with CIP bin 1
     ax.get_xticklabels()[11].set_color('red')
     ax.get_xticklabels()[12].set_color('red')
 

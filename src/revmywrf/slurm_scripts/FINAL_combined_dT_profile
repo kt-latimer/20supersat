@@ -1,2 +1,0 @@
-#!/bin/bash
-python $HOME/proj/20supersat/src/revmywrf/FINAL_combined_dT_profile_figsrc.py

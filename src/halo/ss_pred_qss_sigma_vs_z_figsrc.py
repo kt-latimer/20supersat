@@ -1,5 +1,7 @@
 """
-make and save histograms showing SS_QSS distribution from HALO CAS measurements
+Same as ``ss_pred_vs_z_figsrc.py`` but showing shading for SS_QSS error (i.e.
+the range of possible SS_WRF values given a certain value of SS_QSS or
+equivalently SS_pred) and also including point count histogram
 """
 import matplotlib
 import matplotlib.pyplot as plt
@@ -9,9 +11,10 @@ from matplotlib.lines import Line2D
 import numpy as np
 
 from halo import DATA_DIR, FIG_DIR
-from halo.ss_functions import get_lwc_vs_t, get_ss_vs_t, \
+from halo.ss_functions import get_lwc_vs_t, get_ss_pred_vs_t, \
                         get_full_spectrum_dict, get_grid_ind, \
                         LSR_INT, LSR_SLOPE
+from phys_consts import *
 from wrf import DATA_DIR as WRF_DATA_DIR
 
 #for plotting
@@ -19,7 +22,7 @@ matplotlib.rcParams.update({'font.family': 'serif'})
 colors_arr = cm.get_cmap('magma', 10).colors
 colors_dict ={'allpts': colors_arr[3], 'up10perc': colors_arr[7]}
 
-lwc_filter_val = 1.e-4 #10**(-3.5)
+lwc_filter_val = 1.e-4
 w_cutoff = 1
 
 rmax = 102.e-6
@@ -33,60 +36,28 @@ incl_rain = True
 incl_vent = True 
 full_ss = True
 
-#LSR_INT = 0.04164662760767679
-#LSR_SLOPE = 0.8253679031561234
-
-##
-## physical constants
-##
-C_ap = 1005. #dry air heat cap at const P (J/(kg K))
-D = 0.23e-4 #diffus coeff water in air (m^2/s)
-g = 9.8 #grav accel (m/s^2)
-K = 2.4e-2 #therm conductivity of air (J/(m s K))
-L_v = 2501000. #latent heat of evaporation of water (J/kg)
-Mm_a = .02896 #Molecular weight of dry air (kg/mol)
-Mm_v = .01806 #Molecular weight of water vapour (kg/mol)
-R = 8.317 #universal gas constant (J/(mol K))
-R_a = R/Mm_a #Specific gas constant of dry air (J/(kg K))
-R_v = R/Mm_v #Specific gas constant of water vapour (J/(kg K))
-rho_w = 1000. #density of water (kg/m^3) 
-
 def main():
     
-    make_indiv_and_alldates_ss_profiles()
+    make_ss_profile()
 
-def make_indiv_and_alldates_ss_profiles():
-
-    with open('good_dates.txt', 'r') as readFile:
-        good_dates = [line.strip() for line in readFile.readlines()]
+def make_ss_profile():
 
     ss_pred_dict = {'allpts': None, 'up10perc': None}
     w_dict = {'allpts': None, 'up10perc': None}
     z_dict = {'allpts': None, 'up10perc': None}
 
-    for date in good_dates:
-        ss_pred, w, z = get_data(date)
+    ss_pred, w, z = get_data()
 
-        if np.shape(ss_pred)[0] != 0:
-            ss_pred_dict['allpts'] = add_to_alldates_array(ss_pred, \
-                                            ss_pred_dict['allpts'])
-            w_dict['allpts'] = add_to_alldates_array(w, \
-                                            w_dict['allpts'])
-            z_dict['allpts'] = add_to_alldates_array(z, \
-                                            z_dict['allpts'])
+    ss_pred_dict['allpts'] =ss_pred
+    w_dict['allpts'] = w
+    z_dict['allpts'] = z
 
-    ss_pred_dict, z_dict = get_up10perc_data(ss_pred_dict, w_dict, z_dict)
+    ss_pred_dict, w_dict, z_dict = get_up10perc_data(ss_pred_dict, \
+                                                    w_dict, z_dict)
 
     h_z, z_bins = np.histogram(z_dict['allpts'], bins=30, density=True)
 
-    make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins)
-
-def add_to_alldates_array(ss_pred, ss_pred_alldates):
-
-    if ss_pred_alldates is None:
-        return ss_pred
-    else:
-        return np.concatenate((ss_pred_alldates, ss_pred))
+    make_and_save_plot(ss_pred_dict, z_dict, z_bins)
 
 def get_up10perc_data(ss_pred_dict, w_dict, z_dict):
 
@@ -100,42 +71,35 @@ def get_up10perc_data(ss_pred_dict, w_dict, z_dict):
 
 def get_data(date):
 
-    adlrfile = DATA_DIR + 'npy_proc/ADLR_' + date + '.npy'
-    adlr_dict = np.load(adlrfile, allow_pickle=True).item()
-    casfile = DATA_DIR + 'npy_proc/CAS_' + date + '.npy'
-    cas_dict = np.load(casfile, allow_pickle=True).item()
-    cipfile = DATA_DIR + 'npy_proc/CIP_' + date + '.npy'
-    cip_dict = np.load(cipfile, allow_pickle=True).item()
+    ADLR_file = DATA_DIR + 'npy_proc/ADLR_alldates.npy'
+    ADLR_dict = np.load(ADLR_file, allow_pickle=True).item()
+    CAS_file = DATA_DIR + 'npy_proc/CAS_alldates.npy'
+    CAS_dict = np.load(CAS_file, allow_pickle=True).item()
+    CIP_file = DATA_DIR + 'npy_proc/CIP_alldates.npy'
+    CIP_dict = np.load(CIP_file, allow_pickle=True).item()
 
-    full_spectrum_dict = get_full_spectrum_dict(cas_dict, \
-                                cip_dict, change_cas_corr)
+    full_spectrum_dict = get_full_spectrum_dict(CAS_dict, \
+                                CIP_dict, change_CAS_corr)
 
-    ss_pred = get_ss_vs_t(adlr_dict, full_spectrum_dict, change_cas_corr, \
+    lwc = get_lwc_vs_t(ADLR_dict, full_spectrum_dict, cutoff_bins, rmax)
+    temp = ADLR_dict['data']['temp']
+    w = ADLR_dict['data']['w']
+    z = ADLR_dict['data']['alt']
+    ss_pred = get_ss_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent)
-    lwc = get_lwc_vs_t(adlr_dict, full_spectrum_dict, cutoff_bins, rmax)
-
-    pres = adlr_dict['data']['pres']
-    temp = adlr_dict['data']['temp']
-    w = adlr_dict['data']['w']
-    z = adlr_dict['data']['alt']
 
     filter_inds = np.logical_and.reduce((
                     (lwc > lwc_filter_val), \
                     (w > w_cutoff), \
                     (temp > 273)))
 
-    if np.sum(filter_inds) != 0:
-        ss_pred = ss_pred[filter_inds]
-        w = w[filter_inds]
-        z = z[filter_inds]
-    else:
-        ss_pred = np.array([])
-        w = np.array([])
-        z = np.array([])
+    ss_pred = ss_pred[filter_inds]
+    w = w[filter_inds]
+    z = z[filter_inds]
 
     return ss_pred, w, z
 
-def make_and_save_bipanel_ss_pred_vs_z(ss_pred_dict, z_dict, z_bins):
+def make_and_save_plot(ss_pred_dict, z_dict, z_bins):
 
     fig, [ax1, ax2] = plt.subplots(1, 2, sharey=True)
     n_pts = {'allpts': 0, 'up10perc': 0}
