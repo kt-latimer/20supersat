@@ -24,9 +24,9 @@ CAIPEEX_DATA_DIR = \
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}
 
-#hard-coded based on shared_z_lim computed in ss_pred_vs_z
-z_min = 973.0825
-z_max = 4529.355
+#hard-coded based on get_z_lims.py files for both wrf and halo 
+z_min = 731.6867 
+z_max = 4490.85 
 z_lim = (z_min, z_max)
 
 def main():
@@ -78,33 +78,8 @@ def main():
 
 def calc_and_print_dCAPE(avg_dT, avg_temp, z_bins, label):
 
-    new_z_bins = []
-    found_first_edge = False
-
-    for i, lower_bin_edge in enumerate(z_bins[:-1]):
-        upper_bin_edge = z_bins[i+1]
-        if not found_first_edge:
-            if upper_bin_edge < z_min:
-                continue
-            else:
-                new_z_bins.append(z_min)
-                start_ind = i
-                found_first_edge = True
-        else:
-            new_z_bins.append(lower_bin_edge)
-            if upper_bin_edge > z_max:
-                new_z_bins.append(z_max)
-                end_ind = i + 1
-                break
-            elif i == np.shape(z_bins[:-1])[0] - 1:
-                new_z_bins.append(upper_bin_edge)
-                end_ind = i + 1
-
-    new_z_bins = np.array(new_z_bins)
-    dz = np.array([new_z_bins[i+1] - new_z_bins[i] for i in \
-                            range(np.shape(new_z_bins)[0] - 1)])
-
-    dCAPE = np.nansum(g*dz*avg_dT[start_ind:end_ind]/avg_temp[start_ind:end_ind])
+    dz = get_dz_from_shared_z_lim(z_bins)
+    dCAPE = np.nansum(g*dz*avg_dT/avg_temp)
 
     print(label)
     print(dCAPE)
@@ -185,6 +160,21 @@ def get_avg_dT_and_temp_and_z(dT, temp, z, z_bins):
             avg_z[i] = np.nanmean(z_slice)
 
     return avg_dT, avg_temp, avg_z
+
+def get_dz_from_shared_z_lim(z_bins):
+
+    dz = [z_bins[i+1] - z_bins[i] for i in range(len(z_bins[:-1]))]
+
+    for i, lo_bin_edge in enumerate(z_bins[:-1]):
+        up_bin_edge = z_bins[i+1]
+        if up_bin_edge < z_lim[0] or lo_bin_edge > z_lim[1]:
+            dz[i] = 0
+        elif z_lim[0] > up_bin_edge and z_lim[0] < up_bin_edge:
+            dz[i] = up_bin_edge - z_lim[0]
+        elif z_lim[1] > up_bin_edge and z_lim[1] < up_bin_edge:
+            dz[i] = z_lim[1] - lo_bin_edge
+
+    return dz
 
 if __name__ == "__main__":
     main()

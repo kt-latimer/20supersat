@@ -4,7 +4,7 @@ calculating quantities from mid-radius sector WRF DSDs
 from netCDF4 import Dataset, MFDataset
 import numpy as np
 
-from wrf import BASE_DIR, DATA_DIR, FIG_DIR, WRF_bin_radii
+from wrf import BASE_DIR, DATA_DIR, FIG_DIR 
 from wrf.dsd_data_functions import get_bin_nconc, get_bin_vent_coeff
 from wrf.met_data_functions import get_dyn_visc
 
@@ -37,6 +37,8 @@ sigma_coeffs = [75.93, 0.115, 6.818e-2, 6.511e-3, \
 ###
 ### bin sizes and regime params
 ###
+bin_diams = np.array([4*(2.**(i/3.))*10**(-6) for i in range(33)]) #bin diams in m
+bin_radii = bin_diams/2.
 lower_cutoff = 1.5e-6
 upper_cutoff = 102e-6
 

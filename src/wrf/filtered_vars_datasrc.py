@@ -10,6 +10,7 @@ from wrf.ss_functions import get_lwc, get_nconc, get_ss_qss, linregress
 
 lwc_filter_val = 1.e-4
 w_cutoff = 1
+z_min = -100
 z_max = 6500
 
 case_label_dict = {'Polluted':'C_BG/', 'Unpolluted':'C_PI/'}

@@ -1,5 +1,5 @@
 """
-predicted ss versus z with area fraction histogram
+predicted ss versus z
 """
 import csv
 import matplotlib

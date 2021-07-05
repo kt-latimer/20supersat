@@ -8,7 +8,7 @@ from matplotlib.lines import Line2D
 import numpy as np
 
 from halo import DATA_DIR, FIG_DIR
-from halo.ss_functions import get_lwc_vs_t, get_ss_pres_vs_t, \
+from halo.ss_functions import get_lwc_vs_t, get_ss_pred_vs_t, \
                               get_full_spectrum_bin_radii, \
                               get_full_spectrum_dict
 from phys_consts import *
@@ -84,7 +84,7 @@ def get_data(date):
     temp = ADLR_dict['data']['temp']
     w = ADLR_dict['data']['w']
     z = ADLR_dict['data']['alt']
-    ss_pred = get_ss_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
+    ss_pred = get_ss_pred_vs_t(ADLR_dict, full_spectrum_dict, change_CAS_corr, \
                                 cutoff_bins, full_ss, incl_rain, incl_vent)
 
     filter_inds = np.logical_and.reduce((

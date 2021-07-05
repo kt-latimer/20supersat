@@ -1,0 +1,13 @@
+python: can't open file '/global/home/users/kalatimer/proj/20supersat/src/wrf/get_z_lims.py': [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/FINAL_get_z_lims.py", line 51, in <module>
+    main()
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/FINAL_get_z_lims.py", line 23, in main
+    z_lim = get_z_lim(counts, z_bins)
+  File "/global/home/users/kalatimer/proj/20supersat/src/wrf/FINAL_get_z_lims.py", line 34, in get_z_lim
+    if counts[i]/n_pts_tot >= 1.e-4:
+NameError: name 'i' is not defined
+Polluted
+(685.9261, 5964.621)
+Unpolluted
+(731.6867, 5964.997)

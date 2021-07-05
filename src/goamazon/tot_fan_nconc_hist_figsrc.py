@@ -10,7 +10,7 @@ import os
 from goama import DATA_DIR, FIG_DIR, SMPS_bins
 
 #for plotting
-versionstr = 'v6_'
+versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
@@ -21,7 +21,7 @@ def main():
 
     netcdf_files = os.listdir(DATA_DIR)
 
-    with open('good_dates.txt', 'r') as readFile:
+    with open('fan_good_dates.txt', 'r') as readFile:
         good_dates = [line.strip() for line in readFile.readlines()]
 
     data_date_tuples = get_data_date_tuples(netcdf_files, good_dates)
@@ -31,7 +31,7 @@ def main():
     for data_date_tuple in data_date_tuples:
         smpsfile = Dataset(DATA_DIR + data_date_tuple[0], 'r')
         smpsvars = smpsfile.variables
-        date = data_date_tuple[2]
+        date = data_date_tuple[1]
 
         tot_nconc = get_smps_nconc(smpsvars)
         tot_nconc_alldates = add_to_alldates_array(tot_nconc, \
@@ -57,13 +57,7 @@ def get_data_date_tuples(netcdf_files, good_dates):
         date = smps_filename[16:24]
         if date not in good_dates:
             continue 
-        for other_filename in netcdf_files:
-            if 'uhsas' in other_filename \
-            and date in other_filename \
-            and 'cdf' in other_filename:
-                uhsas_filename = other_filename
-                break
-        data_date_tuples.append((smps_filename, uhsas_filename, date))
+        data_date_tuples.append((smps_filename, date))
 
     return data_date_tuples
 

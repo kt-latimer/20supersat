@@ -10,7 +10,7 @@ import os
 from goama import DATA_DIR, FIG_DIR, SMPS_bins
 
 #for plotting
-versionstr = 'v6_'
+versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
@@ -83,16 +83,46 @@ def add_to_alldates_array(tot_nconc, tot_nconc_alldates):
 
 def make_and_save_tot_nconc_hist(tot_nconc, date):
 
-    fig, ax = plt.subplots()
+    # copied from: https://stackoverflow.com/questions/32185411/break-in-x-axis-of-matplotlib
+
+    fig, (ax, ax2) = plt.subplots(1, 2, sharey=True)
     fig.set_size_inches(21, 12)
-    n, b, p = ax.hist(tot_nconc, bins=3000, log=True, density=True)
-    print(b)
+
+    # plot the same data on both axes
+    ax.hist(tot_nconc, bins=3000, log=True, density=True)
+    ax2.hist(tot_nconc, bins=3000, log=True, density=True)
+
+    ax.set_xlim(0, 25000)
+    ax2.set_xlim(40000, 250000)
+
+    # hide the spines between ax and ax2
+    ax.spines['right'].set_visible(False)
+    ax2.spines['left'].set_visible(False)
+    ax.yaxis.tick_left()
+    ax.tick_params(labelright='off')
+    ax2.yaxis.tick_right()
+
+    # This looks pretty good, and was fairly painless, but you can get that
+    # cut-out diagonal lines look with just a bit more work. The important
+    # thing to know here is that in axes coordinates, which are always
+    # between 0-1, spine endpoints are at these locations (0,0), (0,1),
+    # (1,0), and (1,1).  Thus, we just need to put the diagonals in the
+    # appropriate corners of each of our axes, and so long as we use the
+    # right transform and disable clipping.
+
+    d = .015 # how big to make the diagonal lines in axes coordinates
+    # arguments to pass plot, just so we don't keep repeating them
+    kwargs = dict(transform=ax.transAxes, color='k', clip_on=False)
+    ax.plot((1-d,1+d), (-d,+d), **kwargs)
+    ax.plot((1-d,1+d), (1-d,1+d), **kwargs)
+
+    kwargs.update(transform=ax2.transAxes)  # switch to the bottom axes
+    ax2.plot((-d,+d), (1-d,1+d), **kwargs)
+    ax2.plot((-d,+d), (-d,+d), **kwargs)
 
     ax.set_xlabel('Aerosol number concentration, 11.1-469.8nm diameter (cm^-3)')
     ax.set_ylabel('Count')
-    ax.set_title(date + ' tot nconc smps')
-    ax.legend()
-    outfile = FIG_DIR + versionstr + 'tot_nconc_hist_' \
+    outfile = FIG_DIR + versionstr + 'FINAL_tot_nconc_hist_' \
             + date + '_figure.png'
 
     plt.savefig(outfile)

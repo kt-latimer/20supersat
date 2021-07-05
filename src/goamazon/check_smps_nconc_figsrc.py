@@ -10,7 +10,7 @@ import os
 from goama import DATA_DIR, FIG_DIR, SMPS_bins
 
 #for plotting
-versionstr = 'v6_'
+versionstr = 'v1_'
 matplotlib.rcParams.update({'font.size': 21})
 matplotlib.rcParams.update({'font.family': 'serif'})
 
@@ -20,28 +20,19 @@ smps_dlogDp = np.log10(SMPS_bins['upper']/SMPS_bins['lower'])
 def main():
 
     netcdf_files = os.listdir(DATA_DIR)
-
-    with open('good_dates.txt', 'r') as readFile:
-        good_dates = [line.strip() for line in readFile.readlines()]
-
-    data_date_tuples = get_data_date_tuples(netcdf_files, good_dates)
-
-    tot_nconc_alldates = None
+    data_date_tuples = get_data_date_tuples(netcdf_files)
 
     for data_date_tuple in data_date_tuples:
         smpsfile = Dataset(DATA_DIR + data_date_tuple[0], 'r')
         smpsvars = smpsfile.variables
         date = data_date_tuple[2]
 
-        tot_nconc = get_smps_nconc(smpsvars)
-        tot_nconc_alldates = add_to_alldates_array(tot_nconc, \
-                                            tot_nconc_alldates)
-        print(tot_nconc_alldates)
+        my_smps_nconc = get_smps_nconc(smpsvars)
+        file_smps_nconc = smpsvars['total_concentration'][...]
 
-    print(tot_nconc_alldates)
-    make_and_save_tot_nconc_hist(tot_nconc_alldates, 'alldates')
+        make_and_save_nconc_scatter(my_smps_nconc, file_smps_nconc, date)
 
-def get_data_date_tuples(netcdf_files, good_dates):
+def get_data_date_tuples(netcdf_files):
     """
     assumes files are listed in alpha order
     """
@@ -50,13 +41,11 @@ def get_data_date_tuples(netcdf_files, good_dates):
 
     for filename in netcdf_files:
         if 'smps' not in filename:
-            continue
+            break
         if 'cdf' not in filename:
             continue
         smps_filename = filename
         date = smps_filename[16:24]
-        if date not in good_dates:
-            continue 
         for other_filename in netcdf_files:
             if 'uhsas' in other_filename \
             and date in other_filename \
@@ -74,25 +63,17 @@ def get_smps_nconc(smpsvars):
 
     return smps_nconc
 
-def add_to_alldates_array(tot_nconc, tot_nconc_alldates):
-
-    if tot_nconc_alldates is None:
-        return tot_nconc
-    else:
-        return np.concatenate((tot_nconc_alldates, tot_nconc))
-
-def make_and_save_tot_nconc_hist(tot_nconc, date):
+def make_and_save_nconc_scatter(my_smps_nconc, file_smps_nconc, date):
 
     fig, ax = plt.subplots()
     fig.set_size_inches(21, 12)
-    n, b, p = ax.hist(tot_nconc, bins=3000, log=True, density=True)
-    print(b)
+    ax.scatter(my_smps_nconc, file_smps_nconc)
 
-    ax.set_xlabel('Aerosol number concentration, 11.1-469.8nm diameter (cm^-3)')
-    ax.set_ylabel('Count')
-    ax.set_title(date + ' tot nconc smps')
+    ax.set_xlabel('my SMPS nconc (cm^-3)')
+    ax.set_ylabel('file SMPS nconc (cm^-3)')
+    ax.set_title(date + ' check total nconc')
     ax.legend()
-    outfile = FIG_DIR + versionstr + 'tot_nconc_hist_' \
+    outfile = FIG_DIR + versionstr + 'check_smps_nconc_' \
             + date + '_figure.png'
 
     plt.savefig(outfile)

@@ -2,9 +2,6 @@
 Save data file with avg value of (vent-corrected) nconc in WCUs for each size
 bin, within given altitude slice
 """
-import matplotlib
-import matplotlib.pyplot as plt
-from matplotlib import cm
 from netCDF4 import Dataset, MFDataset
 import numpy as np
 
@@ -12,12 +9,7 @@ from phys_consts import *
 from wrf import BASE_DIR, DATA_DIR, FIG_DIR, n_WRF_bins
 from wrf.dsd_data_functions import get_bin_nconc, get_bin_vent_coeff
 from wrf.met_data_functions import get_dyn_visc
-from wrf.ss_functions import get_lwc, get_meanr, get_nconc
-
-#for plotting
-matplotlib.rcParams.update({'font.family': 'serif'})
-colors_arr = cm.get_cmap('magma', 10).colors
-magma_pink = colors_arr[5]
+from wrf.ss_functions import get_lwc
             
 lwc_cutoff = 1.e-4
 w_cutoff = 1
