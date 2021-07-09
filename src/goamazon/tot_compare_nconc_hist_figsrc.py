@@ -8,7 +8,7 @@ from netCDF4 import Dataset
 import numpy as np
 import os
 
-from goama import DATA_DIR, FIG_DIR, SMPS_bins
+from goamazon import DATA_DIR, FIG_DIR, SMPS_bins
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})

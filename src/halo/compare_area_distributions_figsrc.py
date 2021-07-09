@@ -15,7 +15,7 @@ from halo.ss_functions import get_nconc_contribution_from_spectrum_var, \
                                 get_full_spectrum_bin_dlogDp, \
                                 get_full_spectrum_dict, get_lwc_vs_t
 from halo.utils import linregress
-from wrf import DATA_DIR as WRF_DATA_DIR, WRF_bin_radii, WRF_bin_bin_dlogDp
+from wrf import DATA_DIR as WRF_DATA_DIR, WRF_bin_radii, WRF_bin_dlogDp
 
 #for plotting
 matplotlib.rcParams.update({'font.family': 'serif'})
@@ -60,7 +60,7 @@ def get_spectrum_dict():
     spectrum_dict = get_full_spectrum_dict(CAS_dict, \
                                 CIP_dict, change_CAS_corr)
 
-    lwc = get_lwc_vs_t(ADLR_dict, full_spectrum_dict, cutoff_bins, rmax)
+    lwc = get_lwc_vs_t(ADLR_dict, spectrum_dict, cutoff_bins, rmax)
     temp = ADLR_dict['data']['temp']
     w = ADLR_dict['data']['w']
     z = ADLR_dict['data']['alt']
@@ -88,26 +88,20 @@ def make_area_distribution_fig(spectrum_dict):
 
     HALO_meanr = np.array([np.nanmean(spectrum_dict[key]) \
                             for key in spectrum_dict.keys()])
-    
-    if incl_vent:
-        vent_key = 'with_vent'
-    else:
-        vent_key = 'no_vent'
 
     for case_label in case_label_dict.keys():
         WRF_dict = get_WRF_dict(case_label)
-        WRF_nconc = WRF_dict['data'][vent_key]
+        WRF_nconc = WRF_dict['no_vent'] 
         ax.plot(WRF_bin_radii*1.e6,
                 WRF_nconc*WRF_bin_radii**2.*1.e6/WRF_bin_dlogDp, \
                 color=colors_dict[case_color_key_dict[case_label]], \
-                linestyle=linestyles_dict[versionstr], \
                 label='WRF ' + case_label)
     ax.plot(HALO_bin_radii*1.e6, \
             HALO_meanr*HALO_bin_radii*1.e6/HALO_bin_dlogDp, \
             color=colors_dict['halo'], label='HALO')
 
     ax.set_xlabel(r'r ($\mu$m)')
-    ax.set_ylabel(y_labels_dict[vent_key])
+    ax.set_ylabel(r'$\frac{d(r \cdot N(r))}{d\log r}$ ($\frac{\mu m}{cm^3}$)')
 
     ax.set_xscale('log')
 

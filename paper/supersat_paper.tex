@@ -14,9 +14,9 @@
 \usepackage[counterclockwise]{rotating}
 \graphicspath{{../figures/}}
 
-\title{Paper draft v1.11 for supersat project}
+\title{Paper draft v1.12 for supersat project}
 \author{K. Latimer}
-\date{June 25, 2021}
+\date{July 9, 2021}
 
 \newcommand{\drcomm}[1]{\textcolor{blue}{\textit{#1}}}
 \newcommand{\klcomm}[1]{\textcolor{red}{\textit{#1}}}
@@ -70,16 +70,11 @@ Since this is well above what is typically reported or assumed in the literature
 
 In order to determine experimental supersaturation within a reasonable margin of error, we must use the quasi-steady-state supersaturation ($SS_{QSS}$) formula \cite{Rogers1989}. In order to determine the region of validity for this approximation, we used data from the WRF output, since this allows us to compare to the true supersaturation (here called $SS_{WRF}$). We focused on the following considerations:
 \begin{itemize}
-\item The QSS approximation should be a good and reliable estimate for the actual SS, i.e. least-squares linear regression (LSLR) slope and correlation coefficients $\approx$1.  
+\item The QSS approximation should be a good and reliable estimate for the actual SS, i.e. the mean-squared error (MSE) should be minimized.  
 \item We want the criteria to be inclusive enough that we are still capturing a significant fraction of the convection which sets the average temperature profile of the troposphere.
 \item In keeping with the analysis by Fan et al, and with our general interest in studying convective cores, we additionally exclude the $w$ lower bound value of 0 to ensure we are capturing reasonably strong updrafts. 
 \end{itemize}
-In Figure \ref{filtcritheatmap} we synthesize the data needed to take all three of the above considerations into account. In order to make a quantitative comparison between various filtering criteria we define the following skill score based on the LSLR parameters for $SS_{WRF}$ vs $SS_{QSS}$, which is the Euclidean distance in the 4-dimensional space of tuples $(m_{poll}, R^2_{poll}, m_{unpoll}, R^2_{unpoll})$ from the ideal point $(1, 1, 1, 1)$:
-\begin{equation}
-\label{skillscore}
-\text{Skill score } = \sqrt{(1-m_{unpoll})^2 + (1-R_{unpoll}^2)^2 + (1-m_{poll})^2 + (1-R_{poll}^2)^2}
-\end{equation}
-Here $m$ represents the LSLR slope and $R^2$ is the correlation coefficient, and subscripts `poll' and `unpoll' correspond to Fan et al's `C\_PI' (polluted) and `C\_BG' (unpolluted) model scenarios, respectively.
+In Figure \ref{filtcritheatmap} we synthesize the data needed to take all three of the above considerations into account. The value of MSE in this figure is calculated using the combined polluted and unpolluted datasets (see Figure \ref{filtcritheatmapsep} for the disaggregated versions). 
 
 We find that taking $LWC > 10^{-4}$ kg/kg and $w>1$ m/s yields the best agreement of the QSS approxiamtion with the true SS while still yielding a subset of the data that accounts for greater than half of the condensational latent heating in the troposphere below the freezing line and consists of reasonably strong convective updrafts. To summarize, we use the following criteria in all subsequent analyses:
 \begin{itemize}
@@ -90,7 +85,7 @@ We find that taking $LWC > 10^{-4}$ kg/kg and $w>1$ m/s yields the best agreemen
 \end{itemize}
 All points (whether in simulation or field campaign data) satisfying the first three conditions listed above are henceforth referred to as ``warm cloudy updrafts" or WCU. 
 
-The LSLR on $SS_{WRF}$ versus $SS_{QSS}$ after applying the filtering scheme described above yields similar results for both the polluted and unpolluted cases (Figure \ref{wrfvsqss}). We therefore combine the datasets in order to define the predicted value $SS_{pred}$ of the true supersaturation based on the value of $SS_{QSS}$, which is the experimentally accessible quantity:
+The least-squared linear regression (LSLR) analysis on $SS_{WRF}$ versus $SS_{QSS}$ after applying the filtering scheme described above yields similar results for both the polluted and unpolluted cases (Figure \ref{wrfvsqss}). We therefore combine the datasets in order to define the predicted value $SS_{pred}$ of the true supersaturation based on the value of $SS_{QSS}$, which is the experimentally accessible quantity:
 \begin{equation}
 \label{sspred}
 SS_{pred} \equiv m_{combined}*SS_{QSS} + b_{combined},
@@ -99,8 +94,8 @@ where we find values of the regression parameters (labeled with the subscript `c
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=9cm]{wrf/filtering_criteria_figure.png}
-    \caption{Systematic evaluation of data filtering scheme using WRF model outputs. Here, the heatmap color corresponds to the value of the skill score (\ref{skillscore}) for each pair of cutoff values for liquid water content (horizontal axis) and vertical wind velocity (vertical axis). Numerical values of the skill score are also given as annotations to aid in distinguishing similar colors. In all cases we additionally restrict our consideration to points with temperature above 273 K. We also seek to evaluate the fraction of domain-wide positive (i.e. condensational) latent heating attributed to points selected through the data filter. The higher the fraction, the more confidence we have (in an unquantified sense) that we are capturing a complete picture of the convection which sets the temperature profile in the troposphere. Grey hatching indicates the region of the heatmap where the LH fraction is $< 50\%$ for both polluted and unpolluted model scenarios.}
+    \includegraphics[width=9cm]{wrf/filtering_criteria_mse_figure.png}
+    \caption{Systematic evaluation of data filtering scheme using WRF model outputs. Here, the heatmap color corresponds to the value of the MSE between $SS_{WRF}$ and $SS_{QSS}$ for each pair of cutoff values for liquid water content (horizontal axis) and vertical wind velocity (vertical axis). Numerical values of MSE are also given as annotations to aid in distinguishing similar colors. In all cases we additionally restrict our consideration to points with temperature above 273 K. We also seek to evaluate the fraction of domain-wide positive (i.e. condensational) latent heating attributed to points selected through the data filter. The higher the fraction, the more confidence we have (in an unquantified sense) that we are capturing a complete picture of the convection which sets the temperature profile in the troposphere. Grey hatching indicates the region of the heatmap where the LH fraction is $< 50\%$ for both polluted and unpolluted model scenarios.}
     \label{filtcritheatmap}
 \end{figure}
 
@@ -159,12 +154,12 @@ We note additionally that the positive experimental correlation between concentr
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{goama/v1_FINAL_tot_compare_nconc_hist_alldates_figure.png}
+		\includegraphics[width=\textwidth]{goamazon/tot_compare_nconc_hist_figure.png}
 		\label{goamazontothist}
 		\caption{}
 	\end{subfigure}
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{goama/v1_FINAL_uap50_compare_nconc_hist_alldates_figure.png}
+		\includegraphics[width=\textwidth]{goamazon/uap50_compare_nconc_hist_figure.png}
 		\label{goamazonuap50hist}
 		\caption{}
 	\end{subfigure}
@@ -181,26 +176,26 @@ Another possible counterargument is that the flight campaigns simply didn't fly 
     \label{combinedwhist}
 \end{figure}
 
-In order to probe more precisely why the SS profiles for HALO and WRF are so different, we compare their average water drop spectra over the altitude range of 1.5-2.5 km. This range was chosen because it gives a relatively local snapshot while still including a statistically meaningful number of WCU points from the HALO dataset (114 out of 203 total). Figure \ref{combineddsds} a and b show the drop size and mass distributions which determine, respectively, the magnitudes of $SS_{QSS}$ and $LWC$. 
+In order to probe more precisely why the SS profiles for HALO and WRF are so different, we compare their average water drop spectra over the altitude range of 1.5-2.5 km. This range was chosen because it gives a relatively local snapshot while still including a statistically meaningful number of WCU points from the HALO dataset (114 out of 203 total). Figure \ref{compdistb} a and b show the drop size and mass distributions which determine, respectively, the magnitudes of $SS_{QSS}$ and $LWC$. 
 
-Figure \ref{combineddsds} a is consistent with the order-of-magnitude difference between the average $SS_{QSS}$ values for this altitude slice (0.14\% for HALO, 1.2\% (polluted) and 2.4\% (unpolluted) for WRF) since, from Equation \ref{fullss}, average $SS_{QSS}$ is inversely proportional to the average value of $\sum\limits_{i}r_if(r_i)N(r_i)$ (up to some non-local cross terms in the average which we find contribute to a fractional error of at most 60\%). 
+Figure \ref{compdistb} a is consistent with the order-of-magnitude difference between the average $SS_{QSS}$ values for this altitude slice (0.14\% for HALO, 1.2\% (polluted) and 2.4\% (unpolluted) for WRF) since, from Equation \ref{fullss}, average $SS_{QSS}$ is inversely proportional to the average value of $\sum\limits_{i}r_if(r_i)N(r_i)$ (up to some non-local cross terms in the average which we find contribute to a fractional error of at most 60\%). 
 
-In both panels a and b of Figure \ref{combineddsds} there is an evident bias in the WRF simulations towards larger water drops. In particular, we note the large $LWC$ contribution from drizzle and rain in the WCU regions. This suggests that ... [\klcomm{I think I still need some verbal discussion about this}]
+In both panels a and b of Figure \ref{compdistb} there is an evident bias in the WRF simulations towards larger water drops. In particular, we note the large $LWC$ contribution from drizzle and rain in the WCU regions. This suggests that ... [\klcomm{I think I still need some verbal discussion about this}]
 
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{halo/halo_slice_meanr_dsd_alldates_figure.png}
-		\label{combineddsdssize}
+		\includegraphics[width=\textwidth]{halo/compare_radius_distributions_figure.png}
+		\label{compraddistb}
 		\caption{}
 	\end{subfigure}
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{halo/no_vent_halo_slice_meanr_dsd_alldates_vol_figure.png}
-		\label{combineddsdsmass}
+		\includegraphics[width=\textwidth]{halo/compare_vol_distributions_figure.png}
+		\label{compvoldistb}
 		\caption{}
 	\end{subfigure}
 	\caption{Comparison of water drop spectra in HALO field campaign data versus WRF microphysics simulations; a) size distributions, b) volume distributions. Note that the volume distribution is not weighted by ventilation factor, since we do not use that to calculate $LWC$, and because it artifically inflates the spectrum in the region of higher drop radii. Panel a) is consistent with the discrepancy in derived $SS_{QSS}$ values between experiment and simulation, since the integrated areas of those curves are approximately inversely proportional to $SS_{QSS}$. Panel b) shows more clearly the bias in WRF towards accumulating liquid water in (a relatively small number of) larger drops. [\todo{other comments?}]}
-	\label{combineddsds}
+	\label{compdistb}
 \end{figure}
 
 Conclusion: The WPIM as proposed by Fan et al requires the average temperature profile of the troposphere to be set by relatively clean (high-SS) convection, in order for more polluted (low-SS) convection to experience an enhancement in buoyancy. However, we find no evidence that the high SS values reported by Fan's model actually occur in nature, which weakens the possibility of measureable invigoration effects - in particular, we estimate an upper bound on vertical velocity enhancement of $\approx$ 1 m/s from the HALO flight campaign, compared to $\approx$ 10 m/s from Fan's control simulations in WRF. The relatively low aerosol concentrations used to initialize the simulations, in combination with possible irregularities in microphysical parameterizations, may be to blame for the anomalously high SS values in the WRF output.
@@ -272,16 +267,16 @@ We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factor
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{wrf/filtering_criteria_separate_Unpolluted_figure.png}
+		\includegraphics[width=\textwidth]{wrf/filtering_criteria_mse_separate_Unpolluted_figure.png}
 		\caption{Unpolluted case.}
 		\label{filtcritheatmapsepunpoll}
 	\end{subfigure}
 	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\textwidth]{wrf/filtering_criteria_separate_Polluted_figure.png}
+		\includegraphics[width=\textwidth]{wrf/filtering_criteria_mse_separate_Polluted_figure.png}
 		\caption{Polluted case.}
 		\label{filtcritheatmapseppoll}
 	\end{subfigure}
-	\caption{Same as Figure \ref{filtcritheatmap}, but separated by simulation case (polluted and unpolluted, or `C\_BG and' `C\_PI' in Fan et al). In both panels, the skill score is defined as the Euclidean distance between $(m, R^2)$ where $m$ and $R^2$ are LSLR parameters from fitting $SS_{WRF}$ vs $SS_{QSS}$ and the ideal point (1, 1).}
+	\caption{Same as Figure \ref{filtcritheatmap}, but separated by simulation case (polluted and unpolluted, or `C\_BG and' `C\_PI' in Fan et al).}
 	\label{filtcritheatmapsep}
 \end{figure}
 
@@ -358,7 +353,7 @@ We used the same Equation \ref{fullss} for $SS_{QSS}$ and for ventilation factor
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{halo/v2_anomalous_spectrum_counts_figure.png}
+	\includegraphics[width=\textwidth]{halo/anomalous_spectrum_counts_figure.png}
 	\caption{Raw count of samples across all dates under consideration where $\frac{dN}{dlogDp}$ measured by a given bin is a global maximum for the spectrum and also greater than 5 times the next highest bin's $\frac{dN}{dlogDp}$ in that same spectrum. This figure shows that the measured spectrum often has a spike at CIP bin 1, which we believe is unphysical.}
 	\label{cipbin1anom}
 \end{figure}

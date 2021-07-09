@@ -346,7 +346,7 @@ def splice_radii_arrays(CAS_radii, CIP_radii):
 
     return np.array(full_spectrum_bin_radii)
 
-def get_full_spectrum_dlogDp(CAS_bins, CIP_bins):
+def get_full_spectrum_bin_dlogDp(CAS_bins, CIP_bins):
 
     full_spectrum_dlogDp = []
 
